@@ -52,7 +52,7 @@ public class PoolData
 /// <summary>
 /// 缓存池基础模块
 /// </summary>
-public class CachePool : SingleClassBase<CachePool>
+public class CachePool : SingletonBase<CachePool>
 {
     public Dictionary<string, PoolData> PoolDic = new Dictionary<string, PoolData>();
 

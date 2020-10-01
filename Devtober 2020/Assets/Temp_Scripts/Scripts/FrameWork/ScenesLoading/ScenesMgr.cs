@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// 场景切换模块
 /// </summary>
-public class ScenesMgr : SingleClassBase<ScenesMgr>
+public class ScenesMgr : SingletonBase<ScenesMgr>
 {
 
     /// <summary>
