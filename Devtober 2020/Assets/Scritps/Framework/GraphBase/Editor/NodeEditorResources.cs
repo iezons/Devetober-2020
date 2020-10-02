@@ -4,13 +4,13 @@ using UnityEngine;
 namespace GraphBaseEditor {
     public static class NodeEditorResources {
         // Textures
-        public static Texture2D dot { get { return _dot != null ? _dot : _dot = Resources.Load<Texture2D>("GraphBase_dot"); } }
+        public static Texture2D Dot { get { return _dot != null ? _dot : _dot = Resources.Load<Texture2D>("GraphBase_dot"); } }
         private static Texture2D _dot;
-        public static Texture2D dotOuter { get { return _dotOuter != null ? _dotOuter : _dotOuter = Resources.Load<Texture2D>("GraphBase_dot_outer"); } }
+        public static Texture2D DotOuter { get { return _dotOuter != null ? _dotOuter : _dotOuter = Resources.Load<Texture2D>("GraphBase_dot_outer"); } }
         private static Texture2D _dotOuter;
-        public static Texture2D nodeBody { get { return _nodeBody != null ? _nodeBody : _nodeBody = Resources.Load<Texture2D>("GraphBase_node"); } }
+        public static Texture2D NodeBody { get { return _nodeBody != null ? _nodeBody : _nodeBody = Resources.Load<Texture2D>("GraphBase_node"); } }
         private static Texture2D _nodeBody;
-        public static Texture2D nodeHighlight { get { return _nodeHighlight != null ? _nodeHighlight : _nodeHighlight = Resources.Load<Texture2D>("GraphBase_node_highlight"); } }
+        public static Texture2D NodeHighlight { get { return _nodeHighlight != null ? _nodeHighlight : _nodeHighlight = Resources.Load<Texture2D>("GraphBase_node_highlight"); } }
         private static Texture2D _nodeHighlight;
 
         // Styles
@@ -34,12 +34,12 @@ namespace GraphBaseEditor {
                 nodeHeader.normal.textColor = Color.white;
 
                 nodeBody = new GUIStyle();
-                nodeBody.normal.background = NodeEditorResources.nodeBody;
+                nodeBody.normal.background = NodeEditorResources.NodeBody;
                 nodeBody.border = new RectOffset(32, 32, 32, 32);
                 nodeBody.padding = new RectOffset(16, 16, 4, 16);
 
                 nodeHighlight = new GUIStyle();
-                nodeHighlight.normal.background = NodeEditorResources.nodeHighlight;
+                nodeHighlight.normal.background = NodeEditorResources.NodeHighlight;
                 nodeHighlight.border = new RectOffset(32, 32, 32, 32);
 
                 tooltip = new GUIStyle("helpBox");
