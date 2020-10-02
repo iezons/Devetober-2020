@@ -6,7 +6,6 @@ using GraphBase;
 namespace DialogueGraph
 {
 	[CreateNodeMenu("Start", order = 2)]
-	[NodeWidth(120)]
 	[NodeTint("#6495ED")]//矢车菊的蓝色
 	public class StartNode : Node
 	{
@@ -25,6 +24,11 @@ namespace DialogueGraph
 		public override object GetValue(NodePort port)
 		{
 			return null; // Replace this
+		}
+
+		public Node MoveNext()
+        {
+			return null;
 		}
 	}
 }
