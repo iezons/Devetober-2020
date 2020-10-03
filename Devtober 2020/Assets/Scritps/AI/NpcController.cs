@@ -38,6 +38,16 @@ public class NpcController : MonoBehaviour
         return tempPos;
     }
 
+    [SerializeField]
+    [Range(0f, 100f)]
+    float discoverRadius = 0;
+
+    [SerializeField]
+    LayerMask needRunAway = 0;
+
+    [SerializeField]
+    Collider[] hitObjects;
+
     NavMeshAgent navAgent;
     NavMeshPath path;
 
@@ -49,10 +59,11 @@ public class NpcController : MonoBehaviour
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event1", "Dispatch" } },
-            { "Rest", new List<string> { "Patrol", "Event1", "Dispatch" } },
-            { "Event1", new List<string> { "Patrol", "Rest", "Dispatch" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event1" } },
+            { "Patrol", new List<string> { "Rest", "Event1", "Dispatch", "RunAway" } },
+            { "Rest", new List<string> { "Patrol", "Event1", "Dispatch", "RunAway" } },
+            { "Event1", new List<string> { "Patrol", "Rest", "Dispatch", "RunAway" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event1", "RunAway" } },
+            { "RunAway", new List<string> { "Patrol", "Rest", "Event1", "Dispatch" } },
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -71,17 +82,23 @@ public class NpcController : MonoBehaviour
         {
             case "Patrol":
                 GenerateNewDestination();
+                FindEnemy();
                 break;
             case "Rest":
                 Rest();
                 break;
             case "Event1":
                 print("Start Event");
-                 break;
+                break;
+            case "RunAway":
+                FindEnemy();
+                break;
             default:
                 break;
         }
         #endregion
+
+        Discover();
     }
 
     private void GenerateNewDestination()
@@ -138,7 +155,29 @@ public class NpcController : MonoBehaviour
         {
             m_fsm.ChangeState("Event1");
         }
+    }
 
+    private void FindEnemy()
+    {
+        if (Physics.CheckSphere(transform.position, discoverRadius, needRunAway))
+        {
+            m_fsm.ChangeState("RunAway");
+        }
+        else
+        {
+            m_fsm.ChangeState("Patrol");
+        }
+    }
+
+    private void Discover()
+    {
+        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, needRunAway);
+    }
+
+    private void RunningAway()
+    {
+        Vector3 enemyDirection = (transform.position - hitObjects[0].transform.position).normalized;
+        Vector3 runningDirection = (currentPos - transform.position).normalized;
     }
 
     private void OnDrawGizmosSelected()
@@ -149,5 +188,8 @@ public class NpcController : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.minX, 0, patrolRange.minZ));
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentPos, 1);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, discoverRadius);
     }
 }
