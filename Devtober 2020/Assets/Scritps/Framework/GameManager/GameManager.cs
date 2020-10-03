@@ -13,16 +13,27 @@ public enum GameManagerState
 public class GameManager : MonoBehaviour
 {
     public EventGraph eventGraph;
-    public List<GameObject> NPC;
+    public List<NpcController> NPC;
     public List<GameObject> Room;
     public GameManagerState gmState;
 
-    bool justEnter;
+    bool justEnter = true;
 
     // Start is called before the first frame update
     void Awake()
     {
         SetupScene();
+        EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
+    }
+
+    void NPCAdd(NpcController NPC_obj)
+    {
+        NPC.Add(NPC_obj);
+    }
+
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -34,6 +45,7 @@ public class GameManager : MonoBehaviour
                 if(justEnter)
                 {
                     justEnter = false;
+                    Next();
                 }
                 break;
             case GameManagerState.PROGRESSING:
@@ -90,7 +102,61 @@ public class GameManager : MonoBehaviour
         EventNode cur =  eventGraph.current as EventNode;
         if(cur != null)
         {
-            cur.EventDistribution();
+            List<EventSO> eventSO = cur.eventSO;
+            for (int i = 0; i < eventSO.Count; i++)
+            {
+                EventSO evt = eventSO[i];
+                if (evt != null)
+                {
+                    switch (evt.doingWith)
+                    {
+                        case DoingWith.NPC:
+                            switch (evt.doingWithNPC)
+                            {
+                                case DoingWithNPC.Talking:
+                                    for (int a = 0; a < evt.NPCTalking.Count; a++)
+                                    {
+                                        for (int b = 0; b < NPC.Count; b++)
+                                        {
+                                            if(NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassA.Name)
+                                            {
+                                                NPC[b].npc_so.toDoList.Add(evt);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case DoingWithNPC.MoveTo:
+                                    for (int a = 0; a < evt.NPCWayPoint.Count; a++)
+                                    {
+                                        //Debug.Log("2333");
+                                        for (int b = 0; b < NPC.Count; b++)
+                                        {
+                                            //Debug.Log("2333");
+                                            if (NPC[b].npc_so.npcName == evt.NPCWayPoint[a].Name)
+                                            {
+                                                NPC[b].npc_so.toDoList.Add(evt);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case DoingWithNPC.Patrol:
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case DoingWith.Room:
+                            //Nothing
+                            break;
+                        case DoingWith.Enemy:
+                            //TODO
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }
+        GoToState(GameManagerState.PAUSED);
     }
 }
