@@ -77,8 +77,6 @@ namespace GamePlay
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, -transform.up * scaleRate.y/2);
         }
-
-
     }
 }
 

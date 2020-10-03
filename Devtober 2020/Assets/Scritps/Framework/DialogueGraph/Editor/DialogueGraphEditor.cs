@@ -4,7 +4,7 @@ using UnityEngine;
 using GraphBase;
 using GraphBaseEditor;
 
-namespace DialogueGraph
+namespace DiaGraph
 {
     [CustomNodeGraphEditor(typeof(DialogueGraph))]
     public class DialogueGraphEditor : NodeGraphEditor

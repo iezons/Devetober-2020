@@ -133,4 +133,26 @@ public class EventCenter : SingletonBase<EventCenter>
                 (EventDic[name] as EventInfo).actions.Invoke();
         }
     }
+
+    public Coroutine AddTimeListener(float seconds, UnityAction callback)
+    {
+        return StartCoroutine(WaitingTimes(seconds, callback));
+    }
+
+    IEnumerator WaitingTimes(float seconds, UnityAction callback)
+    {
+        yield return new WaitForSeconds(seconds);
+        callback?.Invoke();
+    }
+
+    public Coroutine AddTimeListener<T>(float seconds, UnityAction<T> callback, T obj)
+    {
+        return StartCoroutine(WaitingTimes(seconds, callback, obj));
+    }
+
+    IEnumerator WaitingTimes<T>(float seconds, UnityAction<T> callback, T obj)
+    {
+        yield return new WaitForSeconds(seconds);
+        callback?.Invoke(obj);
+    }
 }

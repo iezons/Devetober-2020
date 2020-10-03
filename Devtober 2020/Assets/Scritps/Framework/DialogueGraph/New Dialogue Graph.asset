@@ -20,8 +20,8 @@ MonoBehaviour:
     values:
     - _fieldName: Output
       _node: {fileID: -6784927936571157754}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Input
         node: {fileID: 7896657214987075499}
@@ -54,8 +54,8 @@ MonoBehaviour:
     values:
     - _fieldName: Input
       _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Output
         node: {fileID: 6307696755916235156}
@@ -66,7 +66,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Option
       _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueGraph.OptionClass,
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.OptionClass,
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections: []
@@ -76,7 +76,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Option 0
       _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: DialogueGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Input
@@ -88,7 +88,7 @@ MonoBehaviour:
       _dynamic: 1
     - _fieldName: Option 1
       _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: DialogueGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Input
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Alice: <w>Say somethi\u2026"
+  m_Name: "Alice: Say something!\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1001.88007, y: 159.55258}
@@ -122,8 +122,8 @@ MonoBehaviour:
     values:
     - _fieldName: Input
       _node: {fileID: -769504376008528109}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Option 1
         node: {fileID: -5925883236627597343}
@@ -134,8 +134,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Output
       _node: {fileID: -769504376008528109}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Alice
   Dialogue:
-  - <w>Say something! <w>Don't keep silent!
+  - Say something! Don't keep silent!
   curIndex: 0
   IsMax: 1
 --- !u!114 &11400000
@@ -168,6 +168,7 @@ MonoBehaviour:
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
+  waitingNode: {fileID: 0}
   current: {fileID: -6784927936571157754}
 --- !u!114 &5029483617706262898
 MonoBehaviour:
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Alice: <w>OK! <w>FINE\u2026"
+  m_Name: 'Alice: OK! FINE! '
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1014.88007, y: -155.44742}
@@ -190,8 +191,8 @@ MonoBehaviour:
     values:
     - _fieldName: Input
       _node: {fileID: 5029483617706262898}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Option 0
         node: {fileID: -5925883236627597343}
@@ -202,8 +203,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Output
       _node: {fileID: 5029483617706262898}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 0
@@ -211,7 +212,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Alice
   Dialogue:
-  - '<w>OK! <w>FINE! '
+  - 'OK! FINE! '
   curIndex: 0
   IsMax: 1
 --- !u!114 &6307696755916235156
@@ -235,8 +236,8 @@ MonoBehaviour:
     values:
     - _fieldName: Input
       _node: {fileID: 6307696755916235156}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Output
         node: {fileID: 7896657214987075499}
@@ -247,8 +248,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Output
       _node: {fileID: 6307696755916235156}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Input
         node: {fileID: -5925883236627597343}
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Alice: <s=5000><w>Wha\u2026"
+  m_Name: "Alice: What wrong wit\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -168, y: -120}
@@ -283,8 +284,8 @@ MonoBehaviour:
     values:
     - _fieldName: Input
       _node: {fileID: 7896657214987075499}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Output
         node: {fileID: -6784927936571157754}
@@ -295,8 +296,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Output
       _node: {fileID: 7896657214987075499}
-      _typeQualifiedName: DialogueGraph.Empty, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections:
       - fieldName: Input
         node: {fileID: 6307696755916235156}
@@ -307,6 +308,6 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Alice
   Dialogue:
-  - <s=5000><w>What<w> wrong<w></s> with you!?
+  - What wrong with you!?
   curIndex: 0
   IsMax: 1

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using GraphBaseEditor;
 using UnityEngine;
-using GraphBaseEditor;
 
-namespace DialogueGraph
+namespace DiaGraph
 {
     [CustomNodeEditor(typeof(OptionNode))]
     public class OptionNodeEditor : NodeEditor

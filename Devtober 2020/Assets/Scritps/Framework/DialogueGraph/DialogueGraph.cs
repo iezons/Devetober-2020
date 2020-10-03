@@ -4,7 +4,7 @@ using UnityEngine;
 using GraphBase;
 using System;
 
-namespace DialogueGraph
+namespace DiaGraph
 {
 	[CreateAssetMenu(menuName = "Graph/Dialogue Graph")]
 	public class DialogueGraph : NodeGraph
@@ -12,14 +12,17 @@ namespace DialogueGraph
 		public DialogueNode dialogueNode;
 		public OptionNode optionNode;
 		public StartNode startNode;
+        public WaitingNode waitingNode;
 
 		public Node current;
 
-        public void Continue(int index = 0)
+        public void Next(int index = 0)
         {
+            //MoveNext
             OptionNode opt = current as OptionNode;
             DialogueNode dia = current as DialogueNode;
             StartNode sta = current as StartNode;
+            WaitingNode wai = current as WaitingNode;
             if (opt != null)
             {
                 current = opt.MoveNext(index);
@@ -32,12 +35,23 @@ namespace DialogueGraph
             {
                 current = sta.MoveNext();
             }
+            else if (wai != null)
+            {
+                current = wai.MoveNext();
+            }
             //EventNode evt = current as EventNode;
             //while (evt != null)
             //{
             //    current = evt.MoveNext();
             //    evt = current as EventNode;
             //}
+
+            //If the Next One is Waiting Node, init it.
+            WaitingNode Wait = current as WaitingNode;
+            if (Wait != null)
+            {
+                Wait.StartWaiting();
+            }
         }
 
         public void SetStartPoint(string lan = "English")
@@ -51,6 +65,7 @@ namespace DialogueGraph
                 StartNode tStart = temp[i] as StartNode;
                 if (tStart != null)
                 {
+                    
                     if (tStart.Language == lan)
                     {
                         current = tStart;

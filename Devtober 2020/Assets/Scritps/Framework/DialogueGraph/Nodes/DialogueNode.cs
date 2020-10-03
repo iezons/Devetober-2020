@@ -4,7 +4,7 @@ using UnityEngine;
 using GraphBase;
 using System.Text.RegularExpressions;
 
-namespace DialogueGraph
+namespace DiaGraph
 {
 	[NodeWidth(320)]
 	[CreateNodeMenu("Dialogue", order = 0)]

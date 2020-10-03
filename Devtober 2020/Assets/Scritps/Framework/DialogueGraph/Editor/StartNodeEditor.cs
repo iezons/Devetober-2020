@@ -5,7 +5,7 @@ using GraphBase;
 using GraphBaseEditor;
 using UnityEditor;
 
-namespace DialogueGraph
+namespace DiaGraph
 {
     [CustomNodeEditor(typeof(StartNode))]
     public class StartNodeEditor : NodeEditor
@@ -38,6 +38,7 @@ namespace DialogueGraph
             List<string> LanStr = new List<string>();
             LanStr.Add("English");
             startNode.Language = LanStr[EditorGUILayout.Popup("Language", 0, LanStr.ToArray())];
+            startNode.Language = "English";
             //DialogueProfile pro = dialogueGraph.GetProfile();
             //if (pro != null)
             //{

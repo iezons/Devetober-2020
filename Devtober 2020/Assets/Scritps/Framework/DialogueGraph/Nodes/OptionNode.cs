@@ -5,7 +5,7 @@ using GraphBase;
 using System;
 using System.Text.RegularExpressions;
 
-namespace DialogueGraph
+namespace DiaGraph
 {
 	[CreateNodeMenu("Option", order = 1)]
 	[NodeWidth(300)]
@@ -19,7 +19,6 @@ namespace DialogueGraph
 		protected override void Init()
 		{
 			base.Init();
-
 		}
 
 		// Return the correct value of an output port when requested
@@ -40,19 +39,16 @@ namespace DialogueGraph
 			{
 				if (port.fieldName == "Option " + index.ToString())
 				{
-					if (!port.IsConnected) return temp;
+					if (!port.IsConnected)
+                    {
+						EventCenter.GetInstance().EventTriggered("PlayText.TalkingFinished");
+						return temp;
+					}
 					temp = port.Connection.node;
 				}
 			}
-			if (temp == this)
-			{
-				EventCenter.GetInstance().EventTriggered("PlayText.TalkingFinished");
-				return temp;
-			}
-			else
-			{
-				return temp;
-			}
+			EventCenter.GetInstance().EventTriggered("PlayText.TalkingFinished");
+			return temp;
 		}
 
 		public string GetBriefOption()
