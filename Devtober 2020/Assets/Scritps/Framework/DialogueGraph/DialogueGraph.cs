@@ -39,12 +39,6 @@ namespace DiaGraph
             {
                 current = wai.MoveNext();
             }
-            //EventNode evt = current as EventNode;
-            //while (evt != null)
-            //{
-            //    current = evt.MoveNext();
-            //    evt = current as EventNode;
-            //}
 
             //If the Next One is Waiting Node, init it.
             WaitingNode Wait = current as WaitingNode;

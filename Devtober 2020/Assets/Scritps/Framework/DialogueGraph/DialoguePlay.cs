@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DiaGraph;
+using UnityEngine.EventSystems;
+
 public enum DiaState
 {
     OFF,
@@ -28,16 +30,17 @@ public class DialoguePlay : MonoBehaviour
     public float TextSpeed;
     [Header("Runtime Var")]
     public string WholeText;
-    public int Maxvisible;
-    public int WordCount = 0;
-    public float timervalue;
-    public int LastTimerValue = 0;
+    public int MaxVisible;
+    int WordCount = 0;
+    float timervalue;
+    int LastTimerValue = 0;
     bool justEnter;
 
     void Awake()
     {
         EventCenter.GetInstance().AddEventListener<DialogueGraph>("DialoguePlay.Start", PlayDia);
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.SelectOption", SelectOption);
+        EventCenter.GetInstance().AddEventListener("DialoguePlay.Stop", StopDia);
     }
 
     void Update()
@@ -47,6 +50,11 @@ public class DialoguePlay : MonoBehaviour
             case DiaState.OFF:
                 if(justEnter)
                 {
+                    LastTimerValue = 0;
+                    MaxVisible = 0;
+                    timervalue = 0;
+                    LastTimerValue = -1;
+                    WholeText = string.Empty;
                     justEnter = false;
                 }
                 break;
@@ -54,13 +62,20 @@ public class DialoguePlay : MonoBehaviour
                 if (justEnter)
                 {
                     LastTimerValue = 0;
-                    Maxvisible = 0;
+                    MaxVisible = 0;
                     timervalue = 0;
                     LastTimerValue = -1;
                     justEnter = false;
                 }
-                UpdateText();
-                CheckTypingFinished();
+                if(n_state == NodeState.Dialogue)
+                {
+                    UpdateText();
+                    CheckTypingFinished();
+                }
+                else if(n_state == NodeState.Option)
+                {
+                    
+                }
                 break;
             case DiaState.PAUSED:
                 if (justEnter)
@@ -85,7 +100,7 @@ public class DialoguePlay : MonoBehaviour
         int diff = (int)Mathf.Floor(timervalue) - LastTimerValue;
         for (int g = 0; g < diff; g++)
         {
-            Maxvisible++;
+            MaxVisible++;
         }
         int Min = (int)Mathf.Floor(timervalue);
         LastTimerValue = Min;
@@ -103,13 +118,18 @@ public class DialoguePlay : MonoBehaviour
         }
     }
 
-    public void PlayDia(DialogueGraph graph)
+    void PlayDia(DialogueGraph graph)
     {
         currentGraph = graph;
         Next();
     }
 
-    public void SelectOption(int OptionIndex)
+    void StopDia()
+    {
+        GoToSTATE(DiaState.OFF);
+    }
+
+    void SelectOption(int OptionIndex)
     {
         Next(OptionIndex);
     }
@@ -150,6 +170,7 @@ public class DialoguePlay : MonoBehaviour
             if(opt != null)
             {
                 n_state = NodeState.Option;
+                EventCenter.GetInstance().EventTriggered("Dialogue.OptionShowUP", opt.Option);
             }
         }
     }

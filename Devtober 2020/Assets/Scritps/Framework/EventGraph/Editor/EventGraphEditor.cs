@@ -11,11 +11,20 @@ namespace EvtGraph
     {
         public override string GetNodeMenuName(System.Type type)
         {
-            if (type == typeof(BasicEventNode))
+            if (type == typeof(EventNode))
+            {
+                return base.GetNodeMenuName(type);
+            }
+            else if (type == typeof(StartNode))
             {
                 return base.GetNodeMenuName(type);
             }
             else return null;
+        }
+
+        public override void OnDropObjects(Object[] objects)
+        {
+            
         }
     }
 }

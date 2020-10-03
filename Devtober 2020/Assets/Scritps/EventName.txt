@@ -2,3 +2,4 @@ Dialogue.Start <DialogueGraph> //播放台词，DialogueGraph是图标
 DialoguePlay.SelectOption <int> //选择选项，int是选项的编号
 Dialogue.Paused <> //请添加Listener，来监听这个事件。他会在每一句话播完之后告诉你
 Dialogue.Finished <> //请添加Listener，来监听这个事件。他会在整个Dialogue Graph完全播放完毕之后执行
+Dialogue.OptionShowUP <List.OptionShowUP> //请添加Listener，来监听这个事件。他会在对话执行到选项阶段的时候触发，并提供几个选项。

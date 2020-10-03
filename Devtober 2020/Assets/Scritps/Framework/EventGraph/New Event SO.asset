@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6135c57fc452b74dbf659383a26f190, type: 3}
+  m_Name: New Event SO
+  m_EditorClassIdentifier: 
+  ID: f73fb52f-c060-4473-ae48-5a2731925ee1
+  TODOList: []
+  doingWith: 0
+  doingWithNPC: 1
+  NPCTalking: []
+  NPCWayPoint:
+  - Object: {fileID: 0}
+    MoveTO: {fileID: 0}
+  doingWithEnemy: 0
+  SpawnPoint: []
+  EnemyWayPoint: []
+  doingWithRoom: 0

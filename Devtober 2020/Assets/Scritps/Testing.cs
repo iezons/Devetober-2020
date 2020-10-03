@@ -25,7 +25,7 @@ public class Testing : MonoBehaviour
             EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", Graph);
         }
         text.text = DiaPlay.WholeText;
-        text.maxVisibleCharacters = DiaPlay.Maxvisible;
+        text.maxVisibleCharacters = DiaPlay.MaxVisible;
         //TODO
         //Event SO
         //Event Graph
