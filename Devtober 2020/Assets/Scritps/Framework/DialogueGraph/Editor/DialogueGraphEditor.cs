@@ -18,6 +18,27 @@ namespace DiaGraph
             dialogueGraph.Open();
         }
 
+        public override string GetNodeMenuName(System.Type type)
+        {
+            if (type == typeof(DialogueNode))
+            {
+                return base.GetNodeMenuName(type);
+            }
+            else if (type == typeof(OptionNode))
+            {
+                return base.GetNodeMenuName(type);
+            }
+            else if (type == typeof(StartNode))
+            {
+                return base.GetNodeMenuName(type);
+            }
+            else if (type == typeof(WaitingNode))
+            {
+                return base.GetNodeMenuName(type);
+            }
+            else return null;
+        }
+
     }
 }
 

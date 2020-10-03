@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1ff0e372f025b4a8f1f45c5ac9daf4, type: 3}
-  m_Name: 'Start: English'
+  m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -488, y: -88}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: "Alice: Say something!\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1001.88007, y: 159.55258}
+  position: {x: 1016, y: 120}
   ports:
     keys:
     - Input
@@ -165,11 +165,64 @@ MonoBehaviour:
   - {fileID: -5925883236627597343}
   - {fileID: 5029483617706262898}
   - {fileID: -769504376008528109}
+  - {fileID: 2167263397926661069}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
   current: {fileID: -6784927936571157754}
+--- !u!114 &2167263397926661069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
+  m_Name: 'Waiting for:'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1592, y: 8}
+  ports:
+    keys:
+    - Input
+    - WaitingOption
+    - WaitingOption 0
+    values:
+    - _fieldName: Input
+      _node: {fileID: 2167263397926661069}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: WaitingOption
+      _node: {fileID: 2167263397926661069}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: WaitingOption 0
+      _node: {fileID: 2167263397926661069}
+      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  WaitingOption:
+  - waitingFor: 1
+    WaitSeconds: 0
+    Event: 
 --- !u!114 &5029483617706262898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +236,7 @@ MonoBehaviour:
   m_Name: 'Alice: OK! FINE! '
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1014.88007, y: -155.44742}
+  position: {x: 1016, y: -184}
   ports:
     keys:
     - Input

@@ -21,9 +21,14 @@ public class Testing : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            DiaPlay.PlayDia(Graph);
+            //DiaPlay.PlayDia(Graph);
+            EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", Graph);
         }
         text.text = DiaPlay.WholeText;
         text.maxVisibleCharacters = DiaPlay.Maxvisible;
+        //TODO
+        //Event SO
+        //Event Graph
+        //GM 空壳
     }
 }

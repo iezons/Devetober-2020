@@ -98,6 +98,7 @@ public class DialoguePlay : MonoBehaviour
             if ((int)Mathf.Floor(timervalue) >= WordCount)
             {
                 GoToSTATE(DiaState.PAUSED);
+                EventCenter.GetInstance().EventTriggered("Dialogue.Paused");
             }
         }
     }
