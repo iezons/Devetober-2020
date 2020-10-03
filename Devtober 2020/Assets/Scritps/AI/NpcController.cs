@@ -87,7 +87,7 @@ public class NpcController : MonoBehaviour
     private void GenerateNewDestination()
     {
         navAgent.SetDestination(currentPos);
-        //npc_so.ConsumeStamina();
+        npc_so.ConsumeStamina();
 
         if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path) 
             //|| currentPos.x > transform.position.x - patrolRange.minX / 2
