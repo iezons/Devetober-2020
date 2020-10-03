@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636d764364fca1448ccd182422582a8, type: 3}
+  m_Name: NPC2
+  m_EditorClassIdentifier: 
+  npcName: 
+  description: 
+  maxHealth: 0
+  currentHealth: 0
+  maxStamina: 100
+  currentStamina: 0.26230305
+  staminaConsumeRate: 5
+  staminaRecoverRate: 25
+  maxCredit: 0
+  currentCredit: 0
+  toDoList: []
