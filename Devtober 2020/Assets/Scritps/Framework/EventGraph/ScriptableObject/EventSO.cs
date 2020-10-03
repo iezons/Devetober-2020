@@ -74,8 +74,8 @@ namespace EvtGraph
     [Serializable]
     public class MoveToClass
     {
-        public Transform Object;
-        public Transform MoveTO;
+        public string Name; //指的是谁要去移动
+        public Vector3 MoveTO; //指的是要移动到哪里
     }
 
     public class EventScriptInterface : MonoBehaviour{ }
