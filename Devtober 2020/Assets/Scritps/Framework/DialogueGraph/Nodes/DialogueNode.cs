@@ -70,7 +70,7 @@ namespace DiaGraph
 
                 if (!exitPort.IsConnected)
                 {
-                    EventCenter.GetInstance().EventTriggered("PlayText.TalkingFinished");
+                    EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
                     return this;
                 }
 
