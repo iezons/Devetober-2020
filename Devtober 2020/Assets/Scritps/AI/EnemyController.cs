@@ -4,8 +4,30 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class NpcController : MonoBehaviour
+
+public class EnemyController : MonoBehaviour
 {
+    StringRestrictedFiniteStateMachine m_fsm;
+
+    NavMeshAgent navAgent;
+    NavMeshPath path;
+
+    [SerializeField]
+    [Range(0f, 100f)]
+    float discoverRadius = 0;
+
+    [SerializeField]
+    LayerMask canChased = 0;
+
+    [SerializeField]
+    Collider[] hitObject;
+
+    [HideInInspector]
+    public Vector3 currentPos;
+
+    [SerializeField]
+    PatrolRange patrolRange = null;
+
     [System.Serializable]
     public class PatrolRange
     {
@@ -19,27 +41,14 @@ public class NpcController : MonoBehaviour
         public float minZ = 0;
     }
 
-    [SerializeField]
-    PatrolRange patrolRange = null;
-
-    StringRestrictedFiniteStateMachine m_fsm;
-
-    public NPC_SO npc_so;
-
-    [HideInInspector]
-    public Vector3 currentPos;
-
     public Vector3 NewDestination()
     {
         float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
         float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
 
-        Vector3 tempPos = new Vector3(x, transform.position.y, z);     
+        Vector3 tempPos = new Vector3(x, transform.position.y, z);
         return tempPos;
     }
-
-    NavMeshAgent navAgent;
-    NavMeshPath path;
 
     private void Awake()
     {
@@ -47,15 +56,15 @@ public class NpcController : MonoBehaviour
         path = new NavMeshPath();
 
         #region StringRestrictedFiniteStateMachine
-        Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
+        Dictionary<string, List<string>> EnemyDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event1", "Dispatch" } },
-            { "Rest", new List<string> { "Patrol", "Event1", "Dispatch" } },
-            { "Event1", new List<string> { "Patrol", "Rest", "Dispatch" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event1" } },
+            { "Patrol", new List<string> { "Chase", "Rest", "Dispatch" } },
+            { "Chase", new List<string> { "Patrol", "Rest", "Dispatch" } },
+            { "Rest", new List<string> { "Patrol", "Chase", "Dispatch" } },
+            { "Dispatch", new List<string> { "Patrol", "Chase", "Rest" } },
         };
 
-        m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        m_fsm = new StringRestrictedFiniteStateMachine(EnemyDictionary, "Patrol");
         #endregion
     }
 
@@ -64,33 +73,38 @@ public class NpcController : MonoBehaviour
         currentPos = NewDestination();
     }
 
+
     private void Update()
     {
-        navAgent.SetDestination(currentPos);
-
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
                 GenerateNewDestination();
+                FindNPC();
+                break;
+            case "Chase":
+                Chasing(hitObject[0].transform.position);
+                FindNPC();
                 break;
             case "Rest":
-                Rest();
                 break;
-            case "Event1":
-                 break;
+            case "Dispatch":
+                FindNPC();
+                break;
             default:
                 break;
         }
         #endregion
+
+        Discover();
     }
 
     private void GenerateNewDestination()
     {
         navAgent.SetDestination(currentPos);
-        npc_so.ConsumeStamina();
 
-        if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path) 
+        if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path)
             //|| currentPos.x > transform.position.x - patrolRange.minX / 2
             //|| currentPos.x < transform.position.x + patrolRange.minX / 2
             //|| currentPos.z > transform.position.z - patrolRange.minZ / 2
@@ -99,22 +113,11 @@ public class NpcController : MonoBehaviour
         {
             currentPos = NewDestination();
         }
-
-        if(npc_so.currentStamina <= 0)
-        {
-            m_fsm.ChangeState("Rest");
-        }
     }
 
-    private void Rest()
+    private void Discover()
     {
-        navAgent.ResetPath();
-        npc_so.RecoverStamina();
-        if (npc_so.currentStamina >= npc_so.maxStamina)
-        {
-            npc_so.currentStamina = npc_so.maxStamina;
-            m_fsm.ChangeState("Patrol");
-        }
+        hitObject = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
     }
 
     public void readyForDispatch()
@@ -128,18 +131,30 @@ public class NpcController : MonoBehaviour
         navAgent.SetDestination(newPos);
     }
 
-    public void BackToPatrol()
+    private void FindNPC()
     {
-        m_fsm.ChangeState("Patrol");
+        if(Physics.CheckSphere(transform.position, discoverRadius, canChased))
+        {
+            m_fsm.ChangeState("Chase");
+        }
+        else
+        {
+            m_fsm.ChangeState("Patrol");
+        }
     }
 
-    public void triggerEvent1()
+    public void Chasing(Vector3 targetPos)
     {
-        m_fsm.ChangeState("Event1");
+        navAgent.SetDestination(targetPos);
     }
+
+
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, discoverRadius);
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.maxX, 0, patrolRange.maxZ));
         Gizmos.color = Color.blue;
