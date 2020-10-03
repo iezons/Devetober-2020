@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EvtGraph;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ public class NPC_SO: ScriptableObject
     public int maxCredit = 0;
     public int currentCredit = 0;
 
-    public List<string> toDoList;
+    public List<EventSO> toDoList;
 
     public void ApplyHealth(int healthAmount)
     {

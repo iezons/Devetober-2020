@@ -14,13 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: f73fb52f-c060-4473-ae48-5a2731925ee1
   TODOList: []
-  doingWith: 0
+  doingWith: 2
   doingWithNPC: 1
-  NPCTalking: []
+  NPCTalking:
+  - MoveToClassA:
+      Object: {fileID: 0}
+      MoveTO: {fileID: 0}
+    MoveToClassB:
+      Object: {fileID: 0}
+      MoveTO: {fileID: 0}
+    Graph: {fileID: 0}
+  - MoveToClassA:
+      Object: {fileID: 0}
+      MoveTO: {fileID: 0}
+    MoveToClassB:
+      Object: {fileID: 0}
+      MoveTO: {fileID: 0}
+    Graph: {fileID: 0}
   NPCWayPoint:
   - Object: {fileID: 0}
     MoveTO: {fileID: 0}
   doingWithEnemy: 0
-  SpawnPoint: []
-  EnemyWayPoint: []
+  SpawnPoint:
+  - {fileID: 0}
+  EnemyWayPoint:
+  - Object: {fileID: 0}
+    MoveTO: {fileID: 0}
   doingWithRoom: 0

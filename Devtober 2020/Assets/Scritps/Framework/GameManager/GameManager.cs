@@ -64,11 +64,6 @@ public class GameManager : MonoBehaviour
         gmState = next;
     }
 
-    void EventMoveOn()
-    {
-
-    }
-
     void Next()
     {
         switch (gmState)
@@ -92,6 +87,10 @@ public class GameManager : MonoBehaviour
     void TriggerEvent()
     {
         GoToState(GameManagerState.PROGRESSING);
-        //Trigger through EventSO
+        EventNode cur =  eventGraph.current as EventNode;
+        if(cur != null)
+        {
+            cur.EventDistribution();
+        }
     }
 }

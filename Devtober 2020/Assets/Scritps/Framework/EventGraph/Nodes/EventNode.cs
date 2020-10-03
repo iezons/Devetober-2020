@@ -52,6 +52,54 @@ namespace EvtGraph
 			EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
 			return this;
 		}
+
+		public void EventDistribution()
+        {
+            for (int i = 0; i < eventSO.Count; i++)
+            {
+				EventSO evt = eventSO[i];
+				if(evt != null)
+                {
+                    switch (evt.doingWith)
+                    {
+                        case DoingWith.NPC:
+                            switch (evt.doingWithNPC)
+                            {
+                                case DoingWithNPC.Talking:
+                                    for (int a = 0; a < evt.NPCTalking.Count; a++)
+                                    {
+										Transform traA = evt.NPCTalking[a].MoveToClassA.Object;
+										Transform traB = evt.NPCTalking[a].MoveToClassB.Object;
+										traA.GetComponent<NpcController>().npc_so.toDoList.Add(evt);
+										traB.GetComponent<NpcController>().npc_so.toDoList.Add(evt);
+									}
+                                    break;
+                                case DoingWithNPC.MoveTo:
+                                    for (int a = 0; a < evt.NPCWayPoint.Count; a++)
+                                    {
+										Transform tra = evt.NPCWayPoint[a].Object;
+										tra.GetComponent<NpcController>().npc_so.toDoList.Add(evt);
+                                    }
+                                    break;
+                                case DoingWithNPC.Patrol:
+									//TODO
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case DoingWith.Room:
+							//Nothing
+                            break;
+                        case DoingWith.Enemy:
+							//TODO
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
 	}
 
 	[Serializable]
