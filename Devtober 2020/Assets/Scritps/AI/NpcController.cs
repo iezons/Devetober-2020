@@ -18,10 +18,14 @@ public class NpcController : MonoBehaviour
     [SerializeField]
     PatrolRange patrolRange = null;
 
+    StringRestrictedFiniteStateMachine m_fsm;
+
+    Vector3 currentPos;
+
     public Vector3 newDestination()
     {
-        float x = Random.Range(transform.position.x - patrolRange.x, transform.position.x + patrolRange.x);
-        float z = Random.Range(transform.position.z - patrolRange.z, transform.position.z - patrolRange.z);
+        float x = Random.Range(transform.position.x - patrolRange.x / 2, transform.position.x + patrolRange.x / 2);
+        float z = Random.Range(transform.position.z - patrolRange.z / 2, transform.position.z + patrolRange.z / 2);
 
         Vector3 tempPos = new Vector3(x, transform.position.y , z);
         return tempPos;
@@ -34,19 +38,43 @@ public class NpcController : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
+
+        #region StringRestrictedFiniteStateMachine
+        Dictionary<string, List<string>> stateDictionary = new Dictionary<string, List<string>>()
+        {
+            { "Patrol", new List<string> { "Running" } },
+            { "FindNewPath", new List<string> { "Idle" } },
+        };
+
+        m_fsm = new StringRestrictedFiniteStateMachine(stateDictionary, "Idle");
+        #endregion
+
     }
 
     private void Update()
     {
-        if (!navAgent.CalculatePath(newDestination(), path))
+        navAgent.SetDestination(currentPos);
+
+        #region StringRestrictedFiniteStateMachine Update
+        switch (m_fsm.GetCurrentState())
         {
-            generateNewDestination();
+            case "Idle":
+                break;
+            case "Running":
+                break;
+            default:
+                break;
         }
+        #endregion
     }
 
-    private void generateNewDestination()
+    public Vector3 generateNewDestination()
     {
-        navAgent.SetDestination(newDestination());
+        if(Vector3.Distance(currentPos, transform.position) <1 || !navAgent.CalculatePath(newDestination(), path))
+        {
+            currentPos = newDestination();
+        }
+        return currentPos;
     }
 
     private void OnDrawGizmosSelected()
