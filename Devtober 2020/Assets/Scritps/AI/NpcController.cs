@@ -66,8 +66,6 @@ public class NpcController : MonoBehaviour
 
     private void Update()
     {
-        navAgent.SetDestination(currentPos);
-
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
@@ -78,6 +76,7 @@ public class NpcController : MonoBehaviour
                 Rest();
                 break;
             case "Event1":
+                print("Start Event");
                  break;
             default:
                 break;
@@ -117,7 +116,7 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    public void readyForDispatch()
+    public void ReadyForDispatch()
     {
         navAgent.ResetPath();
         m_fsm.ChangeState("Dispatch");
@@ -133,9 +132,13 @@ public class NpcController : MonoBehaviour
         m_fsm.ChangeState("Patrol");
     }
 
-    public void triggerEvent1()
+    public void TriggerEvent1()
     {
-        m_fsm.ChangeState("Event1");
+        if (npc_so.toDoList != null)
+        {
+            m_fsm.ChangeState("Event1");
+        }
+
     }
 
     private void OnDrawGizmosSelected()
