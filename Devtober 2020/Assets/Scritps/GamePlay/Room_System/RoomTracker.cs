@@ -6,6 +6,9 @@ namespace GamePlay
 {
     public class RoomTracker : MonoBehaviour
     {
+
+        #region Inspector View
+
         [System.Serializable]
         public class ScaleRate
         {
@@ -16,48 +19,51 @@ namespace GamePlay
             [Range(0f, 100f)]
             public float z = 0;
         }
+        [SerializeField]
+        ScaleRate scaleRate = null;
 
         [SerializeField]
-        LayerMask canItemTracked = 0;
+        LayerMask canDetected = 0;
 
         [SerializeField]
         LayerMask canRoomTracked = 0;
 
         [SerializeField]
-        Collider[] hitItems;
+        LayerMask reportEmergency = 0;
 
         [SerializeField]
+        Collider[] hitInformation;
+
+        #endregion
+
+
+        #region Value
+
         RaycastHit hitRooms;
 
-        [SerializeField]
-        ScaleRate scaleRate = null;
+        bool tempCheck;
+
+        #endregion
 
 
         private void Update()
         {
-            Tracking();
-            foreach(var stuff in Item())
-            {
-                print(stuff.ToString());
-            }
-            if(hitRooms.collider != null)
-            {
-                print(RoomNumber());
-            }
+            Detecting();
         }
 
-        private void Tracking()
+        private void Detecting()
         {
             //Track Object in the area
-            hitItems = Physics.OverlapBox(transform.position, new Vector3 (scaleRate.x, scaleRate.y, scaleRate.z)/2, Quaternion.identity, canItemTracked);
+            hitInformation = Physics.OverlapBox(transform.position, new Vector3 (scaleRate.x, scaleRate.y, scaleRate.z)/2, Quaternion.identity, canDetected);
             //Track Room Number
             Physics.Raycast(transform.position, -transform.up, out hitRooms, scaleRate.y / 2, canRoomTracked);
         }
 
+        #region Information Pool
         public List<GameObject> Item()
         {
             List<GameObject> tempItem = new List<GameObject>();
-            foreach (Collider item in hitItems)
+            foreach (Collider item in hitInformation)
             {
                 tempItem.Add(item.gameObject);
             }
@@ -69,6 +75,25 @@ namespace GamePlay
             return hitRooms.collider.gameObject.tag.ToString();
         }
 
+        public bool isEnemyDetected()
+        {
+            for (int i = 0; i < hitInformation.Length; i++)
+            {
+                if (hitInformation[i].gameObject.layer == Mathf.Log(reportEmergency.value, 2))
+                {
+                    tempCheck = true;
+                    break;
+                }
+                else
+                {
+                    tempCheck = false;
+                }          
+            }
+            return tempCheck;
+        }
+        #endregion
+
+        #region Gizmos
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
@@ -77,6 +102,7 @@ namespace GamePlay
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, -transform.up * scaleRate.y/2);
         }
+        #endregion
     }
 }
 

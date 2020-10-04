@@ -42,14 +42,6 @@ public class NpcController : MonoBehaviour
     #region Value
     [HideInInspector]
     public Vector3 currentPos;
-    public Vector3 NewDestination()
-    {
-        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
-
-        Vector3 tempPos = new Vector3(x, transform.position.y, z);     
-        return tempPos;
-    }
 
     #endregion
 
@@ -103,6 +95,14 @@ public class NpcController : MonoBehaviour
     }
 
     #region Move
+    public Vector3 NewDestination()
+    {
+        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
+        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+
+        Vector3 tempPos = new Vector3(x, transform.position.y, z);     
+        return tempPos;
+    }
     private void GenerateNewDestination()
     {
         navAgent.SetDestination(currentPos);
@@ -129,6 +129,57 @@ public class NpcController : MonoBehaviour
         navAgent.SetDestination(newPos);
     }
 
+
+    #endregion
+
+    #region Special Action
+    private void Rest()
+    {
+        navAgent.ResetPath();
+        npc_so.RecoverStamina();
+        if (npc_so.currentStamina >= npc_so.maxStamina)
+        {
+            npc_so.currentStamina = npc_so.maxStamina;
+            m_fsm.ChangeState("Patrol");
+        }
+    }
+    private void Event()
+    {
+        for (int i = 0; i < npc_so.toDoList.Count; i++)
+        {
+            EventSO evt = npc_so.toDoList[0];
+            switch (evt.doingWithNPC)
+            {
+                case DoingWithNPC.Talking:
+                    for (int a = 0; a < evt.NPCTalking.Count; a++)
+                    {
+                        if (evt.NPCTalking[a].MoveToClassA.Name == npc_so.npcName)
+                        {
+                            Dispatch(evt.NPCTalking[a].MoveToClassA.MoveTO);
+                        }
+                        else if (evt.NPCTalking[a].MoveToClassB.Name == npc_so.npcName)
+                        {
+                            Dispatch(evt.NPCTalking[a].MoveToClassB.MoveTO);
+                        }
+                    }
+                    break;
+                case DoingWithNPC.MoveTo:
+                    for (int a = 0; a < evt.NPCWayPoint.Count; a++)
+                    {
+                        if (evt.NPCWayPoint[a].Name == npc_so.npcName)
+                        {
+                            Dispatch(evt.NPCWayPoint[a].MoveTO);
+                        }
+                    }
+                    break;
+                case DoingWithNPC.Patrol:
+                    break;
+                default:
+                    break;
+            }
+            npc_so.toDoList.Remove(evt);
+        }
+    }
 
     #endregion
 
@@ -171,56 +222,7 @@ public class NpcController : MonoBehaviour
 
     #endregion
 
-    private void Rest()
-    {
-        navAgent.ResetPath();
-        npc_so.RecoverStamina();
-        if (npc_so.currentStamina >= npc_so.maxStamina)
-        {
-            npc_so.currentStamina = npc_so.maxStamina;
-            m_fsm.ChangeState("Patrol");
-        }
-    }
 
-    private void Event()
-    {
-        for (int i = 0; i < npc_so.toDoList.Count; i++)
-        {
-            EventSO evt = npc_so.toDoList[0];
-            switch (evt.doingWithNPC)
-            {
-                case DoingWithNPC.Talking:
-                    for (int a = 0; a < evt.NPCTalking.Count; a++)
-                    {
-                        if (evt.NPCTalking[a].MoveToClassA.Name == npc_so.npcName)
-                        {
-                            //Move(evt.NPCTalking[a].MoveToClassA.MoveTO)
-                            Dispatch(evt.NPCTalking[a].MoveToClassA.MoveTO);
-                        }
-                        else if (evt.NPCTalking[a].MoveToClassB.Name == npc_so.npcName)
-                        {
-                            //Move(evt.NPCTalking[a].MoveToClassB.MoveTO)
-                            Dispatch(evt.NPCTalking[a].MoveToClassB.MoveTO);
-                        }
-                    }
-                    break;
-                case DoingWithNPC.MoveTo:
-                    for (int a = 0; a < evt.NPCWayPoint.Count; a++)
-                    {
-                        if (evt.NPCWayPoint[a].Name == npc_so.npcName)
-                        {
-                            Dispatch(evt.NPCWayPoint[a].MoveTO);
-                        }
-                    }
-                    break;
-                case DoingWithNPC.Patrol:
-                    break;
-                default:
-                    break;
-            }
-            npc_so.toDoList.Remove(evt);
-        }
-    }
 
     #region Gizmos
     private void OnDrawGizmosSelected()

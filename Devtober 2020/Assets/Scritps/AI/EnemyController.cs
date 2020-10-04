@@ -48,18 +48,6 @@ public class EnemyController : MonoBehaviour
     #endregion
 
 
-
-
-
-    public Vector3 NewDestination()
-    {
-        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
-
-        Vector3 tempPos = new Vector3(x, transform.position.y, z);
-        return tempPos;
-    }
-
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -110,6 +98,15 @@ public class EnemyController : MonoBehaviour
         Discover();
     }
 
+    #region Move
+    public Vector3 NewDestination()
+    {
+        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
+        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+
+        Vector3 tempPos = new Vector3(x, transform.position.y, z);
+        return tempPos;
+    }
     private void GenerateNewDestination()
     {
         navAgent.SetDestination(currentPos);
@@ -125,34 +122,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Discover()
-    {
-        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
-    }
+    #endregion
 
-    public void readyForDispatch()
-    {
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Dispatch");
-    }
-
+    #region Special Action
     public void Dispatch(Vector3 newPos)
     {
         navAgent.SetDestination(newPos);
     }
-
-    private void FindNPC()
+    private void Discover()
     {
-        if(Physics.CheckSphere(transform.position, discoverRadius, canChased))
-        {
-            m_fsm.ChangeState("Chase");
-        }
-        else
-        {
-            m_fsm.ChangeState("Patrol");
-        }
+        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
     }
-
     public void Chasing()
     {
         //List<float> Distance = new List<float>();
@@ -166,8 +146,29 @@ public class EnemyController : MonoBehaviour
         navAgent.SetDestination(hitObjects[0].transform.position);
     }
 
+    #endregion
 
+    #region Swtich State
+    public void readyForDispatch()
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Dispatch");
+    }
+    private void FindNPC()
+    {
+        if(Physics.CheckSphere(transform.position, discoverRadius, canChased))
+        {
+            m_fsm.ChangeState("Chase");
+        }
+        else
+        {
+            m_fsm.ChangeState("Patrol");
+        }
+    }
 
+    #endregion
+
+    #region Gizmos
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -180,4 +181,6 @@ public class EnemyController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentPos, 1);
     }
+
+    #endregion
 }
