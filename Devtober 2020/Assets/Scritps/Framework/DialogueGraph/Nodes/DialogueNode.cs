@@ -70,7 +70,8 @@ namespace DiaGraph
 
                 if (!exitPort.IsConnected)
                 {
-                    EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+                    EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+                    Debug.LogError("Isn't connect");
                     return this;
                 }
 
@@ -78,13 +79,13 @@ namespace DiaGraph
                 DialogueNode dia = node as DialogueNode;
                 if (dia != null)
                 {
-                    return dia as Node;
+                    return dia;
                 }
 
                 OptionNode opt = node as OptionNode;
                 if (opt != null)
                 {
-                    return opt as Node;
+                    return opt;
                 }
 
                 //EventNode evt = node as EventNode;
@@ -93,7 +94,7 @@ namespace DiaGraph
                 //    return evt as Node;
                 //}
 
-                EventCenter.GetInstance().EventTriggered("PlayText.TalkingFinished");
+                EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
                 return this;
             }
         }

@@ -31,7 +31,7 @@ namespace EvtGraph
 
             if (!exitPort.IsConnected)
             {
-                EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+                EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
                 Debug.LogError("Start Node isn't connected");
                 Debug.Break();
                 return this;
@@ -44,7 +44,7 @@ namespace EvtGraph
                 return evt;
             }
 
-            EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+            EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
             Debug.LogWarning("Start Node isn't connected to a legal node");
             return this;
         }

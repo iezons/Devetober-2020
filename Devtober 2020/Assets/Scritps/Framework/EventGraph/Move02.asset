@@ -15,8 +15,15 @@ MonoBehaviour:
   ID: d319d64a-e167-48f1-a05a-eb901bc8ed23
   TODOList: []
   doingWith: 0
-  doingWithNPC: 1
-  NPCTalking: []
+  doingWithNPC: 0
+  NPCTalking:
+  - MoveToClassA:
+      Name: NPC1
+      MoveTO: {x: 0, y: 0, z: 0}
+    MoveToClassB:
+      Name: NPC2
+      MoveTO: {x: 0, y: 0, z: 0}
+    Graph: {fileID: 11400000, guid: 682fbcc344ef66d4db21e27d0ac8f064, type: 2}
   NPCWayPoint:
   - Name: NPC2
     MoveTO: {x: 18.05, y: -0.7705252, z: -11.94}

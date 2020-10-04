@@ -1,4 +1,5 @@
-﻿using EvtGraph;
+﻿using DiaGraph;
+using EvtGraph;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,6 +65,7 @@ public class NpcController : MonoBehaviour
     {
         currentPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
+        TriggerEvent1();
     }
 
     private void Update()
@@ -142,7 +144,7 @@ public class NpcController : MonoBehaviour
         }
         for (int i = 0; i < npc_so.toDoList.Count; i++)
         {
-            EventSO evt = npc_so.toDoList[i];
+            EventSO evt = npc_so.toDoList[0];
             switch (evt.doingWithNPC)
             {
                 case DoingWithNPC.Talking:
@@ -151,10 +153,12 @@ public class NpcController : MonoBehaviour
                         if (evt.NPCTalking[a].MoveToClassA.Name == npc_so.npcName)
                         {
                             //Move(evt.NPCTalking[a].MoveToClassA.MoveTO)
+                            //When Move Finsh, Talking()
                         }
                         else if (evt.NPCTalking[a].MoveToClassB.Name == npc_so.npcName)
                         {
                             //Move(evt.NPCTalking[a].MoveToClassB.MoveTO)
+                            //When Move Finsh, Talking()
                         }
                     }
                     break;
@@ -172,7 +176,7 @@ public class NpcController : MonoBehaviour
                 default:
                     break;
             }
-            
+            npc_so.toDoList.Remove(evt);
         }
     }
 
