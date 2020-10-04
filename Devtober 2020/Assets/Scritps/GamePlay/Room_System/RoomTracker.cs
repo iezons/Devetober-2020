@@ -24,10 +24,10 @@ namespace GamePlay
         LayerMask canRoomTracked = 0;
 
         [SerializeField]
-        Collider[] hitItem;
+        Collider[] hitItems;
 
         [SerializeField]
-        RaycastHit hitRoom;
+        RaycastHit hitRooms;
 
         [SerializeField]
         ScaleRate scaleRate = null;
@@ -40,7 +40,7 @@ namespace GamePlay
             {
                 print(stuff.ToString());
             }
-            if(hitRoom.collider != null)
+            if(hitRooms.collider != null)
             {
                 print(RoomNumber());
             }
@@ -49,15 +49,15 @@ namespace GamePlay
         private void Tracking()
         {
             //Track Object in the area
-            hitItem = Physics.OverlapBox(transform.position, new Vector3 (scaleRate.x, scaleRate.y, scaleRate.z)/2, Quaternion.identity, canItemTracked);
+            hitItems = Physics.OverlapBox(transform.position, new Vector3 (scaleRate.x, scaleRate.y, scaleRate.z)/2, Quaternion.identity, canItemTracked);
             //Track Room Number
-            Physics.Raycast(transform.position, -transform.up, out hitRoom, scaleRate.y / 2, canRoomTracked);
+            Physics.Raycast(transform.position, -transform.up, out hitRooms, scaleRate.y / 2, canRoomTracked);
         }
 
         public List<GameObject> Item()
         {
             List<GameObject> tempItem = new List<GameObject>();
-            foreach (Collider item in hitItem)
+            foreach (Collider item in hitItems)
             {
                 tempItem.Add(item.gameObject);
             }
@@ -66,7 +66,7 @@ namespace GamePlay
 
         public string RoomNumber()
         {
-            return hitRoom.collider.gameObject.tag.ToString();
+            return hitRooms.collider.gameObject.tag.ToString();
         }
 
         private void OnDrawGizmosSelected()

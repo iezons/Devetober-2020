@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     LayerMask canChased = 0;
 
     [SerializeField]
-    Collider[] hitObject;
+    Collider[] hitObjects;
 
     [HideInInspector]
     public Vector3 currentPos;
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
                 FindNPC();
                 break;
             case "Chase":
-                Chasing(hitObject[0].transform.position);
+                Chasing(hitObjects[0].transform.position);
                 FindNPC();
                 break;
             case "Rest":
@@ -117,7 +117,7 @@ public class EnemyController : MonoBehaviour
 
     private void Discover()
     {
-        hitObject = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
+        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
     }
 
     public void readyForDispatch()
