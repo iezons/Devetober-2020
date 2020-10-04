@@ -51,6 +51,7 @@ public class NpcController : MonoBehaviour
         return tempPos;
     }
 
+    bool reached;
     #endregion
 
 
@@ -93,6 +94,7 @@ public class NpcController : MonoBehaviour
                 break;
             case "Event":
                 Event();
+                ReachDestination();
                  break;
             default:
                 break;
@@ -154,7 +156,7 @@ public class NpcController : MonoBehaviour
     {
         if(npc_so.toDoList != null)
         {
-            if(npc_so.toDoList.Count != 0)
+            if (npc_so.toDoList.Count != 0)
             {
                 m_fsm.ChangeState("Event");
             }
@@ -165,7 +167,7 @@ public class NpcController : MonoBehaviour
     {
         if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
         {
-            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive");
+                EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive");
         }
     }
 
