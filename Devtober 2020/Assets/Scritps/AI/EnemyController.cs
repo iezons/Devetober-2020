@@ -7,11 +7,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    StringRestrictedFiniteStateMachine m_fsm;
-
-    NavMeshAgent navAgent;
-    NavMeshPath path;
-
+    #region Inspector View
     [SerializeField]
     [Range(0f, 100f)]
     float discoverRadius = 0;
@@ -21,12 +17,6 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     Collider[] hitObjects;
-
-    [HideInInspector]
-    public Vector3 currentPos;
-
-    [SerializeField]
-    PatrolRange patrolRange = null;
 
     [System.Serializable]
     public class PatrolRange
@@ -40,6 +30,26 @@ public class EnemyController : MonoBehaviour
         [Range(0f, 50f)]
         public float minZ = 0;
     }
+    [SerializeField]
+    PatrolRange patrolRange = null;
+
+    #endregion
+
+    #region Fields
+    StringRestrictedFiniteStateMachine m_fsm;
+
+    NavMeshAgent navAgent;
+    NavMeshPath path;
+    #endregion
+
+    #region Value
+    [HideInInspector]
+    public Vector3 currentPos;
+    #endregion
+
+
+
+
 
     public Vector3 NewDestination()
     {
@@ -84,7 +94,7 @@ public class EnemyController : MonoBehaviour
                 FindNPC();
                 break;
             case "Chase":
-                Chasing(hitObjects[0].transform.position);
+                Chasing();
                 FindNPC();
                 break;
             case "Rest":
@@ -143,9 +153,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void Chasing(Vector3 targetPos)
+    public void Chasing()
     {
-        navAgent.SetDestination(targetPos);
+        //List<float> Distance = new List<float>();
+
+        //for(int i =0; i < hitObjects.Length; i++)
+        //{
+        //    float distance = Vector3.Distance(transform.position, hitObjects[i].transform.position);
+        //    Distance.Add(distance);
+        //}
+
+        navAgent.SetDestination(hitObjects[0].transform.position);
     }
 
 
