@@ -71,7 +71,6 @@ namespace DiaGraph
                 if (!exitPort.IsConnected)
                 {
                     EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
-                    Debug.LogError("Isn't connect");
                     return this;
                 }
 
