@@ -5,12 +5,19 @@ using EvtGraph;
 using DiaGraph;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public enum GameManagerState
 {
     OFF,
     PROGRESSING,
     PAUSED
+}
+
+public class TestRightClick
+{
+    public string FunctionName;
+    public UnityAction Action;
 }
 
 public class GameManager : MonoBehaviour
@@ -27,6 +34,11 @@ public class GameManager : MonoBehaviour
     public Transform ButtonContent;
 
     bool justEnter = true;
+    DialogueGraph graph;
+    Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
+
+    List<TestRightClick> RC = new List<TestRightClick>();
+    Dictionary<string, int> TTT = new Dictionary<string, int>();
 
     // Start is called before the first frame update
     void Awake()
@@ -34,9 +46,35 @@ public class GameManager : MonoBehaviour
         SetupScene();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<DialogueGraph>("GM.DialoguePlay.Start", PlayingDialogue);
+        EventCenter.GetInstance().AddEventListener<string>("GM.AllNPCArrive", NPCArrive);
         EventCenter.GetInstance().AddEventListener("DialoguePlay.PAUSED", DialoguePaused);
         EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", DialogueFinish);
+        EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
+        TTT.Add("第一项", 78);
+        
+    }
+
+    void TurnON()
+    {
+
+    }
+
+    void Next(int index)
+    {
+        for (int i = 0; i < Option.Count; i++)
+        {
+            Destroy(Option[i].gameObject);
+        }
+        Option.Clear();
+    }
+
+    void NPCArrive(string NPCName)
+    {
+        if(NPCAgentList.ContainsKey(NPCName))
+        {
+            NPCAgentList[NPCName] = true;
+        }
     }
 
     void NPCAdd(NpcController NPC_obj)
@@ -46,14 +84,14 @@ public class GameManager : MonoBehaviour
 
     void PlayingDialogue(DialogueGraph graph)
     {
-        Debug.Log("2333");
+        Debug.Log("Start the dialogue");
         if (DiaPlay.d_state == DiaState.OFF)
             EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", graph);
     }
 
     void DialoguePaused()
     {
-        if(DiaPlay.n_state == NodeState.Dialogue)
+        if(DiaPlay.n_state == NodeState.Dialogue && DiaPlay.d_state != DiaState.OFF)
             StartCoroutine(WaitAndPlay());
         else if (DiaPlay.n_state == NodeState.Option)
         {
@@ -63,8 +101,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitAndPlay()
     {
-        yield return new WaitForSeconds(1);
-        HistoryText += DiaPlay.WholeText;
+        yield return new WaitForSeconds(0.7f);
+        HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
         EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
     }
 
@@ -75,7 +113,18 @@ public class GameManager : MonoBehaviour
 
     void DialogueOptionShowUp(List<OptionClass> opts)
     {
-
+        for (int i = 0; i < Option.Count; i++)
+        {
+            Destroy(Option[i].gameObject);
+        }
+        Option.Clear();
+        for (int i = 0; i < opts.Count; i++)
+        {
+            Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
+            Option[i].transform.SetParent(ButtonContent, false);
+            Option[i].transform.GetComponentInChildren<Text>().text = opts[i].Text;
+            Option[i].transform.name = i.ToString();
+        }
     }
 
     private void Start()
@@ -86,8 +135,30 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TMPText.text = HistoryText + DiaPlay.WholeText;
-        TMPText.maxVisibleCharacters = HistoryText.Length + DiaPlay.MaxVisible;
+        StartCoroutine(UpdateText());
+        
+        if(graph != null)
+        {
+            bool tempBool = false;
+            foreach (bool value in NPCAgentList.Values)
+            {
+                if(value == false)
+                {
+                    tempBool = false;
+                    break;
+                }
+                else
+                {
+                    tempBool = true;
+                }
+            }
+            if(tempBool)
+            {
+                EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", graph);
+                graph = null;
+            }
+        }
+
         switch (gmState)
         {
             case GameManagerState.OFF:
@@ -113,6 +184,14 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+        
+    }
+
+    IEnumerator UpdateText()
+    {
+        TMPText.maxVisibleCharacters = HistoryText.Length + DiaPlay.MaxVisible;
+        yield return new WaitForEndOfFrame();
+        TMPText.text = HistoryText + DiaPlay.WholeText;
     }
 
     void SetupScene()
@@ -171,13 +250,16 @@ public class GameManager : MonoBehaviour
                                             if(NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassA.Name)
                                             {
                                                 NPC[b].npc_so.toDoList.Add(evt);
+                                                NPCAgentList.Add(NPC[b].npc_so.npcName, false);
                                             }
                                             else if (NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassB.Name)
                                             {
                                                 NPC[b].npc_so.toDoList.Add(evt);
+                                                NPCAgentList.Add(NPC[b].npc_so.npcName, false);
                                             }
                                         }
-                                        EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", evt.NPCTalking[a].Graph);
+                                        //EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", evt.NPCTalking[a].Graph);
+                                        graph = evt.NPCTalking[a].Graph;
                                     }
                                     break;
                                 case DoingWithNPC.MoveTo:

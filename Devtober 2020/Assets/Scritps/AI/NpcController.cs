@@ -60,7 +60,6 @@ public class NpcController : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         npc_so.toDoList.Clear();
-
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
@@ -93,6 +92,7 @@ public class NpcController : MonoBehaviour
                 break;
             case "Event":
                 Event();
+                ReachDestination();
                  break;
             default:
                 break;
@@ -165,7 +165,7 @@ public class NpcController : MonoBehaviour
     {
         if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
         {
-            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive");
+            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", npc_so.npcName);
         }
     }
 

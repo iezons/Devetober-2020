@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7279196033682425925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: 'NPC2: OK! Fine! '
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 632, y: -152}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -7279196033682425925}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 6307696755916235156}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -7279196033682425925}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -5925883236627597343}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: NPC2
+  Dialogue:
+  - 'OK! Fine! '
+  curIndex: 0
+  IsMax: 1
 --- !u!114 &-6784927936571157754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,10 +89,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b329bd0343160746993a35180aff24c, type: 3}
-  m_Name: "Option: Don't say anyt\u2026"
+  m_Name: 'Option: Relax guys! '
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 632, y: -136}
+  position: {x: 1032, y: -136}
   ports:
     keys:
     - Input
@@ -58,7 +106,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 6307696755916235156}
+        node: {fileID: -7279196033682425925}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -99,8 +147,8 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   Option:
-  - Text: Don't say anything
-  - Text: Say it again
+  - Text: 'Relax guys! '
+  - Text: 'Fight! Fight! Fight! '
 --- !u!114 &-769504376008528109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,10 +159,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Alice: Say something!\u2026"
+  m_Name: 'NPC1: What?! '
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1016, y: 120}
+  position: {x: 1416, y: 120}
   ports:
     keys:
     - Input
@@ -141,9 +189,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: Alice
+  TalkingPerson: NPC1
   Dialogue:
-  - Say something! Don't keep silent!
+  - 'What?! '
   curIndex: 0
   IsMax: 1
 --- !u!114 &11400000
@@ -165,64 +213,12 @@ MonoBehaviour:
   - {fileID: -5925883236627597343}
   - {fileID: 5029483617706262898}
   - {fileID: -769504376008528109}
-  - {fileID: 2167263397926661069}
+  - {fileID: -7279196033682425925}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -6784927936571157754}
---- !u!114 &2167263397926661069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: 'Waiting for:'
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1528, y: -72}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: 2167263397926661069}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: 2167263397926661069}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: 2167263397926661069}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-  WaitingOption:
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: 
+  current: {fileID: 5029483617706262898}
 --- !u!114 &5029483617706262898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,10 +229,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: 'Alice: OK! FINE! '
+  m_Name: "Alice: OK. But don't \u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1016, y: -184}
+  position: {x: 1416, y: -184}
   ports:
     keys:
     - Input
@@ -265,7 +261,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Alice
   Dialogue:
-  - 'OK! FINE! '
+  - 'OK. But don''t touch me next time. '
   curIndex: 0
   IsMax: 1
 --- !u!114 &6307696755916235156
@@ -278,7 +274,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Alice: Could please s\u2026"
+  m_Name: "NPC1: Could please d\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 216, y: -120}
@@ -305,15 +301,15 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -5925883236627597343}
+        node: {fileID: -7279196033682425925}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: Alice
+  TalkingPerson: NPC1
   Dialogue:
-  - 'Could please say it agian? '
+  - Could please don't touch me?
   curIndex: 0
   IsMax: 1
 --- !u!114 &7896657214987075499
@@ -326,7 +322,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Alice: What wrong wit\u2026"
+  m_Name: "NPC1: What wrong wit\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -168, y: -120}
@@ -359,7 +355,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: Alice
+  TalkingPerson: NPC1
   Dialogue:
   - What wrong with you!?
   curIndex: 0

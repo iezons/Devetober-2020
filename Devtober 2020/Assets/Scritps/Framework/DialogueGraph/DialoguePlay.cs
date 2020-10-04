@@ -35,6 +35,7 @@ public class DialoguePlay : MonoBehaviour
     float timervalue;
     int LastTimerValue = 0;
     bool justEnter;
+    bool isFinished = true;
 
     void Awake()
     {
@@ -45,7 +46,8 @@ public class DialoguePlay : MonoBehaviour
 
     void Finished()
     {
-        GoToSTATE(DiaState.OFF);
+        Debug.Log("Finished");
+        isFinished = true;
     }
 
     void Update()
@@ -79,7 +81,7 @@ public class DialoguePlay : MonoBehaviour
                 }
                 else if(n_state == NodeState.Option)
                 {
-                    
+                    GoToSTATE(DiaState.PAUSED);
                 }
                 break;
             case DiaState.PAUSED:
@@ -129,27 +131,31 @@ public class DialoguePlay : MonoBehaviour
         Next();
     }
 
-    void StopDia()
-    {
-        //GoToSTATE(DiaState.OFF);
-    }
-
     void Next(int OptionIndex = 0)
     {
         switch (d_state)
         {
             case DiaState.OFF:
+                Debug.Log("StartFromOFF");
                 currentGraph.SetStartPoint("English");
                 currentGraph.Next(OptionIndex);
                 LoadNodeInfo();
                 GoToSTATE(DiaState.TYPING);
+                isFinished = false;
                 break;
             case DiaState.TYPING:
                 break;
             case DiaState.PAUSED:
-                currentGraph.Next(OptionIndex);
-                LoadNodeInfo();
-                GoToSTATE(DiaState.TYPING);
+                if(isFinished)
+                {
+                    GoToSTATE(DiaState.OFF);
+                }
+                else
+                {
+                    currentGraph.Next(OptionIndex);
+                    LoadNodeInfo();
+                    GoToSTATE(DiaState.TYPING);
+                }
                 break;
             default:
                 break;
