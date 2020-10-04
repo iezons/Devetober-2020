@@ -161,6 +161,14 @@ public class NpcController : MonoBehaviour
         }
     }
 
+    public void ReachDestination()
+    {
+        if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
+        {
+            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive");
+        }
+    }
+
     #endregion
 
     private void Rest()
