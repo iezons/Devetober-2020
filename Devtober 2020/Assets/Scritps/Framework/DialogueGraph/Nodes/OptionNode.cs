@@ -41,13 +41,13 @@ namespace DiaGraph
 				{
 					if (!port.IsConnected)
                     {
-						EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+						EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
 						return temp;
 					}
 					temp = port.Connection.node;
 				}
 			}
-			EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+			EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
 			return temp;
 		}
 

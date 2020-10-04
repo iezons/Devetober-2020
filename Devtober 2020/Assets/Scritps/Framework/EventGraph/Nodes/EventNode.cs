@@ -38,7 +38,7 @@ namespace EvtGraph
 
 			if (!exitPort.IsConnected)
 			{
-				EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+				EventCenter.GetInstance().EventTriggered("Event.Finished");
 				return this;
 			}
 
@@ -49,7 +49,7 @@ namespace EvtGraph
 				return evt;
 			}
 
-			EventCenter.GetInstance().EventTriggered("Dialogue.Finished");
+			EventCenter.GetInstance().EventTriggered("Event.Finished");
 			return this;
 		}
 	}

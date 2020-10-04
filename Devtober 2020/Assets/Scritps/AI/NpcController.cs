@@ -1,15 +1,13 @@
-﻿using EvtGraph;
+﻿using DiaGraph;
+using EvtGraph;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcController : MonoBehaviour
 {
-    #region Inspector View
-
     [System.Serializable]
     public class PatrolRange
     {
@@ -22,26 +20,17 @@ public class NpcController : MonoBehaviour
         [Range(0f, 50f)]
         public float minZ = 0;
     }
+
     [SerializeField]
     PatrolRange patrolRange = null;
 
-    #endregion
-
-
-    #region Fields
     StringRestrictedFiniteStateMachine m_fsm;
 
     public NPC_SO npc_so;
 
-
-    NavMeshAgent navAgent;
-    NavMeshPath path;
-    #endregion
-
-
-    #region Value
     [HideInInspector]
     public Vector3 currentPos;
+
     public Vector3 NewDestination()
     {
         float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
@@ -51,23 +40,21 @@ public class NpcController : MonoBehaviour
         return tempPos;
     }
 
-    #endregion
-
-
+    NavMeshAgent navAgent;
+    NavMeshPath path;
 
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         npc_so.toDoList.Clear();
-
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event" } },
+            { "Patrol", new List<string> { "Rest", "Event1", "Dispatch" } },
+            { "Rest", new List<string> { "Patrol", "Event1", "Dispatch" } },
+            { "Event1", new List<string> { "Patrol", "Rest", "Dispatch" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event1" } },
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -78,6 +65,7 @@ public class NpcController : MonoBehaviour
     {
         currentPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
+        TriggerEvent1();
     }
 
     private void Update()
@@ -91,18 +79,15 @@ public class NpcController : MonoBehaviour
             case "Rest":
                 Rest();
                 break;
-            case "Event":
-                Event();
+            case "Event1":
+                print("Start Event");
                  break;
             default:
                 break;
         }
         #endregion
-
-        CheckEvent();
     }
 
-    #region Move
     private void GenerateNewDestination()
     {
         navAgent.SetDestination(currentPos);
@@ -124,45 +109,6 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    public void Dispatch(Vector3 newPos)
-    {
-        navAgent.SetDestination(newPos);
-    }
-
-
-    #endregion
-
-    #region Swtich State
-    public void ReadyForDispatch()
-    {
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Dispatch");
-    }
-
-    public void BackToPatrol()
-    {
-        m_fsm.ChangeState("Patrol");
-    }
-
-    public void TriggerEvent()
-    {
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Event");
-    }
-    
-    public void CheckEvent()
-    {
-        if(npc_so.toDoList != null)
-        {
-            if(npc_so.toDoList.Count != 0)
-            {
-                m_fsm.ChangeState("Event");
-            }
-        }
-    }
-
-    #endregion
-
     private void Rest()
     {
         navAgent.ResetPath();
@@ -174,8 +120,28 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    private void Event()
+    public void ReadyForDispatch()
     {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Dispatch");
+    }
+
+    public void Dispatch(Vector3 newPos)
+    {
+        navAgent.SetDestination(newPos);
+    }
+
+    public void BackToPatrol()
+    {
+        m_fsm.ChangeState("Patrol");
+    }
+
+    public void TriggerEvent1()
+    {
+        if (npc_so.toDoList != null)
+        {
+            m_fsm.ChangeState("Event1");
+        }
         for (int i = 0; i < npc_so.toDoList.Count; i++)
         {
             EventSO evt = npc_so.toDoList[0];
@@ -187,12 +153,12 @@ public class NpcController : MonoBehaviour
                         if (evt.NPCTalking[a].MoveToClassA.Name == npc_so.npcName)
                         {
                             //Move(evt.NPCTalking[a].MoveToClassA.MoveTO)
-                            Dispatch(evt.NPCTalking[a].MoveToClassA.MoveTO);
+                            //When Move Finsh, Talking()
                         }
                         else if (evt.NPCTalking[a].MoveToClassB.Name == npc_so.npcName)
                         {
                             //Move(evt.NPCTalking[a].MoveToClassB.MoveTO)
-                            Dispatch(evt.NPCTalking[a].MoveToClassB.MoveTO);
+                            //When Move Finsh, Talking()
                         }
                     }
                     break;
@@ -201,7 +167,7 @@ public class NpcController : MonoBehaviour
                     {
                         if (evt.NPCWayPoint[a].Name == npc_so.npcName)
                         {
-                            Dispatch(evt.NPCWayPoint[a].MoveTO);
+                            //Move(evt.NPCWayPoint[a].MoveTO)
                         }
                     }
                     break;
@@ -214,7 +180,6 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    #region Gizmos
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -224,5 +189,4 @@ public class NpcController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentPos, 1);
     }
-    #endregion
 }

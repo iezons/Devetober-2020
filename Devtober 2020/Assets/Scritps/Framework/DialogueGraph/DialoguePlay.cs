@@ -39,8 +39,13 @@ public class DialoguePlay : MonoBehaviour
     void Awake()
     {
         EventCenter.GetInstance().AddEventListener<DialogueGraph>("DialoguePlay.Start", PlayDia);
-        EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.SelectOption", SelectOption);
-        EventCenter.GetInstance().AddEventListener("DialoguePlay.Stop", StopDia);
+        EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
+        EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", Finished);
+    }
+
+    void Finished()
+    {
+        GoToSTATE(DiaState.OFF);
     }
 
     void Update()
@@ -113,7 +118,7 @@ public class DialoguePlay : MonoBehaviour
             if ((int)Mathf.Floor(timervalue) >= WordCount)
             {
                 GoToSTATE(DiaState.PAUSED);
-                EventCenter.GetInstance().EventTriggered("Dialogue.Paused");
+                EventCenter.GetInstance().EventTriggered("DialoguePlay.PAUSED");
             }
         }
     }
@@ -126,12 +131,7 @@ public class DialoguePlay : MonoBehaviour
 
     void StopDia()
     {
-        GoToSTATE(DiaState.OFF);
-    }
-
-    void SelectOption(int OptionIndex)
-    {
-        Next(OptionIndex);
+        //GoToSTATE(DiaState.OFF);
     }
 
     void Next(int OptionIndex = 0)
@@ -170,7 +170,7 @@ public class DialoguePlay : MonoBehaviour
             if(opt != null)
             {
                 n_state = NodeState.Option;
-                EventCenter.GetInstance().EventTriggered("Dialogue.OptionShowUP", opt.Option);
+                EventCenter.GetInstance().EventTriggered("DialoguePlay.OptionShowUP", opt.Option);
             }
         }
     }
