@@ -135,15 +135,15 @@ public class EnemyController : MonoBehaviour
     }
     public void Chasing()
     {
-        //List<float> Distance = new List<float>();
+        //List<float> distanceBetweenNPC = new List<float>();
 
-        //for(int i =0; i < hitObjects.Length; i++)
+        //for (int i = 0; i < hitObjects.Length; i++)
         //{
         //    float distance = Vector3.Distance(transform.position, hitObjects[i].transform.position);
-        //    Distance.Add(distance);
+        //    distanceBetweenNPC.Add(distance);
         //}
 
-        navAgent.SetDestination(hitObjects[0].transform.position);
+        navAgent.SetDestination(hitObjects[hitObjects.Length-1].transform.position);
     }
 
     #endregion

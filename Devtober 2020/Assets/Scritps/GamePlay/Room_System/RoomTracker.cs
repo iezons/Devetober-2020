@@ -75,6 +75,11 @@ namespace GamePlay
             return hitRooms.collider.gameObject.tag.ToString();
         }
 
+        public GameObject Room()
+        {
+            return hitRooms.collider.gameObject;
+        }
+
         public bool isEnemyDetected()
         {
             for (int i = 0; i < hitInformation.Length; i++)

@@ -20,12 +20,24 @@ public class NpcController : MonoBehaviour
         [Range(0f, 50f)]
         public float minX = 0;
         [Range(0f, 50f)]
+        public float y = 0;
+        [Range(0f, 50f)]
         public float maxZ = 0;
         [Range(0f, 50f)]
         public float minZ = 0;
     }
     [SerializeField]
     PatrolRange patrolRange = null;
+
+    [SerializeField]
+    [Range(0f, 100f)]
+    float alertRadius = 0;
+
+    [SerializeField]
+    LayerMask needDodged = 0;
+
+    [SerializeField]
+    Collider[] hitObjects = null;
 
     #endregion
 
@@ -43,7 +55,7 @@ public class NpcController : MonoBehaviour
 
     #region Value
     [HideInInspector]
-    public Vector3 currentPos;
+    public Vector3 currentTerminalPos;
 
     public class RightClickMenus
     {
@@ -69,10 +81,11 @@ public class NpcController : MonoBehaviour
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event" } },
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch" } },
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -81,7 +94,7 @@ public class NpcController : MonoBehaviour
 
     private void Start()
     {
-        currentPos = NewDestination();
+        currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
         AddMenu("Move", Dispatch);
     }
@@ -98,6 +111,7 @@ public class NpcController : MonoBehaviour
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
+                Dispatch(currentTerminalPos);
                 GenerateNewDestination();
                 break;
             case "Rest":
@@ -107,12 +121,22 @@ public class NpcController : MonoBehaviour
                 Event();
                 ReachDestination();
                  break;
+            case "Dodging":
+                Dodging();
+                break;
             default:
                 break;
         }
         #endregion
 
         //CheckEvent();
+
+        //Check Enemy
+        //hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+        //if (hitObjects.Length != 0)
+        //{
+        //    m_fsm.ChangeState("Dodging");
+        //}
     }
 
     #region Move
@@ -124,29 +148,31 @@ public class NpcController : MonoBehaviour
         Vector3 tempPos = new Vector3(x, transform.position.y, z);     
         return tempPos;
     }
+
     private void GenerateNewDestination()
     {
-        navAgent.SetDestination(currentPos);
-
-        if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path) 
+        if (Vector3.Distance(currentTerminalPos, transform.position) < 1 || !navAgent.CalculatePath(currentTerminalPos, path) 
             //|| currentPos.x > transform.position.x - patrolRange.minX / 2
             //|| currentPos.x < transform.position.x + patrolRange.minX / 2
             //|| currentPos.z > transform.position.z - patrolRange.minZ / 2
             //|| currentPos.z < transform.position.x + patrolRange.minZ / 2 
             )
         {
-            currentPos = NewDestination();
-        }
-
-        if(npc_so.currentStamina <= 0)
-        {
-            m_fsm.ChangeState("Rest");
+            currentTerminalPos = NewDestination();
         }
     }
 
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
+        //Walking Animation
+        //
+        //
+        //
+        //
+        //
+        //
+        //
     }
 
 
@@ -162,6 +188,26 @@ public class NpcController : MonoBehaviour
             m_fsm.ChangeState("Patrol");
         }
     }
+
+    private void Dodging()
+    {
+        for(int i = 0; i< hitObjects.Length; i++)
+        {
+            Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
+            if(Vector3.Angle(transform.forward,enemyDirection) > 55 || Vector3.Distance(currentTerminalPos, transform.position) < 1 || !navAgent.CalculatePath(currentTerminalPos, path))
+            {
+                currentTerminalPos = NewDestination();
+                print(Vector3.Angle(transform.forward, enemyDirection));
+            }
+        }
+        navAgent.SetDestination(currentTerminalPos);
+
+        if(hitObjects.Length == 0)
+        {
+            m_fsm.ChangeState("Patrol");
+        }
+    }
+
     private void Event()
     {
         for (int i = 0; i < npc_so.toDoList.Count; i++)
@@ -251,7 +297,9 @@ public class NpcController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.minX, 0, patrolRange.minZ));
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(currentPos, 1);
+        Gizmos.DrawWireSphere(currentTerminalPos, 1);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, alertRadius);
     }
     #endregion
 }
