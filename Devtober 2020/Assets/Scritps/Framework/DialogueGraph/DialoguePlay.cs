@@ -97,6 +97,7 @@ public class DialoguePlay : MonoBehaviour
 
     void LoadText(string Text)
     {
+        MaxVisible = 0;
         WholeText = Text;
         WordCount = Text.Length;
     }
@@ -119,8 +120,16 @@ public class DialoguePlay : MonoBehaviour
         {
             if ((int)Mathf.Floor(timervalue) >= WordCount)
             {
-                GoToSTATE(DiaState.PAUSED);
-                EventCenter.GetInstance().EventTriggered("DialoguePlay.PAUSED");
+                if(isFinished)
+                {
+                    GoToSTATE(DiaState.OFF);
+                    EventCenter.GetInstance().EventTriggered("DialoguePlay.OFF");
+                }
+                else
+                {
+                    GoToSTATE(DiaState.PAUSED);
+                    EventCenter.GetInstance().EventTriggered("DialoguePlay.PAUSED");
+                }
             }
         }
     }
@@ -136,7 +145,6 @@ public class DialoguePlay : MonoBehaviour
         switch (d_state)
         {
             case DiaState.OFF:
-                Debug.Log("StartFromOFF");
                 currentGraph.SetStartPoint("English");
                 currentGraph.Next(OptionIndex);
                 LoadNodeInfo();
@@ -146,13 +154,13 @@ public class DialoguePlay : MonoBehaviour
             case DiaState.TYPING:
                 break;
             case DiaState.PAUSED:
-                if(isFinished)
+                currentGraph.Next(OptionIndex);
+                if (isFinished)
                 {
                     GoToSTATE(DiaState.OFF);
                 }
                 else
                 {
-                    currentGraph.Next(OptionIndex);
                     LoadNodeInfo();
                     GoToSTATE(DiaState.TYPING);
                 }
@@ -175,6 +183,7 @@ public class DialoguePlay : MonoBehaviour
             OptionNode opt = currentGraph.current as OptionNode;
             if(opt != null)
             {
+                MaxVisible = 0;
                 n_state = NodeState.Option;
                 EventCenter.GetInstance().EventTriggered("DialoguePlay.OptionShowUP", opt.Option);
             }

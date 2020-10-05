@@ -47,7 +47,7 @@ namespace DiaGraph
 					temp = port.Connection.node;
 				}
 			}
-			EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+			//EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
 			return temp;
 		}
 
