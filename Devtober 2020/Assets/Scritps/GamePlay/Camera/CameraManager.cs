@@ -15,12 +15,12 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void CameraSwtich(string buttonName)
+    public void CameraSwtich(string camName)
     {
         for(int i=0; i<cameraList.Count; i++)
         {
             cameraList[i].enabled = false;
-            if(cameraList[i].gameObject.tag == buttonName)
+            if(cameraList[i].gameObject.tag == camName)
             {
                 cameraList[i].enabled = true;            }
         }

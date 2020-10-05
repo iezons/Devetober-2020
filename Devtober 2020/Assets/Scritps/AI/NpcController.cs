@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
+public delegate void MenuHandler(object obj);
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcController : MonoBehaviour
 {
@@ -43,6 +45,17 @@ public class NpcController : MonoBehaviour
     [HideInInspector]
     public Vector3 currentPos;
 
+    public class RightClickMenus
+    {
+        public string functionName;
+        public event MenuHandler function;
+        public void DoFunction(object obj)
+        {
+            function(obj);
+        }
+    }
+
+    List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
     #endregion
 
 
@@ -52,6 +65,7 @@ public class NpcController : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         npc_so.toDoList.Clear();
+
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
@@ -69,6 +83,13 @@ public class NpcController : MonoBehaviour
     {
         currentPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
+        AddMenu("Move", Dispatch);
+    }
+
+    public void AddMenu(string functionName, MenuHandler function)
+    {
+        rightClickMenus.Add(new RightClickMenus { functionName = functionName});
+        rightClickMenus[rightClickMenus.Count - 1].function += function;
     }
 
     private void Update()
@@ -91,7 +112,7 @@ public class NpcController : MonoBehaviour
         }
         #endregion
 
-        CheckEvent();
+        //CheckEvent();
     }
 
     #region Move
@@ -106,7 +127,6 @@ public class NpcController : MonoBehaviour
     private void GenerateNewDestination()
     {
         navAgent.SetDestination(currentPos);
-        npc_so.ConsumeStamina();
 
         if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path) 
             //|| currentPos.x > transform.position.x - patrolRange.minX / 2
@@ -124,9 +144,9 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    public void Dispatch(Vector3 newPos)
+    public void Dispatch(object newPos)
     {
-        navAgent.SetDestination(newPos);
+        navAgent.SetDestination((Vector3)newPos);
     }
 
 
@@ -136,7 +156,6 @@ public class NpcController : MonoBehaviour
     private void Rest()
     {
         navAgent.ResetPath();
-        npc_so.RecoverStamina();
         if (npc_so.currentStamina >= npc_so.maxStamina)
         {
             npc_so.currentStamina = npc_so.maxStamina;

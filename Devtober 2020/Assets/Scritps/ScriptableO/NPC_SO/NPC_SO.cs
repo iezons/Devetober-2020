@@ -14,8 +14,6 @@ public class NPC_SO: ScriptableObject
 
     public int maxStamina = 0;
     public float currentStamina = 0;
-    public int staminaConsumeRate = 0;
-    public int staminaRecoverRate = 0;
 
     public int maxCredit = 0;
     public int currentCredit = 0;
@@ -48,14 +46,9 @@ public class NPC_SO: ScriptableObject
         }
     }
 
-    public void ConsumeStamina()
+    public void ConsumeStamina(int staminaAmount)
     {
-        currentStamina -= staminaConsumeRate * Time.deltaTime;
-    }
-
-    public void RecoverStamina()
-    {
-        currentStamina += staminaRecoverRate * Time.deltaTime;
+        currentStamina = currentStamina - staminaAmount <= 0 ? 0 : currentStamina -= staminaAmount;
     }
 
     public void ReduceCredit(int creditAmount)
