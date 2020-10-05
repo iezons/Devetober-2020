@@ -17,9 +17,9 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   maxStamina: 100
-  currentStamina: 99.20001
-  staminaConsumeRate: 10
-  staminaRecoverRate: 20
+  currentStamina: 100
   maxCredit: 0
   currentCredit: 0
-  toDoList: []
+  toDoList:
+  - {fileID: 11400000, guid: 66f715d809d77f740bbe075bbdc4c400, type: 2}
+  - {fileID: 11400000, guid: ed304330a3ee9f54eb48d43e90088a98, type: 2}
