@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         EventCenter.GetInstance().AddEventListener<DialogueGraph>("GM.DialoguePlay.Start", PlayingDialogue);
         EventCenter.GetInstance().AddEventListener<string>("GM.AllNPCArrive", NPCArrive);
         EventCenter.GetInstance().AddEventListener("DialoguePlay.PAUSED", DialoguePaused);
-        EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", DialogueFinish);
+        EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
         TTT.Add("第一项", 78);
@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
 
     void PlayingDialogue(DialogueGraph graph)
     {
-        Debug.Log("Start the dialogue");
         if (DiaPlay.d_state == DiaState.OFF)
             EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", graph);
     }
@@ -106,9 +105,9 @@ public class GameManager : MonoBehaviour
         EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
     }
 
-    void DialogueFinish()
+    void DialogueOFF()
     {
-
+        //HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
     }
 
     void DialogueOptionShowUp(List<OptionClass> opts)
@@ -165,7 +164,6 @@ public class GameManager : MonoBehaviour
                 if(justEnter)
                 {
                     justEnter = false;
-                    Debug.Log("Next");
                     Next();
                 }
                 break;
@@ -258,7 +256,6 @@ public class GameManager : MonoBehaviour
                                                 NPCAgentList.Add(NPC[b].npc_so.npcName, false);
                                             }
                                         }
-                                        //EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", evt.NPCTalking[a].Graph);
                                         graph = evt.NPCTalking[a].Graph;
                                     }
                                     break;
