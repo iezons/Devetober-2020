@@ -49,7 +49,7 @@ public class EventCenter : SingletonBase<EventCenter>
         if(EventDic.ContainsKey(name))//如果有：
         {
             (EventDic[name] as EventInfo<T>).actions += action; //将准备进行的函数利用+=的方式就可以直接添加到UnityAction这个类别当中，执行的时候大家都会一起执行
-            Debug.Log("Add Action:   " + EventDic.Count);
+            //Debug.Log("Add Action:   " + EventDic.Count);
         }
         else//如果没有：
         {

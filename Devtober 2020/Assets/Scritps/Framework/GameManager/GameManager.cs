@@ -6,6 +6,7 @@ using DiaGraph;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using GamePlay;
 
 public enum GameManagerState
 {
@@ -14,18 +15,24 @@ public enum GameManagerState
     PAUSED
 }
 
+public delegate void MenuHandler(object obj);
+
 public class TestRightClick
 {
     public string FunctionName;
-    public UnityAction Action;
+    public event MenuHandler Function;
+    public void DoFunction(object obj)
+    {
+        Function(obj);
+    }
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonBase<GameManager>
 {
     public EventGraph eventGraph;
     public DialoguePlay DiaPlay;
+    public List<RoomTracker> Rooms;
     public List<NpcController> NPC;
-    public List<GameObject> Room;
     public GameManagerState gmState;
     public string HistoryText;
     public TMP_Text TMPText;
@@ -33,12 +40,13 @@ public class GameManager : MonoBehaviour
     public List<Button> Option;
     public Transform ButtonContent;
 
+    public event MenuHandler ATT;
+
     bool justEnter = true;
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
 
     List<TestRightClick> RC = new List<TestRightClick>();
-    Dictionary<string, int> TTT = new Dictionary<string, int>();
 
     // Start is called before the first frame update
     void Awake()
@@ -51,11 +59,16 @@ public class GameManager : MonoBehaviour
         EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
-        TTT.Add("第一项", 78);
         
     }
 
-    void TurnON()
+    public void AddMenu(string name, MenuHandler action)
+    {
+        RC.Add(new TestRightClick { FunctionName = name});
+        RC[RC.Count - 1].Function += action;
+    }
+
+    void TurnON(object obj)
     {
 
     }
