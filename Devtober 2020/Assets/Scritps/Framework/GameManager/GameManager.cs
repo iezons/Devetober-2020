@@ -28,7 +28,6 @@ public class GameManager : SingletonBase<GameManager>
     public List<Button> Option;
     public Transform ButtonContent;
 
-    public event MenuHandler ATT;
 
     bool justEnter = true;
     DialogueGraph graph;

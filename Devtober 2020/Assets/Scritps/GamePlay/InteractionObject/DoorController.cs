@@ -33,11 +33,12 @@ public class DoorController : MonoBehaviour
     Vector3 moveEnd = Vector3.zero;
 
     public bool isLocked;
-    public bool isOpen;
+    public bool isOperating = false;
     #endregion
 
     #region Value
     GameObject door;
+    bool isClosed, isOpened;
     public class RightClickMenus
     {
         public string functionName;
@@ -80,25 +81,29 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    //public bool checkState()
-    //{
-
-    //}
-
     public void SwtichStates()
     {
-        isLocked = !isLocked;
+        if (!isOperating)
+        {
+            isLocked = !isLocked;
+        }
     }
 
     public void Operation()
     {
-        if(isActivated() && !isLocked)
+        if (isActivated() && !isLocked && !isOpened)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, moveEnd, lerpTime * Time.deltaTime);
+            isOperating = Vector3.Distance(door.transform.position, moveEnd) > 0.1f ? true : false;
+            isOpened = !isOperating;
+            isClosed = false;
         }
-        else if (!isActivated() && !isLocked)
+        else if (!isActivated() && !isLocked && !isClosed)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, transform.position, lerpTime * Time.deltaTime);
+            isOperating = Vector3.Distance(door.transform.position, transform.position) > 0.1f ? true : false;
+            isClosed = !isOperating;
+            isOpened = false;
         }
     }
 
