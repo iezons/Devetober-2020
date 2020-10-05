@@ -15,18 +15,6 @@ public enum GameManagerState
     PAUSED
 }
 
-public delegate void MenuHandler(object obj);
-
-public class TestRightClick
-{
-    public string FunctionName;
-    public event MenuHandler Function;
-    public void DoFunction(object obj)
-    {
-        Function(obj);
-    }
-}
-
 public class GameManager : SingletonBase<GameManager>
 {
     public EventGraph eventGraph;
@@ -46,8 +34,6 @@ public class GameManager : SingletonBase<GameManager>
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
 
-    List<TestRightClick> RC = new List<TestRightClick>();
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -60,17 +46,6 @@ public class GameManager : SingletonBase<GameManager>
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
         
-    }
-
-    public void AddMenu(string name, MenuHandler action)
-    {
-        RC.Add(new TestRightClick { FunctionName = name});
-        RC[RC.Count - 1].Function += action;
-    }
-
-    void TurnON(object obj)
-    {
-
     }
 
     void Next(int index)
