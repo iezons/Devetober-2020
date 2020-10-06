@@ -33,7 +33,6 @@ public class DoorController : MonoBehaviour
     Vector3 moveEnd = Vector3.zero;
 
     public bool isLocked;
-    public bool isOpen;
     public bool isOperating = false;
     #endregion
 
@@ -82,14 +81,8 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    //public bool checkState()
-    //{
-
-    //}
-
     public void SwtichStates()
     {
-        isLocked = !isLocked;
         if (!isOperating)
         {
             isLocked = !isLocked;
@@ -98,7 +91,6 @@ public class DoorController : MonoBehaviour
 
     public void Operation()
     {
-        if(isActivated() && !isLocked)
         if (isActivated() && !isLocked && !isOpened)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, moveEnd, lerpTime * Time.deltaTime);
@@ -106,7 +98,6 @@ public class DoorController : MonoBehaviour
             isOpened = !isOperating;
             isClosed = false;
         }
-        else if (!isActivated() && !isLocked)
         else if (!isActivated() && !isLocked && !isClosed)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, transform.position, lerpTime * Time.deltaTime);
