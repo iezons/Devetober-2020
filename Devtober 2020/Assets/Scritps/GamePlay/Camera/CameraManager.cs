@@ -22,7 +22,8 @@ public class CameraManager : MonoBehaviour
             cameraList[i].enabled = false;
             if(cameraList[i].gameObject.tag == camName)
             {
-                cameraList[i].enabled = true;            }
+                cameraList[i].enabled = true;          
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ public class DoorController : MonoBehaviour
     Vector3 moveEnd = Vector3.zero;
 
     public bool isLocked;
-    public bool isOperating = false;
+    public bool isOperating;
     #endregion
 
     #region Value

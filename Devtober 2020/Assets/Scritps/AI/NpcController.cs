@@ -39,6 +39,9 @@ public class NpcController : MonoBehaviour
     [SerializeField]
     Collider[] hitObjects = null;
 
+    [SerializeField]
+    float dodgeAngle = 0;
+
     #endregion
 
 
@@ -59,6 +62,7 @@ public class NpcController : MonoBehaviour
 
     public class RightClickMenus
     {
+        public string unchangedName;
         public string functionName;
         public event MenuHandler function;
         public void DoFunction(object obj)
@@ -96,11 +100,12 @@ public class NpcController : MonoBehaviour
     {
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
-        AddMenu("Move", Dispatch);
+        AddMenu("Move", "Move", Dispatch);
     }
 
-    public void AddMenu(string functionName, MenuHandler function)
+    public void AddMenu(string unchangedName, string functionName, MenuHandler function)
     {
+        rightClickMenus.Add(new RightClickMenus { unchangedName = unchangedName });
         rightClickMenus.Add(new RightClickMenus { functionName = functionName});
         rightClickMenus[rightClickMenus.Count - 1].function += function;
     }
@@ -132,11 +137,13 @@ public class NpcController : MonoBehaviour
         //CheckEvent();
 
         //Check Enemy
-        //hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
-        //if (hitObjects.Length != 0)
-        //{
-        //    m_fsm.ChangeState("Dodging");
-        //}
+        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+        if (hitObjects.Length != 0)
+        {
+            m_fsm.ChangeState("Dodging");
+        }
+
+        
     }
 
     #region Move
@@ -194,18 +201,20 @@ public class NpcController : MonoBehaviour
         for(int i = 0; i< hitObjects.Length; i++)
         {
             Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
-            if(Vector3.Angle(transform.forward,enemyDirection) > 55 || Vector3.Distance(currentTerminalPos, transform.position) < 1 || !navAgent.CalculatePath(currentTerminalPos, path))
+            Vector3 movingDirection = (currentTerminalPos- transform.position).normalized;
+
+            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 || Vector3.Distance(currentTerminalPos, transform.position) < 1 || !navAgent.CalculatePath(currentTerminalPos, path))
             {
                 currentTerminalPos = NewDestination();
-                print(Vector3.Angle(transform.forward, enemyDirection));
             }
         }
-        navAgent.SetDestination(currentTerminalPos);
+        Dispatch(currentTerminalPos);
 
         if(hitObjects.Length == 0)
         {
             m_fsm.ChangeState("Patrol");
         }
+
     }
 
     private void Event()
