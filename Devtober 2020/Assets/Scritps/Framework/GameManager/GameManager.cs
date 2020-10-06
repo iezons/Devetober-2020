@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
+using UnityEngine.EventSystems;
 
 public enum GameManagerState
 {
@@ -27,7 +28,8 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject OptionButtonPrefab;
     public List<Button> Option;
     public Transform ButtonContent;
-
+    public RectTransform RightClickMenuPanel;
+    public RectTransform Canvas;
 
     bool justEnter = true;
     DialogueGraph graph;
@@ -44,7 +46,6 @@ public class GameManager : SingletonBase<GameManager>
         EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
-        
     }
 
     void Next(int index)
@@ -123,6 +124,7 @@ public class GameManager : SingletonBase<GameManager>
     {
         StartCoroutine(UpdateText());
         
+        //Check is it the time to play dialogue graph
         if(graph != null)
         {
             bool tempBool = false;
@@ -142,9 +144,11 @@ public class GameManager : SingletonBase<GameManager>
             {
                 EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", graph);
                 graph = null;
+                NPCAgentList.Clear();
             }
         }
 
+        //Process Event Graph
         switch (gmState)
         {
             case GameManagerState.OFF:
@@ -169,7 +173,31 @@ public class GameManager : SingletonBase<GameManager>
             default:
                 break;
         }
-        
+
+        //Right Click Menu
+        if (Input.GetMouseButtonDown(1))
+        {
+            RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            if (Canvas.rect.width - (RightClickMenuPanel.position.x + RightClickMenuPanel.rect.width) >= 0)
+            {
+                RightClickMenuPanel.pivot = new Vector2(0, RightClickMenuPanel.pivot.y);
+            }
+            else
+            {
+                RightClickMenuPanel.pivot = new Vector2(1, RightClickMenuPanel.pivot.y);
+            }
+
+            if (Canvas.rect.height - ((Canvas.rect.height - RightClickMenuPanel.position.y) + RightClickMenuPanel.rect.height) >= 0)
+            {
+                RightClickMenuPanel.pivot = new Vector2(RightClickMenuPanel.pivot.x, 1);
+            }
+            else
+            {
+                RightClickMenuPanel.pivot = new Vector2(RightClickMenuPanel.pivot.x, 0);
+            }
+            RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            Debug.Log(RightClickMenuPanel.position.y);
+        }
     }
 
     IEnumerator UpdateText()
