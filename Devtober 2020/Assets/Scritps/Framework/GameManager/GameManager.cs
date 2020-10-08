@@ -8,6 +8,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
 using UnityEngine.EventSystems;
+using System;
+using System.Linq;
 
 public enum GameManagerState
 {
@@ -29,6 +31,8 @@ public class GameManager : SingletonBase<GameManager>
     public List<Button> Option;
     public Transform ButtonContent;
     public RectTransform RightClickMenuPanel;
+    public GameObject RCButton;
+    public List<GameObject> RightClickButton;
     public RectTransform Canvas;
 
     bool justEnter = true;
@@ -177,6 +181,31 @@ public class GameManager : SingletonBase<GameManager>
         //Right Click Menu
         if (Input.GetMouseButtonDown(1))
         {
+            ClearRightClickButton();
+            Ray ray = CameraManager.GetInstance().Current.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+            if(Physics.Raycast(ray, out hitInfo))
+            {
+                Debug.DrawLine(ray.origin, hitInfo.point);
+                GameObject gameObj = hitInfo.collider.gameObject;
+                NpcController npcCTRL;
+                List<DoorController> doorController;
+                gameObj.TryGetComponent(out npcCTRL);
+                //gameObj.TryGetComponent(out doorController);
+                doorController = gameObj.GetComponentsInParent<DoorController>().ToList();
+                Debug.Log(gameObj.name);
+                if(npcCTRL != null)
+                {
+                    SetupRightClickMenu(npcCTRL.rightClickMenus);
+                }
+                else if(doorController != null)
+                {
+                    if(doorController.Count >= 1)
+                    {
+                        SetupRightClickMenu(doorController[0].rightClickMenus);
+                    }
+                }
+            }
             RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             if (Canvas.rect.width - (RightClickMenuPanel.position.x + RightClickMenuPanel.rect.width) >= 0)
             {
@@ -196,8 +225,50 @@ public class GameManager : SingletonBase<GameManager>
                 RightClickMenuPanel.pivot = new Vector2(RightClickMenuPanel.pivot.x, 0);
             }
             RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-            Debug.Log(RightClickMenuPanel.position.y);
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            bool ClickOnMenu = false;
+            if (RightClickButton != null)
+            {
+                foreach (var item in RightClickButton)
+                {
+                    if (EventSystem.current.currentSelectedGameObject == item)
+                    {
+                        ClickOnMenu = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!ClickOnMenu)
+            {
+                RightClickMenuPanel.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void SetupRightClickMenu(List<RightClickMenus> menus)
+    {
+        RightClickMenuPanel.gameObject.SetActive(true);
+        for (int i = 0; i < menus.Count; i++)
+        {
+            RightClickButton.Add(Instantiate(RCButton));
+            GameObject obj = RightClickButton[RightClickButton.Count - 1];
+            obj.transform.SetParent(RightClickMenuPanel, false);
+            obj.GetComponent<RightClickButtonSC>().menu = menus[i];
+            obj.GetComponent<RightClickButtonSC>().AfterInstantiate();
+        }
+    }
+
+    void ClearRightClickButton()
+    {
+        for (int i = 0; i < RightClickButton.Count; i++)
+        {
+            Destroy(RightClickButton[i].gameObject);
+        }
+        RightClickButton.Clear();
     }
 
     IEnumerator UpdateText()

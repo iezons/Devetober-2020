@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour
+public class CameraManager : SingletonBase<CameraManager>
 {
     [SerializeField]
     List<Camera> cameraList = new List<Camera>();
+    public Camera Current;
 
     private void Awake()
     {
@@ -13,6 +14,7 @@ public class CameraManager : MonoBehaviour
         {
             cameraList.Add(Camera.allCameras[i]);
         }
+        CameraSwtich("Camera 9");
     }
 
     public void CameraSwtich(string camName)
@@ -22,7 +24,8 @@ public class CameraManager : MonoBehaviour
             cameraList[i].enabled = false;
             if(cameraList[i].gameObject.name == camName)
             {
-                cameraList[i].enabled = true;          
+                cameraList[i].enabled = true;
+                Current = cameraList[i];
             }
         }
     }

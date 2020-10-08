@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
 
-public delegate void MenuHandler(object obj);
+
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcController : MonoBehaviour
 {
@@ -61,18 +61,7 @@ public class NpcController : MonoBehaviour
     [HideInInspector]
     public Vector3 currentTerminalPos;
 
-    public class RightClickMenus
-    {
-        public string unchangedName;
-        public string functionName;
-        public event MenuHandler function;
-        public void DoFunction(object obj)
-        {
-            function(obj);
-        }
-    }
-
-    List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
+    public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
     #endregion
 
 
@@ -108,7 +97,7 @@ public class NpcController : MonoBehaviour
     public void AddMenu(string unchangedName, string functionName, MenuHandler function)
     {
         rightClickMenus.Add(new RightClickMenus { unchangedName = unchangedName });
-        rightClickMenus.Add(new RightClickMenus { functionName = functionName});
+        rightClickMenus[rightClickMenus.Count - 1].functionName = functionName;
         rightClickMenus[rightClickMenus.Count - 1].function += function;
     }
 

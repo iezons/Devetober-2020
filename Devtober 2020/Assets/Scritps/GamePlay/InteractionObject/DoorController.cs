@@ -2,6 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+public delegate void MenuHandler(object obj);
+public class RightClickMenus
+{
+    public string unchangedName;
+    public string functionName;
+    public event MenuHandler function;
+    public void DoFunction(object obj)
+    {
+        function(obj);
+    }
+
+}
 
 public class DoorController : MonoBehaviour
 {
@@ -38,13 +50,9 @@ public class DoorController : MonoBehaviour
 
     #region Value
     GameObject door;
-    bool isClosed, isOpened;
-    public class RightClickMenus
-    {
-        public string functionName;
-        public UnityAction function;
-    }
-    List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
+    public bool isClosed, isOpened;
+    
+    public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
     #endregion
 
 
@@ -55,7 +63,14 @@ public class DoorController : MonoBehaviour
 
     private void Start()
     {
-        rightClickMenus.Add(new RightClickMenus { functionName = "SwtichStates", function = SwtichStates });
+        AddMenu("SwitchStates", "Lock", SwtichStates);
+    }
+
+    public void AddMenu(string unchangedName, string functionName, MenuHandler function)
+    {
+        rightClickMenus.Add(new RightClickMenus { unchangedName = unchangedName });
+        rightClickMenus[rightClickMenus.Count - 1].functionName = functionName;
+        rightClickMenus[rightClickMenus.Count - 1].function += function;
     }
 
     private void Update()
@@ -81,11 +96,16 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    public void SwtichStates()
+    public void SwtichStates(object obj)
     {
+        Debug.Log("LLLLLOCK");
         if (!isOperating)
         {
             isLocked = !isLocked;
+            if (isLocked)
+                rightClickMenus[0].functionName = "Unlock";
+            else
+                rightClickMenus[0].functionName = "lock";
         }
     }
 
