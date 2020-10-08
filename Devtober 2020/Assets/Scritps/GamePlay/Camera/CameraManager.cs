@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
         for(int i=0; i<cameraList.Count; i++)
         {
             cameraList[i].enabled = false;
-            if(cameraList[i].gameObject.tag == camName)
+            if(cameraList[i].gameObject.name == camName)
             {
                 cameraList[i].enabled = true;          
             }

@@ -13,10 +13,22 @@ public class EnemyController : MonoBehaviour
     float discoverRadius = 0;
 
     [SerializeField]
+    [Range(0f, 100f)]
+    float attackRadius = 0;
+
+    [SerializeField]
+    int attackDamage = 0;
+
+    [SerializeField]
+    float attackTime = 0;
+
+    [SerializeField]
     LayerMask canChased = 0;
 
     [SerializeField]
     Collider[] hitObjects;
+    [SerializeField]
+    Collider[] attackable;
 
     [System.Serializable]
     public class PatrolRange
@@ -45,6 +57,9 @@ public class EnemyController : MonoBehaviour
     #region Value
     [HideInInspector]
     public Vector3 currentPos;
+
+    public bool hasAttacked = false;
+    float recordAttackTime;
     #endregion
 
 
@@ -69,6 +84,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         currentPos = NewDestination();
+        recordAttackTime = attackTime;
     }
 
 
@@ -78,24 +94,25 @@ public class EnemyController : MonoBehaviour
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
+                Dispatch(currentPos);
                 GenerateNewDestination();
-                FindNPC();
+                Discover();
                 break;
             case "Chase":
                 Chasing();
-                FindNPC();
+                lossTarget();
                 break;
             case "Rest":
+                Resting();
                 break;
             case "Dispatch":
-                FindNPC();
                 break;
             default:
                 break;
         }
         #endregion
-
-        Discover();
+        
+        
     }
 
     #region Move
@@ -109,8 +126,6 @@ public class EnemyController : MonoBehaviour
     }
     private void GenerateNewDestination()
     {
-        navAgent.SetDestination(currentPos);
-
         if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path)
             //|| currentPos.x > transform.position.x - patrolRange.minX / 2
             //|| currentPos.x < transform.position.x + patrolRange.minX / 2
@@ -121,18 +136,14 @@ public class EnemyController : MonoBehaviour
             currentPos = NewDestination();
         }
     }
-
-    #endregion
-
-    #region Special Action
     public void Dispatch(Vector3 newPos)
     {
         navAgent.SetDestination(newPos);
     }
-    private void Discover()
-    {
-        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
-    }
+
+    #endregion
+
+    #region Special Action
     public void Chasing()
     {
         //List<float> distanceBetweenNPC = new List<float>();
@@ -144,6 +155,33 @@ public class EnemyController : MonoBehaviour
         //}
 
         navAgent.SetDestination(hitObjects[hitObjects.Length-1].transform.position);
+        Attacking();
+    }
+
+    void Attacking()
+    {
+        attackable = Physics.OverlapSphere(transform.position, attackRadius, canChased);
+        if (attackable.Length != 0 && hitObjects[hitObjects.Length - 1].gameObject == attackable[attackable.Length - 1].gameObject)
+        {
+            hasAttacked = true;
+            navAgent.ResetPath();
+            NpcController attackedNPC = attackable[attackable.Length - 1].gameObject.GetComponent<NpcController>();
+            attackedNPC.npc_so.TakeDamage(attackDamage);
+            
+            m_fsm.ChangeState("Rest");
+        }
+    }
+
+    void Resting()
+    {
+        attackTime -= Time.deltaTime;
+        if (attackTime <= 0)
+        {
+            attackTime = recordAttackTime;
+            hasAttacked = false;
+            m_fsm.ChangeState("Patrol");
+        }
+        
     }
 
     #endregion
@@ -154,17 +192,24 @@ public class EnemyController : MonoBehaviour
         navAgent.ResetPath();
         m_fsm.ChangeState("Dispatch");
     }
-    private void FindNPC()
+    private void Discover()
     {
-        if(Physics.CheckSphere(transform.position, discoverRadius, canChased))
+        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
+
+        if (hitObjects.Length != 0 && !hasAttacked )
         {
             m_fsm.ChangeState("Chase");
         }
-        else
+    }
+    void lossTarget()
+    {
+        if (hitObjects.Length == 0)
         {
             m_fsm.ChangeState("Patrol");
         }
     }
+
+
 
     #endregion
 
@@ -172,6 +217,8 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, discoverRadius);
 
         Gizmos.color = Color.yellow;

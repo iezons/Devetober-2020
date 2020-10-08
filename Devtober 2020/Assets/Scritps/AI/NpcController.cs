@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using GamePlay;
 
 public delegate void MenuHandler(object obj);
 [RequireComponent(typeof(NavMeshAgent))]
@@ -85,11 +86,12 @@ public class NpcController : MonoBehaviour
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch" } },
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -118,9 +120,10 @@ public class NpcController : MonoBehaviour
             case "Patrol":
                 Dispatch(currentTerminalPos);
                 GenerateNewDestination();
+                TriggerDodging();
                 break;
             case "Rest":
-                Rest();
+                //Rest();
                 break;
             case "Event":
                 Event();
@@ -129,21 +132,25 @@ public class NpcController : MonoBehaviour
             case "Dodging":
                 Dodging();
                 break;
+            case "Hiding":
+                print("Hiding");
+                Hiding();
+               // CompleteHiding();
+                break;
             default:
                 break;
         }
         #endregion
 
         //CheckEvent();
-
-        //Check Enemy
-        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
-        if (hitObjects.Length != 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            m_fsm.ChangeState("Dodging");
+            TriggerHiding();
         }
-
-        
+        else if (Input.GetMouseButtonDown(0))
+        {
+            BackToPatrol();
+        }
     }
 
     #region Move
@@ -192,7 +199,7 @@ public class NpcController : MonoBehaviour
         if (npc_so.currentStamina >= npc_so.maxStamina)
         {
             npc_so.currentStamina = npc_so.maxStamina;
-            m_fsm.ChangeState("Patrol");
+            BackToPatrol();
         }
     }
 
@@ -212,9 +219,34 @@ public class NpcController : MonoBehaviour
 
         if(hitObjects.Length == 0)
         {
-            m_fsm.ChangeState("Patrol");
+            BackToPatrol();
+        }
+    }
+
+    private void Hiding()
+    {
+        List<RoomTracker> rooms = new List<RoomTracker>();
+        foreach( RoomTracker temp in GameManager.GetInstance().Rooms)
+        {
+            rooms.Add(temp);
         }
 
+        List<GameObject> objs = new List<GameObject>();
+        for (int i = 0; i< rooms.Count; i++)
+        {
+            foreach(GameObject temp in rooms[i].Item())
+            {
+                objs.Add(temp);
+            }
+        }
+
+        for (int i = 0; i < objs.Count; i++)
+        {
+            if(objs[i].layer == 11)
+            {
+                Dispatch(objs[i].transform.position);
+            }
+        }
     }
 
     private void Event()
@@ -274,6 +306,24 @@ public class NpcController : MonoBehaviour
         navAgent.ResetPath();
         m_fsm.ChangeState("Event");
     }
+
+    public void TriggerDodging()
+    {
+        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+        if (hitObjects.Length != 0)
+        {
+            m_fsm.ChangeState("Dodging");
+        }
+    }
+
+    public void CompleteHiding()
+    {
+        if (Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
+        {
+            navAgent.ResetPath();
+            m_fsm.ChangeState("Rest");
+        }
+    }
     
     public void CheckEvent()
     {
@@ -292,6 +342,12 @@ public class NpcController : MonoBehaviour
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", npc_so.npcName);
         }
+    }
+
+    public void TriggerHiding()
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Hiding");
     }
 
     #endregion
