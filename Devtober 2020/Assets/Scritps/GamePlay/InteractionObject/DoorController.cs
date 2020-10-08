@@ -2,18 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public delegate void MenuHandler(object obj);
-public class RightClickMenus
-{
-    public string unchangedName;
-    public string functionName;
-    public event MenuHandler function;
-    public void DoFunction(object obj)
-    {
-        function(obj);
-    }
-
-}
 
 public class DoorController : MonoBehaviour
 {
@@ -98,14 +86,13 @@ public class DoorController : MonoBehaviour
 
     public void SwtichStates(object obj)
     {
-        Debug.Log("LLLLLOCK");
         if (!isOperating)
         {
             isLocked = !isLocked;
             if (isLocked)
                 rightClickMenus[0].functionName = "Unlock";
             else
-                rightClickMenus[0].functionName = "lock";
+                rightClickMenus[0].functionName = "Lock";
         }
     }
 

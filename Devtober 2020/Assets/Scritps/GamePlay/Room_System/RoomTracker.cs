@@ -45,6 +45,10 @@ namespace GamePlay
 
         #endregion
 
+        public void Start()
+        {
+            EventCenter.GetInstance().EventTriggered("GM.Room.Add", this);
+        }
 
         private void Update()
         {
