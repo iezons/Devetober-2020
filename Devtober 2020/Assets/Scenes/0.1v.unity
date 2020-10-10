@@ -906,8 +906,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1093228785}
   m_HandleRect: {fileID: 1093228784}
   m_Direction: 0
+<<<<<<< HEAD
   m_Value: 1
   m_Size: 0.0030649803
+=======
+  m_Value: 0
+  m_Size: 1
+>>>>>>> parent of 75c96f8... Import some testing animation
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1625,7 +1630,11 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
+<<<<<<< HEAD
   m_AnchoredPosition: {x: -308.7274, y: 0}
+=======
+  m_AnchoredPosition: {x: 87.7498, y: 0}
+>>>>>>> parent of 75c96f8... Import some testing animation
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &676739608
@@ -3519,21 +3528,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   discoverRadius: 11
-  attackRadius: 0
-  attackDamage: 0
-  attackTime: 0
   canChased:
     serializedVersion: 2
     m_Bits: 256
   hitObjects: []
-  attackable: []
   patrolRange:
     maxX: 20
     minX: 0
     maxZ: 20
     minZ: 0
   currentPos: {x: 0, y: 0, z: 0}
-  hasAttacked: 0
 --- !u!195 &1279706220
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4138,6 +4142,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+<<<<<<< HEAD
 --- !u!114 &1429641233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4196,6 +4201,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+=======
+>>>>>>> parent of 75c96f8... Import some testing animation
 --- !u!1 &1515853934
 GameObject:
   m_ObjectHideFlags: 0
@@ -4230,21 +4237,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   discoverRadius: 11
-  attackRadius: 0
-  attackDamage: 0
-  attackTime: 0
   canChased:
     serializedVersion: 2
     m_Bits: 256
   hitObjects: []
-  attackable: []
   patrolRange:
     maxX: 20
     minX: 0
     maxZ: 20
     minZ: 0
   currentPos: {x: 0, y: 0, z: 0}
-  hasAttacked: 0
 --- !u!195 &1515853936
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5356,21 +5358,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   discoverRadius: 11
-  attackRadius: 0
-  attackDamage: 0
-  attackTime: 0
   canChased:
     serializedVersion: 2
     m_Bits: 256
   hitObjects: []
-  attackable: []
   patrolRange:
     maxX: 20
     minX: 0
     maxZ: 20
     minZ: 0
   currentPos: {x: 0, y: 0, z: 0}
-  hasAttacked: 0
 --- !u!195 &2082669606
 NavMeshAgent:
   m_ObjectHideFlags: 0
