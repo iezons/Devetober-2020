@@ -12,6 +12,25 @@ using GamePlay;
 public class NpcController : MonoBehaviour
 {
     #region Inspector View
+    [System.Serializable]
+    public class Status
+    {
+        public string npcName;
+        public string description;
+
+        public int maxHealth = 0;
+        public int currentHealth = 0;
+
+        public int maxStamina = 0;
+        public float currentStamina = 0;
+
+        public int maxCredit = 0;
+        public int currentCredit = 0;
+
+        public List<EventSO> toDoList;
+    }
+    [SerializeField]
+    Status status = null;
 
     [System.Serializable]
     public class PatrolRange
@@ -48,6 +67,7 @@ public class NpcController : MonoBehaviour
 
     #region Fields
     StringRestrictedFiniteStateMachine m_fsm;
+    Animator animator;
 
     public NPC_SO npc_so;
 
@@ -62,6 +82,7 @@ public class NpcController : MonoBehaviour
     public Vector3 currentTerminalPos;
 
     public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
+    Transform finalPos;
     #endregion
 
 
@@ -70,6 +91,7 @@ public class NpcController : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
+        animator = GetComponent<Animator>();
         npc_so.toDoList.Clear();
 
         #region StringRestrictedFiniteStateMachine
@@ -93,6 +115,8 @@ public class NpcController : MonoBehaviour
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
         AddMenu("Move", "Move", Dispatch);
+
+        
     }
 
     public void AddMenu(string unchangedName, string functionName, MenuHandler function)
@@ -113,6 +137,7 @@ public class NpcController : MonoBehaviour
                 TriggerDodging();
                 break;
             case "Rest":
+                animator.SetFloat("Ground", 0);
                 //Rest();
                 break;
             case "Event":
@@ -124,7 +149,7 @@ public class NpcController : MonoBehaviour
                 break;
             case "Hiding":
                 Hiding();
-               // CompleteHiding();
+                CompleteHiding();
                 break;
             case "Escaping":
                 Escaping();
@@ -171,14 +196,7 @@ public class NpcController : MonoBehaviour
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
-        //Walking Animation
-        //
-        //
-        //
-        //
-        //
-        //
-        //
+        animator.SetFloat("Ground", 1);
     }
 
 
@@ -197,7 +215,9 @@ public class NpcController : MonoBehaviour
 
     private void Dodging()
     {
-        for(int i = 0; i< hitObjects.Length; i++)
+        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+
+        for (int i = 0; i< hitObjects.Length; i++)
         {
             Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
             Vector3 movingDirection = (currentTerminalPos- transform.position).normalized;
@@ -218,7 +238,7 @@ public class NpcController : MonoBehaviour
     private void Hiding()
     {
         List<RoomTracker> rooms = new List<RoomTracker>();
-        foreach( RoomTracker temp in GameManager.GetInstance().Rooms)
+        foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
         {
             rooms.Add(temp);
         }
@@ -226,20 +246,24 @@ public class NpcController : MonoBehaviour
         List<GameObject> objs = new List<GameObject>();
         for (int i = 0; i< rooms.Count; i++)
         {
-            foreach(GameObject temp in rooms[i].Item())
+            foreach(GameObject temp in rooms[i].HiddenPos())
             {
                 objs.Add(temp);
             }
         }
 
-        for (int i = 0; i < objs.Count; i++)
+        float minDistance = Mathf.Infinity;
+        foreach (GameObject temp in objs)
         {
-            if(objs[i].layer == 11)
+            float distance = Vector3.Distance(transform.position, temp.transform.position);
+            
+            if (distance < minDistance)
             {
-                Dispatch(objs[i].transform.position);
+                minDistance = distance;
+                finalPos = temp.transform;
             }
         }
-        print(GameManager.GetInstance().Rooms.Count);
+        Dispatch(finalPos.position);
     }
 
     void Escaping()
@@ -377,6 +401,43 @@ public class NpcController : MonoBehaviour
 
     #endregion
 
+    #region Status Change
+    public void ApplyHealth(int healthAmount)
+    {
+        status.currentHealth = status.currentHealth + healthAmount > status.maxHealth ? status.maxHealth : status.currentHealth += healthAmount;
+    }
+
+    public void ApplyStamina(int staminaAmount)
+    {
+        status.currentStamina = status.currentStamina + staminaAmount > status.maxStamina ? status.maxStamina : status.currentStamina += staminaAmount;
+    }
+
+    public void ApplyCredit(int creditAmount)
+    {
+        status.currentCredit = status.currentCredit + creditAmount > status.maxCredit ? status.maxCredit : status.currentCredit += creditAmount;
+    }
+
+
+    public void TakeDamage(int damageAmount)
+    {
+        status.currentHealth -= damageAmount;
+
+        if (status.currentHealth <= 0)
+        {
+            //Death();
+        }
+    }
+
+    public void ConsumeStamina(int staminaAmount)
+    {
+        status.currentStamina = status.currentStamina - staminaAmount <= 0 ? 0 : status.currentStamina -= staminaAmount;
+    }
+
+    public void ReduceCredit(int creditAmount)
+    {
+        status.currentCredit = status.currentCredit - creditAmount <= 0 ? 0 : status.currentCredit -= creditAmount;
+    }
+    #endregion
 
 
     #region Gizmos
@@ -390,6 +451,8 @@ public class NpcController : MonoBehaviour
         Gizmos.DrawWireSphere(currentTerminalPos, 1);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, alertRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, -transform.up * patrolRange.y);
     }
     #endregion
 }
