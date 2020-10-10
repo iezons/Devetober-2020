@@ -101,10 +101,11 @@ public class DoorController : MonoBehaviour
         if (isActivated() && !isLocked && !isOpened)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, moveEnd, lerpTime * Time.deltaTime);
-            isOpened = Vector3.Distance(door.transform.position, moveEnd) < 0.1f ? true : false; ;
+            isOperating = Vector3.Distance(door.transform.position, moveEnd) > 0.1f ? true : false;
+            isOpened = !isOperating;
             isClosed = false;
         }
-        else if (!isActivated() && !isClosed || isLocked)
+        else if (!isActivated() && !isLocked && !isClosed)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, transform.position, lerpTime * Time.deltaTime);
             isOperating = Vector3.Distance(door.transform.position, transform.position) > 0.1f ? true : false;
