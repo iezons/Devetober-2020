@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 9eebf740a3bf4814caa31d9a60668dc8
+guid: f98ba96c1e6ff844999911fec0949fb1
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Walk
+    second: GetOutBox
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,18 +35,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk
+      name: GetOutBox
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 50
+      firstFrame: 1
+      lastFrame: 140
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -118,7 +118,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 0.01
-    rootMotionBoneName: 
+    rootMotionBoneName: Butt 1
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
