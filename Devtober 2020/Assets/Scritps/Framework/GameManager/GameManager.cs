@@ -44,6 +44,7 @@ public class GameManager : SingletonBase<GameManager>
     {
         SetupScene();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
+        EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
         EventCenter.GetInstance().AddEventListener<DialogueGraph>("GM.DialoguePlay.Start", PlayingDialogue);
         EventCenter.GetInstance().AddEventListener<string>("GM.AllNPCArrive", NPCArrive);
         EventCenter.GetInstance().AddEventListener("DialoguePlay.PAUSED", DialoguePaused);
@@ -72,6 +73,11 @@ public class GameManager : SingletonBase<GameManager>
     void NPCAdd(NpcController NPC_obj)
     {
         NPC.Add(NPC_obj);
+    }
+
+    void RoomAdd(RoomTracker Room_obj)
+    {
+        Rooms.Add(Room_obj);
     }
 
     void PlayingDialogue(DialogueGraph graph)
