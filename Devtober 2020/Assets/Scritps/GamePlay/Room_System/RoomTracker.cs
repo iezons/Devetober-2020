@@ -64,47 +64,14 @@ namespace GamePlay
         }
 
         #region Information Pool
-        public List<GameObject> AllObjs()
+        public List<GameObject> Item()
         {
-            List<GameObject> tempobjs = new List<GameObject>();
-            foreach (Collider temp in hitInformation)
+            List<GameObject> tempItem = new List<GameObject>();
+            foreach (Collider item in hitInformation)
             {
-                tempobjs.Add(temp.gameObject);
+                tempItem.Add(item.gameObject);
             }
-            return tempobjs;
-        }
-
-        public List<GameObject> Enemy()
-        {
-            List<GameObject> tempObjs = new List<GameObject>();
-            foreach (GameObject temp in AllObjs())
-            {
-                if (temp.layer == 10)
-                    tempObjs.Add(temp);
-            }
-            return tempObjs;
-        }
-
-        public List<GameObject> NPC()
-        {
-            List<GameObject> tempObjs = new List<GameObject>();
-            foreach (GameObject temp in AllObjs())
-            {
-                if (temp.layer == 8)
-                    tempObjs.Add(temp);
-            }
-            return tempObjs;
-        }
-
-        public List<GameObject> HiddenPos()
-        {
-            List<GameObject> tempObjs = new List<GameObject>();
-            foreach (GameObject temp in AllObjs())
-            {
-                if (temp.layer == 11)
-                    tempObjs.Add(temp);
-            }
-            return tempObjs;
+            return tempItem;
         }
 
         public string RoomName()
