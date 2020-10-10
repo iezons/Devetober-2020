@@ -337,15 +337,15 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if(NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassA.Name)
+                                            if(NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassA.Name)
                                             {
-                                                NPC[b].npc_so.toDoList.Add(evt);
-                                                NPCAgentList.Add(NPC[b].npc_so.npcName, false);
+                                                NPC[b].status.toDoList.Add(evt);
+                                                NPCAgentList.Add(NPC[b].status.npcName, false);
                                             }
-                                            else if (NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassB.Name)
+                                            else if (NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassB.Name)
                                             {
-                                                NPC[b].npc_so.toDoList.Add(evt);
-                                                NPCAgentList.Add(NPC[b].npc_so.npcName, false);
+                                                NPC[b].status.toDoList.Add(evt);
+                                                NPCAgentList.Add(NPC[b].status.npcName, false);
                                             }
                                         }
                                         graph = evt.NPCTalking[a].Graph;
@@ -356,9 +356,9 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if (NPC[b].npc_so.npcName == evt.NPCWayPoint[a].Name)
+                                            if (NPC[b].status.npcName == evt.NPCWayPoint[a].Name)
                                             {
-                                                NPC[b].npc_so.toDoList.Add(evt);
+                                                NPC[b].status.toDoList.Add(evt);
                                             }
                                         }
                                     }
