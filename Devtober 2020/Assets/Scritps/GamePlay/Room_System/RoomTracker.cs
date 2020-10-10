@@ -70,9 +70,9 @@ namespace GamePlay
             return tempItem;
         }
 
-        public string RoomNumber()
+        public string RoomName()
         {
-            return hitRooms.collider.gameObject.tag.ToString();
+            return hitRooms.collider.gameObject.name;
         }
 
         public GameObject Room()

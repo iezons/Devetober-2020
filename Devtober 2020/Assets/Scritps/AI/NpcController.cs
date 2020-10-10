@@ -75,12 +75,13 @@ public class NpcController : MonoBehaviour
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -122,9 +123,11 @@ public class NpcController : MonoBehaviour
                 Dodging();
                 break;
             case "Hiding":
-                print("Hiding");
                 Hiding();
                // CompleteHiding();
+                break;
+            case "Escaping":
+                Escaping();
                 break;
             default:
                 break;
@@ -236,6 +239,33 @@ public class NpcController : MonoBehaviour
                 Dispatch(objs[i].transform.position);
             }
         }
+        print(GameManager.GetInstance().Rooms.Count);
+    }
+
+    void Escaping()
+    {
+        List<RoomTracker> rooms = new List<RoomTracker>();
+        foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
+        {
+            rooms.Add(temp);
+        }
+
+        List<string> names = new List<string>();
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            names.Add(rooms[i].RoomName());
+        }
+
+        RaycastHit hitrooms;
+        Physics.Raycast(transform.position, -transform.up, out hitrooms, patrolRange.y, 9);
+        
+        for(int i = 0; i < names.Count; i++)
+        {
+            if(hitrooms.collider.gameObject.name == names[i])
+            {
+
+            }
+        }
     }
 
     private void Event()
@@ -304,6 +334,17 @@ public class NpcController : MonoBehaviour
             m_fsm.ChangeState("Dodging");
         }
     }
+    public void TriggerHiding()
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Hiding");
+    }
+
+    public void TriggerEscaping()
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Escaping");
+    }
 
     public void CompleteHiding()
     {
@@ -333,11 +374,6 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    public void TriggerHiding()
-    {
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Hiding");
-    }
 
     #endregion
 
