@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
-
+using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcController : MonoBehaviour
@@ -29,8 +29,8 @@ public class NpcController : MonoBehaviour
 
         public List<EventSO> toDoList;
     }
-    [SerializeField]
-    Status status = null;
+
+    public Status status = null;
 
     [System.Serializable]
     public class PatrolRange
@@ -69,8 +69,10 @@ public class NpcController : MonoBehaviour
     StringRestrictedFiniteStateMachine m_fsm;
     Animator animator;
 
+    [Obsolete]
     public NPC_SO npc_so;
 
+    
 
     NavMeshAgent navAgent;
     NavMeshPath path;
@@ -92,7 +94,7 @@ public class NpcController : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
-        npc_so.toDoList.Clear();
+        status.toDoList.Clear();
 
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
@@ -115,8 +117,6 @@ public class NpcController : MonoBehaviour
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
         AddMenu("Move", "Move", Dispatch);
-
-        
     }
 
     public void AddMenu(string unchangedName, string functionName, MenuHandler function)
@@ -173,8 +173,8 @@ public class NpcController : MonoBehaviour
     #region Move
     public Vector3 NewDestination()
     {
-        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+        float x = UnityEngine.Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
+        float z = UnityEngine.Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
 
         Vector3 tempPos = new Vector3(x, transform.position.y, z);     
         return tempPos;
@@ -206,9 +206,9 @@ public class NpcController : MonoBehaviour
     private void Rest()
     {
         navAgent.ResetPath();
-        if (npc_so.currentStamina >= npc_so.maxStamina)
+        if (status.currentStamina >= status.maxStamina)
         {
-            npc_so.currentStamina = npc_so.maxStamina;
+            status.currentStamina = status.maxStamina;
             BackToPatrol();
         }
     }
@@ -294,19 +294,19 @@ public class NpcController : MonoBehaviour
 
     private void Event()
     {
-        for (int i = 0; i < npc_so.toDoList.Count; i++)
+        for (int i = 0; i < status.toDoList.Count; i++)
         {
-            EventSO evt = npc_so.toDoList[0];
+            EventSO evt = status.toDoList[0];
             switch (evt.doingWithNPC)
             {
                 case DoingWithNPC.Talking:
                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                     {
-                        if (evt.NPCTalking[a].MoveToClassA.Name == npc_so.npcName)
+                        if (evt.NPCTalking[a].MoveToClassA.Name == status.npcName)
                         {
                             Dispatch(evt.NPCTalking[a].MoveToClassA.MoveTO);
                         }
-                        else if (evt.NPCTalking[a].MoveToClassB.Name == npc_so.npcName)
+                        else if (evt.NPCTalking[a].MoveToClassB.Name == status.npcName)
                         {
                             Dispatch(evt.NPCTalking[a].MoveToClassB.MoveTO);
                         }
@@ -315,7 +315,7 @@ public class NpcController : MonoBehaviour
                 case DoingWithNPC.MoveTo:
                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                     {
-                        if (evt.NPCWayPoint[a].Name == npc_so.npcName)
+                        if (evt.NPCWayPoint[a].Name == status.npcName)
                         {
                             Dispatch(evt.NPCWayPoint[a].MoveTO);
                         }
@@ -326,7 +326,7 @@ public class NpcController : MonoBehaviour
                 default:
                     break;
             }
-            npc_so.toDoList.Remove(evt);
+            status.toDoList.Remove(evt);
         }
     }
 
@@ -381,9 +381,9 @@ public class NpcController : MonoBehaviour
     
     public void CheckEvent()
     {
-        if(npc_so.toDoList != null)
+        if(status.toDoList != null)
         {
-            if(npc_so.toDoList.Count != 0)
+            if(status.toDoList.Count != 0)
             {
                 m_fsm.ChangeState("Event");
             }
@@ -394,7 +394,7 @@ public class NpcController : MonoBehaviour
     {
         if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
         {
-            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", npc_so.npcName);
+            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
         }
     }
 

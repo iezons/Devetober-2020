@@ -23,17 +23,36 @@ public class GameManager : SingletonBase<GameManager>
     public EventGraph eventGraph;
     public DialoguePlay DiaPlay;
     public List<RoomTracker> Rooms;
+    public List<GameObject> NPCList;
+    public List<GameObject> LastNPCList;
+    RoomTracker CurrentRoom;
     public List<NpcController> NPC;
     public GameManagerState gmState;
-    public string HistoryText;
-    public TMP_Text TMPText;
-    public GameObject OptionButtonPrefab;
-    public List<Button> Option;
-    public Transform ButtonContent;
-    public RectTransform RightClickMenuPanel;
-    public GameObject RCButton;
-    public List<GameObject> RightClickButton;
-    public RectTransform Canvas;
+    string HistoryText = string.Empty;
+    [SerializeField]
+    TMP_Text TMPText;
+    [SerializeField]
+    GameObject OptionButtonPrefab;
+    [SerializeField]
+    List<Button> Option;
+    [SerializeField]
+    Transform ButtonContent;
+    [SerializeField]
+    RectTransform RightClickMenuPanel;
+    [SerializeField]
+    GameObject RCButton;
+    [SerializeField]
+    List<GameObject> RightClickButton = new List<GameObject>();
+    [SerializeField]
+    RectTransform Canvas;
+    [SerializeField]
+    RectTransform NPCListPanel;
+    [SerializeField]
+    GameObject NPCListBtn;
+    List<GameObject> NPCListButtons = new List<GameObject>();
+
+    List<Camera> cameraList = new List<Camera>();
+    public Camera CurrentCamera;
 
     bool justEnter = true;
     DialogueGraph graph;
@@ -51,6 +70,29 @@ public class GameManager : SingletonBase<GameManager>
         EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
+    }
+
+    void Start()
+    {
+        //Add Camera
+        for (int i = 0; i < Camera.allCameras.Length; i++)
+        {
+            cameraList.Add(Camera.allCameras[i]);
+        }
+        CameraSwtich("Camera 9");
+    }
+
+    public void CameraSwtich(string camName)
+    {
+        for (int i = 0; i < cameraList.Count; i++)
+        {
+            cameraList[i].gameObject.SetActive(false);
+            if (cameraList[i].gameObject.name == camName)
+            {
+                cameraList[i].gameObject.SetActive(true);
+                CurrentCamera = cameraList[i];
+            }
+        }
     }
 
     void Next(int index)
@@ -124,14 +166,38 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
+        if (Rooms != null)
+        {
+            if (Rooms.Count >= 1)
+            {
+                CurrentRoom = Rooms[0];
+
+                NPCList = CurrentRoom.NPC();
+
+                if(NPCList != LastNPCList)
+                {
+                    for (int i = 0; i < NPCListButtons.Count; i++)
+                    {
+                        Destroy(NPCListButtons[i]);
+                    }
+                    NPCListButtons.Clear();
+
+                    for (int i = 0; i < NPCList.Count; i++)
+                    {
+                        GameObject obj = Instantiate(NPCListBtn);
+                        NPCListButtons.Add(obj);
+                        obj.transform.SetParent(NPCListPanel, false);
+                        obj.name = NPCList[i].GetComponent<NpcController>().status.npcName;
+                        obj.GetComponentInChildren<Text>().text = NPCList[i].GetComponent<NpcController>().status.npcName;
+                    }
+                    LastNPCList = NPCList;
+                }
+            }
+        }
+
         StartCoroutine(UpdateText());
         
         //Check is it the time to play dialogue graph
@@ -189,24 +255,22 @@ public class GameManager : SingletonBase<GameManager>
         {
             ClearRightClickButton();
             Ray ray = CameraManager.GetInstance().Current.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-            if(Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 GameObject gameObj = hitInfo.collider.gameObject;
-                NpcController npcCTRL;
                 List<DoorController> doorController;
-                gameObj.TryGetComponent(out npcCTRL);
+                gameObj.TryGetComponent(out NpcController npcCTRL);
                 //gameObj.TryGetComponent(out doorController);
                 doorController = gameObj.GetComponentsInParent<DoorController>().ToList();
                 Debug.Log(gameObj.name);
-                if(npcCTRL != null)
+                if (npcCTRL != null)
                 {
                     SetupRightClickMenu(npcCTRL.rightClickMenus);
                 }
-                else if(doorController != null)
+                else if (doorController != null)
                 {
-                    if(doorController.Count >= 1)
+                    if (doorController.Count >= 1)
                     {
                         SetupRightClickMenu(doorController[0].rightClickMenus);
                     }
@@ -337,15 +401,15 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if(NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassA.Name)
+                                            if(NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassA.Name)
                                             {
-                                                NPC[b].npc_so.toDoList.Add(evt);
-                                                NPCAgentList.Add(NPC[b].npc_so.npcName, false);
+                                                NPC[b].status.toDoList.Add(evt);
+                                                NPCAgentList.Add(NPC[b].status.npcName, false);
                                             }
-                                            else if (NPC[b].npc_so.npcName == evt.NPCTalking[a].MoveToClassB.Name)
+                                            else if (NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassB.Name)
                                             {
-                                                NPC[b].npc_so.toDoList.Add(evt);
-                                                NPCAgentList.Add(NPC[b].npc_so.npcName, false);
+                                                NPC[b].status.toDoList.Add(evt);
+                                                NPCAgentList.Add(NPC[b].status.npcName, false);
                                             }
                                         }
                                         graph = evt.NPCTalking[a].Graph;
@@ -356,9 +420,9 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if (NPC[b].npc_so.npcName == evt.NPCWayPoint[a].Name)
+                                            if (NPC[b].status.npcName == evt.NPCWayPoint[a].Name)
                                             {
-                                                NPC[b].npc_so.toDoList.Add(evt);
+                                                NPC[b].status.toDoList.Add(evt);
                                             }
                                         }
                                     }

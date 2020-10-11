@@ -166,7 +166,7 @@ public class EnemyController : MonoBehaviour
             hasAttacked = true;
             navAgent.ResetPath();
             NpcController attackedNPC = attackable[attackable.Length - 1].gameObject.GetComponent<NpcController>();
-            attackedNPC.npc_so.TakeDamage(attackDamage);
+            attackedNPC.TakeDamage(attackDamage);
             
             m_fsm.ChangeState("Rest");
         }

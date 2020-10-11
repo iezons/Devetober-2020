@@ -519,9 +519,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventGraph: {fileID: 11400000, guid: 5abc6c5e75e981140b285df92ea8a0a6, type: 2}
+  DiaPlay: {fileID: 0}
+  Rooms: []
   NPC: []
-  Room: []
   gmState: 0
+  HistoryText: 
+  TMPText: {fileID: 0}
+  OptionButtonPrefab: {fileID: 0}
+  Option: []
+  ButtonContent: {fileID: 0}
+  RightClickMenuPanel: {fileID: 0}
+  RCButton: {fileID: 0}
+  RightClickButton: []
+  Canvas: {fileID: 0}
+  Current: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
