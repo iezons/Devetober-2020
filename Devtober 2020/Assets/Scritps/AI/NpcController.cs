@@ -38,13 +38,11 @@ public class NpcController : MonoBehaviour
         [Range(0f, 50f)]
         public float maxX = 0;
         [Range(0f, 50f)]
-        public float minX = 0;
-        [Range(0f, 50f)]
         public float y = 0;
         [Range(0f, 50f)]
         public float maxZ = 0;
         [Range(0f, 50f)]
-        public float minZ = 0;
+        public float banned = 0;
     }
     [SerializeField]
     PatrolRange patrolRange = null;
@@ -68,12 +66,6 @@ public class NpcController : MonoBehaviour
     #region Fields
     StringRestrictedFiniteStateMachine m_fsm;
     Animator animator;
-
-    [Obsolete]
-    public NPC_SO npc_so;
-
-    
-
     NavMeshAgent navAgent;
     NavMeshPath path;
     #endregion
@@ -85,6 +77,10 @@ public class NpcController : MonoBehaviour
 
     public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
     Transform finalPos;
+
+    List<RoomTracker> roomScripts = new List<RoomTracker>();
+    List<GameObject> hiddenSpots = new List<GameObject>();
+    public List<GameObject> rooms = new List<GameObject>();
     #endregion
 
 
@@ -117,6 +113,22 @@ public class NpcController : MonoBehaviour
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
         AddMenu("Move", "Move", Dispatch);
+
+        foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
+        {
+            roomScripts.Add(temp);
+        }
+        for (int i = 0; i < roomScripts.Count; i++)
+        {
+            foreach (GameObject temp in roomScripts[i].HiddenPos())
+            {
+                hiddenSpots.Add(temp);
+            }
+        }
+        for (int i = 0; i < roomScripts.Count; i++)
+        {
+            rooms.Add(roomScripts[i].Room());
+        }
     }
 
     public void AddMenu(string unchangedName, string functionName, MenuHandler function)
@@ -137,8 +149,11 @@ public class NpcController : MonoBehaviour
                 TriggerDodging();
                 break;
             case "Rest":
-                animator.SetFloat("Ground", 0);
                 //Rest();
+            if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    BackToPatrol();
+                }
                 break;
             case "Event":
                 Event();
@@ -148,25 +163,25 @@ public class NpcController : MonoBehaviour
                 Dodging();
                 break;
             case "Hiding":
-                Hiding();
+                Dispatch(finalPos.position);
                 CompleteHiding();
                 break;
             case "Escaping":
-                Escaping();
+                Dispatch(finalPos.position);
+                CompleteEscaping();
                 break;
             default:
                 break;
         }
         #endregion
-
         //CheckEvent();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
+        {
+            TriggerEscaping();
+        }
+        else if(Input.GetMouseButtonDown(1))
         {
             TriggerHiding();
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            BackToPatrol();
         }
     }
 
@@ -185,12 +200,7 @@ public class NpcController : MonoBehaviour
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < 1 || !navAgent.CalculatePath(currentTerminalPos, path) 
-            
-            //|| currentPos.x > transform.position.x - patrolRange.minX / 2
-            //|| currentPos.x < transform.position.x + patrolRange.minX / 2
-            //|| currentPos.z > transform.position.z - patrolRange.minZ / 2
-            //|| currentPos.z < transform.position.x + patrolRange.minZ / 2 
+        if (Mathf.Abs(c) < patrolRange.banned || !navAgent.CalculatePath(currentTerminalPos, path) 
             )
         {
             currentTerminalPos = NewDestination();
@@ -200,7 +210,7 @@ public class NpcController : MonoBehaviour
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
-        animator.SetFloat("Ground", 1);
+        //animator.SetFloat("Ground", 1);
     }
 
 
@@ -230,7 +240,9 @@ public class NpcController : MonoBehaviour
             float b = currentTerminalPos.z - transform.position.z;
             float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
 
-            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 || Mathf.Abs(c) < 1 || !navAgent.CalculatePath(currentTerminalPos, path))
+            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 
+                || Mathf.Abs(c) < patrolRange.banned
+                || !navAgent.CalculatePath(currentTerminalPos, path))
             {
                 currentTerminalPos = NewDestination();
             }
@@ -243,64 +255,9 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    private void Hiding()
-    {
-        List<RoomTracker> rooms = new List<RoomTracker>();
-        foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
-        {
-            rooms.Add(temp);
-        }
-
-        List<GameObject> objs = new List<GameObject>();
-        for (int i = 0; i< rooms.Count; i++)
-        {
-            foreach(GameObject temp in rooms[i].HiddenPos())
-            {
-                objs.Add(temp);
-            }
-        }
-
-        float minDistance = Mathf.Infinity;
-        foreach (GameObject temp in objs)
-        {
-            float a = temp.transform.position.x - transform.position.x;
-            float b = temp.transform.position.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            float distance = Mathf.Abs(c);
-            
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                finalPos = temp.transform;
-            }
-        }
-        Dispatch(finalPos.position);
-    }
-
     void Escaping()
     {
-        List<RoomTracker> rooms = new List<RoomTracker>();
-        foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
-        {
-            rooms.Add(temp);
-        }
-
-        List<string> names = new List<string>();
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            names.Add(rooms[i].RoomName());
-        }
-
-        RaycastHit hitrooms;
-        Physics.Raycast(transform.position, -transform.up, out hitrooms, patrolRange.y, 9);
         
-        for(int i = 0; i < names.Count; i++)
-        {
-            if(hitrooms.collider.gameObject.name == names[i])
-            {
-
-            }
-        }
     }
 
     private void Event()
@@ -352,6 +309,7 @@ public class NpcController : MonoBehaviour
 
     public void BackToPatrol()
     {
+        currentTerminalPos = NewDestination();
         m_fsm.ChangeState("Patrol");
     }
 
@@ -372,24 +330,73 @@ public class NpcController : MonoBehaviour
     public void TriggerHiding()
     {
         navAgent.ResetPath();
+        
+        float minDistance = Mathf.Infinity;
+        foreach (GameObject temp in hiddenSpots)
+        {
+            float a = temp.transform.position.x - transform.position.x;
+            float b = temp.transform.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                finalPos = temp.transform;
+            }
+        }
         m_fsm.ChangeState("Hiding");
     }
-
     public void TriggerEscaping()
     {
         navAgent.ResetPath();
+        
+        RaycastHit hitroom;
+        Physics.Raycast(transform.position, -transform.up, out hitroom, patrolRange.y, (int)Mathf.Pow(2, 9));
+        //float temp = Mathf.Infinity;
+        foreach(GameObject temp in rooms)
+        {
+            if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
+            {
+                finalPos = temp.transform;
+                break;
+            }
+        }
+        //for (int i = 0; i < rooms.Count; i++)
+        //{
+        //    if (!rooms[i].GetComponent<RoomTracker>().isEnemyDetected())
+        //    {
+        //        finalPos = rooms[i].transform.position;
+        //    }
+        //    //if (hitroom.collider.gameObject == rooms[i])
+        //    //{
+        //    //    print(rooms[(int)temp].name);
+        //    //    //i += UnityEngine.Random.Range(0, 2) * 2 - 1;
+        //    //    //names[i]
+        //    //    //print("151");
+        //    //}
+        //}
+
         m_fsm.ChangeState("Escaping");
     }
 
     public void CompleteHiding()
     {
-        if (Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
+        float a = navAgent.destination.x - transform.position.x;
+        float b = navAgent.destination.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        if (Mathf.Abs(c) < 1)
         {
             navAgent.ResetPath();
             m_fsm.ChangeState("Rest");
         }
     }
-    
+    public void CompleteEscaping()
+    {
+
+    }
+
+
     public void CheckEvent()
     {
         if(status.toDoList != null)
@@ -457,7 +464,7 @@ public class NpcController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.maxX, 0, patrolRange.maxZ));
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.minX, 0, patrolRange.minZ));
+        Gizmos.DrawWireSphere(transform.position, patrolRange.banned);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentTerminalPos, 1);
         Gizmos.color = Color.red;

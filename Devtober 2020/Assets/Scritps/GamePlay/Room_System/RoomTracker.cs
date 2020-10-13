@@ -25,8 +25,8 @@ namespace GamePlay
         [SerializeField]
         LayerMask canDetected = 0;
 
-        [SerializeField]
-        LayerMask canRoomTracked = 0;
+        //[SerializeField]
+        //LayerMask canRoomTracked = 0;
 
         [SerializeField]
         LayerMask reportEmergency = 0;
@@ -39,7 +39,7 @@ namespace GamePlay
 
         #region Value
 
-        RaycastHit hitRooms;
+        //RaycastHit hitRoom;
 
         bool tempCheck;
 
@@ -59,8 +59,8 @@ namespace GamePlay
         {
             //Track Object in the area
             hitInformation = Physics.OverlapBox(transform.position, new Vector3 (scaleRate.x, scaleRate.y, scaleRate.z)/2, Quaternion.identity, canDetected);
-            //Track Room Number
-            Physics.Raycast(transform.position, -transform.up, out hitRooms, scaleRate.y / 2, canRoomTracked);
+            ////Track Room Number
+            //Physics.Raycast(transform.position, -transform.up, out hitRoom, scaleRate.y / 2, canRoomTracked);
         }
 
         #region Information Pool
@@ -109,12 +109,12 @@ namespace GamePlay
 
         public string RoomName()
         {
-            return hitRooms.collider.gameObject.name;
+            return this.gameObject.name;
         }
 
         public GameObject Room()
         {
-            return hitRooms.collider.gameObject;
+            return this.gameObject;
         }
 
         public bool isEnemyDetected()
