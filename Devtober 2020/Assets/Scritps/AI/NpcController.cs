@@ -182,7 +182,11 @@ public class NpcController : MonoBehaviour
 
     private void GenerateNewDestination()
     {
-        if (Vector3.Distance(currentTerminalPos, transform.position) < 1 || !navAgent.CalculatePath(currentTerminalPos, path) 
+        float a = currentTerminalPos.x - transform.position.x;
+        float b = currentTerminalPos.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        if (Mathf.Abs(c) < 1 || !navAgent.CalculatePath(currentTerminalPos, path) 
+            
             //|| currentPos.x > transform.position.x - patrolRange.minX / 2
             //|| currentPos.x < transform.position.x + patrolRange.minX / 2
             //|| currentPos.z > transform.position.z - patrolRange.minZ / 2
@@ -222,7 +226,11 @@ public class NpcController : MonoBehaviour
             Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
             Vector3 movingDirection = (currentTerminalPos- transform.position).normalized;
 
-            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 || Vector3.Distance(currentTerminalPos, transform.position) < 1 || !navAgent.CalculatePath(currentTerminalPos, path))
+            float a = currentTerminalPos.x - transform.position.x;
+            float b = currentTerminalPos.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+
+            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 || Mathf.Abs(c) < 1 || !navAgent.CalculatePath(currentTerminalPos, path))
             {
                 currentTerminalPos = NewDestination();
             }
@@ -255,7 +263,10 @@ public class NpcController : MonoBehaviour
         float minDistance = Mathf.Infinity;
         foreach (GameObject temp in objs)
         {
-            float distance = Vector3.Distance(transform.position, temp.transform.position);
+            float a = temp.transform.position.x - transform.position.x;
+            float b = temp.transform.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
             
             if (distance < minDistance)
             {
