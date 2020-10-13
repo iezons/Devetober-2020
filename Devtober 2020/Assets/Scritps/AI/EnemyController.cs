@@ -36,11 +36,7 @@ public class EnemyController : MonoBehaviour
         [Range(0f, 50f)]
         public float maxX = 0;
         [Range(0f, 50f)]
-        public float minX = 0;
-        [Range(0f, 50f)]
         public float maxZ = 0;
-        [Range(0f, 50f)]
-        public float minZ = 0;
     }
     [SerializeField]
     PatrolRange patrolRange = null;
@@ -126,11 +122,10 @@ public class EnemyController : MonoBehaviour
     }
     private void GenerateNewDestination()
     {
-        if (Vector3.Distance(currentPos, transform.position) < 1 || !navAgent.CalculatePath(currentPos, path)
-            //|| currentPos.x > transform.position.x - patrolRange.minX / 2
-            //|| currentPos.x < transform.position.x + patrolRange.minX / 2
-            //|| currentPos.z > transform.position.z - patrolRange.minZ / 2
-            //|| currentPos.z < transform.position.x + patrolRange.minZ / 2 
+        float a = currentPos.x - transform.position.x;
+        float b = currentPos.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        if (Mathf.Abs(c) < 1 || !navAgent.CalculatePath(currentPos, path)
             )
         {
             currentPos = NewDestination();
@@ -223,8 +218,6 @@ public class EnemyController : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.maxX, 0, patrolRange.maxZ));
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.minX, 0, patrolRange.minZ));
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentPos, 1);
     }

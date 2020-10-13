@@ -100,14 +100,20 @@ public class DoorController : MonoBehaviour
     {
         if (isActivated() && !isLocked && !isOpened)
         {
-            door.transform.position = Vector3.Lerp(door.transform.position, moveEnd, lerpTime * Time.deltaTime);
-            isOpened = Vector3.Distance(door.transform.position, moveEnd) < 0.1f ? true : false; ;
+            door.transform.position = Vector3.Lerp(door.transform.position, moveEnd + transform.position, lerpTime * Time.deltaTime);
+            float a = door.transform.position.x - (moveEnd.x + transform.position.x);
+            float b = door.transform.position.z - (moveEnd.z + transform.position.z);
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            isOpened = Mathf.Abs(c) < 0.1f ? true : false; ;
             isClosed = false;
         }
         else if (!isActivated() && !isClosed || isLocked)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, transform.position, lerpTime * Time.deltaTime);
-            isOperating = Vector3.Distance(door.transform.position, transform.position) > 0.1f ? true : false;
+            float a = door.transform.position.x - transform.position.x;
+            float b = door.transform.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            isOperating = Mathf.Abs(c) > 0.1f ? true : false;
             isClosed = !isOperating;
             isOpened = false;
         }
@@ -119,7 +125,7 @@ public class DoorController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(detectRange.x, detectRange.y, detectRange.z));
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(moveEnd, 1);
+        Gizmos.DrawWireSphere(moveEnd+transform.position, 1);
     }
     #endregion
 }
