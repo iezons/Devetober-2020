@@ -10,6 +10,7 @@ using GamePlay;
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using UnityEngine.AI;
 
 public enum GameManagerState
 {
@@ -57,6 +58,8 @@ public class GameManager : SingletonBase<GameManager>
     bool justEnter = true;
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
+
+    public NavMeshSurface nav;
 
     // Start is called before the first frame update
     void Awake()
@@ -169,6 +172,7 @@ public class GameManager : SingletonBase<GameManager>
     // Update is called once per frame
     void Update()
     {
+        //nav.BuildNavMesh();
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
