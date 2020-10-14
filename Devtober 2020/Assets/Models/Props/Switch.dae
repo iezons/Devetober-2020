@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author/>
+      <authoring_tool>FBX COLLADA exporter</authoring_tool>
+      <comments/>
+    </contributor>
+    <created>2020-10-13T03:51:02Z</created>
+    <keywords/>
+    <modified>2020-10-13T03:51:02Z</modified>
+    <revision/>
+    <subject/>
+    <title/>
+    <unit meter="0.010000" name="centimeter"/>
+    <up_axis>Y_UP</up_axis>
+  </asset>
+  <library_materials>
+    <material id="Handle_Metal_Red" name="Handle_Metal_Red">
+      <instance_effect url="#Handle_Metal_Red-fx"/>
+    </material>
+    <material id="Metal_light_grey2" name="Metal_light_grey2">
+      <instance_effect url="#Metal_light_grey2-fx"/>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="Handle_Metal_Red-fx" name="Handle_Metal_Red">
+      <profile_COMMON>
+        <technique sid="standard">
+          <phong>
+            <emission>
+              <color sid="emission">0.000000  0.000000 0.000000 1.000000</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0.000000  0.000000 0.000000 1.000000</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.199200  0.000000 0.000000 1.000000</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.500000  0.500000 0.500000 1.000000</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">6.311791</float>
+            </shininess>
+            <reflective>
+              <color sid="reflective">0.000000  0.000000 0.000000 1.000000</color>
+            </reflective>
+            <reflectivity>
+              <float sid="reflectivity">0.500000</float>
+            </reflectivity>
+            <transparent opaque="RGB_ZERO">
+              <color sid="transparent">0.000000  0.000000 0.000000 1.000000</color>
+            </transparent>
+            <transparency>
+              <float sid="transparency">1.000000</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="Metal_light_grey2-fx" name="Metal_light_grey2">
+      <profile_COMMON>
+        <technique sid="standard">
+          <phong>
+            <emission>
+              <color sid="emission">0.000000  0.000000 0.000000 1.000000</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0.000000  0.000000 0.000000 1.000000</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.276800  0.276800 0.276800 1.000000</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.500000  0.500000 0.500000 1.000000</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">6.311791</float>
+            </shininess>
+            <reflective>
+              <color sid="reflective">0.000000  0.000000 0.000000 1.000000</color>
+            </reflective>
+            <reflectivity>
+              <float sid="reflectivity">0.500000</float>
+            </reflectivity>
+            <transparent opaque="RGB_ZERO">
+              <color sid="transparent">0.000000  0.000000 0.000000 1.000000</color>
+            </transparent>
+            <transparency>
+              <float sid="transparency">1.000000</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="Switch-lib" name="SwitchMesh">
+      <mesh>
+        <source id="Switch-POSITION">
+          <float_array id="Switch-POSITION-array" count="72">
+-0.500000 -0.500000 0.500000
+0.500000 -0.500000 0.500000
+-0.500000 0.500000 0.500000
+0.500000 0.500000 0.500000
+-0.500000 0.500000 -0.500000
+0.500000 0.500000 -0.500000
+-0.500000 -0.500000 -0.500000
+0.500000 -0.500000 -0.500000
+-0.348679 -0.348678 0.500000
+0.348678 -0.348678 0.500000
+0.348678 0.348678 0.500000
+-0.348679 0.348678 0.500000
+-0.348679 -0.348678 0.219436
+0.348678 -0.348678 0.219436
+0.348678 0.348678 0.219436
+-0.348679 0.348678 0.219436
+-0.277198 0.133969 0.219436
+0.277197 0.133969 0.219436
+0.277197 0.256582 0.219436
+-0.277198 0.256582 0.219436
+-0.277198 0.133969 0.465338
+0.277197 0.133969 0.465338
+0.277197 0.256582 0.465338
+-0.277198 0.256582 0.465338
+</float_array>
+          <technique_common>
+            <accessor source="#Switch-POSITION-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Switch-Normal0">
+          <float_array id="Switch-Normal0-array" count="378">
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+-0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 1.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+-0.000000 -1.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+1.000000 0.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+0.000000 1.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+-1.000000 0.000000 0.000000
+</float_array>
+          <technique_common>
+            <accessor source="#Switch-Normal0-array" count="126" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Switch-UV0">
+          <float_array id="Switch-UV0-array" count="100">
+0.501495 0.527060
+0.101618 0.526796
+0.013180 0.526737
+0.589933 0.527118
+0.207585 0.550517
+0.553140 0.550517
+0.500105 0.797449
+0.255302 0.796967
+0.010499 0.796485
+0.744908 0.797932
+0.553140 0.066648
+0.207585 0.066648
+0.734062 0.582657
+0.499228 0.582126
+0.029563 0.581062
+0.264396 0.581594
+0.970738 0.224382
+0.731544 0.224382
+0.970738 0.559318
+0.731544 0.559318
+0.101481 0.678488
+0.501358 0.678752
+0.989673 0.679075
+0.589797 0.678810
+0.259876 0.139868
+0.259876 0.477297
+0.500850 0.477297
+0.500850 0.139868
+0.756062 0.456195
+0.756062 0.515085
+0.946220 0.515085
+0.946220 0.456195
+0.990537 0.655412
+0.256127 0.653965
+0.500931 0.654448
+0.745734 0.654930
+0.092957 0.519363
+0.092957 0.392404
+0.502909 0.519363
+0.502909 0.392404
+0.013043 0.678430
+0.989811 0.527382
+0.011324 0.653483
+0.989711 0.798414
+0.499550 0.634494
+0.264718 0.633962
+0.029885 0.633431
+0.734384 0.635025
+0.968894 0.583189
+0.969216 0.635557
+</float_array>
+          <technique_common>
+            <accessor source="#Switch-UV0-array" count="50" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Switch-VERTEX">
+          <input semantic="POSITION" source="#Switch-POSITION"/>
+        </vertices>
+        <triangles count="10" material="Handle_Metal_Red">
+          <input semantic="VERTEX" offset="0" source="#Switch-VERTEX"/>
+          <input semantic="NORMAL" offset="1" source="#Switch-Normal0"/>
+          <input semantic="TEXCOORD" offset="2" set="0" source="#Switch-UV0"/>
+          <p> 22 0 38 23 1 36 20 2 37 22 3 38 20 4 37 21 5 39 21 102 1 20 103 0 16 104 21 21 105 1 16 106 21 17 107 20 21 108 1 17 109 20 22 110 2 22 111 2 17 112 20 18 113 40 23 114 3 22 115 41 18 116 22 23 117 3 18 118 22 19 119 23 23 120 3 19 121 23 20 122 0 20 123 0 19 124 23 16 125 21</p>
+        </triangles>
+        <triangles count="32" material="Metal_light_grey2">
+          <input semantic="VERTEX" offset="0" source="#Switch-VERTEX"/>
+          <input semantic="NORMAL" offset="1" source="#Switch-Normal0"/>
+          <input semantic="TEXCOORD" offset="2" set="0" source="#Switch-UV0"/>
+          <p> 3 6 34 5 7 6 2 8 33 2 9 33 5 10 6 4 11 7 1 12 35 0 13 32 6 14 43 1 15 35 6 16 43 7 17 9 3 18 34 1 19 35 5 20 6 1 21 35 7 22 9 5 23 6 2 24 33 6 25 8 0 26 42 6 27 8 2 28 33 4 29 7 0 30 11 1 31 10 9 32 27 0 33 11 9 34 27 8 35 24 3 36 5 9 37 27 1 38 10 9 39 27 3 40 5 10 41 26 3 42 5 2 43 4 11 44 25 3 45 5 11 46 25 10 47 26 2 48 4 0 49 11 8 50 24 2 51 4 8 52 24 11 53 25 8 54 13 9 55 12 13 56 47 8 57 13 13 58 47 12 59 44 14 60 49 9 61 12 10 62 48 9 63 12 14 64 49 13 65 47 10 66 14 11 67 15 15 68 45 10 69 14 15 70 45 14 71 46 12 72 44 11 73 15 8 74 13 11 75 15 12 76 44 15 77 45 17 78 31 16 79 28 12 80 17 17 81 31 12 82 17 13 83 16 14 84 18 17 85 31 13 86 16 17 87 31 14 88 18 18 89 30 15 90 19 18 91 30 14 92 18 18 93 30 15 94 19 19 95 29 15 96 19 12 97 17 16 98 28 15 99 19 16 100 28 19 101 29</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Switch" name="Switch">
+      <node name="Switch" id="Switch" sid="Switch">
+        <matrix sid="matrix">0.608166 0.000000 0.000000 0.000000 0.000000 0.745938 0.000000 2.376573 0.000000 0.000000 0.382031 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+        <instance_geometry url="#Switch-lib">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Handle_Metal_Red" target="#Handle_Metal_Red"/>
+              <instance_material symbol="Metal_light_grey2" target="#Metal_light_grey2"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="FCOLLADA">
+            <visibility>1.000000</visibility>
+          </technique>
+        </extra>
+      </node>
+      <extra>
+        <technique profile="MAX3D">
+          <frame_rate>24.000000</frame_rate>
+        </technique>
+        <technique profile="FCOLLADA">
+          <start_time>0.000000</start_time>
+          <end_time>8.333333</end_time>
+        </technique>
+      </extra>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Switch"/>
+  </scene>
+</COLLADA>

@@ -172,7 +172,7 @@ public class GameManager : SingletonBase<GameManager>
     // Update is called once per frame
     void Update()
     {
-        //nav.BuildNavMesh();
+        nav.BuildNavMesh();
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
