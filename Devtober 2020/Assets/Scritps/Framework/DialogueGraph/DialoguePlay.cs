@@ -69,7 +69,6 @@ public class DialoguePlay : MonoBehaviour
                 if (justEnter)
                 {
                     LastTimerValue = 0;
-                    MaxVisible = 0;
                     timervalue = 0;
                     LastTimerValue = -1;
                     justEnter = false;
@@ -95,10 +94,10 @@ public class DialoguePlay : MonoBehaviour
         }
     }
 
-    void LoadText(string Text)
+    void LoadText(string TalkingPersonName, string Text)
     {
-        MaxVisible = 0;
-        WholeText = Text;
+        WholeText = TalkingPersonName + ": " + Text;
+        MaxVisible = TalkingPersonName.Length + 2;
         WordCount = Text.Length;
     }
 
@@ -175,7 +174,7 @@ public class DialoguePlay : MonoBehaviour
         DialogueNode dia = currentGraph.current as DialogueNode;
         if (dia != null)
         {
-            LoadText(dia.Dialogue[dia.curIndex]);
+            LoadText(dia.TalkingPerson, dia.Dialogue[dia.curIndex]);
             n_state = NodeState.Dialogue;
         }
         else
