@@ -148,6 +148,9 @@ public class NpcController : MonoBehaviour
             case "Rest":
                 //Rest();
                 break;
+            case "Dispatch":
+                CompleteDispatching();
+                break;
             case "Event":
                 Event();
                 ReachDestination();
@@ -293,9 +296,9 @@ public class NpcController : MonoBehaviour
     #endregion
 
     #region Swtich State
-    public void ReadyForDispatch()
+    public void ReadyForDispatch(object newPos)
     {
-        navAgent.ResetPath();
+        navAgent.SetDestination((Vector3)newPos);
         m_fsm.ChangeState("Dispatch");
     }
 
@@ -396,6 +399,18 @@ public class NpcController : MonoBehaviour
     }
 
     public void CompleteEscaping()
+    {
+        float a = navAgent.destination.x - transform.position.x;
+        float b = navAgent.destination.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        if (Mathf.Abs(c) < 1)
+        {
+            navAgent.ResetPath();
+            BackToPatrol();
+        }
+    }
+
+    public void CompleteDispatching()
     {
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
