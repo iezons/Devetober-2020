@@ -95,6 +95,7 @@ public class EnemyController : MonoBehaviour
                 Discover();
                 break;
             case "Chase":
+                Discover();
                 Chasing();
                 lossTarget();
                 break;
@@ -148,8 +149,10 @@ public class EnemyController : MonoBehaviour
         //    float distance = Vector3.Distance(transform.position, hitObjects[i].transform.position);
         //    distanceBetweenNPC.Add(distance);
         //}
-
-        navAgent.SetDestination(hitObjects[hitObjects.Length-1].transform.position);
+        if (hitObjects.Length != 0)
+        {
+            navAgent.SetDestination(hitObjects[hitObjects.Length - 1].transform.position);
+        }
         Attacking();
     }
 
@@ -191,7 +194,7 @@ public class EnemyController : MonoBehaviour
     {
         hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
 
-        if (hitObjects.Length != 0 && !hasAttacked )
+        if (hitObjects.Length != 0 && !hasAttacked)
         {
             m_fsm.ChangeState("Chase");
         }

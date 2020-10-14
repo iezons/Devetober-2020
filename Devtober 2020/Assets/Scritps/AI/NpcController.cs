@@ -76,10 +76,11 @@ public class NpcController : MonoBehaviour
     public Vector3 currentTerminalPos;
 
     public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
-    Transform finalPos;
+    Transform finalHidingPos;
+    Transform finalEscapingPos;
 
-    List<RoomTracker> roomScripts = new List<RoomTracker>();
-    List<GameObject> hiddenSpots = new List<GameObject>();
+    public List<RoomTracker> roomScripts = new List<RoomTracker>();
+    public List<GameObject> hiddenSpots = new List<GameObject>();
     public List<GameObject> rooms = new List<GameObject>();
     #endregion
 
@@ -118,13 +119,9 @@ public class NpcController : MonoBehaviour
         {
             roomScripts.Add(temp);
         }
-        for (int i = 0; i < roomScripts.Count; i++)
-        {
-            foreach (GameObject temp in roomScripts[i].HiddenPos())
-            {
-                hiddenSpots.Add(temp);
-            }
-        }
+
+       
+
         for (int i = 0; i < roomScripts.Count; i++)
         {
             rooms.Add(roomScripts[i].Room());
@@ -150,10 +147,6 @@ public class NpcController : MonoBehaviour
                 break;
             case "Rest":
                 //Rest();
-            if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    BackToPatrol();
-                }
                 break;
             case "Event":
                 Event();
@@ -163,25 +156,24 @@ public class NpcController : MonoBehaviour
                 Dodging();
                 break;
             case "Hiding":
-                Dispatch(finalPos.position);
+                Dispatch(finalHidingPos.position);
                 CompleteHiding();
                 break;
             case "Escaping":
-                Dispatch(finalPos.position);
-                CompleteEscaping();
+                Dispatch(finalEscapingPos.position);
                 break;
             default:
                 break;
         }
         #endregion
         //CheckEvent();
-        if (Input.GetMouseButtonDown(0))
-        {
-            TriggerEscaping();
-        }
-        else if(Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             TriggerHiding();
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            BackToPatrol();
         }
     }
 
@@ -310,6 +302,7 @@ public class NpcController : MonoBehaviour
     public void BackToPatrol()
     {
         currentTerminalPos = NewDestination();
+        this.gameObject.layer = LayerMask.NameToLayer("NPC");
         m_fsm.ChangeState("Patrol");
     }
 
@@ -330,7 +323,14 @@ public class NpcController : MonoBehaviour
     public void TriggerHiding()
     {
         navAgent.ResetPath();
-        
+        for (int i = 0; i < roomScripts.Count; i++)
+        {
+            foreach (GameObject temp in roomScripts[i].HiddenPos())
+            {
+                hiddenSpots.Add(temp);
+            }
+        }
+
         float minDistance = Mathf.Infinity;
         foreach (GameObject temp in hiddenSpots)
         {
@@ -342,7 +342,7 @@ public class NpcController : MonoBehaviour
             if (distance < minDistance)
             {
                 minDistance = distance;
-                finalPos = temp.transform;
+                finalHidingPos = temp.transform;
             }
         }
         m_fsm.ChangeState("Hiding");
@@ -358,7 +358,7 @@ public class NpcController : MonoBehaviour
         {
             if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
             {
-                finalPos = temp.transform;
+                finalEscapingPos = temp.transform;
                 break;
             }
         }
@@ -388,15 +388,12 @@ public class NpcController : MonoBehaviour
         if (Mathf.Abs(c) < 1)
         {
             navAgent.ResetPath();
+            hiddenSpots.Clear();
+            this.gameObject.layer = LayerMask.NameToLayer("Safe");
             m_fsm.ChangeState("Rest");
         }
     }
-    public void CompleteEscaping()
-    {
-
-    }
-
-
+    
     public void CheckEvent()
     {
         if(status.toDoList != null)

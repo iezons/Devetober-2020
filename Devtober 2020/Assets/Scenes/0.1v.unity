@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 11840035}
   - component: {fileID: 11840034}
   - component: {fileID: 11840033}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,6 +619,8 @@ MonoBehaviour:
   hitObjects: []
   dodgeAngle: 220
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  roomScripts: []
+  hiddenSpots: []
   rooms: []
 --- !u!195 &96886512
 NavMeshAgent:
@@ -1929,6 +1931,8 @@ MonoBehaviour:
   hitObjects: []
   dodgeAngle: 0
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  roomScripts: []
+  hiddenSpots: []
   rooms: []
 --- !u!195 &669623104
 NavMeshAgent:
@@ -4227,6 +4231,8 @@ MonoBehaviour:
   hitObjects: []
   dodgeAngle: 0
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  roomScripts: []
+  hiddenSpots: []
   rooms: []
 --- !u!195 &1299025666
 NavMeshAgent:
@@ -4383,6 +4389,8 @@ MonoBehaviour:
   hitObjects: []
   dodgeAngle: 220
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  roomScripts: []
+  hiddenSpots: []
   rooms: []
 --- !u!195 &1363742128
 NavMeshAgent:
