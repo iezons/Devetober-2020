@@ -18,7 +18,9 @@ public class RightClickButtonSC : MonoBehaviour
     {
         if (menu.unchangedName == "Move")
         {
-            StartCoroutine(WaitForWayPoint());
+            GameManager.GetInstance().IsWaitingForMovePoint = true;
+            GameManager.GetInstance().MovePointFunction = menu;
+            Debug.Log("Move Do Function");
             transform.parent.gameObject.SetActive(false);
         }
         else

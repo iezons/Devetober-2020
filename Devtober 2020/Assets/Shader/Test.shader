@@ -75,7 +75,77 @@
             ENDCG
         }
 
+        Pass
+        {
+                Tags {"LightMode" = "ForwardAdd"}
+                Blend One One
+                CGPROGRAM
+                #pragma vertex vert
+                #pragma fragment frag
+                #pragma multi_compile_fwdadd_fullshadows
+
+                #include "UnityCG.cginc"
+                #include "Lighting.cginc"
+                #include "AutoLight.cginc"
+
+                struct v2f
+                {
+                    float4 pos : SV_POSITION;
+                    float3 texcoord : TEXCOORD0;
+                    float3 normal : TEXCOORD1;
+                    float3 wPos : TEXCOORD2;
+                    LIGHTING_COORDS(3, 4)
+                    //SHADOW_COORDS(2)
+                };
+                
+                sampler2D _MainTex;
+                float4 _MainTex_ST;
+                float4 _Color;
+                float _GeoRes;
+
+                v2f vert(appdata_base v)
+                {
+                    v2f o;
+                    float4 wp = mul(UNITY_MATRIX_MV, v.vertex);
+                    wp.xyz = floor(wp.xyz * _GeoRes) / _GeoRes;
+
+                    float4 sp = mul(UNITY_MATRIX_P, wp);
+                    o.pos = sp;
+                    //o.pos = UnityObjectToClipPos(data.vertex);
+
+                    float2 uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+                    o.texcoord = float3(uv * sp.w, sp.w);
+
+                    o.wPos = mul(unity_ObjectToWorld, v.vertex);
+
+                    o.normal = v.normal;
+
+                    //TRANSFER_SHADOW(o);
+                    TRANSFER_VERTEX_TO_FRAGMENT(o);
+                    return o;
+                }
+
+                float4 frag(v2f i) :SV_Target
+                {
+                    float2 uv = i.texcoord.xy / i.texcoord.z;
+
+                    float3 N = normalize(UnityObjectToWorldNormal(i.normal));//////
+
+                    float3 L = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.wPos.xyz, _WorldSpaceLightPos0.w));
+
+                    float atten = LIGHT_ATTENUATION(i);
+
+                    float4 col = tex2D(_MainTex, uv) * 2 * _Color;
+
+                    col.rgb *= _LightColor0.rgb * saturate(dot(N, L)) * atten;
+
+                    return col;
+                }
+                ENDCG
+        }
+
         // shadow casting support
         UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
     }
+    FallBack "Diffuse"
 }
