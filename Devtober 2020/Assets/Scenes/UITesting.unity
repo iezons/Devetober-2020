@@ -534,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &201844872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,7 +1106,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 85.61367, y: 0}
+  m_AnchoredPosition: {x: 79.60598, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &270494634
@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1923132226}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9917888
+  m_Size: 0.85610753
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2345,7 +2345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &635728647
 Animator:
   serializedVersion: 3
@@ -4042,16 +4042,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventGraph: {fileID: 11400000, guid: 5abc6c5e75e981140b285df92ea8a0a6, type: 2}
-  DiaPlay: {fileID: 1845769488}
-  Rooms: []
-  NPCList: []
-  LastNPCList: []
-  NPC: []
   gmState: 0
+  DiaPlay: {fileID: 1845769488}
   TMPText: {fileID: 270494635}
   OptionButtonPrefab: {fileID: 2105737472899111844, guid: 9d24c7f8acfab5c4e99d6488e1f6d923, type: 3}
   Option: []
   ButtonContent: {fileID: 141586341}
+  Rooms: []
+  NPCList: []
+  LastNPCList: []
+  NPC: []
+  RightClickLayermask:
+    serializedVersion: 2
+    m_Bits: 0
+  LeftClickLayermask:
+    serializedVersion: 2
+    m_Bits: 0
   RightClickMenuPanel: {fileID: 1906552892}
   RCButton: {fileID: 3319980946669896904, guid: a013ce12d3c777f40a089d16a745b958, type: 3}
   RightClickButton: []
@@ -5056,3 +5062,80 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2747295021792004951, guid: 977de20fc942d6842ad4491c192b092b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 977de20fc942d6842ad4491c192b092b, type: 3}
+--- !u!1 &2747295022354536902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3089807538138494491, guid: 977de20fc942d6842ad4491c192b092b, type: 3}
+  m_PrefabInstance: {fileID: 2747295022354536901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2747295022354536903
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747295022354536902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 6.501728, z: 1}
+  m_Center: {x: 0, y: 2.750864, z: 0}
+--- !u!114 &2747295022354536904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747295022354536902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status:
+    npcName: 
+    description: 
+    maxHealth: 0
+    currentHealth: 0
+    maxStamina: 0
+    currentStamina: 0
+    maxCredit: 0
+    currentCredit: 0
+    toDoList: []
+  patrolRange:
+    maxX: 0
+    y: 10
+    maxZ: 0
+    banned: 0
+  alertRadius: 0
+  needDodged:
+    serializedVersion: 2
+    m_Bits: 0
+  hitObjects: []
+  dodgeAngle: 0
+  currentTerminalPos: {x: 0, y: 0, z: 0}
+  roomScripts: []
+  hiddenSpots: []
+  rooms: []
+--- !u!195 &2747295022354536905
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747295022354536902}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

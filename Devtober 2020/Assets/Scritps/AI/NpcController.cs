@@ -114,6 +114,7 @@ public class NpcController : MonoBehaviour
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
         AddMenu("Move", "Move", Dispatch);
+        AddMenu("Hide", "Hide", TriggerHiding);
 
         foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
         {
@@ -202,6 +203,7 @@ public class NpcController : MonoBehaviour
 
     public void Dispatch(object newPos)
     {
+        Debug.Log("Dispatch");
         navAgent.SetDestination((Vector3)newPos);
         //animator.SetFloat("Ground", 1);
     }
@@ -299,8 +301,13 @@ public class NpcController : MonoBehaviour
         m_fsm.ChangeState("Dispatch");
     }
 
-    public void BackToPatrol()
+    public void BackToPatrol(object obj = null)
     {
+        if(rightClickMenus[1].unchangedName == "BackToPatrol")
+        {
+            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "BackToPatrol"));
+            AddMenu("Hide", "Hide", TriggerHiding);
+        }
         currentTerminalPos = NewDestination();
         this.gameObject.layer = LayerMask.NameToLayer("NPC");
         m_fsm.ChangeState("Patrol");
@@ -320,8 +327,10 @@ public class NpcController : MonoBehaviour
             m_fsm.ChangeState("Dodging");
         }
     }
-    public void TriggerHiding()
+    public void TriggerHiding(object obj = null)
     {
+        rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
+        AddMenu("BackToPatrol", "Leave", BackToPatrol);
         navAgent.ResetPath();
         for (int i = 0; i < roomScripts.Count; i++)
         {
@@ -348,6 +357,7 @@ public class NpcController : MonoBehaviour
         }
         m_fsm.ChangeState("Hiding");
     }
+
     public void TriggerEscaping()
     {
         navAgent.ResetPath();

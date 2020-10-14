@@ -21,15 +21,12 @@ public enum GameManagerState
 
 public class GameManager : SingletonBase<GameManager>
 {
+    [Header("Event")]
     public EventGraph eventGraph;
-    public DialoguePlay DiaPlay;
-    public List<RoomTracker> Rooms;
-    public List<GameObject> NPCList;
-    public List<GameObject> LastNPCList;
-    RoomTracker CurrentRoom;
-    public List<NpcController> NPC;
     public GameManagerState gmState;
-    string HistoryText = string.Empty;
+
+    [Header("Dialogue")]
+    public DialoguePlay DiaPlay;
     [SerializeField]
     TMP_Text TMPText;
     [SerializeField]
@@ -38,6 +35,18 @@ public class GameManager : SingletonBase<GameManager>
     List<Button> Option;
     [SerializeField]
     Transform ButtonContent;
+    string HistoryText = string.Empty;
+
+    [Header("Info Pool")]
+    public List<RoomTracker> Rooms;
+    public List<GameObject> NPCList;
+    public List<GameObject> LastNPCList;
+    RoomTracker CurrentRoom;
+    public List<NpcController> NPC;
+
+    [Header("Click")]
+    public LayerMask RightClickLayermask = 0;
+    public LayerMask LeftClickLayermask = 0;
     [SerializeField]
     RectTransform RightClickMenuPanel;
     [SerializeField]
@@ -46,12 +55,15 @@ public class GameManager : SingletonBase<GameManager>
     List<GameObject> RightClickButton = new List<GameObject>();
     [SerializeField]
     RectTransform Canvas;
+
+    [Header("NPC Panel")]
     [SerializeField]
     RectTransform NPCListPanel;
     [SerializeField]
     GameObject NPCListBtn;
     List<GameObject> NPCListButtons = new List<GameObject>();
 
+    [Header("Camera")]
     List<Camera> cameraList = new List<Camera>();
     public Camera CurrentCamera;
 
@@ -258,8 +270,8 @@ public class GameManager : SingletonBase<GameManager>
         if (Input.GetMouseButtonDown(1))
         {
             ClearRightClickButton();
-            Ray ray = CameraManager.GetInstance().Current.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            Ray ray = GameManager.GetInstance().CurrentCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 GameObject gameObj = hitInfo.collider.gameObject;
