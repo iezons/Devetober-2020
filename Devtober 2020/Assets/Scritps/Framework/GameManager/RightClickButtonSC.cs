@@ -16,7 +16,34 @@ public class RightClickButtonSC : MonoBehaviour
 
     public void DoFunction()
     {
-        menu.DoFunction(obj);
-        transform.parent.gameObject.SetActive(false);
+        if (menu.unchangedName == "Move")
+        {
+            StartCoroutine(WaitForWayPoint());
+            transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            menu.DoFunction(obj);
+            transform.parent.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator WaitForWayPoint()
+    {
+        while (true)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Button 0");
+                Ray ray = GameManager.GetInstance().CurrentCamera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, GameManager.GetInstance().LeftClickLayermask))
+                {
+                    Debug.Log("Raycast");
+                    menu.DoFunction(hitInfo.point);
+                    break;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
