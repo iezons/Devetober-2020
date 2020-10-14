@@ -59,8 +59,6 @@ public class GameManager : SingletonBase<GameManager>
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
 
-    public NavMeshSurface nav;
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -85,6 +83,8 @@ public class GameManager : SingletonBase<GameManager>
         CameraSwtich("Camera 9");
     }
 
+    //TODO 用List index
+    //TODO Room Changing
     public void CameraSwtich(string camName)
     {
         for (int i = 0; i < cameraList.Count; i++)
@@ -146,6 +146,7 @@ public class GameManager : SingletonBase<GameManager>
         yield return new WaitForSeconds(0.7f);
         HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
         EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
+
     }
 
     void DialogueOFF()
