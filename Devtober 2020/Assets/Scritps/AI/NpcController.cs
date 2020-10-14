@@ -161,6 +161,7 @@ public class NpcController : MonoBehaviour
                 break;
             case "Escaping":
                 Dispatch(finalEscapingPos.position);
+                CompleteEscaping();
                 break;
             default:
                 break;
@@ -169,7 +170,7 @@ public class NpcController : MonoBehaviour
         //CheckEvent();
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TriggerHiding();
+            TriggerEscaping();
         }
         else if (Input.GetMouseButtonDown(0))
         {
@@ -209,13 +210,17 @@ public class NpcController : MonoBehaviour
     #endregion
 
     #region Special Action
-    private void Rest()
+    private void Rest(float restRate)
     {
         navAgent.ResetPath();
         if (status.currentStamina >= status.maxStamina)
         {
             status.currentStamina = status.maxStamina;
             BackToPatrol();
+        }
+        else
+        {
+            status.currentStamina += Time.deltaTime * restRate;
         }
     }
 
@@ -245,11 +250,6 @@ public class NpcController : MonoBehaviour
         {
             BackToPatrol();
         }
-    }
-
-    void Escaping()
-    {
-        
     }
 
     private void Event()
@@ -334,15 +334,16 @@ public class NpcController : MonoBehaviour
         float minDistance = Mathf.Infinity;
         foreach (GameObject temp in hiddenSpots)
         {
-            float a = temp.transform.position.x - transform.position.x;
-            float b = temp.transform.position.z - transform.position.z;
+            Transform tempTrans = temp.transform;
+            float a = tempTrans.position.x - transform.position.x;
+            float b = tempTrans.position.z - transform.position.z;
             float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
             float distance = Mathf.Abs(c);
 
             if (distance < minDistance)
             {
                 minDistance = distance;
-                finalHidingPos = temp.transform;
+                finalHidingPos = tempTrans;
             }
         }
         m_fsm.ChangeState("Hiding");
@@ -391,6 +392,18 @@ public class NpcController : MonoBehaviour
             hiddenSpots.Clear();
             this.gameObject.layer = LayerMask.NameToLayer("Safe");
             m_fsm.ChangeState("Rest");
+        }
+    }
+
+    public void CompleteEscaping()
+    {
+        float a = navAgent.destination.x - transform.position.x;
+        float b = navAgent.destination.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        if (Mathf.Abs(c) < 1)
+        {
+            navAgent.ResetPath();
+            BackToPatrol();
         }
     }
     
