@@ -597,6 +597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   animSo: {fileID: 0}
   status:
     npcName: 
@@ -621,7 +623,6 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
-  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -1216,7 +1217,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1093228784}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99890256
+  m_Size: 0.4699759
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1853,6 +1854,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   animSo: {fileID: 0}
   status:
     npcName: 
@@ -1877,7 +1880,6 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
-  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -1938,7 +1940,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.6566, y: 0}
+  m_AnchoredPosition: {x: 11.241534, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &676739608
@@ -4281,6 +4283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   animSo: {fileID: 0}
   status:
     npcName: 
@@ -4305,7 +4309,6 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
-  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -4442,6 +4445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   animSo: {fileID: 0}
   status:
     npcName: 
@@ -4466,7 +4471,6 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
-  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -4963,8 +4967,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventGraph: {fileID: 11400000, guid: 5abc6c5e75e981140b285df92ea8a0a6, type: 2}
   gmState: 0
-  NCCCC: {fileID: 0}
-  NCCCC2: {fileID: 0}
   DiaPlay: {fileID: 1522710186}
   TMPText: {fileID: 676739608}
   OptionButtonPrefab: {fileID: 2105737472899111844, guid: 9d24c7f8acfab5c4e99d6488e1f6d923, type: 3}
@@ -4975,8 +4977,11 @@ MonoBehaviour:
   LastNPCList: []
   CurrentRoom: {fileID: 0}
   NPC: []
-  ClickAObj: {fileID: 0}
-  ClickBObj: {fileID: 0}
+  RightClickMs:
+    NeedTarget: 0
+    unchangedName: 
+    functionName: 
+  IsWaitingForClickObj: 0
   RightClickLayermask:
     serializedVersion: 2
     m_Bits: 5942
@@ -4989,10 +4994,6 @@ MonoBehaviour:
   NotFloorLayermask:
     serializedVersion: 2
     m_Bits: 0
-  IsWaitingForMovePoint: 0
-  MovePointFunction:
-    unchangedName: 
-    functionName: 
   RightClickMenuPanel: {fileID: 510239881}
   RCButton: {fileID: 3319980946669896904, guid: a013ce12d3c777f40a089d16a745b958, type: 3}
   RightClickButton: []
