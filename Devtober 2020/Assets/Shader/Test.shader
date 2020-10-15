@@ -95,7 +95,7 @@
                     float3 normal : TEXCOORD1;
                     float3 wPos : TEXCOORD2;
                     LIGHTING_COORDS(3, 4)
-                   // SHADOW_COORDS(2)
+                    //SHADOW_COORDS(2)
                 };
                 
                 sampler2D _MainTex;
