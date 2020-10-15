@@ -50,7 +50,7 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Click")]
     public GameObject ClickAObj;
     public GameObject ClickBObj;
-    public GameObject CursorOnGround;
+
     public LayerMask RightClickLayermask = 0;
     public LayerMask LeftClickLayermask = 0;
     public LayerMask FloorLayermask = 0;
