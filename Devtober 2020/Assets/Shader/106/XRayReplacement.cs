@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [ExecuteInEditMode]
-public class XRayCamera : MonoBehaviour
+public class XRayReplacement : MonoBehaviour
 {
     public Shader XRayShader;
 

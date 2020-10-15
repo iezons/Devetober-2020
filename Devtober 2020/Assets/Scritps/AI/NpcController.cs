@@ -30,6 +30,8 @@ public class NpcController : MonoBehaviour
         public List<EventSO> toDoList;
     }
 
+    public Anim_SO animSo;
+
     public Status status = null;
 
     [System.Serializable]
@@ -88,8 +90,8 @@ public class NpcController : MonoBehaviour
     public List<GameObject> rooms = new List<GameObject>();
 
     GameObject hideIn = null;
+    HiddenPos hiddenPos;
     #endregion
-
 
 
     private void Awake()
@@ -102,13 +104,14 @@ public class NpcController : MonoBehaviour
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "ReceivingHideCall" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "ReceivingHideCall" } },
+            { "ReceivingHideCall", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -180,28 +183,30 @@ public class NpcController : MonoBehaviour
             case "Hiding":
                 Hiding();
                 Dispatch(finalHidingPos.position);
-                CompleteHiding();
                 break;
             case "Escaping":
                 Dispatch(finalEscapingPos.position);
                 CompleteEscaping();
+                break;
+            case "ReceivingHideCall":
+                playHidingAni();
                 break;
             default:
                 break;
         }
         #endregion
         //CheckEvent();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TriggerHiding();
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            BackToPatrol();
-        }
     }
 
     #region Move
+    public float distance()
+    {
+        float a = navAgent.destination.x - transform.position.x;
+        float b = navAgent.destination.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        return Mathf.Abs(c);
+    }
+
     public Vector3 NewDestination()
     {
         float x = UnityEngine.Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
@@ -216,8 +221,7 @@ public class NpcController : MonoBehaviour
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < patrolRange.banned || !navAgent.CalculatePath(currentTerminalPos, path) 
-            )
+        if (Mathf.Abs(c) < patrolRange.banned || !navAgent.CalculatePath(currentTerminalPos, path))
         {
             currentTerminalPos = NewDestination();
         }
@@ -230,6 +234,14 @@ public class NpcController : MonoBehaviour
     }
 
 
+    #endregion
+
+    #region Receive Call
+    public void ReceiveLockerCall(Transform finalPos)
+    {
+        Dispatch(finalPos);
+        m_fsm.ChangeState("ReceivingHideCall");
+    }
     #endregion
 
     #region Special Action
@@ -280,7 +292,7 @@ public class NpcController : MonoBehaviour
         float minDistance = Mathf.Infinity;
         foreach (GameObject temp in hiddenSpots)
         {
-            if (temp.layer == LayerMask.NameToLayer("Safe"))
+            if (temp.GetComponent<HiddenPos>().isTaken == true)
                 continue;
             Transform tempTrans = temp.transform;
             float a = tempTrans.position.x - transform.position.x;
@@ -292,6 +304,7 @@ public class NpcController : MonoBehaviour
             {
                 minDistance = distance;
                 hideIn = temp;
+                hiddenPos = temp.GetComponent<HiddenPos>();
                 finalHidingPos = tempTrans;
             }
         }
@@ -350,12 +363,24 @@ public class NpcController : MonoBehaviour
             rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "BackToPatrol"));
             AddMenu("Hide", "Hide", TriggerHiding);
         }
-        if (hideIn != null && hideIn.layer != LayerMask.NameToLayer("HiddenPos"))
+        if (hideIn != null && hiddenPos != null)
         {
-            hideIn.layer = LayerMask.NameToLayer("HiddenPos");
+            hiddenPos.isTaken = false;
             hideIn = null;
+            hiddenPos = null;
         }
     }
+    #endregion
+
+    #region Play Animation
+    void playHidingAni()
+    {
+        if (distance() < restDistance)
+        {
+
+        }
+    }
+
     #endregion
 
     #region Swtich State
@@ -390,8 +415,11 @@ public class NpcController : MonoBehaviour
     }
     public void TriggerHiding(object obj = null)
     {
-        rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
-        AddMenu("BackToPatrol", "Leave", BackToPatrol);
+        if (rightClickMenus[1].unchangedName == "Hide")
+        {
+            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
+            AddMenu("BackToPatrol", "Leave", BackToPatrol);
+        }
         navAgent.ResetPath();
         m_fsm.ChangeState("Hiding");
     }
@@ -417,24 +445,15 @@ public class NpcController : MonoBehaviour
 
     public void CompleteHiding()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
-        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < restDistance)
-        {
-            hideIn.layer = LayerMask.NameToLayer("Safe");
-            navAgent.ResetPath();
-            this.gameObject.layer = LayerMask.NameToLayer("Safe");
-            m_fsm.ChangeState("Rest");
-        }
+        hiddenPos.isTaken = true;
+        navAgent.ResetPath();
+        this.gameObject.layer = LayerMask.NameToLayer("Safe");
+        m_fsm.ChangeState("Rest");
     }
 
     public void CompleteEscaping()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
-        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < restDistance)
+        if (distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -443,10 +462,7 @@ public class NpcController : MonoBehaviour
 
     public void CompleteDispatching()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
-        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < restDistance)
+        if (distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -466,12 +482,11 @@ public class NpcController : MonoBehaviour
 
     public void ReachDestination()
     {
-        if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= restDistance && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= restDistance)
+        if(distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
         }
     }
-
 
     #endregion
 
