@@ -24,6 +24,9 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Event")]
     public EventGraph eventGraph;
     public GameManagerState gmState;
+    public NpcController NCCCC;
+    public NpcController NCCCC2;
+
 
     [Header("Dialogue")]
     public DialoguePlay DiaPlay;
@@ -41,7 +44,7 @@ public class GameManager : SingletonBase<GameManager>
     public List<RoomTracker> Rooms;
     public List<GameObject> NPCList;
     public List<GameObject> LastNPCList;
-    RoomTracker CurrentRoom;
+    public RoomTracker CurrentRoom;
     public List<NpcController> NPC;
 
     [Header("Click")]
@@ -73,15 +76,11 @@ public class GameManager : SingletonBase<GameManager>
     GameObject NPCListBtn;
     List<GameObject> NPCListButtons = new List<GameObject>();
 
-    [Header("Camera")]
-    List<Camera> cameraList = new List<Camera>();
-    public Camera CurrentCamera;
-
     bool justEnter = true;
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
 
-    public NavMeshSurface nav;
+    //public NavMeshSurface nav;
 
     // Start is called before the first frame update
     void Awake()
@@ -99,25 +98,19 @@ public class GameManager : SingletonBase<GameManager>
 
     void Start()
     {
-        //Add Camera
-        for (int i = 0; i < Camera.allCameras.Length; i++)
-        {
-            cameraList.Add(Camera.allCameras[i]);
-        }
-        CameraSwtich("Camera 9");
+        //CameraSwtich("Camera 9");
+        RoomSwitch("Room 9");
     }
 
-    //TODO 用List index
-    //TODO Room Changing
-    public void CameraSwtich(string camName)
+    public void RoomSwitch(string roomName)
     {
-        for (int i = 0; i < cameraList.Count; i++)
+        for (int i = 0; i < Rooms.Count; i++)
         {
-            cameraList[i].gameObject.SetActive(false);
-            if (cameraList[i].gameObject.name == camName)
+            Rooms[i].RoomCamera.gameObject.SetActive(false);
+            if (Rooms[i].gameObject.name == roomName)
             {
-                cameraList[i].gameObject.SetActive(true);
-                CurrentCamera = cameraList[i];
+                Rooms[i].RoomCamera.gameObject.SetActive(true);
+                CurrentRoom = Rooms[i];
             }
         }
     }
@@ -197,12 +190,25 @@ public class GameManager : SingletonBase<GameManager>
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("2333");
+            RightClickMenus RCMS = NCCCC.rightClickMenus[1];
+            RCMS.DoFunction(null);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("455555");
+            RightClickMenus RCMS = NCCCC2.rightClickMenus[1];
+            RCMS.DoFunction(null);
+        }
+
+        //nav.BuildNavMesh();
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
             {
-                CurrentRoom = Rooms[0];
-
                 NPCList = CurrentRoom.NPC();
 
                 if(NPCList != LastNPCList)
@@ -282,7 +288,7 @@ public class GameManager : SingletonBase<GameManager>
         if (Input.GetMouseButtonDown(1))
         {
             ClearRightClickButton();
-            Ray ray = CurrentCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
@@ -349,7 +355,7 @@ public class GameManager : SingletonBase<GameManager>
 
         if(IsWaitingForMovePoint)
         {
-            Ray ray = CurrentCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, FloorLayermask) && !Physics.Raycast(ray, Mathf.Infinity, NotFloorLayermask))
             {
                 //CursorOnGround.SetActive(true);

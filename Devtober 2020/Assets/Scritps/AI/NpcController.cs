@@ -30,6 +30,8 @@ public class NpcController : MonoBehaviour
         public List<EventSO> toDoList;
     }
 
+    public Anim_SO animSo;
+
     public Status status = null;
 
     [System.Serializable]
@@ -90,7 +92,6 @@ public class NpcController : MonoBehaviour
     GameObject hideIn = null;
     HiddenPos hiddenPos;
     #endregion
-
 
 
     private void Awake()
@@ -414,8 +415,11 @@ public class NpcController : MonoBehaviour
     }
     public void TriggerHiding(object obj = null)
     {
-        rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
-        AddMenu("BackToPatrol", "Leave", BackToPatrol);
+        if (rightClickMenus[1].unchangedName == "Hide")
+        {
+            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
+            AddMenu("BackToPatrol", "Leave", BackToPatrol);
+        }
         navAgent.ResetPath();
         m_fsm.ChangeState("Hiding");
     }
