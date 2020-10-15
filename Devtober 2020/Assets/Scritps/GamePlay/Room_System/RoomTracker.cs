@@ -19,6 +19,9 @@ namespace GamePlay
             [Range(0f, 100f)]
             public float z = 0;
         }
+
+        public Camera RoomCamera;
+
         [SerializeField]
         ScaleRate scaleRate = null;
 

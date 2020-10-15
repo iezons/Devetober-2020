@@ -21,7 +21,7 @@
 		}
 
 		ZWrite Off
-		ZTest Always
+		ZTest Greater
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
