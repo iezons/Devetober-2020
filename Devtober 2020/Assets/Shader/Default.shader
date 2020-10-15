@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
-        _Color("Color", Color) = (0.5, 0.5, 0.5, 1)
+        _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
         _GeoRes("Geometric Resolution", Float) = 70
     }
     SubShader
@@ -72,7 +72,7 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 uv = i.texcoord.xy / i.texcoord.z;
-                float4 col = tex2D(_MainTex, uv) * _Color * 2;
+                float4 col = tex2D(_MainTex, uv) * _Color;
                 // compute shadow attenuation (1.0 = fully lit, 0.0 = fully shadowed)
                 fixed shadow = SHADOW_ATTENUATION(i);
                 // darken light's illumination with shadow, keep ambient intact
@@ -143,7 +143,7 @@
 
                     float atten = LIGHT_ATTENUATION(i);
 
-                    float4 col = tex2D(_MainTex, uv) * 2 * _Color;
+                    float4 col = tex2D(_MainTex, uv) * _Color;
 
                     col.rgb *= _LightColor0.rgb * saturate(dot(N, L)) * atten;
 

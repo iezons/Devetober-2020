@@ -9,6 +9,13 @@ Shader "Shader106/DefaultShader"
 
 	SubShader
 	{
+		Stencil
+		{
+			Ref 0
+			Comp Always
+			Pass Replace
+		}
+
 		Tags
 		{
 			"Queue" = "Geometry"

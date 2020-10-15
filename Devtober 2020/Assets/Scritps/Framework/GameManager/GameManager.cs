@@ -24,9 +24,6 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Event")]
     public EventGraph eventGraph;
     public GameManagerState gmState;
-    public NpcController NCCCC;
-    public NpcController NCCCC2;
-
 
     [Header("Dialogue")]
     public DialoguePlay DiaPlay;
@@ -48,17 +45,14 @@ public class GameManager : SingletonBase<GameManager>
     public List<NpcController> NPC;
 
     [Header("Click")]
-    public GameObject ClickAObj;
-    public GameObject ClickBObj;
+    [HideInInspector]
+    public RightClickMenus RightClickMs;
+    public bool IsWaitingForClickObj = false;
 
     public LayerMask RightClickLayermask = 0;
     public LayerMask LeftClickLayermask = 0;
     public LayerMask FloorLayermask = 0;
     public LayerMask NotFloorLayermask = 0;
-
-    [HideInInspector]
-    public bool IsWaitingForMovePoint = false;
-    public RightClickMenus MovePointFunction = null;
 
     [SerializeField]
     RectTransform RightClickMenuPanel;
@@ -163,7 +157,6 @@ public class GameManager : SingletonBase<GameManager>
         yield return new WaitForSeconds(0.7f);
         HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
         EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
-
     }
 
     void DialogueOFF()
@@ -190,20 +183,6 @@ public class GameManager : SingletonBase<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("2333");
-            RightClickMenus RCMS = NCCCC.rightClickMenus[1];
-            RCMS.DoFunction(null);
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Debug.Log("455555");
-            RightClickMenus RCMS = NCCCC2.rightClickMenus[1];
-            RCMS.DoFunction(null);
-        }
-
         //nav.BuildNavMesh();
         if (Rooms != null)
         {
@@ -293,20 +272,24 @@ public class GameManager : SingletonBase<GameManager>
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 GameObject gameObj = hitInfo.collider.gameObject;
-                List<DoorController> doorController;
-                gameObj.TryGetComponent(out NpcController npcCTRL);
-                //gameObj.TryGetComponent(out doorController);
-                doorController = gameObj.GetComponentsInParent<DoorController>().ToList();
-                Debug.Log(gameObj.name);
-                if (npcCTRL != null)
+                gameObj.TryGetComponent(out ControllerBased based);
+                if(based != null)
                 {
-                    SetupRightClickMenu(npcCTRL.rightClickMenus);
-                }
-                else if (doorController != null)
-                {
-                    if (doorController.Count >= 1)
+                    if (based.HasRightClickMenu)
                     {
-                        SetupRightClickMenu(doorController[0].rightClickMenus);
+                        SetupRightClickMenu(based.rightClickMenus);
+                    }
+                }
+                else
+                {
+                    ControllerBased[] baseds = gameObj.GetComponentsInParent<ControllerBased>();
+                    if(baseds != null)
+                    {
+                        if(baseds.Count() >= 1)
+                        {
+                            if(baseds[0].HasRightClickMenu)
+                                SetupRightClickMenu(baseds[0].rightClickMenus);
+                        }
                     }
                 }
             }
@@ -353,16 +336,16 @@ public class GameManager : SingletonBase<GameManager>
             }
         }
 
-        if(IsWaitingForMovePoint)
+        if(IsWaitingForClickObj)
         {
             Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, FloorLayermask) && !Physics.Raycast(ray, Mathf.Infinity, NotFloorLayermask))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, LeftClickLayermask))
             {
-                //CursorOnGround.SetActive(true);
+                //HighLight
                 if (Input.GetMouseButtonDown(0))
                 {
-                    MovePointFunction.DoFunction(hitInfo.point);
-                    IsWaitingForMovePoint = false;
+                    RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                    IsWaitingForClickObj = false;
                 }
             }
             //CursorOnGround.transform.position = hitInfo.point;
@@ -393,6 +376,7 @@ public class GameManager : SingletonBase<GameManager>
             Destroy(RightClickButton[i].gameObject);
         }
         RightClickButton.Clear();
+        RightClickMs = null;
     }
 
     IEnumerator UpdateText()
