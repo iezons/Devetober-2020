@@ -82,6 +82,8 @@ public class NpcController : MonoBehaviour
     public List<RoomTracker> roomScripts = new List<RoomTracker>();
     public List<GameObject> hiddenSpots = new List<GameObject>();
     public List<GameObject> rooms = new List<GameObject>();
+
+    GameObject hideIn = null;
     #endregion
 
 
@@ -116,16 +118,28 @@ public class NpcController : MonoBehaviour
         AddMenu("Move", "Move", Dispatch);
         AddMenu("Hide", "Hide", TriggerHiding);
 
+        Invoke("GenerateList", 0.00001f);
+    }
+
+    void GenerateList()
+    {
         foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
         {
             roomScripts.Add(temp);
         }
 
-       
-
         for (int i = 0; i < roomScripts.Count; i++)
         {
             rooms.Add(roomScripts[i].Room());
+        }
+
+        for (int i = 0; i < roomScripts.Count; i++)
+        {
+            foreach (GameObject temp in roomScripts[i].HiddenPos())
+            {
+                if (!hiddenSpots.Contains(temp))
+                    hiddenSpots.Add(temp);
+            }
         }
     }
 
@@ -160,6 +174,7 @@ public class NpcController : MonoBehaviour
                 Dodging();
                 break;
             case "Hiding":
+                Hiding();
                 Dispatch(finalHidingPos.position);
                 CompleteHiding();
                 break;
@@ -174,7 +189,7 @@ public class NpcController : MonoBehaviour
         //CheckEvent();
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TriggerEscaping();
+            TriggerHiding();
         }
         else if (Input.GetMouseButtonDown(0))
         {
@@ -257,6 +272,28 @@ public class NpcController : MonoBehaviour
         }
     }
 
+    void Hiding()
+    {
+        float minDistance = Mathf.Infinity;
+        foreach (GameObject temp in hiddenSpots)
+        {
+            if (temp.layer == LayerMask.NameToLayer("Safe"))
+                continue;
+            Transform tempTrans = temp.transform;
+            float a = tempTrans.position.x - transform.position.x;
+            float b = tempTrans.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                hideIn = temp;
+                finalHidingPos = tempTrans;
+            }
+        }
+    }
+
     private void Event()
     {
         for (int i = 0; i < status.toDoList.Count; i++)
@@ -297,6 +334,27 @@ public class NpcController : MonoBehaviour
 
     #endregion
 
+    #region Reset
+    void ResetNPC()
+    {
+        this.gameObject.layer = LayerMask.NameToLayer("NPC");
+    }
+
+    void ResetHiddenPos()
+    {
+        if (rightClickMenus[1].unchangedName == "BackToPatrol")
+        {
+            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "BackToPatrol"));
+            AddMenu("Hide", "Hide", TriggerHiding);
+        }
+        if (hideIn != null && hideIn.layer != LayerMask.NameToLayer("HiddenPos"))
+        {
+            hideIn.layer = LayerMask.NameToLayer("HiddenPos");
+            hideIn = null;
+        }
+    }
+    #endregion
+
     #region Swtich State
     public void ReadyForDispatch(object newPos)
     {
@@ -306,14 +364,10 @@ public class NpcController : MonoBehaviour
 
     public void BackToPatrol(object obj = null)
     {
-        if(rightClickMenus[1].unchangedName == "BackToPatrol")
-        {
-            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "BackToPatrol"));
-            AddMenu("Hide", "Hide", TriggerHiding);
-        }
         currentTerminalPos = NewDestination();
-        this.gameObject.layer = LayerMask.NameToLayer("NPC");
         m_fsm.ChangeState("Patrol");
+        ResetNPC();
+        ResetHiddenPos();
     }
 
     public void TriggerEvent()
@@ -335,29 +389,6 @@ public class NpcController : MonoBehaviour
         rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
         AddMenu("BackToPatrol", "Leave", BackToPatrol);
         navAgent.ResetPath();
-        for (int i = 0; i < roomScripts.Count; i++)
-        {
-            foreach (GameObject temp in roomScripts[i].HiddenPos())
-            {
-                hiddenSpots.Add(temp);
-            }
-        }
-
-        float minDistance = Mathf.Infinity;
-        foreach (GameObject temp in hiddenSpots)
-        {
-            Transform tempTrans = temp.transform;
-            float a = tempTrans.position.x - transform.position.x;
-            float b = tempTrans.position.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            float distance = Mathf.Abs(c);
-
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                finalHidingPos = tempTrans;
-            }
-        }
         m_fsm.ChangeState("Hiding");
     }
 
@@ -367,7 +398,7 @@ public class NpcController : MonoBehaviour
         
         RaycastHit hitroom;
         Physics.Raycast(transform.position, -transform.up, out hitroom, patrolRange.y, (int)Mathf.Pow(2, 9));
-        //float temp = Mathf.Infinity;
+
         foreach(GameObject temp in rooms)
         {
             if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
@@ -376,20 +407,6 @@ public class NpcController : MonoBehaviour
                 break;
             }
         }
-        //for (int i = 0; i < rooms.Count; i++)
-        //{
-        //    if (!rooms[i].GetComponent<RoomTracker>().isEnemyDetected())
-        //    {
-        //        finalPos = rooms[i].transform.position;
-        //    }
-        //    //if (hitroom.collider.gameObject == rooms[i])
-        //    //{
-        //    //    print(rooms[(int)temp].name);
-        //    //    //i += UnityEngine.Random.Range(0, 2) * 2 - 1;
-        //    //    //names[i]
-        //    //    //print("151");
-        //    //}
-        //}
 
         m_fsm.ChangeState("Escaping");
     }
@@ -401,8 +418,8 @@ public class NpcController : MonoBehaviour
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
         if (Mathf.Abs(c) < 1)
         {
+            hideIn.layer = LayerMask.NameToLayer("Safe");
             navAgent.ResetPath();
-            hiddenSpots.Clear();
             this.gameObject.layer = LayerMask.NameToLayer("Safe");
             m_fsm.ChangeState("Rest");
         }
