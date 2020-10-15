@@ -3,8 +3,9 @@
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
-        _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
+        _Color("Color", Color) = (0.5, 0.5, 0.5, 1)
         _GeoRes("Geometric Resolution", Float) = 70
+        [HDR]_EmissionColor("EmissonColor", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -47,6 +48,7 @@
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _Color;
+            float4 _EmissionColor;
             float _GeoRes;
 
             v2f vert(appdata_base v)
@@ -82,6 +84,7 @@
                 // darken light's illumination with shadow, keep ambient intact
                 fixed3 lighting = i.diff * shadow + i.ambient;
                 col.rgb *= lighting;
+                col += _EmissionColor;
                 return col;
             }
             ENDCG
