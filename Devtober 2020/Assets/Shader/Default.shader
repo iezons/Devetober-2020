@@ -8,6 +8,20 @@
     }
     SubShader
     {
+        /*Stencil
+        {
+            Ref 1
+            Comp Always
+            Pass Replace
+        }*/
+
+        Tags
+        {
+            "Queue" = "Geometry"
+            "RenderType" = "Opaque"
+            "XRay" = "XRay"
+        }
+
         Pass
         {
             Tags {"LightMode" = "ForwardBase"}

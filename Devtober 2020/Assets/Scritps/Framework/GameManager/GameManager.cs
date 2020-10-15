@@ -45,6 +45,8 @@ public class GameManager : SingletonBase<GameManager>
     public List<NpcController> NPC;
 
     [Header("Click")]
+    public GameObject ClickAObj;
+    public GameObject ClickBObj;
     public GameObject CursorOnGround;
     public LayerMask RightClickLayermask = 0;
     public LayerMask LeftClickLayermask = 0;
@@ -79,12 +81,11 @@ public class GameManager : SingletonBase<GameManager>
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
 
-    NavMeshPath path;
+    public NavMeshSurface nav;
 
     // Start is called before the first frame update
     void Awake()
     {
-        path = new NavMeshPath();
         SetupScene();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
@@ -196,6 +197,7 @@ public class GameManager : SingletonBase<GameManager>
     // Update is called once per frame
     void Update()
     {
+        nav.BuildNavMesh();
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
@@ -351,18 +353,18 @@ public class GameManager : SingletonBase<GameManager>
             Ray ray = CurrentCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, FloorLayermask) && !Physics.Raycast(ray, Mathf.Infinity, NotFloorLayermask))
             {
-                CursorOnGround.SetActive(true);
+                //CursorOnGround.SetActive(true);
                 if (Input.GetMouseButtonDown(0))
                 {
                     MovePointFunction.DoFunction(hitInfo.point);
                     IsWaitingForMovePoint = false;
                 }
             }
-            CursorOnGround.transform.position = hitInfo.point;
+            //CursorOnGround.transform.position = hitInfo.point;
         }
         else
         {
-            CursorOnGround.SetActive(false);
+            //CursorOnGround.SetActive(false);
         }
     }
 
