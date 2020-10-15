@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -498,7 +498,7 @@ Transform:
   m_LocalScale: {x: 16.828121, y: 0.2819364, z: 8.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &96886508
 PrefabInstance:
@@ -597,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -620,6 +621,7 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -973,6 +975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -1081,16 +1084,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1422258590}
-        m_TargetAssemblyTypeName: CameraManager, Assembly-CSharp
-        m_MethodName: CameraSwtich
+      - m_Target: {fileID: 1522710184}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RoomSwitch
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Camera 8
+          m_StringArgument: Room 8
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &266451909
@@ -1836,7 +1839,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &669623103
 MonoBehaviour:
@@ -1850,6 +1853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -1873,6 +1877,7 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -1933,7 +1938,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749466, y: 0}
+  m_AnchoredPosition: {x: 87.749725, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &676739608
@@ -2414,6 +2419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTaken: 0
   finalPos: {fileID: 0}
+  rightClickMenus: []
 --- !u!1 &800651677
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,6 +2539,7 @@ MonoBehaviour:
   isOperating: 0
   isClosed: 0
   isOpened: 0
+  rightClickMenus: []
 --- !u!4 &800982289
 Transform:
   m_ObjectHideFlags: 0
@@ -2546,7 +2553,7 @@ Transform:
   m_Children:
   - {fileID: 118697560}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &820068908
 GameObject:
@@ -2747,16 +2754,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1422258590}
-        m_TargetAssemblyTypeName: CameraManager, Assembly-CSharp
-        m_MethodName: CameraSwtich
+      - m_Target: {fileID: 1522710184}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RoomSwitch
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Camera 9
+          m_StringArgument: Room 9
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &823430713
@@ -2826,6 +2833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -2962,6 +2970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTaken: 0
   finalPos: {fileID: 0}
+  rightClickMenus: []
 --- !u!1 &917571905
 GameObject:
   m_ObjectHideFlags: 0
@@ -3255,6 +3264,7 @@ MonoBehaviour:
   isOperating: 0
   isClosed: 0
   isOpened: 0
+  rightClickMenus: []
 --- !u!4 &957405323
 Transform:
   m_ObjectHideFlags: 0
@@ -3268,7 +3278,7 @@ Transform:
   m_Children:
   - {fileID: 178690194}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &981765507
 GameObject:
@@ -3334,7 +3344,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044236173
 GameObject:
@@ -3588,7 +3598,7 @@ Transform:
   m_LocalScale: {x: 27.6915, y: 0.2819364, z: 27.6915}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1107192301
 MonoBehaviour:
@@ -3602,6 +3612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 1044236175}
   scaleRate:
     x: 30
     y: 11.5
@@ -3614,6 +3625,89 @@ MonoBehaviour:
     m_Bits: 1024
   hitInformation: []
   temp: []
+--- !u!1 &1110665838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1110665841}
+  - component: {fileID: 1110665840}
+  - component: {fileID: 1110665839}
+  m_Layer: 0
+  m_Name: Camera 10
+  m_TagString: Camera 9
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1110665839
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110665838}
+  m_Enabled: 0
+--- !u!20 &1110665840
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110665838}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1110665841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110665838}
+  m_LocalRotation: {x: 0.19336544, y: 0.2930822, z: -0.06065305, w: 0.9343629}
+  m_LocalPosition: {x: 51, y: 11.2, z: -21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 23.384, y: 34.83, z: 0}
 --- !u!1 &1127071137
 GameObject:
   m_ObjectHideFlags: 0
@@ -3710,7 +3804,7 @@ RectTransform:
   - {fileID: 823430711}
   - {fileID: 510239881}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3811,7 +3905,7 @@ Transform:
   m_LocalScale: {x: 29.713501, y: 0.30252308, z: 29.713501}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1139417001
 MonoBehaviour:
@@ -3825,6 +3919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 1699601440}
   scaleRate:
     x: 30
     y: 11.5
@@ -4074,7 +4169,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1299025660
 GameObject:
@@ -4172,7 +4267,7 @@ Transform:
   m_Children:
   - {fileID: 53881519}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1299025665
 MonoBehaviour:
@@ -4186,6 +4281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -4209,6 +4305,7 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -4331,7 +4428,7 @@ Transform:
   m_Children:
   - {fileID: 713171398}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1363742127
 MonoBehaviour:
@@ -4345,6 +4442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -4368,6 +4466,7 @@ MonoBehaviour:
   dodgeAngle: 220
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  rightClickMenus: []
   roomScripts: []
   hiddenSpots: []
   rooms: []
@@ -4505,52 +4604,7 @@ Transform:
   m_LocalScale: {x: 16.828121, y: 0.2819364, z: 8.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1422258589
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1422258591}
-  - component: {fileID: 1422258590}
-  m_Layer: 0
-  m_Name: CameraManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1422258590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1422258589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eedb5f4a5364b3640abfb312947d357d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraList: []
-  Current: {fileID: 0}
---- !u!4 &1422258591
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1422258589}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2939038, y: 4.6151466, z: -12.836702}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1435285448
 PrefabInstance:
@@ -4641,6 +4695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 1110665840}
   scaleRate:
     x: 30
     y: 11.5
@@ -4727,7 +4782,7 @@ Transform:
   m_LocalScale: {x: 29.713501, y: 0.30252308, z: 29.713501}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1515853934
 GameObject:
@@ -4874,7 +4929,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522710183
 GameObject:
@@ -4908,6 +4963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventGraph: {fileID: 11400000, guid: 5abc6c5e75e981140b285df92ea8a0a6, type: 2}
   gmState: 0
+  NCCCC: {fileID: 0}
+  NCCCC2: {fileID: 0}
   DiaPlay: {fileID: 1522710186}
   TMPText: {fileID: 676739608}
   OptionButtonPrefab: {fileID: 2105737472899111844, guid: 9d24c7f8acfab5c4e99d6488e1f6d923, type: 3}
@@ -4916,6 +4973,7 @@ MonoBehaviour:
   Rooms: []
   NPCList: []
   LastNPCList: []
+  CurrentRoom: {fileID: 0}
   NPC: []
   ClickAObj: {fileID: 0}
   ClickBObj: {fileID: 0}
@@ -4933,14 +4991,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   IsWaitingForMovePoint: 0
+  MovePointFunction:
+    unchangedName: 
+    functionName: 
   RightClickMenuPanel: {fileID: 510239881}
   RCButton: {fileID: 3319980946669896904, guid: a013ce12d3c777f40a089d16a745b958, type: 3}
   RightClickButton: []
   Canvas: {fileID: 1127071141}
   NPCListPanel: {fileID: 0}
   NPCListBtn: {fileID: 7162329537241489045, guid: e05afe1d5d108c249bad4aa5e335f888, type: 3}
-  CurrentCamera: {fileID: 0}
-  nav: {fileID: 0}
 --- !u!4 &1522710185
 Transform:
   m_ObjectHideFlags: 0
@@ -4953,7 +5012,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1522710186
 MonoBehaviour:
@@ -5674,6 +5733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTaken: 0
   finalPos: {fileID: 0}
+  rightClickMenus: []
 --- !u!1 &1982295428
 GameObject:
   m_ObjectHideFlags: 0
@@ -6036,5 +6096,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
