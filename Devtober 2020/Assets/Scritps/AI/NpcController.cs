@@ -103,14 +103,14 @@ public class NpcController : MonoBehaviour
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingCall" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingCall" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingCall" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "ReceivingCall" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "ReceivingCall" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "ReceivingCall" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "ReceivingCall" } },
-            { "ReceivingCall", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "ReceivingHideCall" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "ReceivingHideCall" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "ReceivingHideCall" } },
+            { "ReceivingHideCall", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -182,14 +182,13 @@ public class NpcController : MonoBehaviour
             case "Hiding":
                 Hiding();
                 Dispatch(finalHidingPos.position);
-                CompleteHiding();
                 break;
             case "Escaping":
                 Dispatch(finalEscapingPos.position);
                 CompleteEscaping();
                 break;
-            case "ReceivingCall":
-                CompleteHiding();
+            case "ReceivingHideCall":
+                playHidingAni();
                 break;
             default:
                 break;
@@ -199,6 +198,14 @@ public class NpcController : MonoBehaviour
     }
 
     #region Move
+    public float distance()
+    {
+        float a = navAgent.destination.x - transform.position.x;
+        float b = navAgent.destination.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        return Mathf.Abs(c);
+    }
+
     public Vector3 NewDestination()
     {
         float x = UnityEngine.Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
@@ -232,7 +239,7 @@ public class NpcController : MonoBehaviour
     public void ReceiveLockerCall(Transform finalPos)
     {
         Dispatch(finalPos);
-        ReceivedCall(); 
+        m_fsm.ChangeState("ReceivingHideCall");
     }
     #endregion
 
@@ -364,6 +371,17 @@ public class NpcController : MonoBehaviour
     }
     #endregion
 
+    #region Play Animation
+    void playHidingAni()
+    {
+        if (distance() < restDistance)
+        {
+
+        }
+    }
+
+    #endregion
+
     #region Swtich State
     public void ReadyForDispatch(object newPos)
     {
@@ -423,24 +441,15 @@ public class NpcController : MonoBehaviour
 
     public void CompleteHiding()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
-        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < restDistance)
-        {
-            hiddenPos.isTaken = true;
-            navAgent.ResetPath();
-            this.gameObject.layer = LayerMask.NameToLayer("Safe");
-            m_fsm.ChangeState("Rest");
-        }
+        hiddenPos.isTaken = true;
+        navAgent.ResetPath();
+        this.gameObject.layer = LayerMask.NameToLayer("Safe");
+        m_fsm.ChangeState("Rest");
     }
 
     public void CompleteEscaping()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
-        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < restDistance)
+        if (distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -449,10 +458,7 @@ public class NpcController : MonoBehaviour
 
     public void CompleteDispatching()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
-        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < restDistance)
+        if (distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -472,17 +478,11 @@ public class NpcController : MonoBehaviour
 
     public void ReachDestination()
     {
-        if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= restDistance && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= restDistance)
+        if(distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
         }
     }
-
-    public void ReceivedCall()
-    {
-        m_fsm.ChangeState("ReceivingCall");
-    }
-
 
     #endregion
 
