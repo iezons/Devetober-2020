@@ -60,6 +60,10 @@ public class NpcController : MonoBehaviour
     [SerializeField]
     float dodgeAngle = 0;
 
+    [SerializeField]
+    [Tooltip("The rest distance before reach destination. ")]
+    float restDistance = 0.2f;
+
     #endregion
 
 
@@ -115,7 +119,7 @@ public class NpcController : MonoBehaviour
     {
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
-        AddMenu("Move", "Move", Dispatch);
+        AddMenu("Move", "Move", ReadyForDispatch);
         AddMenu("Hide", "Hide", TriggerHiding);
 
         Invoke("GenerateList", 0.00001f);
@@ -221,7 +225,6 @@ public class NpcController : MonoBehaviour
 
     public void Dispatch(object newPos)
     {
-        Debug.Log("Dispatch");
         navAgent.SetDestination((Vector3)newPos);
         //animator.SetFloat("Ground", 1);
     }
@@ -358,6 +361,7 @@ public class NpcController : MonoBehaviour
     #region Swtich State
     public void ReadyForDispatch(object newPos)
     {
+        Debug.Log("Ready for Dispatch");
         navAgent.SetDestination((Vector3)newPos);
         m_fsm.ChangeState("Dispatch");
     }
@@ -416,7 +420,7 @@ public class NpcController : MonoBehaviour
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < 1)
+        if (Mathf.Abs(c) < restDistance)
         {
             hideIn.layer = LayerMask.NameToLayer("Safe");
             navAgent.ResetPath();
@@ -430,7 +434,7 @@ public class NpcController : MonoBehaviour
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < 1)
+        if (Mathf.Abs(c) < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -442,7 +446,7 @@ public class NpcController : MonoBehaviour
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < 1)
+        if (Mathf.Abs(c) < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -462,7 +466,7 @@ public class NpcController : MonoBehaviour
 
     public void ReachDestination()
     {
-        if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= 1 && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= 1)
+        if(Mathf.Abs(navAgent.destination.x - navAgent.nextPosition.x) <= restDistance && Mathf.Abs(navAgent.destination.z - navAgent.nextPosition.z) <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
         }

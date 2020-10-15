@@ -45,8 +45,18 @@ public class GameManager : SingletonBase<GameManager>
     public List<NpcController> NPC;
 
     [Header("Click")]
+    public GameObject ClickAObj;
+    public GameObject ClickBObj;
+    public GameObject CursorOnGround;
     public LayerMask RightClickLayermask = 0;
     public LayerMask LeftClickLayermask = 0;
+    public LayerMask FloorLayermask = 0;
+    public LayerMask NotFloorLayermask = 0;
+
+    [HideInInspector]
+    public bool IsWaitingForMovePoint = false;
+    public RightClickMenus MovePointFunction = null;
+
     [SerializeField]
     RectTransform RightClickMenuPanel;
     [SerializeField]
@@ -70,6 +80,8 @@ public class GameManager : SingletonBase<GameManager>
     bool justEnter = true;
     DialogueGraph graph;
     Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
+
+    public NavMeshSurface nav;
 
     // Start is called before the first frame update
     void Awake()
@@ -185,6 +197,7 @@ public class GameManager : SingletonBase<GameManager>
     // Update is called once per frame
     void Update()
     {
+        nav.BuildNavMesh();
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
@@ -270,7 +283,7 @@ public class GameManager : SingletonBase<GameManager>
         if (Input.GetMouseButtonDown(1))
         {
             ClearRightClickButton();
-            Ray ray = GameManager.GetInstance().CurrentCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CurrentCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
@@ -292,6 +305,7 @@ public class GameManager : SingletonBase<GameManager>
                     }
                 }
             }
+            //UI 位置适配
             RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             if (Canvas.rect.width - (RightClickMenuPanel.position.x + RightClickMenuPanel.rect.width) >= 0)
             {
@@ -332,6 +346,25 @@ public class GameManager : SingletonBase<GameManager>
             {
                 RightClickMenuPanel.gameObject.SetActive(false);
             }
+        }
+
+        if(IsWaitingForMovePoint)
+        {
+            Ray ray = CurrentCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, FloorLayermask) && !Physics.Raycast(ray, Mathf.Infinity, NotFloorLayermask))
+            {
+                //CursorOnGround.SetActive(true);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    MovePointFunction.DoFunction(hitInfo.point);
+                    IsWaitingForMovePoint = false;
+                }
+            }
+            //CursorOnGround.transform.position = hitInfo.point;
+        }
+        else
+        {
+            //CursorOnGround.SetActive(false);
         }
     }
 
