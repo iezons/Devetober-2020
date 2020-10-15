@@ -8,12 +8,6 @@
     }
     SubShader
     {
-        /*Stencil
-        {
-            Ref 1
-            Comp Always
-            Pass Replace
-        }*/
 
         Tags
         {
@@ -156,6 +150,45 @@
                     return col;
                 }
                 ENDCG
+        }
+
+        Pass
+        {
+            Name "META"
+            Tags {"LightMode" = "Meta"}
+            Cull Off
+            CGPROGRAM
+
+            #include "UnityStandardMeta.cginc"
+            #pragma vertex vert_meta
+            #pragma fragment frag_meta_custom
+
+            struct v2f
+            {
+                float4 pos : SV_POSITION;
+                float3 texcoord : TEXCOORD0;
+                float3 normal : TEXCOORD1;
+                float3 wPos : TEXCOORD2;
+                LIGHTING_COORDS(3, 4)
+                //SHADOW_COORDS(2)
+            };
+
+            fixed4 frag_meta_custom(v2f i) : SV_Target
+            {
+                // Colors                
+                fixed4 col = (1, 0, 0, 0); // The emission color
+
+                // Calculate emission
+                UnityMetaInput metaIN;
+                    UNITY_INITIALIZE_OUTPUT(UnityMetaInput, metaIN);
+                    metaIN.Albedo = col.rgb;
+                    metaIN.Emission = col.rgb;
+                    return UnityMetaFragment(metaIN);
+
+                return col;
+            }
+
+            ENDCG
         }
 
         // shadow casting support
