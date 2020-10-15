@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using GamePlay;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(NavMeshAgent))]
 
@@ -26,7 +28,7 @@ public class EnemyController : MonoBehaviour
     LayerMask canChased = 0;
 
     [SerializeField]
-    Collider[] hitObjects;
+    Collider[] hitNPCs;
     [SerializeField]
     Collider[] attackable;
 
@@ -56,6 +58,8 @@ public class EnemyController : MonoBehaviour
 
     public bool hasAttacked = false;
     float recordAttackTime;
+    public List<RoomTracker> roomScripts = new List<RoomTracker>();
+    public List<GameObject> Tiles = new List<GameObject>();
     #endregion
 
 
@@ -75,12 +79,39 @@ public class EnemyController : MonoBehaviour
 
         m_fsm = new StringRestrictedFiniteStateMachine(EnemyDictionary, "Patrol");
         #endregion
+        
     }
-
     private void Start()
     {
         currentPos = NewDestination();
         recordAttackTime = attackTime;
+
+        Invoke("GenerateList", 0.00001f);
+    }
+
+    void GenerateList()
+    {
+        foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
+        {
+            roomScripts.Add(temp);
+        }
+
+        for (int i = 0; i < roomScripts.Count; i++)
+        {
+            foreach (GameObject temp in roomScripts[i].Tiles())
+            {
+                Tiles.Add(temp);
+            }
+        }
+
+        for (int i = 0; i < roomScripts.Count; i++)
+        {
+            foreach (GameObject temp in roomScripts[i].Tiles())
+            {
+                if (!Tiles.Contains(temp))
+                    Tiles.Add(temp);
+            }
+        }
     }
 
 
@@ -108,8 +139,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
         #endregion
-        
-        
     }
 
     #region Move
@@ -142,16 +171,9 @@ public class EnemyController : MonoBehaviour
     #region Special Action
     public void Chasing()
     {
-        //List<float> distanceBetweenNPC = new List<float>();
-
-        //for (int i = 0; i < hitObjects.Length; i++)
-        //{
-        //    float distance = Vector3.Distance(transform.position, hitObjects[i].transform.position);
-        //    distanceBetweenNPC.Add(distance);
-        //}
-        if (hitObjects.Length != 0)
+        if (hitNPCs.Length != 0)
         {
-            navAgent.SetDestination(hitObjects[hitObjects.Length - 1].transform.position);
+            navAgent.SetDestination(hitNPCs[hitNPCs.Length - 1].transform.position);
         }
         Attacking();
     }
@@ -159,7 +181,7 @@ public class EnemyController : MonoBehaviour
     void Attacking()
     {
         attackable = Physics.OverlapSphere(transform.position, attackRadius, canChased);
-        if (attackable.Length != 0 && hitObjects[hitObjects.Length - 1].gameObject == attackable[attackable.Length - 1].gameObject)
+        if (attackable.Length != 0 && hitNPCs[hitNPCs.Length - 1].gameObject == attackable[attackable.Length - 1].gameObject)
         {
             hasAttacked = true;
             navAgent.ResetPath();
@@ -192,16 +214,16 @@ public class EnemyController : MonoBehaviour
     }
     private void Discover()
     {
-        hitObjects = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
+        hitNPCs = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
 
-        if (hitObjects.Length != 0 && !hasAttacked)
+        if (hitNPCs.Length != 0 && !hasAttacked)
         {
             m_fsm.ChangeState("Chase");
         }
     }
     void lossTarget()
     {
-        if (hitObjects.Length == 0)
+        if (hitNPCs.Length == 0)
         {
             m_fsm.ChangeState("Patrol");
         }

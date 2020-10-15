@@ -42,6 +42,7 @@ namespace GamePlay
         //RaycastHit hitRoom;
 
         bool tempCheck;
+        public List<GameObject> temp = new List<GameObject>();
 
         #endregion
 
@@ -79,7 +80,7 @@ namespace GamePlay
             List<GameObject> tempObjs = new List<GameObject>();
             foreach (GameObject temp in AllObjs())
             {
-                if (temp.layer == 10)
+                if (temp.layer == LayerMask.NameToLayer("Enemy"))
                     tempObjs.Add(temp);
             }
             return tempObjs;
@@ -90,7 +91,7 @@ namespace GamePlay
             List<GameObject> tempObjs = new List<GameObject>();
             foreach (GameObject temp in AllObjs())
             {
-                if (temp.layer == 8)
+                if (temp.layer == LayerMask.NameToLayer("NPC"))
                     tempObjs.Add(temp);
             }
             return tempObjs;
@@ -101,7 +102,18 @@ namespace GamePlay
             List<GameObject> tempObjs = new List<GameObject>();
             foreach (GameObject temp in AllObjs())
             {
-                if (temp.layer == 11)
+                if (temp.layer == LayerMask.NameToLayer("HiddenPos"))
+                    tempObjs.Add(temp);
+            }
+            return tempObjs;
+        }
+
+        public List<GameObject> Tiles()
+        {
+            List<GameObject> tempObjs = new List<GameObject>();
+            foreach (GameObject temp in AllObjs())
+            {
+                if (temp.layer == LayerMask.NameToLayer("Tile"))
                     tempObjs.Add(temp);
             }
             return tempObjs;
