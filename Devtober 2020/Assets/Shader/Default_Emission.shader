@@ -1,4 +1,4 @@
-﻿Shader "Lit/Diffuse With Shadows"
+﻿Shader "Lit/Emission"
 {
     Properties
     {
@@ -8,7 +8,6 @@
     }
     SubShader
     {
-
         Tags
         {
             "RenderType" = "Opaque"
