@@ -16,11 +16,11 @@ public class RightClickButtonSC : MonoBehaviour
 
     public void DoFunction()
     {
-        if (menu.unchangedName == "Move")
+        if(menu.NeedTarget)
         {
-            GameManager.GetInstance().IsWaitingForMovePoint = true;
-            GameManager.GetInstance().MovePointFunction = menu;
-            Debug.Log("Move Do Function");
+            GameManager.GetInstance().RightClickMs = menu;
+            GameManager.GetInstance().IsWaitingForClickObj = true;
+            Debug.Log("WaitingForNextObject");
             transform.parent.gameObject.SetActive(false);
         }
         else

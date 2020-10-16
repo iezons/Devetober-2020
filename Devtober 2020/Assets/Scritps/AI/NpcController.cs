@@ -9,7 +9,7 @@ using GamePlay;
 using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class NpcController : MonoBehaviour
+public class NpcController : ControllerBased
 {
     #region Inspector View
     [System.Serializable]
@@ -29,8 +29,6 @@ public class NpcController : MonoBehaviour
 
         public List<EventSO> toDoList;
     }
-
-    public Anim_SO animSo;
 
     public Status status = null;
 
@@ -81,7 +79,6 @@ public class NpcController : MonoBehaviour
     [HideInInspector]
     public Vector3 currentTerminalPos;
 
-    public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
     Transform finalHidingPos;
     Transform finalEscapingPos;
 
@@ -96,6 +93,7 @@ public class NpcController : MonoBehaviour
 
     private void Awake()
     {
+        HasRightClickMenu = true;
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
@@ -122,8 +120,8 @@ public class NpcController : MonoBehaviour
     {
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
-        AddMenu("Move", "Move", ReadyForDispatch);
-        AddMenu("Hide", "Hide", TriggerHiding);
+        AddMenu("Move", "Move", false, ReadyForDispatch);
+        AddMenu("Hide", "Hide", false, TriggerHiding);
 
         Invoke("GenerateList", 0.00001f);
     }
@@ -148,13 +146,6 @@ public class NpcController : MonoBehaviour
                     hiddenSpots.Add(temp);
             }
         }
-    }
-
-    public void AddMenu(string unchangedName, string functionName, MenuHandler function)
-    {
-        rightClickMenus.Add(new RightClickMenus { unchangedName = unchangedName });
-        rightClickMenus[rightClickMenus.Count - 1].functionName = functionName;
-        rightClickMenus[rightClickMenus.Count - 1].function += function;
     }
 
     private void Update()
@@ -237,7 +228,7 @@ public class NpcController : MonoBehaviour
     #endregion
 
     #region Receive Call
-    public void ReceiveLockerCall(Transform finalPos)
+    public void ReceiveLockerCall(Vector3 finalPos)
     {
         Dispatch(finalPos);
         m_fsm.ChangeState("ReceivingHideCall");
@@ -358,11 +349,7 @@ public class NpcController : MonoBehaviour
 
     void ResetHiddenPos()
     {
-        if (rightClickMenus[1].unchangedName == "BackToPatrol")
-        {
-            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "BackToPatrol"));
-            AddMenu("Hide", "Hide", TriggerHiding);
-        }
+        RemoveAndInsertMenu("BackToPatrol", "Hide", "Hide", false, TriggerHiding);
         if (hideIn != null && hiddenPos != null)
         {
             hiddenPos.isTaken = false;
@@ -377,7 +364,7 @@ public class NpcController : MonoBehaviour
     {
         if (distance() < restDistance)
         {
-
+            
         }
     }
 
@@ -415,11 +402,7 @@ public class NpcController : MonoBehaviour
     }
     public void TriggerHiding(object obj = null)
     {
-        if (rightClickMenus[1].unchangedName == "Hide")
-        {
-            rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == "Hide"));
-            AddMenu("BackToPatrol", "Leave", BackToPatrol);
-        }
+        RemoveAndInsertMenu("Hide", "BackToPatrol", "Leave", false, BackToPatrol);
         navAgent.ResetPath();
         m_fsm.ChangeState("Hiding");
     }

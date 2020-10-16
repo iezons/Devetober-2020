@@ -9,6 +9,7 @@ public class RightClickMenus
 {
     public string unchangedName;
     public string functionName;
+    public bool NeedTarget = false;
     public event MenuHandler function;
     public void DoFunction(object obj)
     {

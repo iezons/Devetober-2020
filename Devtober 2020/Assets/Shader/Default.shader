@@ -3,23 +3,22 @@
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
-        _Color("Color", Color) = (0.5, 0.5, 0.5, 1)
+        _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
         _GeoRes("Geometric Resolution", Float) = 70
     }
     SubShader
     {
-        /*Stencil
+
+        Tags
+        {
+            "RenderType" = "Opaque"
+        }
+
+        Stencil
         {
             Ref 1
             Comp Always
             Pass Replace
-        }*/
-
-        Tags
-        {
-            "Queue" = "Geometry"
-            "RenderType" = "Opaque"
-            "XRay" = "XRay"
         }
 
         Pass
@@ -78,7 +77,7 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 uv = i.texcoord.xy / i.texcoord.z;
-                float4 col = tex2D(_MainTex, uv) * _Color * 2;
+                float4 col = tex2D(_MainTex, uv) * _Color;
                 // compute shadow attenuation (1.0 = fully lit, 0.0 = fully shadowed)
                 fixed shadow = SHADOW_ATTENUATION(i);
                 // darken light's illumination with shadow, keep ambient intact
@@ -149,13 +148,52 @@
 
                     float atten = LIGHT_ATTENUATION(i);
 
-                    float4 col = tex2D(_MainTex, uv) * 2 * _Color;
+                    float4 col = tex2D(_MainTex, uv) * _Color;
 
                     col.rgb *= _LightColor0.rgb * saturate(dot(N, L)) * atten;
 
                     return col;
                 }
                 ENDCG
+        }
+
+        Pass
+        {
+            Name "META"
+            Tags {"LightMode" = "Meta"}
+            Cull Off
+            CGPROGRAM
+
+            #include "UnityStandardMeta.cginc"
+            #pragma vertex vert_meta
+            #pragma fragment frag_meta_custom
+
+            struct v2f
+            {
+                float4 pos : SV_POSITION;
+                float3 texcoord : TEXCOORD0;
+                float3 normal : TEXCOORD1;
+                float3 wPos : TEXCOORD2;
+                LIGHTING_COORDS(3, 4)
+                //SHADOW_COORDS(2)
+            };
+
+            fixed4 frag_meta_custom(v2f i) : SV_Target
+            {
+                // Colors                
+                fixed4 col = (1, 0, 0, 0); // The emission color
+
+                // Calculate emission
+                UnityMetaInput metaIN;
+                    UNITY_INITIALIZE_OUTPUT(UnityMetaInput, metaIN);
+                    metaIN.Albedo = col.rgb;
+                    metaIN.Emission = col.rgb;
+                    return UnityMetaFragment(metaIN);
+
+                return col;
+            }
+
+            ENDCG
         }
 
         // shadow casting support

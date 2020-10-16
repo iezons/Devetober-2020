@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DiaGraph;
 using UnityEngine.EventSystems;
+using GamePlay;
 
 public enum DiaState
 {
@@ -22,12 +23,13 @@ public enum NodeState
 public class DialoguePlay : MonoBehaviour
 {
     [Header("Properties")]
+    public RoomTracker roomTracker;
     public DialogueGraph currentGraph;
     public string Language = "English";
     public DiaState d_state = DiaState.OFF;
     public NodeState n_state = NodeState.Start;
     [Header("Settings")]
-    public float TextSpeed;
+    public float TextSpeed = 15;
     [Header("Runtime Var")]
     public string WholeText;
     public int MaxVisible;
@@ -39,6 +41,7 @@ public class DialoguePlay : MonoBehaviour
 
     void Awake()
     {
+        roomTracker = GetComponent<RoomTracker>();
         EventCenter.GetInstance().AddEventListener<DialogueGraph>("DialoguePlay.Start", PlayDia);
         EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
         EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", Finished);
@@ -122,12 +125,14 @@ public class DialoguePlay : MonoBehaviour
                 if(isFinished)
                 {
                     GoToSTATE(DiaState.OFF);
-                    EventCenter.GetInstance().EventTriggered("DialoguePlay.OFF");
+                    //EventCenter.GetInstance().EventTriggered("DialoguePlay.OFF");
+                    roomTracker.DialogueOFF();
                 }
                 else
                 {
                     GoToSTATE(DiaState.PAUSED);
-                    EventCenter.GetInstance().EventTriggered("DialoguePlay.PAUSED");
+                    //EventCenter.GetInstance().EventTriggered("DialoguePlay.PAUSED");
+                    roomTracker.DialoguePaused();
                 }
             }
         }
@@ -139,7 +144,7 @@ public class DialoguePlay : MonoBehaviour
         Next();
     }
 
-    void Next(int OptionIndex = 0)
+    public void Next(int OptionIndex = 0)
     {
         switch (d_state)
         {

@@ -2,7 +2,7 @@
 {
 	Properties
 	{
-		_EdgeColor("Edge Color", Color) = (0,0,0,1)
+		_EdgeColor("Edge Color", Color) = (1,1,1,1)
 	}
 
 	SubShader
@@ -21,7 +21,7 @@
 		}
 
 		ZWrite Off
-		ZTest Always
+		ZTest Greater
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
