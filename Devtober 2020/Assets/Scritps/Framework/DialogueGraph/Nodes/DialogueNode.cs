@@ -11,6 +11,7 @@ namespace DiaGraph
 	[NodeTint("#00CED1")]//深绿宝石
 	public class DialogueNode : Node
 	{
+        
         [Input] public Empty Input;
         [Output] public Empty Output;
         public string TalkingPerson;
@@ -70,7 +71,8 @@ namespace DiaGraph
 
                 if (!exitPort.IsConnected)
                 {
-                    EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+                    FinishDia();
+                    //EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
                     return this;
                 }
 
@@ -93,8 +95,17 @@ namespace DiaGraph
                 //    return evt as Node;
                 //}
 
-                EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+                FinishDia();
                 return this;
+            }
+        }
+
+        public void FinishDia()
+        {
+            DialogueGraph diaGraph = graph as DialogueGraph;
+            if (diaGraph != null)
+            {
+                diaGraph.DiaPlay.Finished();
             }
         }
     }

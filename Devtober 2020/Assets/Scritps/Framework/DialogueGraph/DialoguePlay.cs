@@ -42,12 +42,10 @@ public class DialoguePlay : MonoBehaviour
     void Awake()
     {
         roomTracker = GetComponent<RoomTracker>();
-        EventCenter.GetInstance().AddEventListener<DialogueGraph>("DialoguePlay.Start", PlayDia);
-        EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
-        EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", Finished);
+        //EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", Finished);
     }
 
-    void Finished()
+    public void Finished()
     {
         Debug.Log("Finished");
         isFinished = true;
@@ -138,9 +136,10 @@ public class DialoguePlay : MonoBehaviour
         }
     }
 
-    void PlayDia(DialogueGraph graph)
+    public void PlayDia(DialogueGraph graph)
     {
         currentGraph = graph;
+        graph.DiaPlay = this;
         Next();
     }
 
@@ -189,7 +188,8 @@ public class DialoguePlay : MonoBehaviour
             {
                 MaxVisible = 0;
                 n_state = NodeState.Option;
-                EventCenter.GetInstance().EventTriggered("DialoguePlay.OptionShowUP", opt.Option);
+                //EventCenter.GetInstance().EventTriggered("DialoguePlay.OptionShowUP", opt.Option);
+                roomTracker.DialogueOptionShowUp(opt.Option);
             }
         }
     }

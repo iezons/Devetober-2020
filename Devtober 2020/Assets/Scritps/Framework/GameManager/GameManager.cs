@@ -33,7 +33,7 @@ public class GameManager : SingletonBase<GameManager>
     public GameManagerState gmState;
 
     [Header("Dialogue")]
-    //public DialoguePlay DiaPlay;
+    public DialogueGraph TestGraph;
     [SerializeField]
     TMP_Text TMPText;
     [SerializeField]
@@ -93,13 +93,12 @@ public class GameManager : SingletonBase<GameManager>
         //EventCenter.GetInstance().AddEventListener<string>("GM.AllNPCArrive", NPCArrive);
         //EventCenter.GetInstance().AddEventListener("DialoguePlay.PAUSED", DialoguePaused);
         //EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
-        EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
-        EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
+        //EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
+        //EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
     }
 
     void Start()
     {
-        //CameraSwtich("Camera 9");
         RoomSwitch("Room 9");
     }
 
@@ -114,15 +113,34 @@ public class GameManager : SingletonBase<GameManager>
                 CurrentRoom = Rooms[i];
             }
         }
+        SetupOption();
     }
 
-    void Next(int index)
+    public void OptionSelect(int index)
     {
         for (int i = 0; i < Option.Count; i++)
         {
             Destroy(Option[i].gameObject);
         }
         Option.Clear();
+        CurrentRoom.OptionSelect(index);
+        CurrentRoom.OptionList.Clear();
+    }
+
+    public void SetupOption()
+    {
+        for (int i = 0; i < Option.Count; i++)
+        {
+            Destroy(Option[i].gameObject);
+        }
+        Option.Clear();
+        for (int i = 0; i < CurrentRoom.OptionList.Count; i++)
+        {
+            Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
+            Option[i].transform.SetParent(ButtonContent, false);
+            Option[i].transform.GetComponentInChildren<Text>().text = CurrentRoom.OptionList[i].Text;
+            Option[i].transform.name = i.ToString();
+        }
     }
 
     void NPCAdd(NpcController NPC_obj)
@@ -171,26 +189,20 @@ public class GameManager : SingletonBase<GameManager>
     //    //HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
     //}
 
-    void DialogueOptionShowUp(List<OptionClass> opts)
-    {
-        for (int i = 0; i < Option.Count; i++)
-        {
-            Destroy(Option[i].gameObject);
-        }
-        Option.Clear();
-        for (int i = 0; i < opts.Count; i++)
-        {
-            Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
-            Option[i].transform.SetParent(ButtonContent, false);
-            Option[i].transform.GetComponentInChildren<Text>().text = opts[i].Text;
-            Option[i].transform.name = i.ToString();
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
-        //nav.BuildNavMesh();
+        //Test Code
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            CurrentRoom.PlayingDialogue(TestGraph);
+        }
+
+        if(Time.frameCount % 10 == 0)
+        {
+            CurrentRoom.navSurface.BuildNavMesh();
+        }
+
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
@@ -221,6 +233,7 @@ public class GameManager : SingletonBase<GameManager>
         StartCoroutine(UpdateText());
         
         //Check is it the time to play dialogue graph
+
         //if(graph != null)
         //{
         //    bool tempBool = false;
@@ -271,7 +284,7 @@ public class GameManager : SingletonBase<GameManager>
         }
 
         //Right Click Menu
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
             ClearRightClickButton();
             Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
@@ -345,15 +358,23 @@ public class GameManager : SingletonBase<GameManager>
 
         if(IsWaitingForClickObj)
         {
+            //ChangeWaitingCursor
             Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, LeftClickLayermask))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
                 //HighLight
+                //ChangeDefaultCursor
                 if (Input.GetMouseButtonDown(0))
                 {
                     RightClickMs.DoFunction(hitInfo.collider.gameObject);
                     IsWaitingForClickObj = false;
                 }
+            }
+
+            if(Input.anyKeyDown && !Input.GetMouseButtonDown(0))
+            {
+                //ChangeDefaultCursor
+                IsWaitingForClickObj = false;
             }
             //CursorOnGround.transform.position = hitInfo.point;
         }

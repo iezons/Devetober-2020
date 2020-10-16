@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DoorController : MonoBehaviour
+public class DoorController : ControllerBased
 {
     #region Inspector View
     [System.Serializable]
@@ -39,26 +39,18 @@ public class DoorController : MonoBehaviour
     #region Value
     GameObject door;
     public bool isClosed, isOpened;
-    
-    public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
     #endregion
 
 
     private void Awake()
     {
         door = transform.GetChild(0).gameObject;
+        HasRightClickMenu = true;
     }
 
     private void Start()
     {
-        AddMenu("SwitchStates", "Lock", SwtichStates);
-    }
-
-    public void AddMenu(string unchangedName, string functionName, MenuHandler function)
-    {
-        rightClickMenus.Add(new RightClickMenus { unchangedName = unchangedName });
-        rightClickMenus[rightClickMenus.Count - 1].functionName = functionName;
-        rightClickMenus[rightClickMenus.Count - 1].function += function;
+        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
     }
 
     private void Update()
