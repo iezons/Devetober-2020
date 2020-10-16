@@ -15,6 +15,7 @@ namespace DiaGraph
         public WaitingNode waitingNode;
 
 		public Node current;
+        public DialoguePlay DiaPlay;
 
         public void Next(int index = 0)
         {

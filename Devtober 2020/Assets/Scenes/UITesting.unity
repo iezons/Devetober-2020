@@ -423,8 +423,8 @@ RectTransform:
   m_Father: {fileID: 242460384}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1109,7 +1109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74976, y: 0}
+  m_AnchoredPosition: {x: 87.27905, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &270494634
@@ -1314,7 +1314,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1923132226}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9752677
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4023,6 +4023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca7c79bdd2ff0d4a9a2684a8e6abdb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomTracker: {fileID: 0}
   currentGraph: {fileID: 0}
   Language: English
   d_state: 0
@@ -4044,7 +4045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventGraph: {fileID: 11400000, guid: 5abc6c5e75e981140b285df92ea8a0a6, type: 2}
   gmState: 0
-  DiaPlay: {fileID: 1845769488}
+  TestGraph: {fileID: 0}
   TMPText: {fileID: 270494635}
   OptionButtonPrefab: {fileID: 2105737472899111844, guid: 9d24c7f8acfab5c4e99d6488e1f6d923, type: 3}
   Option: []
@@ -4529,7 +4530,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
   DiaPlay: {fileID: 0}
+  WaitingGraph: {fileID: 0}
   HistoryText: 
+  OptionList: []
   scaleRate:
     x: 30
     y: 11.5

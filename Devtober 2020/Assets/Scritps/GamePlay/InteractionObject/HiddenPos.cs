@@ -16,7 +16,7 @@ public class HiddenPos : ControllerBased
 
     void Start()
     {
-        AddMenu("Hide In", "Hide In", true, CallNPC);
+        AddMenu("Hide In", "Hide In", true, CallNPC, 1 << LayerMask.GetMask("NPC"));
     }
 
     public void CallNPC(object obj)

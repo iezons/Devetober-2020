@@ -1,10 +1,7 @@
-﻿Shader "Lit/Diffuse With Shadows"
+﻿Shader "Lit/OutLine"
 {
     Properties
     {
-        _MainTex("Texture", 2D) = "white" {}
-        _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
-        _GeoRes("Geometric Resolution", Float) = 70
         _OutLine("Outline Color", Color) = (0, 0, 0, 0)
     }
     SubShader
@@ -16,12 +13,8 @@
             "Outline" = "Outline"
         }
 
-        Stencil
-        {
-            Ref 1
-            Comp Always
-            Pass Replace
-        }
+        ZWrite Off
+        ZTest Always
 
         Pass
         {
