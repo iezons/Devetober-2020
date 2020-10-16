@@ -27,7 +27,7 @@ public class DialoguePlay : MonoBehaviour
     public DiaState d_state = DiaState.OFF;
     public NodeState n_state = NodeState.Start;
     [Header("Settings")]
-    public float TextSpeed;
+    public float TextSpeed = 15;
     [Header("Runtime Var")]
     public string WholeText;
     public int MaxVisible;

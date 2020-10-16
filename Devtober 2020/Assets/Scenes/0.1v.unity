@@ -599,7 +599,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasRightClickMenu: 0
   rightClickMenus: []
-  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -947,6 +946,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178690193}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &214676570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 163635663612718337, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+  m_PrefabInstance: {fileID: 1435285448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &214676571
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214676570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9464226, y: 7.11025, z: 2.1290674}
+  m_Center: {x: -0.008303523, y: 3.4868286, z: 3.1879573}
 --- !u!1 &262208103
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
+  DiaPlay: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -1216,8 +1234,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1093228785}
   m_HandleRect: {fileID: 1093228784}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.4699759
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1856,7 +1874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasRightClickMenu: 0
   rightClickMenus: []
-  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -1940,7 +1957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 11.241534, y: 0}
+  m_AnchoredPosition: {x: 87.74982, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &676739608
@@ -2419,9 +2436,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b933a2a466f264d49a7b16fb8157c916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   isTaken: 0
   finalPos: {fileID: 0}
-  rightClickMenus: []
 --- !u!1 &800651677
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,6 +2854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
+  DiaPlay: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -2970,9 +2989,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b933a2a466f264d49a7b16fb8157c916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   isTaken: 0
   finalPos: {fileID: 0}
-  rightClickMenus: []
 --- !u!1 &917571905
 GameObject:
   m_ObjectHideFlags: 0
@@ -3519,6 +3539,7 @@ GameObject:
   - component: {fileID: 1107192298}
   - component: {fileID: 1107192297}
   - component: {fileID: 1107192301}
+  - component: {fileID: 1107192302}
   m_Layer: 9
   m_Name: Room 8
   m_TagString: Room 8
@@ -3615,6 +3636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 1044236175}
+  DiaPlay: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -3627,6 +3649,25 @@ MonoBehaviour:
     m_Bits: 1024
   hitInformation: []
   temp: []
+--- !u!114 &1107192302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107192296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca7c79bdd2ff0d4a9a2684a8e6abdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGraph: {fileID: 0}
+  Language: English
+  d_state: 0
+  n_state: 2
+  TextSpeed: 15
+  WholeText: 
+  MaxVisible: 0
 --- !u!1 &1110665838
 GameObject:
   m_ObjectHideFlags: 0
@@ -3826,6 +3867,7 @@ GameObject:
   - component: {fileID: 1139416998}
   - component: {fileID: 1139416997}
   - component: {fileID: 1139417001}
+  - component: {fileID: 1139417002}
   m_Layer: 9
   m_Name: Room 9
   m_TagString: Room 9
@@ -3922,6 +3964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 1699601440}
+  DiaPlay: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -3934,6 +3977,25 @@ MonoBehaviour:
     m_Bits: 1024
   hitInformation: []
   temp: []
+--- !u!114 &1139417002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139416996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca7c79bdd2ff0d4a9a2684a8e6abdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGraph: {fileID: 0}
+  Language: English
+  d_state: 0
+  n_state: 2
+  TextSpeed: 0
+  WholeText: 
+  MaxVisible: 0
 --- !u!1 &1150213772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4285,7 +4347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasRightClickMenu: 0
   rightClickMenus: []
-  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -4447,7 +4508,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasRightClickMenu: 0
   rightClickMenus: []
-  animSo: {fileID: 0}
   status:
     npcName: 
     description: 
@@ -4621,6 +4681,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Locker
       objectReference: {fileID: 0}
+    - target: {fileID: 163635663612718337, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 652610077807146939, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.273808
@@ -4665,6 +4729,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2332503179737062439, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716473088863200863, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4892827663226904534, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592331581602314362, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8082200042594788783, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677203137452298698, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
 --- !u!1 &1440105552
@@ -4700,6 +4788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 1110665840}
+  DiaPlay: {fileID: 0}
   scaleRate:
     x: 30
     y: 11.5
@@ -4978,13 +5067,13 @@ MonoBehaviour:
   CurrentRoom: {fileID: 0}
   NPC: []
   RightClickMs:
-    NeedTarget: 0
     unchangedName: 
     functionName: 
+    NeedTarget: 0
   IsWaitingForClickObj: 0
   RightClickLayermask:
     serializedVersion: 2
-    m_Bits: 5942
+    m_Bits: 7990
   LeftClickLayermask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5731,9 +5820,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b933a2a466f264d49a7b16fb8157c916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasRightClickMenu: 0
+  rightClickMenus: []
   isTaken: 0
   finalPos: {fileID: 0}
-  rightClickMenus: []
 --- !u!1 &1982295428
 GameObject:
   m_ObjectHideFlags: 0

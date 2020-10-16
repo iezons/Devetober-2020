@@ -12,6 +12,13 @@ using System;
 using System.Linq;
 using UnityEngine.AI;
 
+public class WaitingNPCArrive
+{
+    public string RoomNum;
+    public List<GameObject> NPC = new List<GameObject>();
+    public DialogueGraph graph;
+}
+
 public enum GameManagerState
 {
     OFF,

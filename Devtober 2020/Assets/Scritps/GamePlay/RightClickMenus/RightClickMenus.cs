@@ -7,9 +7,9 @@ public delegate void MenuHandler(object obj);
 [Serializable]
 public class RightClickMenus
 {
-    public bool NeedTarget = false;
     public string unchangedName;
     public string functionName;
+    public bool NeedTarget = false;
     public event MenuHandler function;
     public void DoFunction(object obj)
     {

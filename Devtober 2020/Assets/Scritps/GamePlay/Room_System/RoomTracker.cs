@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GamePlay
 {
+    [RequireComponent(typeof(DialoguePlay))]
     public class RoomTracker : MonoBehaviour
     {
 
@@ -21,6 +22,9 @@ namespace GamePlay
         }
 
         public Camera RoomCamera;
+
+        public DialoguePlay DiaPlay;
+        public string HistoryText;
 
         [SerializeField]
         ScaleRate scaleRate = null;

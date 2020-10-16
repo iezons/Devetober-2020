@@ -30,8 +30,6 @@ public class NpcController : ControllerBased
         public List<EventSO> toDoList;
     }
 
-    public Anim_SO animSo;
-
     public Status status = null;
 
     [System.Serializable]
@@ -230,7 +228,7 @@ public class NpcController : ControllerBased
     #endregion
 
     #region Receive Call
-    public void ReceiveLockerCall(Transform finalPos)
+    public void ReceiveLockerCall(Vector3 finalPos)
     {
         Dispatch(finalPos);
         m_fsm.ChangeState("ReceivingHideCall");
@@ -366,7 +364,7 @@ public class NpcController : ControllerBased
     {
         if (distance() < restDistance)
         {
-
+            
         }
     }
 
