@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using DiaGraph;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GamePlay
 {
@@ -24,7 +26,10 @@ namespace GamePlay
         public Camera RoomCamera;
 
         public DialoguePlay DiaPlay;
+        public DialogueGraph WaitingGraph;
         public string HistoryText;
+        public Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
+        public List<OptionClass> OptionList = new List<OptionClass>();
 
         [SerializeField]
         ScaleRate scaleRate = null;
@@ -50,7 +55,6 @@ namespace GamePlay
 
         bool tempCheck;
         public List<GameObject> temp = new List<GameObject>();
-
         #endregion
 
         public void Start()
@@ -152,6 +156,57 @@ namespace GamePlay
             }
             return tempCheck;
         }
+        #endregion
+
+        #region DialoguePlaying
+        public void DialoguePaused()
+        {
+            if (DiaPlay.n_state == NodeState.Dialogue && DiaPlay.d_state != DiaState.OFF)
+                StartCoroutine(WaitAndPlay());
+            else if (DiaPlay.n_state == NodeState.Option)
+            {
+
+            }
+        }
+
+        IEnumerator WaitAndPlay()
+        {
+            yield return new WaitForSeconds(0.7f);
+            HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
+            //EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
+            DiaPlay.Next(0);
+        }
+
+        public void OptionSelect(int index)
+        {
+            DiaPlay.Next(index);
+        }
+
+        public void PlayingDialogue(DialogueGraph graph)
+        {
+            if (DiaPlay.d_state == DiaState.OFF)
+                EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", graph);
+        }
+
+        public void NPCArrive(string NPCName)
+        {
+            if (NPCAgentList.ContainsKey(NPCName))
+            {
+                NPCAgentList[NPCName] = true;
+            }
+        }
+
+        public void DialogueOptionShowUp(List<OptionClass> opts)
+        {
+            OptionList.Clear();
+            OptionList = opts;
+        }
+
+        public void DialogueOFF()
+        {
+            //HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
+        }
+
         #endregion
 
         #region Gizmos
