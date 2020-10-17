@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -625,6 +625,7 @@ MonoBehaviour:
   roomScripts: []
   hiddenSpots: []
   rooms: []
+  isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
   boxCollider: {fileID: 0}
@@ -1912,6 +1913,7 @@ MonoBehaviour:
   roomScripts: []
   hiddenSpots: []
   rooms: []
+  isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
   boxCollider: {fileID: 0}
@@ -1972,7 +1974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74978, y: 0}
+  m_AnchoredPosition: {x: 87.74898, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &676739608
@@ -4283,8 +4285,6 @@ MonoBehaviour:
     maxZ: 20
   currentPos: {x: 0, y: 0, z: 0}
   hasAttacked: 0
-  roomScripts: []
-  Tiles: []
 --- !u!195 &1279706220
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4521,6 +4521,7 @@ MonoBehaviour:
   roomScripts: []
   hiddenSpots: []
   rooms: []
+  isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
   boxCollider: {fileID: 0}
@@ -4685,8 +4686,9 @@ MonoBehaviour:
   roomScripts: []
   hiddenSpots: []
   rooms: []
+  isSafe: 0
   DampPosSpeed: 0.2
-  DampRotSpeed: 0.12
+  DampRotSpeed: 0.2
   boxCollider: {fileID: 0}
 --- !u!195 &1363742128
 NavMeshAgent:
@@ -5161,8 +5163,6 @@ MonoBehaviour:
     maxZ: 20
   currentPos: {x: 0, y: 0, z: 0}
   hasAttacked: 0
-  roomScripts: []
-  Tiles: []
 --- !u!195 &1515853936
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5293,7 +5293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventGraph: {fileID: 11400000, guid: 5abc6c5e75e981140b285df92ea8a0a6, type: 2}
   gmState: 0
-  TestGraph: {fileID: 11400000, guid: 682fbcc344ef66d4db21e27d0ac8f064, type: 2}
+  TestGraph: {fileID: 0}
   TMPText: {fileID: 676739608}
   OptionButtonPrefab: {fileID: 2105737472899111844, guid: 9d24c7f8acfab5c4e99d6488e1f6d923, type: 3}
   Option: []
@@ -6379,8 +6379,6 @@ MonoBehaviour:
     maxZ: 20
   currentPos: {x: 0, y: 0, z: 0}
   hasAttacked: 0
-  roomScripts: []
-  Tiles: []
 --- !u!195 &2082669606
 NavMeshAgent:
   m_ObjectHideFlags: 0

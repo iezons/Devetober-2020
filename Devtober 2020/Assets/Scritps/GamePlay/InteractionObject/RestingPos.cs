@@ -11,7 +11,6 @@ public class RestingPos : ControllerBased
 
     void Awake()
     {
-        HasRightClickMenu = true;
     }
 
     void Start()
