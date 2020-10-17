@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace GamePlay
 {
     [RequireComponent(typeof(DialoguePlay))]
+    [RequireComponent(typeof(NavMeshSurface))]
     public class RoomTracker : MonoBehaviour
     {
 
@@ -22,14 +24,16 @@ namespace GamePlay
             [Range(0f, 100f)]
             public float z = 0;
         }
-
+        [Header("Camera")]
         public Camera RoomCamera;
-
+        [Header("Dialogue")]
         public DialoguePlay DiaPlay;
         public DialogueGraph WaitingGraph;
         public string HistoryText;
         public Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
         public List<OptionClass> OptionList = new List<OptionClass>();
+        [Header("NavMesh")]
+        public NavMeshSurface navSurface;
 
         [SerializeField]
         ScaleRate scaleRate = null;
@@ -51,6 +55,12 @@ namespace GamePlay
         public List<GameObject> temp = new List<GameObject>();
         #endregion
 
+        public void Awake()
+        {
+            DiaPlay = GetComponent<DialoguePlay>();
+            navSurface = GetComponent<NavMeshSurface>();
+        }
+
         public void Start()
         {
             EventCenter.GetInstance().EventTriggered("GM.Room.Add", this);
@@ -59,6 +69,7 @@ namespace GamePlay
         private void Update()
         {
             Detecting();
+            DialogueChecking();
         }
 
         private void Detecting()
@@ -152,6 +163,33 @@ namespace GamePlay
         #endregion
 
         #region DialoguePlaying
+
+        void DialogueChecking()
+        {
+            if (WaitingGraph != null)
+            {
+                bool tempBool = false;
+                foreach (bool value in NPCAgentList.Values)
+                {
+                    if (value == false)
+                    {
+                        tempBool = false;
+                        break;
+                    }
+                    else
+                    {
+                        tempBool = true;
+                    }
+                }
+                if (tempBool)
+                {
+                    PlayingDialogue(WaitingGraph);
+                    WaitingGraph = null;
+                    NPCAgentList.Clear();
+                }
+            }
+        }
+
         public void DialoguePaused()
         {
             if (DiaPlay.n_state == NodeState.Dialogue && DiaPlay.d_state != DiaState.OFF)
@@ -178,7 +216,7 @@ namespace GamePlay
         public void PlayingDialogue(DialogueGraph graph)
         {
             if (DiaPlay.d_state == DiaState.OFF)
-                EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", graph);
+                DiaPlay.PlayDia(graph);
         }
 
         public void NPCArrive(string NPCName)
@@ -193,6 +231,10 @@ namespace GamePlay
         {
             OptionList.Clear();
             OptionList = opts;
+            if(GameManager.GetInstance().CurrentRoom == this)
+            {
+                GameManager.GetInstance().SetupOption();
+            }
         }
 
         public void DialogueOFF()

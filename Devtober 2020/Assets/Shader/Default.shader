@@ -5,6 +5,7 @@
         _MainTex("Texture", 2D) = "white" {}
         _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
         _GeoRes("Geometric Resolution", Float) = 70
+        _OutLine("Outline Color", Color) = (0, 0, 0, 0)
     }
     SubShader
     {
@@ -12,6 +13,7 @@
         Tags
         {
             "RenderType" = "Opaque"
+            "Outline" = "Outline"
         }
 
         Stencil

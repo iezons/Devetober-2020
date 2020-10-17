@@ -35,7 +35,7 @@ namespace DiaGraph
 
             if (!exitPort.IsConnected)
             {
-                EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+                FinishDia();
                 Debug.LogError("Start Node isn't connected");
                 Debug.Break();
                 return this;
@@ -54,9 +54,18 @@ namespace DiaGraph
                 return opt;
             }
 
-            EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+            FinishDia();
             Debug.LogWarning("Start Node isn't connected");
             return this;
         }
-	}
+
+        public void FinishDia()
+        {
+            DialogueGraph diaGraph = graph as DialogueGraph;
+            if (diaGraph != null)
+            {
+                diaGraph.DiaPlay.Finished();
+            }
+        }
+    }
 }

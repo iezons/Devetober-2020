@@ -41,7 +41,7 @@ namespace DiaGraph
 				{
 					if (!port.IsConnected)
                     {
-						EventCenter.GetInstance().EventTriggered("DialoguePlay.Finished");
+						FinishDia();
 						return temp;
 					}
 					temp = port.Connection.node;
@@ -69,6 +69,15 @@ namespace DiaGraph
 			}
 			name = temp;
 			return temp;
+		}
+
+		public void FinishDia()
+		{
+			DialogueGraph diaGraph = graph as DialogueGraph;
+			if (diaGraph != null)
+			{
+				diaGraph.DiaPlay.Finished();
+			}
 		}
 	}
 

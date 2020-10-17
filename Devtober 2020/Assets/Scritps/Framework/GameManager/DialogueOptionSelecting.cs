@@ -6,6 +6,6 @@ public class DialogueOptionSelecting : MonoBehaviour
 {
     public void ButtonClicking()
     {
-        EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", int.Parse(transform.name));
+        GameManager.GetInstance().OptionSelect(int.Parse(transform.name));
     }
 }
