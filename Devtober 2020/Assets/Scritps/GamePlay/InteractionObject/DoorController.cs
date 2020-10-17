@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class DoorController : ControllerBased
 {
@@ -39,12 +40,14 @@ public class DoorController : ControllerBased
     #region Value
     GameObject door;
     public bool isClosed, isOpened;
+    NavMeshObstacle navOb;
     #endregion
 
 
     private void Awake()
     {
         door = transform.GetChild(0).gameObject;
+        navOb = door.GetComponent<NavMeshObstacle>();
     }
 
     private void Start()
@@ -56,6 +59,7 @@ public class DoorController : ControllerBased
     {
         Detecting();
         Operation();
+        navOb.enabled = isLocked;
     }
 
     private void Detecting()

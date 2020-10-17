@@ -52,7 +52,8 @@ namespace GamePlay
 
         #region Value
         bool tempCheck;
-        public List<GameObject> temp = new List<GameObject>();
+        [HideInInspector]
+        public List<GameObject> NPCList = new List<GameObject>();
         #endregion
 
         public void Awake()
@@ -70,6 +71,22 @@ namespace GamePlay
         {
             Detecting();
             DialogueChecking();
+            List<GameObject> tempObjs = NPC();
+            foreach(var temp in tempObjs)
+            {
+                if (!NPCList.Contains(temp))
+                {
+                    NPCList.Add(temp);
+                }
+            }
+
+            foreach (var tempP in NPCList)
+            {
+                if (!tempObjs.Contains(tempP))
+                {
+                    NPCList.Remove(tempP);
+                }
+            }
         }
 
         private void Detecting()
@@ -130,6 +147,17 @@ namespace GamePlay
             {
                 if (temp.layer == LayerMask.NameToLayer("RestingPos"))
                     tempObjs.Add(temp);
+            }
+            return tempObjs;
+        }
+
+        public List<Transform> WayPoints()
+        {
+            List<Transform> tempObjs = new List<Transform>();
+            foreach (GameObject temp in AllObjs())
+            {
+                if (temp.layer == LayerMask.NameToLayer("WayPoints"))
+                    tempObjs.Add(temp.transform);
             }
             return tempObjs;
         }

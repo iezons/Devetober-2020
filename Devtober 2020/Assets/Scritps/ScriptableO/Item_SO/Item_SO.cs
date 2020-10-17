@@ -72,8 +72,52 @@ public class Item_SO : ControllerBased
         npc.ReceiveItemCall(gameObject);
     }
 
-    public virtual void NPCInteract(int InteractWay = 0)
+    public void NPCInteract(int InteractWay = 0)
     {
-        
+        switch (type)
+        {
+            case ItemType.Locker:
+                PlayAnimation(InteractWay.ToString());
+                RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                break;
+            case ItemType.Box:
+                break;
+            case ItemType.Bed:
+                RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                break;
+            case ItemType.Chair:
+                RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                break;
+            case ItemType.Terminal:
+                //PlayAnimation(InteractWay.ToString());
+                RemoveAndInsertMenu("Operate", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void NPCInteractFinish(object obj)
+    {
+        for (int i = 0; i < Locators.Count; i++)
+        {
+            Locators[i].npc.PlayGetOutAnim(gameObject);
+        }
+        switch (type)
+        {
+            case ItemType.Locker:
+                PlayAnimation("1");
+                break;
+            case ItemType.Box:
+                break;
+            case ItemType.Bed:
+                break;
+            case ItemType.Chair:
+                break;
+            case ItemType.Terminal:
+                break;
+            default:
+                break;
+        }
     }
 }

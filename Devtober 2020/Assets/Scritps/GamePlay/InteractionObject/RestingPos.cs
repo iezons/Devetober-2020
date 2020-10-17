@@ -21,23 +21,4 @@ public class RestingPos : Item_SO
             }
         }
     }
-
-    public override void NPCInteract(int InteractWay = 0)
-    {
-        switch (type)
-        {
-            case ItemType.Locker:
-                break;
-            case ItemType.Box:
-                break;
-            case ItemType.Bed:
-                break;
-            case ItemType.Chair:
-                break;
-            case ItemType.Terminal:
-                break;
-            default:
-                break;
-        }
-    }
 }
