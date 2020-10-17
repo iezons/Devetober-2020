@@ -90,7 +90,6 @@ public class NpcController : ControllerBased
 
     GameObject hideIn = null;
     HiddenPos hiddenPos;
-    public bool isSafe;
     #endregion
 
     #region InteractWithItem
@@ -180,7 +179,6 @@ public class NpcController : ControllerBased
                 TriggerDodging();
                 break;
             case "Rest":
-                //Rest();
                 break;
             case "Dispatch":
                 CompleteDispatching();
@@ -208,9 +206,17 @@ public class NpcController : ControllerBased
         }
         #endregion
         //CheckEvent();
+        normalSpeedOffMeshLink();
     }
 
     #region Move
+    public void BackToPatrol(object obj = null)
+    {
+        currentTerminalPos = NewDestination();
+        m_fsm.ChangeState("Patrol");
+        ResetHiddenPos();
+    }
+
     public float distance()
     {
         float a = navAgent.destination.x - transform.position.x;
@@ -239,6 +245,16 @@ public class NpcController : ControllerBased
         }
     }
 
+    void normalSpeedOffMeshLink()
+    {
+        OffMeshLinkData data = navAgent.currentOffMeshLinkData;
+        Vector3 endPos = data.endPos + Vector3.up * navAgent.baseOffset;
+        if(navAgent.isOnOffMeshLink && navAgent.transform.position != endPos)
+        {
+            navAgent.transform.position = Vector3.MoveTowards(navAgent.transform.position, endPos, navAgent.speed * Time.deltaTime);
+        }
+    }
+
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
@@ -253,87 +269,31 @@ public class NpcController : ControllerBased
                 animator.Play("Idle", 0);
             }
         }
-        //animator.SetFloat("Ground", 1);
     }
 
-    #endregion
-
-    #region Receive Call
-    public void ReceiveItemCall(object obj)
+    public void ReadyForDispatch(object newPos)
     {
-        GameObject gameObj = (GameObject)obj;
-        Item_SO item = gameObj.GetComponent<Item_SO>();
+        Debug.Log("Ready for Dispatch");
+        navAgent.SetDestination((Vector3)newPos);
+        m_fsm.ChangeState("Dispatch");
+    }
 
-        if(item != null)
+    public void CompleteDispatching()
+    {
+        if (distance() < restDistance)
         {
-            Debug.Log("Receive");
-            Vector3 Pos = Vector3.zero;
-
-            float minDistance = Mathf.Infinity;
-            for (int i = 0; i < item.Locators.Count; i++)
-            {
-                float a = item.Locators[i].Locator.position.x - transform.position.x;
-                float b = item.Locators[i].Locator.position.z - transform.position.z;
-                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-                float distance = Mathf.Abs(c);
-
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    Pos = item.Locators[i].Locator.position;
-                    locatorList = item.Locators[i];
-                }
-            }
-
-            CurrentInteractItem = item;
-            HasInteract = false;
-            Dispatch(Pos);
-            m_fsm.ChangeState("InteractWithItem");
+            navAgent.ResetPath();
+            BackToPatrol();
         }
     }
     #endregion
 
-    #region Special Action
-    private void Rest(float restRate)
+    #region Hiding
+    public void TriggerHiding(object obj = null)
     {
+        RemoveAndInsertMenu("Hide", "BackToPatrol", "Leave", false, BackToPatrol);
         navAgent.ResetPath();
-        if (status.currentStamina >= status.maxStamina)
-        {
-            status.currentStamina = status.maxStamina;
-            BackToPatrol();
-        }
-        else
-        {
-            status.currentStamina += Time.deltaTime * restRate;
-        }
-    }
-
-    private void Dodging()
-    {
-        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
-
-        for (int i = 0; i< hitObjects.Length; i++)
-        {
-            Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
-            Vector3 movingDirection = (currentTerminalPos- transform.position).normalized;
-
-            float a = currentTerminalPos.x - transform.position.x;
-            float b = currentTerminalPos.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-
-            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 
-                || Mathf.Abs(c) < patrolRange.banned
-                || !navAgent.CalculatePath(currentTerminalPos, path))
-            {
-                currentTerminalPos = NewDestination();
-            }
-        }
-        Dispatch(currentTerminalPos);
-
-        if(hitObjects.Length == 0)
-        {
-            BackToPatrol();
-        }
+        m_fsm.ChangeState("Hiding");
     }
 
     void Hiding()
@@ -345,7 +305,7 @@ public class NpcController : ControllerBased
             bool isTaken = false;
             for (int i = 0; i < hpos.Locators.Count; i++)
             {
-                if(hpos.Locators[i].npc != null)
+                if (hpos.Locators[i].npc != null)
                 {
                     isTaken = true;
                     break;
@@ -370,6 +330,24 @@ public class NpcController : ControllerBased
                 }
             }
         }
+    }
+
+    void ResetHiddenPos()
+    {
+        if (hideIn != null && hiddenPos != null)
+        {
+            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = null;
+            hideIn = null;
+            hiddenPos = null;
+        }
+    }
+    #endregion
+
+    #region Event
+    public void TriggerEvent()
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Event");
     }
 
     private void Event()
@@ -410,17 +388,128 @@ public class NpcController : ControllerBased
         }
     }
 
+    public void CheckEvent()
+    {
+        if (status.toDoList != null)
+        {
+            if (status.toDoList.Count != 0)
+            {
+                m_fsm.ChangeState("Event");
+            }
+        }
+    }
+
+    public void ReachDestination()
+    {
+        if (distance() <= restDistance)
+        {
+            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
+            //TODO 修改NPC Arrive call的方法
+            navAgent.ResetPath();
+        }
+    }
     #endregion
 
-    #region Reset
-
-    void ResetHiddenPos()
+    #region Dodging
+    public void TriggerDodging()
     {
-        if (hideIn != null && hiddenPos != null)
+        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+        if (hitObjects.Length != 0)
         {
-            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = null;
-            hideIn = null;
-            hiddenPos = null;
+            m_fsm.ChangeState("Dodging");
+        }
+    }
+
+    private void Dodging()
+    {
+        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+
+        for (int i = 0; i < hitObjects.Length; i++)
+        {
+            Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
+            Vector3 movingDirection = (currentTerminalPos - transform.position).normalized;
+
+            float a = currentTerminalPos.x - transform.position.x;
+            float b = currentTerminalPos.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+
+            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2
+                || Mathf.Abs(c) < patrolRange.banned
+                || !navAgent.CalculatePath(currentTerminalPos, path))
+            {
+                currentTerminalPos = NewDestination();
+            }
+        }
+        Dispatch(currentTerminalPos);
+
+        if (hitObjects.Length == 0)
+        {
+            BackToPatrol();
+        }
+    }
+    #endregion
+
+    #region Escaping
+    public void TriggerEscaping()
+    {
+        navAgent.ResetPath();
+
+        RaycastHit hitroom;
+        Physics.Raycast(transform.position, -transform.up, out hitroom, patrolRange.y, (int)Mathf.Pow(2, 9));
+
+        foreach (GameObject temp in rooms)
+        {
+            if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
+            {
+                finalEscapingPos = temp.transform;
+                break;
+            }
+        }
+
+        m_fsm.ChangeState("Escaping");
+    }
+
+    public void CompleteEscaping()
+    {
+        if (distance() < restDistance)
+        {
+            navAgent.ResetPath();
+            BackToPatrol();
+        }
+    }
+    #endregion
+
+    #region Receive Call
+    public void ReceiveItemCall(object obj)
+    {
+        GameObject gameObj = (GameObject)obj;
+        Item_SO item = gameObj.GetComponent<Item_SO>();
+
+        if(item != null)
+        {
+            Debug.Log("Receive");
+            Vector3 Pos = Vector3.zero;
+
+            float minDistance = Mathf.Infinity;
+            for (int i = 0; i < item.Locators.Count; i++)
+            {
+                float a = item.Locators[i].Locator.position.x - transform.position.x;
+                float b = item.Locators[i].Locator.position.z - transform.position.z;
+                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                float distance = Mathf.Abs(c);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    Pos = item.Locators[i].Locator.position;
+                    locatorList = item.Locators[i];
+                }
+            }
+
+            CurrentInteractItem = item;
+            HasInteract = false;
+            Dispatch(Pos);
+            m_fsm.ChangeState("InteractWithItem");
         }
     }
     #endregion
@@ -515,62 +604,6 @@ public class NpcController : ControllerBased
         CurrentInteractItem = item;
 
     }
-    #endregion
-
-    #region Swtich State
-    public void ReadyForDispatch(object newPos)
-    {
-        Debug.Log("Ready for Dispatch");
-        navAgent.SetDestination((Vector3)newPos);
-        m_fsm.ChangeState("Dispatch");
-    }
-
-    public void BackToPatrol(object obj = null)
-    {
-        currentTerminalPos = NewDestination();
-        m_fsm.ChangeState("Patrol");
-        ResetHiddenPos();
-    }
-
-    public void TriggerEvent()
-    {
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Event");
-    }
-
-    public void TriggerDodging()
-    {
-        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
-        if (hitObjects.Length != 0)
-        {
-            m_fsm.ChangeState("Dodging");
-        }
-    }
-    public void TriggerHiding(object obj = null)
-    {
-        RemoveAndInsertMenu("Hide", "BackToPatrol", "Leave", false, BackToPatrol);
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Hiding");
-    }
-
-    public void TriggerEscaping()
-    {
-        navAgent.ResetPath();
-        
-        RaycastHit hitroom;
-        Physics.Raycast(transform.position, -transform.up, out hitroom, patrolRange.y, (int)Mathf.Pow(2, 9));
-
-        foreach(GameObject temp in rooms)
-        {
-            if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
-            {
-                finalEscapingPos = temp.transform;
-                break;
-            }
-        }
-
-        m_fsm.ChangeState("Escaping");
-    }
 
     public void CompleteGetInItemAction()
     {
@@ -588,46 +621,6 @@ public class NpcController : ControllerBased
         CurrentInteractItem.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
         BackToPatrol();
     }
-
-    public void CompleteEscaping()
-    {
-        if (distance() < restDistance)
-        {
-            navAgent.ResetPath();
-            BackToPatrol();
-        }
-    }
-
-    public void CompleteDispatching()
-    {
-        if (distance() < restDistance)
-        {
-            navAgent.ResetPath();
-            BackToPatrol();
-        }
-    }
-    
-    public void CheckEvent()
-    {
-        if(status.toDoList != null)
-        {
-            if(status.toDoList.Count != 0)
-            {
-                m_fsm.ChangeState("Event");
-            }
-        }
-    }
-
-    public void ReachDestination()
-    {
-        if(distance() <= restDistance)
-        {
-            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
-            //TODO 修改NPC Arrive call的方法
-            navAgent.ResetPath();
-        }
-    }
-
     #endregion
 
     #region Status Change
