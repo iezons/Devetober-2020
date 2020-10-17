@@ -88,12 +88,6 @@ public class GameManager : SingletonBase<GameManager>
         SetupScene();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
-        //EventCenter.GetInstance().AddEventListener<DialogueGraph>("GM.DialoguePlay.Start", PlayingDialogue);
-        //EventCenter.GetInstance().AddEventListener<string>("GM.AllNPCArrive", NPCArrive);
-        //EventCenter.GetInstance().AddEventListener("DialoguePlay.PAUSED", DialoguePaused);
-        //EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
-        //EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
-        //EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
     }
 
     void Start()
@@ -152,43 +146,6 @@ public class GameManager : SingletonBase<GameManager>
         Rooms.Add(Room_obj);
     }
 
-    //void NPCArrive(string NPCName)
-    //{
-    //    if (NPCAgentList.ContainsKey(NPCName))
-    //    {
-    //        NPCAgentList[NPCName] = true;
-    //    }
-    //}
-
-    //void PlayingDialogue(DialogueGraph graph)
-    //{
-    //    if (DiaPlay.d_state == DiaState.OFF)
-    //        EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", graph);
-    //}
-
-    //void DialoguePaused()
-    //{
-    //    if(DiaPlay.n_state == NodeState.Dialogue && DiaPlay.d_state != DiaState.OFF)
-    //        StartCoroutine(WaitAndPlay());
-    //    else if (DiaPlay.n_state == NodeState.Option)
-    //    {
-
-    //    }
-    //}
-
-    //IEnumerator WaitAndPlay()
-    //{
-    //    yield return new WaitForSeconds(0.7f);
-    //    HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
-    //    EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
-    //}
-
-    //void DialogueOFF()
-    //{
-    //    //HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
-    //}
-
-    // Update is called once per frame
     void Update()
     {
         //Test Code
@@ -237,33 +194,6 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
-
-        //StartCoroutine(UpdateText());
-        
-        //Check is it the time to play dialogue graph
-
-        //if(graph != null)
-        //{
-        //    bool tempBool = false;
-        //    foreach (bool value in NPCAgentList.Values)
-        //    {
-        //        if(value == false)
-        //        {
-        //            tempBool = false;
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            tempBool = true;
-        //        }
-        //    }
-        //    if(tempBool)
-        //    {
-        //        EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", graph);
-        //        graph = null;
-        //        NPCAgentList.Clear();
-        //    }
-        //}
 
         //Process Event Graph
         switch (gmState)
@@ -423,14 +353,6 @@ public class GameManager : SingletonBase<GameManager>
         }
         RightClickButton.Clear();
         RightClickMs = null;
-    }
-
-    IEnumerator UpdateText()
-    {
-        TMPText.maxVisibleCharacters = CurrentRoom.HistoryText.Length + CurrentRoom.DiaPlay.MaxVisible;
-        //TMPText.maxVisibleCharacters = HistoryText.Length + DiaPlay.MaxVisible;
-        yield return new WaitForEndOfFrame();
-        TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
     }
 
     void SetupScene()
