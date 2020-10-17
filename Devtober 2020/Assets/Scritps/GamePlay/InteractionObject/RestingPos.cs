@@ -31,6 +31,7 @@ public class RestingPos : Item_SO
             case ItemType.Box:
                 break;
             case ItemType.Bed:
+                //RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, GetOut, 1 << LayerMask.NameToLayer("HiddenPos"));
                 break;
             case ItemType.Chair:
                 break;
