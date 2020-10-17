@@ -18,14 +18,14 @@ public class NpcController : ControllerBased
         public string npcName;
         public string description;
 
-        public int maxHealth = 0;
-        public int currentHealth = 0;
+        public float maxHealth = 0;
+        public float currentHealth = 0;
 
-        public int maxStamina = 0;
+        public float maxStamina = 0;
         public float currentStamina = 0;
 
-        public int maxCredit = 0;
-        public int currentCredit = 0;
+        public float maxCredit = 0;
+        public float currentCredit = 0;
 
         public List<EventSO> toDoList;
     }
@@ -86,6 +86,8 @@ public class NpcController : ControllerBased
     public List<GameObject> hiddenSpots = new List<GameObject>();
     public List<GameObject> rooms = new List<GameObject>();
 
+    public bool isSafe = false;
+
     GameObject hideIn = null;
     HiddenPos hiddenPos;
     public bool isSafe;
@@ -99,7 +101,6 @@ public class NpcController : ControllerBased
 
     Item_SO CurrentInteractItem;
     LocatorList locatorList;
-    //Transform CurrentInteractLocator;
 
     bool HasInteract = false;
 
@@ -118,17 +119,23 @@ public class NpcController : ControllerBased
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "ReceivingHideCall" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "ReceivingHideCall" } },
-            { "ReceivingHideCall", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem" } },
+            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        #endregion
+
+        #region RightClickMenu
+        //AddMenu("Move", "Move", false, ReadyForDispatch);
+        //AddMenu("HideAll", "Hide All", false, TriggerHiding); //TODO NPC集体躲进去。Call一个方法，这个方法给GM发消息，带上自己在的房间，然后GM就会识别你带的房间，然后给本房间内所有的NPC发消息，让他们躲起来
+        AddMenu("Hide", "Hide in", true, ReceiveItemCall, 1 << LayerMask.NameToLayer("HiddenPos") | 1 << LayerMask.NameToLayer("RestingPos"));
         #endregion
     }
 
@@ -136,8 +143,6 @@ public class NpcController : ControllerBased
     {
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
-        AddMenu("Move", "Move", false, ReadyForDispatch);
-        AddMenu("Hide", "Hide", false, TriggerHiding);
 
         Invoke("GenerateList", 0.00001f);
     }
@@ -195,8 +200,8 @@ public class NpcController : ControllerBased
                 Dispatch(finalEscapingPos.position);
                 CompleteEscaping();
                 break;
-            case "ReceivingHideCall":
-                playHidingAni();
+            case "InteractWithItem":
+                PlayGetInAnim();
                 break;
             default:
                 break;
@@ -237,37 +242,54 @@ public class NpcController : ControllerBased
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
+        if(m_fsm.GetCurrentState() != "InteractWithItem")
+        {
+            if(navAgent.velocity.magnitude >= 0.1)
+            {
+                animator.Play("Walk", 0);
+            }
+            else
+            {
+                animator.Play("Idle", 0);
+            }
+        }
         //animator.SetFloat("Ground", 1);
     }
 
     #endregion
 
     #region Receive Call
-    public void ReceiveItemCall(Item_SO item)
+    public void ReceiveItemCall(object obj)
     {
-        Debug.Log("Receive");
-        Vector3 Pos = Vector3.zero;
+        GameObject gameObj = (GameObject)obj;
+        Item_SO item = gameObj.GetComponent<Item_SO>();
 
-        float minDistance = Mathf.Infinity;
-        for (int i = 0; i < item.Locators.Count; i++)
+        if(item != null)
         {
-            float a = item.Locators[i].Locator.position.x - transform.position.x;
-            float b = item.Locators[i].Locator.position.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            float distance = Mathf.Abs(c);
+            Debug.Log("Receive");
+            Vector3 Pos = Vector3.zero;
 
-            if (distance < minDistance)
+            float minDistance = Mathf.Infinity;
+            for (int i = 0; i < item.Locators.Count; i++)
             {
-                minDistance = distance;
-                Pos = item.Locators[i].Locator.position;
-                locatorList = item.Locators[i];
-            }
-        }
+                float a = item.Locators[i].Locator.position.x - transform.position.x;
+                float b = item.Locators[i].Locator.position.z - transform.position.z;
+                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                float distance = Mathf.Abs(c);
 
-        CurrentInteractItem = item;
-        HasInteract = false;
-        Dispatch(Pos);
-        m_fsm.ChangeState("ReceivingHideCall");
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    Pos = item.Locators[i].Locator.position;
+                    locatorList = item.Locators[i];
+                }
+            }
+
+            CurrentInteractItem = item;
+            HasInteract = false;
+            Dispatch(Pos);
+            m_fsm.ChangeState("InteractWithItem");
+        }
     }
     #endregion
 
@@ -323,7 +345,7 @@ public class NpcController : ControllerBased
             bool isTaken = false;
             for (int i = 0; i < hpos.Locators.Count; i++)
             {
-                if(hpos.Locators[i].isTaken == true)
+                if(hpos.Locators[i].npc != null)
                 {
                     isTaken = true;
                     break;
@@ -391,17 +413,12 @@ public class NpcController : ControllerBased
     #endregion
 
     #region Reset
-    void ResetNPC()
-    {
-        this.gameObject.layer = LayerMask.NameToLayer("NPC");
-    }
 
     void ResetHiddenPos()
     {
-        RemoveAndInsertMenu("BackToPatrol", "Hide", "Hide", false, TriggerHiding);
         if (hideIn != null && hiddenPos != null)
         {
-            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).isTaken = false;
+            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = null;
             hideIn = null;
             hiddenPos = null;
         }
@@ -409,12 +426,10 @@ public class NpcController : ControllerBased
     #endregion
 
     #region Play Animation
-    void playHidingAni()
+    void PlayGetInAnim()
     {
-        
         if (distance() < restDistance || !navAgent.enabled)
         {
-            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).isTaken = true;
             boxCollider.enabled = false;
             navAgent.enabled = false;
 
@@ -423,7 +438,7 @@ public class NpcController : ControllerBased
             Vector3 TraPos = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 IntPos = new Vector3(locatorList.Locator.position.x, 0, locatorList.Locator.position.z);
 
-            if(TraPos.magnitude - IntPos.magnitude >= 0.02)
+            if(TraPos.magnitude - IntPos.magnitude >= 0.0001)
             {
                 transform.position = new Vector3(Mathf.SmoothDamp(transform.position.x, locatorList.Locator.position.x, ref VelocityPosX, DampPosSpeed)
                 , transform.position.y
@@ -446,14 +461,17 @@ public class NpcController : ControllerBased
                 switch (CurrentInteractItem.type)
                 {
                     case Item_SO.ItemType.Locker:
-                        Debug.Log("Interact");
                         CurrentInteractItem.NPCInteract(0);
-                        animator.Play("GetInLocker");
+                        animator.Play("GetInLocker", 0);
                         HasInteract = true;
+                        isSafe = true;
                         break;
                     case Item_SO.ItemType.Box:
+                        isSafe = true;
                         break;
                     case Item_SO.ItemType.Bed:
+                        animator.Play("GetOnBed", 0);
+                        HasInteract = true;
                         break;
                     case Item_SO.ItemType.Chair:
                         break;
@@ -464,8 +482,39 @@ public class NpcController : ControllerBased
                 }
             }
         }
+        else if (navAgent.velocity.magnitude >= 0.1)
+        {
+            animator.Play("Walk", 0);
+        }
+        else
+        {
+            animator.Play("Idle", 0);
+        }
     }
 
+    public void PlayGetOutAnim(object obj)
+    {
+        GameObject gameObj = (GameObject)obj;
+        Item_SO item = gameObj.GetComponent<Item_SO>();
+        switch (item.type)
+        {
+            case Item_SO.ItemType.Locker:
+                animator.Play("GetOutLocker", 0);
+                break;
+            case Item_SO.ItemType.Box:
+                break;
+            case Item_SO.ItemType.Bed:
+                break;
+            case Item_SO.ItemType.Chair:
+                break;
+            case Item_SO.ItemType.Terminal:
+                break;
+            default:
+                break;
+        }
+        CurrentInteractItem = item;
+
+    }
     #endregion
 
     #region Swtich State
@@ -480,7 +529,6 @@ public class NpcController : ControllerBased
     {
         currentTerminalPos = NewDestination();
         m_fsm.ChangeState("Patrol");
-        ResetNPC();
         ResetHiddenPos();
     }
 
@@ -524,11 +572,21 @@ public class NpcController : ControllerBased
         m_fsm.ChangeState("Escaping");
     }
 
-    public void CompleteHiding()
+    public void CompleteGetInItemAction()
     {
         //hiddenPos.isTaken = true;
         //gameObject.layer = LayerMask.NameToLayer("Safe");
+        //RemoveAndInsertMenu("BackToPatrol", "Hide", "Hide", false, TriggerHiding);
+        CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = this;
         m_fsm.ChangeState("Rest");
+    }
+
+    public void CompleteGetOutItemAction()
+    {
+        boxCollider.enabled = true;
+        navAgent.enabled = true;
+        CurrentInteractItem.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        BackToPatrol();
     }
 
     public void CompleteEscaping()
@@ -565,29 +623,35 @@ public class NpcController : ControllerBased
         if(distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
+            //TODO 修改NPC Arrive call的方法
+            navAgent.ResetPath();
         }
     }
 
     #endregion
 
     #region Status Change
-    public void ApplyHealth(int healthAmount)
+    public void ApplyHealth(float healthAmount)
     {
         status.currentHealth = status.currentHealth + healthAmount > status.maxHealth ? status.maxHealth : status.currentHealth += healthAmount;
     }
 
-    public void ApplyStamina(int staminaAmount)
+    public void ApplyStamina(float staminaAmount)
     {
         status.currentStamina = status.currentStamina + staminaAmount > status.maxStamina ? status.maxStamina : status.currentStamina += staminaAmount;
     }
 
-    public void ApplyCredit(int creditAmount)
+    public void ApplyCredit(float creditAmount)
     {
         status.currentCredit = status.currentCredit + creditAmount > status.maxCredit ? status.maxCredit : status.currentCredit += creditAmount;
     }
 
+    public void RecoverStamina(float rate)
+    {
+        status.currentStamina = status.currentStamina + rate * Time.deltaTime > status.maxStamina ? status.maxStamina : status.currentStamina += rate * Time.deltaTime;
+    }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         status.currentHealth -= damageAmount;
 
@@ -597,12 +661,12 @@ public class NpcController : ControllerBased
         }
     }
 
-    public void ConsumeStamina(int staminaAmount)
+    public void ConsumeStamina(float staminaAmount)
     {
         status.currentStamina = status.currentStamina - staminaAmount <= 0 ? 0 : status.currentStamina -= staminaAmount;
     }
 
-    public void ReduceCredit(int creditAmount)
+    public void ReduceCredit(float creditAmount)
     {
         status.currentCredit = status.currentCredit - creditAmount <= 0 ? 0 : status.currentCredit -= creditAmount;
     }

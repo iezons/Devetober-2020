@@ -6,7 +6,8 @@ using UnityEngine;
 [Serializable]
 public class LocatorList
 {
-    public bool isTaken;
+    //public bool isTaken;
+    public NpcController npc;
     public Transform Locator;
 }
 
@@ -24,7 +25,6 @@ public class Item_SO : ControllerBased
     public ItemType type;
 
     [Header("State")]
-    
 
     [Header("Animation")]
     public Animator Anim;
@@ -56,12 +56,20 @@ public class Item_SO : ControllerBased
         Anim.Play(AnimName, Layer);
     }
 
+    //public virtual void CallNPC(object obj)
+    //{
+    //    Debug.Log("Call NPC");
+    //    GameObject gameObj = (GameObject)obj;
+    //    NpcController npc = gameObj.GetComponent<NpcController>();
+    //    npc.ReceiveItemCall(gameObj);
+    //}
+
     public void CallNPC(object obj)
     {
         Debug.Log("Call NPC");
         GameObject gameObj = (GameObject)obj;
         NpcController npc = gameObj.GetComponent<NpcController>();
-        npc.ReceiveItemCall(this);
+        npc.ReceiveItemCall(gameObject);
     }
 
     public virtual void NPCInteract(int InteractWay = 0)

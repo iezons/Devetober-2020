@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class AnimCTRL : MonoBehaviour
 {
-    public Animator Door;
+    public Animator Locker;
     public Animator NPC;
-    public Rigidbody rig;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +19,8 @@ public class AnimCTRL : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.O))
         {
             Debug.Log("Get In Locker");
-            Door.SetTrigger("Open");
-            //float playtime = NPC.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            NPC.Play("GetInLock", 0, 0f);
+            Locker.Play("0", 0);
+            NPC.Play("GetInLocker", 0);
         }
     }
 }
