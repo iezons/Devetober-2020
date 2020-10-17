@@ -79,6 +79,8 @@ public class NpcController : ControllerBased
     [HideInInspector]
     public Vector3 currentTerminalPos;
 
+    Vector3 finalPos;
+
     Transform finalHidingPos;
     Transform finalEscapingPos;
 
@@ -87,6 +89,7 @@ public class NpcController : ControllerBased
     public List<GameObject> rooms = new List<GameObject>();
 
     public bool isSafe = false;
+    bool MoveAcrossNavMeshesStarted;
 
     GameObject hideIn = null;
     HiddenPos hiddenPos;
@@ -206,7 +209,12 @@ public class NpcController : ControllerBased
         }
         #endregion
         //CheckEvent();
-        normalSpeedOffMeshLink();
+        if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
+        {
+            StartCoroutine(MoveAcrossNavMeshLink());
+            MoveAcrossNavMeshesStarted = true;
+        }
+
     }
 
     #region Move
@@ -219,8 +227,8 @@ public class NpcController : ControllerBased
 
     public float distance()
     {
-        float a = navAgent.destination.x - transform.position.x;
-        float b = navAgent.destination.z - transform.position.z;
+        float a = finalPos.x - transform.position.x;
+        float b = finalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
         return Mathf.Abs(c);
     }
@@ -236,35 +244,50 @@ public class NpcController : ControllerBased
 
     private void GenerateNewDestination()
     {
+        OffMeshLinkData data = navAgent.currentOffMeshLinkData;
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        
         if (Mathf.Abs(c) < patrolRange.banned || !navAgent.CalculatePath(currentTerminalPos, path))
         {
             currentTerminalPos = NewDestination();
         }
     }
 
-    void normalSpeedOffMeshLink()
+    IEnumerator MoveAcrossNavMeshLink()
     {
         OffMeshLinkData data = navAgent.currentOffMeshLinkData;
+   
+        Vector3 startPos = navAgent.transform.position;
         Vector3 endPos = data.endPos + Vector3.up * navAgent.baseOffset;
-        if(navAgent.isOnOffMeshLink && navAgent.transform.position != endPos)
+        float duration = (endPos - startPos).magnitude / navAgent.velocity.magnitude;
+        float t = 0.0f;
+        float tStep = 1.0f / duration;
+        while (t < 1.0f)
         {
-            navAgent.transform.position = Vector3.MoveTowards(navAgent.transform.position, endPos, navAgent.speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            //navAgent.destination = transform.position;
+            t += tStep * Time.deltaTime;
+            yield return null;
         }
+        transform.position = endPos;
+        navAgent.CompleteOffMeshLink();
+        MoveAcrossNavMeshesStarted = false;
+
     }
 
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
+
         if(m_fsm.GetCurrentState() != "InteractWithItem")
         {
-            if(navAgent.velocity.magnitude >= 0.1)
+            if(navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
             {
                 animator.Play("Walk", 0);
             }
-            else
+            else if(!navAgent.isOnOffMeshLink)
             {
                 animator.Play("Idle", 0);
             }
@@ -488,7 +511,6 @@ public class NpcController : ControllerBased
         if(item != null)
         {
             Debug.Log("Receive");
-            Vector3 Pos = Vector3.zero;
 
             float minDistance = Mathf.Infinity;
             for (int i = 0; i < item.Locators.Count; i++)
@@ -501,14 +523,14 @@ public class NpcController : ControllerBased
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    Pos = item.Locators[i].Locator.position;
+                    finalPos = item.Locators[i].Locator.position;
                     locatorList = item.Locators[i];
                 }
             }
 
             CurrentInteractItem = item;
             HasInteract = false;
-            Dispatch(Pos);
+            Dispatch(finalPos);
             m_fsm.ChangeState("InteractWithItem");
         }
     }
@@ -520,7 +542,7 @@ public class NpcController : ControllerBased
         if (distance() < restDistance || !navAgent.enabled)
         {
             boxCollider.enabled = false;
-            navAgent.enabled = false;
+        Debug.Log("4456");
 
             bool Damping = false;
 
@@ -554,13 +576,16 @@ public class NpcController : ControllerBased
                         animator.Play("GetInLocker", 0);
                         HasInteract = true;
                         isSafe = true;
+                        navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Box:
                         isSafe = true;
+                        navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Bed:
                         animator.Play("GetOnBed", 0);
                         HasInteract = true;
+                        navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Chair:
                         break;
@@ -571,11 +596,11 @@ public class NpcController : ControllerBased
                 }
             }
         }
-        else if (navAgent.velocity.magnitude >= 0.1)
+        else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
         {
             animator.Play("Walk", 0);
         }
-        else
+        else if (!navAgent.isOnOffMeshLink)
         {
             animator.Play("Idle", 0);
         }
