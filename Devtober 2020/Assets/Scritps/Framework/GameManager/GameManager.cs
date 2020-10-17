@@ -52,7 +52,6 @@ public class GameManager : SingletonBase<GameManager>
     public List<NpcController> NPC;
 
     [Header("Click")]
-    [HideInInspector]
     public RightClickMenus RightClickMs;
     public bool IsWaitingForClickObj = false;
 
@@ -295,9 +294,12 @@ public class GameManager : SingletonBase<GameManager>
                 gameObj.TryGetComponent(out ControllerBased based);
                 if(based != null)
                 {
-                    if (based.HasRightClickMenu)
+                    if (based.rightClickMenus != null)
                     {
-                        SetupRightClickMenu(based.rightClickMenus);
+                        if(based.rightClickMenus.Count >= 0)
+                        {
+                            SetupRightClickMenu(based.rightClickMenus);
+                        }
                     }
                 }
                 else
@@ -307,8 +309,13 @@ public class GameManager : SingletonBase<GameManager>
                     {
                         if(baseds.Count() >= 1)
                         {
-                            if(baseds[0].HasRightClickMenu)
-                                SetupRightClickMenu(baseds[0].rightClickMenus);
+                            if (baseds[0].rightClickMenus != null)
+                            {
+                                if (baseds[0].rightClickMenus.Count >= 0)
+                                {
+                                    SetupRightClickMenu(baseds[0].rightClickMenus);
+                                }
+                            }
                         }
                     }
                 }
@@ -362,6 +369,7 @@ public class GameManager : SingletonBase<GameManager>
             Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
+                Debug.DrawLine(ray.origin, hitInfo.point);
                 //HighLight
                 //ChangeDefaultCursor
                 if (Input.GetMouseButtonDown(0))

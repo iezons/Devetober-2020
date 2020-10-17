@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Envi
-  m_Shader: {fileID: 4800000, guid: 0b806c9ba4659034e8507501e7d23c9b, type: 3}
+  m_Name: Outline
+  m_Shader: {fileID: 4800000, guid: 8761245424ad91c46aa6e16536a1ebe6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,7 +60,6 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GeoRes: 70
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -77,5 +76,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutLine: {r: 0.5754717, g: 0, b: 0.57174826, a: 0}
+    - _OutLine: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
