@@ -18,7 +18,7 @@
 
         Tags
         {
-            "Queue" = "Geometry+1"
+            "Queue" = "Geometry"
             "RenderType" = "Opaque"
             "XRay" = "XRay"
         }

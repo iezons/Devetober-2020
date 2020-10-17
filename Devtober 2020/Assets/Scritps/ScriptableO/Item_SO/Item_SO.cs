@@ -1,9 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item_SO : ScriptableObject
+[Serializable]
+public class LocatorList
 {
+    public bool isTaken;
+    public Transform Locator;
+}
+
+public class Item_SO : ControllerBased
+{
+    public enum ItemType
+    {
+        Locker,
+        Box,
+        Bed,
+        Chair,
+        Terminal
+    }
+
+    public ItemType type;
+
+    [Header("State")]
+    
+
+    [Header("Animation")]
+    public Animator Anim;
+
+    [Header("Locator")]
+    public List<LocatorList> Locators = new List<LocatorList>();
+
+    [Header("Health")]
     public int maxHealth = 0;
     public int currentHealth = 0;
 
@@ -20,5 +49,23 @@ public class Item_SO : ScriptableObject
         {
             //Death();
         }
+    }
+
+    public void PlayAnimation(string AnimName, int Layer = 0)
+    {
+        Anim.Play(AnimName, Layer);
+    }
+
+    public void CallNPC(object obj)
+    {
+        Debug.Log("Call NPC");
+        GameObject gameObj = (GameObject)obj;
+        NpcController npc = gameObj.GetComponent<NpcController>();
+        npc.ReceiveItemCall(this);
+    }
+
+    public virtual void NPCInteract(int InteractWay = 0)
+    {
+        
     }
 }

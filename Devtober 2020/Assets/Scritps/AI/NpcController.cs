@@ -90,10 +90,25 @@ public class NpcController : ControllerBased
     HiddenPos hiddenPos;
     #endregion
 
+    #region InteractWithItem
+    [Header("Interact Item")]
+    public float DampPosSpeed = 0.2f;
+    public float DampRotSpeed = 0.2f;
+    public BoxCollider boxCollider;
+
+    Item_SO CurrentInteractItem;
+    LocatorList locatorList;
+    //Transform CurrentInteractLocator;
+
+    bool HasInteract = false;
+
+    float VelocityPosX;
+    float VelocityPosZ;
+    #endregion
 
     private void Awake()
     {
-        HasRightClickMenu = true;
+        boxCollider = GetComponent<BoxCollider>();
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
@@ -224,13 +239,33 @@ public class NpcController : ControllerBased
         //animator.SetFloat("Ground", 1);
     }
 
-
     #endregion
 
     #region Receive Call
-    public void ReceiveLockerCall(Vector3 finalPos)
+    public void ReceiveItemCall(Item_SO item)
     {
-        Dispatch(finalPos);
+        Debug.Log("Receive");
+        Vector3 Pos = Vector3.zero;
+
+        float minDistance = Mathf.Infinity;
+        for (int i = 0; i < item.Locators.Count; i++)
+        {
+            float a = item.Locators[i].Locator.position.x - transform.position.x;
+            float b = item.Locators[i].Locator.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                Pos = item.Locators[i].Locator.position;
+                locatorList = item.Locators[i];
+            }
+        }
+
+        CurrentInteractItem = item;
+        HasInteract = false;
+        Dispatch(Pos);
         m_fsm.ChangeState("ReceivingHideCall");
     }
     #endregion
@@ -283,20 +318,33 @@ public class NpcController : ControllerBased
         float minDistance = Mathf.Infinity;
         foreach (GameObject temp in hiddenSpots)
         {
-            if (temp.GetComponent<HiddenPos>().isTaken == true)
-                continue;
-            Transform tempTrans = temp.transform;
-            float a = tempTrans.position.x - transform.position.x;
-            float b = tempTrans.position.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            float distance = Mathf.Abs(c);
-
-            if (distance < minDistance)
+            HiddenPos hpos = temp.GetComponent<HiddenPos>();
+            bool isTaken = false;
+            for (int i = 0; i < hpos.Locators.Count; i++)
             {
-                minDistance = distance;
-                hideIn = temp;
-                hiddenPos = temp.GetComponent<HiddenPos>();
-                finalHidingPos = tempTrans;
+                if(hpos.Locators[i].isTaken == true)
+                {
+                    isTaken = true;
+                    break;
+                }
+            }
+            if (isTaken == true)
+                continue;
+            foreach (var item in hpos.Locators)
+            {
+                Transform tempTrans = item.Locator;
+                float a = tempTrans.position.x - transform.position.x;
+                float b = tempTrans.position.z - transform.position.z;
+                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                float distance = Mathf.Abs(c);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    hideIn = temp;
+                    hiddenPos = temp.GetComponent<HiddenPos>();
+                    finalHidingPos = tempTrans;
+                }
             }
         }
     }
@@ -352,7 +400,7 @@ public class NpcController : ControllerBased
         RemoveAndInsertMenu("BackToPatrol", "Hide", "Hide", false, TriggerHiding);
         if (hideIn != null && hiddenPos != null)
         {
-            hiddenPos.isTaken = false;
+            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).isTaken = false;
             hideIn = null;
             hiddenPos = null;
         }
@@ -362,9 +410,58 @@ public class NpcController : ControllerBased
     #region Play Animation
     void playHidingAni()
     {
-        if (distance() < restDistance)
+        
+        if (distance() < restDistance || !navAgent.enabled)
         {
-            
+            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).isTaken = true;
+            boxCollider.enabled = false;
+            navAgent.enabled = false;
+
+            bool Damping = false;
+
+            Vector3 TraPos = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 IntPos = new Vector3(locatorList.Locator.position.x, 0, locatorList.Locator.position.z);
+
+            if(TraPos.magnitude - IntPos.magnitude >= 0.02)
+            {
+                transform.position = new Vector3(Mathf.SmoothDamp(transform.position.x, locatorList.Locator.position.x, ref VelocityPosX, DampPosSpeed)
+                , transform.position.y
+                , Mathf.SmoothDamp(transform.position.z, locatorList.Locator.position.z, ref VelocityPosZ, DampPosSpeed));
+                Damping = true;
+            }
+
+            if(Quaternion.Angle(transform.rotation, locatorList.Locator.rotation) >= 0.2)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, locatorList.Locator.rotation, DampRotSpeed);
+                Damping = true;
+            }
+
+            if (Damping)
+            {
+                Debug.Log("Damping");
+            }
+            else if (!HasInteract)
+            {
+                switch (CurrentInteractItem.type)
+                {
+                    case Item_SO.ItemType.Locker:
+                        Debug.Log("Interact");
+                        CurrentInteractItem.NPCInteract(0);
+                        animator.Play("GetInLocker");
+                        HasInteract = true;
+                        break;
+                    case Item_SO.ItemType.Box:
+                        break;
+                    case Item_SO.ItemType.Bed:
+                        break;
+                    case Item_SO.ItemType.Chair:
+                        break;
+                    case Item_SO.ItemType.Terminal:
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 
@@ -428,9 +525,8 @@ public class NpcController : ControllerBased
 
     public void CompleteHiding()
     {
-        hiddenPos.isTaken = true;
-        navAgent.ResetPath();
-        this.gameObject.layer = LayerMask.NameToLayer("Safe");
+        //hiddenPos.isTaken = true;
+        //gameObject.layer = LayerMask.NameToLayer("Safe");
         m_fsm.ChangeState("Rest");
     }
 

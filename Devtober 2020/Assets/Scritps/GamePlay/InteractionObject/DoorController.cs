@@ -45,7 +45,6 @@ public class DoorController : ControllerBased
     private void Awake()
     {
         door = transform.GetChild(0).gameObject;
-        HasRightClickMenu = true;
     }
 
     private void Start()
