@@ -61,6 +61,15 @@ public class NpcController : ControllerBased
     float dodgeAngle = 0;
 
     [SerializeField]
+    float dodgeSpeed = 0;
+
+    [SerializeField]
+    float restTime = 0;
+
+    [SerializeField]
+    float recoverTime = 0;
+
+    [SerializeField]
     [Tooltip("The rest distance before reach destination. ")]
     float restDistance = 0.2f;
 
@@ -76,17 +85,17 @@ public class NpcController : ControllerBased
 
 
     #region Value
+    float recordRestTimer, recordRecoverTimer, recordSpeed;
+
     [HideInInspector]
     public Vector3 currentTerminalPos;
-
-    Vector3 finalPos;
 
     Transform finalHidingPos;
     Transform finalEscapingPos;
 
-    public List<RoomTracker> roomScripts = new List<RoomTracker>();
-    public List<GameObject> hiddenSpots = new List<GameObject>();
-    public List<GameObject> rooms = new List<GameObject>();
+    List<RoomTracker> roomScripts = new List<RoomTracker>();
+    List<GameObject> hiddenSpots = new List<GameObject>();
+    List<GameObject> rooms = new List<GameObject>();
 
     public bool isSafe = false;
     bool MoveAcrossNavMeshesStarted;
@@ -117,6 +126,9 @@ public class NpcController : ControllerBased
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
         status.toDoList.Clear();
+        recordRestTimer = restTime;
+        recordRecoverTimer = recoverTime;
+        recordSpeed = navAgent.speed;
 
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
@@ -137,7 +149,9 @@ public class NpcController : ControllerBased
         #region RightClickMenu
         //AddMenu("Move", "Move", false, ReadyForDispatch);
         //AddMenu("HideAll", "Hide All", false, TriggerHiding); //TODO NPC集体躲进去。Call一个方法，这个方法给GM发消息，带上自己在的房间，然后GM就会识别你带的房间，然后给本房间内所有的NPC发消息，让他们躲起来
-        AddMenu("Hide", "Hide in", true, ReceiveItemCall, 1 << LayerMask.NameToLayer("HiddenPos") | 1 << LayerMask.NameToLayer("RestingPos"));
+        AddMenu("Interact", "Interact", true, ReceiveItemCall, 1 << LayerMask.NameToLayer("HiddenPos") 
+            | 1 << LayerMask.NameToLayer("RestingPos") 
+            | 1 << LayerMask.NameToLayer("TerminalPos"));
         #endregion
     }
 
@@ -177,11 +191,31 @@ public class NpcController : ControllerBased
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
-                Dispatch(currentTerminalPos);
-                GenerateNewDestination();
-                TriggerDodging();
+                restTime -= Time.deltaTime;
+                if(restTime > 0)
+                {
+                    Dispatch(currentTerminalPos);
+                    GenerateNewDestination();
+                    TriggerDodging();
+                }
+                else
+                {
+                    navAgent.ResetPath();
+                    recoverTime = recordRecoverTimer;
+                    m_fsm.ChangeState("Rest");
+                }
                 break;
             case "Rest":
+                if(m_fsm.GetPreviousState() == "Patrol")
+                {
+                    animator.Play("Idle", 0);
+                    recoverTime -= Time.deltaTime * status.currentStamina / 100;
+                    if (recoverTime <= 0)
+                    {
+                        restTime = recordRestTimer;
+                        BackToPatrol();
+                    }
+                }
                 break;
             case "Dispatch":
                 CompleteDispatching();
@@ -220,6 +254,7 @@ public class NpcController : ControllerBased
     #region Move
     public void BackToPatrol(object obj = null)
     {
+        navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
         m_fsm.ChangeState("Patrol");
         ResetHiddenPos();
@@ -227,8 +262,8 @@ public class NpcController : ControllerBased
 
     public float distance()
     {
-        float a = finalPos.x - transform.position.x;
-        float b = finalPos.z - transform.position.z;
+        float a = navAgent.destination.x - transform.position.x;
+        float b = navAgent.destination.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
         return Mathf.Abs(c);
     }
@@ -267,14 +302,12 @@ public class NpcController : ControllerBased
         while (t < 1.0f)
         {
             transform.position = Vector3.Lerp(startPos, endPos, t);
-            //navAgent.destination = transform.position;
             t += tStep * Time.deltaTime;
             yield return null;
         }
         transform.position = endPos;
         navAgent.CompleteOffMeshLink();
         MoveAcrossNavMeshesStarted = false;
-
     }
 
     public void Dispatch(object newPos)
@@ -314,7 +347,7 @@ public class NpcController : ControllerBased
     #region Hiding
     public void TriggerHiding(object obj = null)
     {
-        RemoveAndInsertMenu("Hide", "BackToPatrol", "Leave", false, BackToPatrol);
+        RemoveAndInsertMenu("Interact", "BackToPatrol", "Leave", false, BackToPatrol);
         navAgent.ResetPath();
         m_fsm.ChangeState("Hiding");
     }
@@ -334,7 +367,7 @@ public class NpcController : ControllerBased
                     break;
                 }
             }
-            if (isTaken == true)
+            if (isTaken)
                 continue;
             foreach (var item in hpos.Locators)
             {
@@ -439,6 +472,7 @@ public class NpcController : ControllerBased
         hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
         if (hitObjects.Length != 0)
         {
+            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
             m_fsm.ChangeState("Dodging");
         }
     }
@@ -512,6 +546,7 @@ public class NpcController : ControllerBased
         {
             Debug.Log("Receive");
 
+            Vector3 Pos = Vector3.zero;
             float minDistance = Mathf.Infinity;
             for (int i = 0; i < item.Locators.Count; i++)
             {
@@ -523,14 +558,14 @@ public class NpcController : ControllerBased
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    finalPos = item.Locators[i].Locator.position;
+                    Pos = item.Locators[i].Locator.position;
                     locatorList = item.Locators[i];
                 }
             }
 
             CurrentInteractItem = item;
             HasInteract = false;
-            Dispatch(finalPos);
+            Dispatch(Pos);
             m_fsm.ChangeState("InteractWithItem");
         }
     }
@@ -542,8 +577,6 @@ public class NpcController : ControllerBased
         if (distance() < restDistance || !navAgent.enabled)
         {
             boxCollider.enabled = false;
-        Debug.Log("4456");
-
             bool Damping = false;
 
             Vector3 TraPos = new Vector3(transform.position.x, 0, transform.position.z);
@@ -574,12 +607,13 @@ public class NpcController : ControllerBased
                     case Item_SO.ItemType.Locker:
                         CurrentInteractItem.NPCInteract(0);
                         animator.Play("GetInLocker", 0);
-                        HasInteract = true;
                         isSafe = true;
+                        HasInteract = true;
                         navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Box:
                         isSafe = true;
+                        HasInteract = true;
                         navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Bed:
@@ -588,8 +622,14 @@ public class NpcController : ControllerBased
                         navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Chair:
+                        HasInteract = true;
+                        navAgent.enabled = false;
                         break;
                     case Item_SO.ItemType.Terminal:
+                        CurrentInteractItem.NPCInteract(0);
+                        animator.Play("OperateTerminal", 0);
+                        HasInteract = true;
+                        navAgent.enabled = false;
                         break;
                     default:
                         break;
@@ -614,6 +654,7 @@ public class NpcController : ControllerBased
         {
             case Item_SO.ItemType.Locker:
                 animator.Play("GetOutLocker", 0);
+                isSafe = false;
                 break;
             case Item_SO.ItemType.Box:
                 break;
@@ -622,6 +663,7 @@ public class NpcController : ControllerBased
             case Item_SO.ItemType.Chair:
                 break;
             case Item_SO.ItemType.Terminal:
+                animator.Play("GetOutTerminal", 0);
                 break;
             default:
                 break;
@@ -632,9 +674,6 @@ public class NpcController : ControllerBased
 
     public void CompleteGetInItemAction()
     {
-        //hiddenPos.isTaken = true;
-        //gameObject.layer = LayerMask.NameToLayer("Safe");
-        //RemoveAndInsertMenu("BackToPatrol", "Hide", "Hide", false, TriggerHiding);
         CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = this;
         m_fsm.ChangeState("Rest");
     }
@@ -643,7 +682,25 @@ public class NpcController : ControllerBased
     {
         boxCollider.enabled = true;
         navAgent.enabled = true;
-        CurrentInteractItem.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        switch (CurrentInteractItem.type)
+        {
+            case Item_SO.ItemType.Locker:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            case Item_SO.ItemType.Box:
+                break;
+            case Item_SO.ItemType.Bed:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            case Item_SO.ItemType.Chair:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            case Item_SO.ItemType.Terminal:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            default:
+                break;
+        }
         BackToPatrol();
     }
     #endregion

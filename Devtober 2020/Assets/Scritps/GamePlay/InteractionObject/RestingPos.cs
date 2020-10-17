@@ -21,24 +21,4 @@ public class RestingPos : Item_SO
             }
         }
     }
-
-    public override void NPCInteract(int InteractWay = 0)
-    {
-        switch (type)
-        {
-            case ItemType.Locker:
-                break;
-            case ItemType.Box:
-                break;
-            case ItemType.Bed:
-                //RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, GetOut, 1 << LayerMask.NameToLayer("HiddenPos"));
-                break;
-            case ItemType.Chair:
-                break;
-            case ItemType.Terminal:
-                break;
-            default:
-                break;
-        }
-    }
 }
