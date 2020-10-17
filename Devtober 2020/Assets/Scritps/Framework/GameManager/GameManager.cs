@@ -197,11 +197,20 @@ public class GameManager : SingletonBase<GameManager>
             CurrentRoom.PlayingDialogue(TestGraph);
         }
 
+        //NavMesh Building
         if(Time.frameCount % 10 == 0)
         {
-            CurrentRoom.navSurface.BuildNavMesh();
+            for (int i = 0; i < Rooms.Count; i++)
+            {
+                if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+                {
+                    Debug.Log("Build");
+                    Rooms[i].navSurface.BuildNavMesh();
+                }
+            }
         }
 
+        //----------------------
         if (Rooms != null)
         {
             if (Rooms.Count >= 1)
@@ -369,6 +378,7 @@ public class GameManager : SingletonBase<GameManager>
             Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
+                Debug.Log(hitInfo.collider.name);
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 //HighLight
                 //ChangeDefaultCursor

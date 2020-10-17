@@ -2,25 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RestingPos : ControllerBased
+public class RestingPos : Item_SO
 {
-    public List<Transform> restLocators = new List<Transform>();
-    public bool isTaken;
-    public bool isBed;
-    public bool isCafeteriaTable;
+    public float RecovryRate = 0.1f;
 
-    void Awake()
+    private void Awake()
     {
-        HasRightClickMenu = true;
+        AddMenu("RestIn", "Rest in", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
     }
 
-    void Start()
+    private void Update()
     {
-        AddMenu("Rest", "Rest", true, CallNPC);
+        for (int i = 0; i < Locators.Count; i++)
+        {
+            if(Locators[i].npc != null)
+            {
+                Locators[i].npc.RecoverStamina(RecovryRate);
+            }
+        }
     }
 
-    public void CallNPC(object obj)
+    public override void NPCInteract(int InteractWay = 0)
     {
-
+        switch (type)
+        {
+            case ItemType.Locker:
+                break;
+            case ItemType.Box:
+                break;
+            case ItemType.Bed:
+                break;
+            case ItemType.Chair:
+                break;
+            case ItemType.Terminal:
+                break;
+            default:
+                break;
+        }
     }
 }

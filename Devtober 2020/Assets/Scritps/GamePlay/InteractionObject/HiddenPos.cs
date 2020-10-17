@@ -5,7 +5,6 @@ using GamePlay;
 
 public class HiddenPos : Item_SO
 {
-
     private void Awake()
     {
         Anim = GetComponent<Animator>();
@@ -18,14 +17,27 @@ public class HiddenPos : Item_SO
         {
             case ItemType.Locker:
                 PlayAnimation(InteractWay.ToString());
+                RemoveAndInsertMenu("Hide In","Leave", "Leave", false, GetOut, 1 << LayerMask.NameToLayer("HiddenPos"));
                 break;
             case ItemType.Box:
                 break;
-            case ItemType.Bed:
+            default:
                 break;
-            case ItemType.Chair:
+        }
+    }
+
+    public void GetOut(object obj)
+    {
+        for (int i = 0; i < Locators.Count; i++)
+        {
+            Locators[i].npc.PlayGetOutAnim(gameObject);
+        }
+        switch (type)
+        {
+            case ItemType.Locker:
+                PlayAnimation("1");
                 break;
-            case ItemType.Terminal:
+            case ItemType.Box:
                 break;
             default:
                 break;
