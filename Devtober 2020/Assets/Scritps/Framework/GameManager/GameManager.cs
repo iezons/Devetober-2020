@@ -218,7 +218,7 @@ public class GameManager : SingletonBase<GameManager>
             }
         }
 
-        StartCoroutine(UpdateText());
+        //StartCoroutine(UpdateText());
         
         //Check is it the time to play dialogue graph
         //if(graph != null)

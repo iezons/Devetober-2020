@@ -23,6 +23,8 @@ public class HiddenPos : ControllerBased
     {
         GameObject gameObj = (GameObject)obj;
         NpcController npc = gameObj.GetComponent<NpcController>();
+        npc.isCalled = true;
         npc.ReceiveLockerCall(finalPos.position);
+        isTaken = true;
     }
 }

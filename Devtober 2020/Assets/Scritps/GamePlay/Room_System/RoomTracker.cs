@@ -37,9 +37,6 @@ namespace GamePlay
         [SerializeField]
         LayerMask canDetected = 0;
 
-        //[SerializeField]
-        //LayerMask canRoomTracked = 0;
-
         [SerializeField]
         LayerMask reportEmergency = 0;
 
@@ -50,9 +47,6 @@ namespace GamePlay
 
 
         #region Value
-
-        //RaycastHit hitRoom;
-
         bool tempCheck;
         public List<GameObject> temp = new List<GameObject>();
         #endregion
@@ -118,13 +112,12 @@ namespace GamePlay
             }
             return tempObjs;
         }
-
-        public List<GameObject> Tiles()
+        public List<GameObject> RestingPos()
         {
             List<GameObject> tempObjs = new List<GameObject>();
             foreach (GameObject temp in AllObjs())
             {
-                if (temp.layer == LayerMask.NameToLayer("Tile"))
+                if (temp.layer == LayerMask.NameToLayer("RestingPos"))
                     tempObjs.Add(temp);
             }
             return tempObjs;

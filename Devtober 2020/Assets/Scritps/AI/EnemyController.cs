@@ -58,8 +58,10 @@ public class EnemyController : MonoBehaviour
 
     public bool hasAttacked = false;
     float recordAttackTime;
-    public List<RoomTracker> roomScripts = new List<RoomTracker>();
-    public List<GameObject> Tiles = new List<GameObject>();
+    List<RoomTracker> roomScripts = new List<RoomTracker>();
+
+    Transform finalPos;
+    GameObject target;
     #endregion
 
 
@@ -94,23 +96,6 @@ public class EnemyController : MonoBehaviour
         foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
         {
             roomScripts.Add(temp);
-        }
-
-        for (int i = 0; i < roomScripts.Count; i++)
-        {
-            foreach (GameObject temp in roomScripts[i].Tiles())
-            {
-                Tiles.Add(temp);
-            }
-        }
-
-        for (int i = 0; i < roomScripts.Count; i++)
-        {
-            foreach (GameObject temp in roomScripts[i].Tiles())
-            {
-                if (!Tiles.Contains(temp))
-                    Tiles.Add(temp);
-            }
         }
     }
 
@@ -171,9 +156,32 @@ public class EnemyController : MonoBehaviour
     #region Special Action
     public void Chasing()
     {
-        if (hitNPCs.Length != 0)
+        float minDistance = Mathf.Infinity;
+
+        for(int i = 0; i<hitNPCs.Length; i++)
         {
-            navAgent.SetDestination(hitNPCs[hitNPCs.Length - 1].transform.position);
+            if (hitNPCs[i].GetComponent<NpcController>().isSafe)
+                continue;
+            Transform tempTrans = hitNPCs[i].transform;
+            float a = tempTrans.position.x - transform.position.x;
+            float b = tempTrans.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                target = hitNPCs[i].gameObject;
+                finalPos = tempTrans;
+            }
+        }
+        if (finalPos != null && !target.GetComponent<NpcController>().isSafe)
+        {
+            Dispatch(finalPos.position);
+        }
+        else
+        {
+            m_fsm.ChangeState("Patrol");
         }
         Attacking();
     }
@@ -207,6 +215,7 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Swtich State
+
     public void readyForDispatch()
     {
         navAgent.ResetPath();
