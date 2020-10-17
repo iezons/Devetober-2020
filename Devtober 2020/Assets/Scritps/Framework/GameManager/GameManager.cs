@@ -146,6 +146,13 @@ public class GameManager : SingletonBase<GameManager>
         Rooms.Add(Room_obj);
     }
 
+    IEnumerator UpdateText()
+    {
+        TMPText.maxVisibleCharacters = CurrentRoom.HistoryText.Length + CurrentRoom.DiaPlay.MaxVisible;
+        yield return null;
+        TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
+    }
+
     void Update()
     {
         //Test Code
@@ -166,6 +173,8 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
+
+        StartCoroutine(UpdateText());
 
         //----------------------
         if (Rooms != null)
