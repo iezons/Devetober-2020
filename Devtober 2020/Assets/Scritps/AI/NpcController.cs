@@ -90,6 +90,7 @@ public class NpcController : ControllerBased
 
     GameObject hideIn = null;
     HiddenPos hiddenPos;
+    public bool isSafe;
     #endregion
 
     #region InteractWithItem
