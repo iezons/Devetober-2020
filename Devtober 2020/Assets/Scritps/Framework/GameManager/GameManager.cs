@@ -35,13 +35,13 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Dialogue")]
     public DialogueGraph TestGraph;
     [SerializeField]
-    TMP_Text TMPText;
+    TMP_Text TMPText = null;
     [SerializeField]
-    GameObject OptionButtonPrefab;
+    GameObject OptionButtonPrefab = null;
     [SerializeField]
-    List<Button> Option;
+    List<Button> Option = null;
     [SerializeField]
-    Transform ButtonContent;
+    Transform ButtonContent = null;
     //string HistoryText = string.Empty;
 
     [Header("Info Pool")]
@@ -61,19 +61,19 @@ public class GameManager : SingletonBase<GameManager>
     public LayerMask NotFloorLayermask = 0;
 
     [SerializeField]
-    RectTransform RightClickMenuPanel;
+    RectTransform RightClickMenuPanel = null;
     [SerializeField]
-    GameObject RCButton;
+    GameObject RCButton = null;
     [SerializeField]
     List<GameObject> RightClickButton = new List<GameObject>();
     [SerializeField]
-    RectTransform Canvas;
+    RectTransform Canvas = null;
 
     [Header("NPC Panel")]
     [SerializeField]
-    RectTransform NPCListPanel;
+    RectTransform NPCListPanel = null;
     [SerializeField]
-    GameObject NPCListBtn;
+    GameObject NPCListBtn = null;
     List<GameObject> NPCListButtons = new List<GameObject>();
 
     bool justEnter = true;
