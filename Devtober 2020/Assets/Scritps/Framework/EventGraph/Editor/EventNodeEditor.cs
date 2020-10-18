@@ -13,7 +13,7 @@ namespace EvtGraph
     {
         EventNode eventNode;
         EventGraph eventGraph;
-
+        int index;
         public override void OnHeaderGUI()
         {
             GUI.color = Color.white;
@@ -36,7 +36,7 @@ namespace EvtGraph
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("EventName"));
 
             GUILayout.BeginHorizontal();
-            int index = EditorGUILayout.IntField(eventNode.CurrentEditingSONum + 1) - 1;
+            index = EditorGUILayout.IntField(eventNode.CurrentEditingSONum + 1) - 1;
             EditorGUILayout.LabelField("/" + eventNode.eventSO.Count.ToString());
             GUILayout.EndHorizontal();
 
@@ -49,8 +49,25 @@ namespace EvtGraph
 
             if (GUILayout.Button("Remove"))
             {
-                eventNode.eventSO.RemoveAt(index);
-                index--;
+                if(index >= 0 && index < eventNode.eventSO.Count)
+                {
+                    eventNode.eventSO.RemoveAt(index);
+                    if (eventNode.eventSO.Count > 0)
+                    {
+                        if (index - 1 < 0)
+                        {
+                            index = 0;
+                        }
+                        else
+                        {
+                            index--;
+                        }
+                    }
+                    else
+                    {
+                        index = -1;
+                    }
+                }
             }
             GUILayout.EndHorizontal();
 
@@ -66,34 +83,37 @@ namespace EvtGraph
             }
             GUILayout.EndHorizontal();
 
-            if (index >= 0 && index < eventNode.eventSO.Count)
-            {
-                eventNode.CurrentEditingSONum = index;
-            }
+            EditorGUILayout.Space(5);
 
-            Debug.Log(index);
+            Rect rect = EditorGUILayout.GetControlRect(false, 1);
 
-            if (eventNode.eventSO.Count > eventNode.CurrentEditingSONum)
+            rect.height = 1;
+
+            EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 1));
+
+            EditorGUILayout.Space(5);
+
+            if (eventNode.eventSO.Count > eventNode.CurrentEditingSONum && eventNode.CurrentEditingSONum >= 0)
             {
-                EventSO eventSO = eventNode.eventSO[index];
+                EventSO eventSO = eventNode.eventSO[eventNode.CurrentEditingSONum];
                 
                 if(eventSO.ID == string.Empty)
                 {
                     eventSO.ID = Guid.NewGuid().ToString();
                 }
-                EditorGUILayout.TextField("GUID: ", eventSO.ID);
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("doingWith"));
+                //EditorGUILayout.TextField("GUID: ", eventSO.ID);
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWith"));
                 switch (eventSO.doingWith)
                 {
                     case DoingWith.NPC:
-                        EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("doingWithNPC"));
+                        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWithNPC"));
                         switch (eventSO.doingWithNPC)
                         {
                             case DoingWithNPC.Talking:
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("NPCTalking"));
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("NPCTalking"));
                                 break;
                             case DoingWithNPC.MoveTo:
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("NPCWayPoint"));
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("NPCWayPoint"));
                                 break;
                             case DoingWithNPC.Patrol:
                                 break;
@@ -102,28 +122,33 @@ namespace EvtGraph
                         }
                         break;
                     case DoingWith.Room:
-                        EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("doingWithRoom"));
+                        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWithRoom"));
                         break;
                     case DoingWith.Enemy:
-                        EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("doingWithEnemy"));
+                        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWithEnemy"));
                         switch (eventSO.doingWithEnemy)
                         {
                             case DoingWithEnemy.Spawn:
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("SpawnPoint"));
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("SpawnPoint"));
                                 break;
                             case DoingWithEnemy.MoveTo:
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("EnemyWayPoint"));
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("EnemyWayPoint"));
                                 break;
                             default:
                                 break;
                         }
                         break;
                     case DoingWith.Custom:
-                        EditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(index).FindPropertyRelative("CustomCode"));
+                        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("CustomCode"));
                         break;
                     default:
                         break;
                 }
+            }
+
+            if (index >= -1 && index < eventNode.eventSO.Count)
+            {
+                eventNode.CurrentEditingSONum = index;
             }
 
             serializedObject.ApplyModifiedProperties();

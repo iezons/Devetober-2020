@@ -5,9 +5,9 @@ using GraphBase;
 
 namespace EvtGraph
 {
-    [CreateAssetMenu(menuName = "Graph/Event Graph")]
     public class EventGraph : NodeGraph
     {
+        public StartNode startNode;
         public EventNode eventNode;
 
         public Node current;
@@ -26,9 +26,9 @@ namespace EvtGraph
             }
         }
 
-        public void SetNode(string NodeGUID = "StartNode0_First")
+        public void SetNode(string NodeGUID = "StartNode")
         {
-            if(NodeGUID == "StartNode0_First")
+            if(NodeGUID == "StartNode")
             {
                 List<Node> temp = nodes.FindAll(node =>
                 {

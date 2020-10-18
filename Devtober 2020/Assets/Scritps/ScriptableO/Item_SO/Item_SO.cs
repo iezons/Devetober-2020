@@ -19,7 +19,8 @@ public class Item_SO : ControllerBased
         Box,
         Bed,
         Chair,
-        Terminal
+        Terminal,
+        Switch
     }
 
     public ItemType type;
@@ -66,38 +67,39 @@ public class Item_SO : ControllerBased
 
     public void CallNPC(object obj)
     {
-        Debug.Log("Call NPC");
         GameObject gameObj = (GameObject)obj;
         NpcController npc = gameObj.GetComponent<NpcController>();
         npc.ReceiveItemCall(gameObject);
     }
 
-    public void NPCInteract(int InteractWay = 0)
+    public virtual void NPCInteract(int InteractWay = 0)
     {
         switch (type)
         {
             case ItemType.Locker:
                 PlayAnimation(InteractWay.ToString());
-                RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case ItemType.Box:
                 break;
             case ItemType.Bed:
-                RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case ItemType.Chair:
-                RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case ItemType.Terminal:
                 //PlayAnimation(InteractWay.ToString());
-                RemoveAndInsertMenu("Operate", "Leave", "Leave", false, NPCInteractFinish, 1 << LayerMask.NameToLayer("HiddenPos"));
+                RemoveAndInsertMenu("Operate", "Leave", "Leave", false, NPCInteractFinish);
+                break;
+            case ItemType.Switch:
                 break;
             default:
                 break;
         }
     }
 
-    public void NPCInteractFinish(object obj)
+    public virtual void NPCInteractFinish(object obj)
     {
         for (int i = 0; i < Locators.Count; i++)
         {
@@ -115,6 +117,8 @@ public class Item_SO : ControllerBased
             case ItemType.Chair:
                 break;
             case ItemType.Terminal:
+                break;
+            case ItemType.Switch:
                 break;
             default:
                 break;

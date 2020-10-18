@@ -630,6 +630,12 @@ public class NpcController : ControllerBased
                         HasInteract = true;
                         navAgent.enabled = false;
                         break;
+                    case Item_SO.ItemType.Switch:
+                        CurrentInteractItem.NPCInteract(0);
+                        animator.Play("OperateSwitch", 0);
+                        HasInteract = true;
+                        navAgent.enabled = false;
+                        break;
                     default:
                         break;
                 }

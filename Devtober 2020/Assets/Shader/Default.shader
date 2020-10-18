@@ -5,35 +5,13 @@
         _MainTex("Texture", 2D) = "white" {}
         _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
         _GeoRes("Geometric Resolution", Float) = 70
-        _StencilNum("Stencil Number", Float) = 0
     }
     SubShader
     {
-
         Tags
         {
             "RenderType" = "Opaque"
         }
-
-        Stencil
-        {
-            Ref 1
-            Comp Always
-            Pass Replace
-        }
-
-        /*Pass
-        {
-            Name "Mask"
-            Cull Off
-            ZTest Always
-            ColorMask 0
-            Stencil
-            {
-                Ref 1
-                Pass Replace
-            }
-        }*/
 
         Pass
         {

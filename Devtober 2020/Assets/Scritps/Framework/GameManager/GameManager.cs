@@ -164,10 +164,6 @@ public class GameManager : SingletonBase<GameManager>
     void UpdateNPCList()
     {
         List<GameObject> tempObjs = CurrentRoom.NPC();
-        for (int i = 0; i < tempObjs.Count; i++)
-        {
-            Debug.Log(tempObjs[i].GetComponent<NpcController>().status.npcName);
-        }
         List<int> RemoveIndex = new List<int>();
 
         //Check is there a npc enter the room

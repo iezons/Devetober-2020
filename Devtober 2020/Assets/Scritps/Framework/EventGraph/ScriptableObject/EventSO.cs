@@ -35,7 +35,7 @@ namespace EvtGraph
     [Serializable]
     public class EventSO
     {
-        public string ID = System.Guid.NewGuid().ToString();
+        public string ID = Guid.NewGuid().ToString();
         public List<EventScriptInterface> TODOList = new List<EventScriptInterface>();
 
         public DoingWith doingWith = DoingWith.NPC;
@@ -52,18 +52,25 @@ namespace EvtGraph
 
         public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
 
-        //public void TalkingTO(TalkingClass talking)
-        //{
-        //    NPCMoveTO(talking.MoveToClassA);
-        //    NPCMoveTO(talking.MoveToClassB);
-        //}
+        public EventSO()
+        {
+            ID = Guid.NewGuid().ToString();
+            TODOList = new List<EventScriptInterface>();
 
-        //public void NPCMoveTO(MoveToClass move)
-        //{
-        //    NpcController NPCCtrl = move.Object.GetComponent<NpcController>();
-        //    NPCCtrl.readyForDispatch();
-        //    NPCCtrl.Dispatch(move.MoveTO.position);
-        //}
+            doingWith = DoingWith.NPC;
+
+            doingWithNPC = DoingWithNPC.Talking;
+            NPCTalking = new List<TalkingClass>();
+            NPCWayPoint = new List<MoveToClass>();
+
+            doingWithEnemy = DoingWithEnemy.Spawn;
+            SpawnPoint = new List<Transform>();
+            EnemyWayPoint = new List<MoveToClass>();
+
+            doingWithRoom = DoingWithRoom.None;
+
+            CustomCode = new List<EventScriptInterface>();
+        }
     }
 
     [Serializable]
