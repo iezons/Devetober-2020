@@ -29,30 +29,28 @@ public enum GameManagerState
 public class GameManager : SingletonBase<GameManager>
 {
     [Header("Event")]
-    public EventGraph eventGraph;
+    public EventGraphScene eventGraph;
+    //public EventGraph eventGraph;
     public GameManagerState gmState;
 
     [Header("Dialogue")]
     public DialogueGraph TestGraph;
     [SerializeField]
-    TMP_Text TMPText;
+    TMP_Text TMPText = null;
     [SerializeField]
-    GameObject OptionButtonPrefab;
+    GameObject OptionButtonPrefab = null;
     [SerializeField]
-    List<Button> Option;
+    List<Button> Option = null;
     [SerializeField]
-    Transform ButtonContent;
+    Transform ButtonContent = null;
     //string HistoryText = string.Empty;
 
     [Header("Info Pool")]
     public List<RoomTracker> Rooms;
-    public List<GameObject> NPCList;
-    public List<GameObject> LastNPCList;
     public RoomTracker CurrentRoom;
     public List<NpcController> NPC;
 
     [Header("Click")]
-    [HideInInspector]
     public RightClickMenus RightClickMs;
     public bool IsWaitingForClickObj = false;
 
@@ -62,19 +60,19 @@ public class GameManager : SingletonBase<GameManager>
     public LayerMask NotFloorLayermask = 0;
 
     [SerializeField]
-    RectTransform RightClickMenuPanel;
+    RectTransform RightClickMenuPanel = null;
     [SerializeField]
-    GameObject RCButton;
+    GameObject RCButton = null;
     [SerializeField]
     List<GameObject> RightClickButton = new List<GameObject>();
     [SerializeField]
-    RectTransform Canvas;
+    RectTransform Canvas = null;
 
     [Header("NPC Panel")]
     [SerializeField]
-    RectTransform NPCListPanel;
+    RectTransform NPCListPanel = null;
     [SerializeField]
-    GameObject NPCListBtn;
+    GameObject NPCListBtn = null;
     List<GameObject> NPCListButtons = new List<GameObject>();
 
     bool justEnter = true;
@@ -87,14 +85,9 @@ public class GameManager : SingletonBase<GameManager>
     void Awake()
     {
         SetupScene();
+        eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
-        //EventCenter.GetInstance().AddEventListener<DialogueGraph>("GM.DialoguePlay.Start", PlayingDialogue);
-        //EventCenter.GetInstance().AddEventListener<string>("GM.AllNPCArrive", NPCArrive);
-        //EventCenter.GetInstance().AddEventListener("DialoguePlay.PAUSED", DialoguePaused);
-        //EventCenter.GetInstance().AddEventListener("DialoguePlay.OFF", DialogueOFF);
-        //EventCenter.GetInstance().AddEventListener<int>("DialoguePlay.Next", Next);
-        //EventCenter.GetInstance().AddEventListener<List<OptionClass>>("DialoguePlay.OptionShowUP", DialogueOptionShowUp);
     }
 
     void Start()
@@ -124,7 +117,6 @@ public class GameManager : SingletonBase<GameManager>
         }
         Option.Clear();
         CurrentRoom.OptionSelect(index);
-        CurrentRoom.OptionList.Clear();
     }
 
     public void SetupOption()
@@ -153,43 +145,79 @@ public class GameManager : SingletonBase<GameManager>
         Rooms.Add(Room_obj);
     }
 
-    //void NPCArrive(string NPCName)
-    //{
-    //    if (NPCAgentList.ContainsKey(NPCName))
-    //    {
-    //        NPCAgentList[NPCName] = true;
-    //    }
-    //}
+    IEnumerator UpdateText()
+    {
+        TMPText.maxVisibleCharacters = CurrentRoom.HistoryText.Length + CurrentRoom.DiaPlay.MaxVisible;
+        yield return null;
+        TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
+    }
 
-    //void PlayingDialogue(DialogueGraph graph)
-    //{
-    //    if (DiaPlay.d_state == DiaState.OFF)
-    //        EventCenter.GetInstance().EventTriggered("DialoguePlay.Start", graph);
-    //}
+    void InstanceNPCListBtn(string npcName)
+    {
+        GameObject obj = Instantiate(NPCListBtn);
+        NPCListButtons.Add(obj);
+        obj.transform.SetParent(NPCListPanel, false);
+        obj.name = npcName;
+        obj.GetComponentInChildren<Text>().text = npcName;
+    }
 
-    //void DialoguePaused()
-    //{
-    //    if(DiaPlay.n_state == NodeState.Dialogue && DiaPlay.d_state != DiaState.OFF)
-    //        StartCoroutine(WaitAndPlay());
-    //    else if (DiaPlay.n_state == NodeState.Option)
-    //    {
+    void UpdateNPCList()
+    {
+        List<GameObject> tempObjs = CurrentRoom.NPC();
+        for (int i = 0; i < tempObjs.Count; i++)
+        {
+            Debug.Log(tempObjs[i].GetComponent<NpcController>().status.npcName);
+        }
+        List<int> RemoveIndex = new List<int>();
 
-    //    }
-    //}
+        //Check is there a npc enter the room
+        foreach (var temp in tempObjs)
+        {
+            string NPCName = temp.GetComponent<NpcController>().status.npcName;
+            bool IsContains = false;
+            for (int i = 0; i < NPCListButtons.Count; i++)
+            {
+                if(NPCListButtons[i].name == NPCName)
+                {
+                    IsContains = true;
+                    break;
+                }
+            }
+            if(!IsContains)
+            {
+                InstanceNPCListBtn(NPCName);
+            }
+        }
 
-    //IEnumerator WaitAndPlay()
-    //{
-    //    yield return new WaitForSeconds(0.7f);
-    //    HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
-    //    EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
-    //}
+        //Check is there a npc leave the room
+        for (int a = 0; a < NPCListButtons.Count; a++)
+        {
+            bool IsContains = false;
+            for (int i = 0; i < tempObjs.Count; i++)
+            {
+                if (NPCListButtons[a].name == tempObjs[i].GetComponent<NpcController>().status.npcName)
+                {
+                    IsContains = true;
+                    break;
+                }
+            }
 
-    //void DialogueOFF()
-    //{
-    //    //HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
-    //}
+            if(!IsContains)
+            {
+                RemoveIndex.Add(a);
+            }
+        }
 
-    // Update is called once per frame
+        for (int i = 0; i < RemoveIndex.Count; i++)
+        {
+            GameObject gameObj = NPCListButtons[RemoveIndex[i]];
+            NPCListButtons.RemoveAt(RemoveIndex[i]);
+            Destroy(gameObj);
+        }
+
+        RemoveIndex.Clear();
+    }
+
     void Update()
     {
         //Test Code
@@ -198,64 +226,26 @@ public class GameManager : SingletonBase<GameManager>
             CurrentRoom.PlayingDialogue(TestGraph);
         }
 
+        //NavMesh Building
         if(Time.frameCount % 10 == 0)
         {
-            CurrentRoom.navSurface.BuildNavMesh();
-        }
-
-        if (Rooms != null)
-        {
-            if (Rooms.Count >= 1)
+            for (int i = 0; i < Rooms.Count; i++)
             {
-                NPCList = CurrentRoom.NPC();
-
-                if(NPCList != LastNPCList)
+                if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
                 {
-                    for (int i = 0; i < NPCListButtons.Count; i++)
-                    {
-                        Destroy(NPCListButtons[i]);
-                    }
-                    NPCListButtons.Clear();
-
-                    for (int i = 0; i < NPCList.Count; i++)
-                    {
-                        GameObject obj = Instantiate(NPCListBtn);
-                        NPCListButtons.Add(obj);
-                        obj.transform.SetParent(NPCListPanel, false);
-                        obj.name = NPCList[i].GetComponent<NpcController>().status.npcName;
-                        obj.GetComponentInChildren<Text>().text = NPCList[i].GetComponent<NpcController>().status.npcName;
-                    }
-                    LastNPCList = NPCList;
+                    Debug.Log("Build");
+                    Rooms[i].navSurface.BuildNavMesh();
                 }
             }
         }
 
         StartCoroutine(UpdateText());
-        
-        //Check is it the time to play dialogue graph
 
-        //if(graph != null)
-        //{
-        //    bool tempBool = false;
-        //    foreach (bool value in NPCAgentList.Values)
-        //    {
-        //        if(value == false)
-        //        {
-        //            tempBool = false;
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            tempBool = true;
-        //        }
-        //    }
-        //    if(tempBool)
-        //    {
-        //        EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", graph);
-        //        graph = null;
-        //        NPCAgentList.Clear();
-        //    }
-        //}
+        //----------------------
+        if (CurrentRoom != null)
+        {
+            UpdateNPCList();
+        }
 
         //Process Event Graph
         switch (gmState)
@@ -295,9 +285,12 @@ public class GameManager : SingletonBase<GameManager>
                 gameObj.TryGetComponent(out ControllerBased based);
                 if(based != null)
                 {
-                    if (based.HasRightClickMenu)
+                    if (based.rightClickMenus != null)
                     {
-                        SetupRightClickMenu(based.rightClickMenus);
+                        if(based.rightClickMenus.Count >= 0)
+                        {
+                            SetupRightClickMenu(based.rightClickMenus);
+                        }
                     }
                 }
                 else
@@ -307,8 +300,13 @@ public class GameManager : SingletonBase<GameManager>
                     {
                         if(baseds.Count() >= 1)
                         {
-                            if(baseds[0].HasRightClickMenu)
-                                SetupRightClickMenu(baseds[0].rightClickMenus);
+                            if (baseds[0].rightClickMenus != null)
+                            {
+                                if (baseds[0].rightClickMenus.Count >= 0)
+                                {
+                                    SetupRightClickMenu(baseds[0].rightClickMenus);
+                                }
+                            }
                         }
                     }
                 }
@@ -362,6 +360,8 @@ public class GameManager : SingletonBase<GameManager>
             Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
+                Debug.Log(hitInfo.collider.name);
+                Debug.DrawLine(ray.origin, hitInfo.point);
                 //HighLight
                 //ChangeDefaultCursor
                 if (Input.GetMouseButtonDown(0))
@@ -407,14 +407,6 @@ public class GameManager : SingletonBase<GameManager>
         RightClickMs = null;
     }
 
-    IEnumerator UpdateText()
-    {
-        TMPText.maxVisibleCharacters = CurrentRoom.HistoryText.Length + CurrentRoom.DiaPlay.MaxVisible;
-        //TMPText.maxVisibleCharacters = HistoryText.Length + DiaPlay.MaxVisible;
-        yield return new WaitForEndOfFrame();
-        TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
-    }
-
     void SetupScene()
     {
         
@@ -431,14 +423,14 @@ public class GameManager : SingletonBase<GameManager>
         switch (gmState)
         {
             case GameManagerState.OFF:
-                eventGraph.SetNode();
-                eventGraph.Next();
+                eventGraph.graph.SetNode();
+                eventGraph.graph.Next();
                 TriggerEvent();
                 break;
             case GameManagerState.PROGRESSING:
                 break;
             case GameManagerState.PAUSED:
-                eventGraph.Next();
+                eventGraph.graph.Next();
                 TriggerEvent();
                 break;
             default:
@@ -449,7 +441,7 @@ public class GameManager : SingletonBase<GameManager>
     void TriggerEvent()
     {
         GoToState(GameManagerState.PROGRESSING);
-        EventNode cur =  eventGraph.current as EventNode;
+        EventNode cur =  eventGraph.graph.current as EventNode;
         if(cur != null)
         {
             List<EventSO> eventSO = cur.eventSO;
@@ -466,30 +458,20 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.Talking:
                                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                                     {
-                                        for (int b = 0; b < NPC.Count; b++)
+                                        for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                                         {
-                                            if(NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassA.Name)
+                                            for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                NPC[b].status.toDoList.Add(evt);
-                                                //TODO Find room and assign 
-                                                for (int t = 0; t < Rooms.Count; t++)
+                                                if(evt.NPCTalking[a].moveToClasses[b].NPC.gameObject == NPC[c])
                                                 {
-                                                    if(Rooms[t].NPC().Contains(NPC[b].gameObject))
+                                                    NPC[c].status.toDoList.Add(evt);
+                                                    for (int t = 0; t < Rooms.Count; t++)
                                                     {
-                                                        Rooms[t].NPCAgentList.Add(NPC[b].status.npcName, false);
-                                                        Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
-                                                    }
-                                                }
-                                            }
-                                            else if (NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassB.Name)
-                                            {
-                                                NPC[b].status.toDoList.Add(evt);
-                                                for (int t = 0; t < Rooms.Count; t++)
-                                                {
-                                                    if (Rooms[t].NPC().Contains(NPC[b].gameObject))
-                                                    {
-                                                        Rooms[t].NPCAgentList.Add(NPC[b].status.npcName, false);
-                                                        Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
+                                                        if(Rooms[t].NPC().Contains(NPC[c].gameObject))
+                                                        {
+                                                            Rooms[t].NPCAgentList.Add(NPC[c].status.npcName, false);
+                                                            Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -501,7 +483,7 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if (NPC[b].status.npcName == evt.NPCWayPoint[a].Name)
+                                            if (NPC[b].gameObject == evt.NPCWayPoint[a].NPC)
                                             {
                                                 NPC[b].status.toDoList.Add(evt);
                                             }
@@ -519,6 +501,12 @@ public class GameManager : SingletonBase<GameManager>
                             break;
                         case DoingWith.Enemy:
                             //TODO
+                            break;
+                        case DoingWith.Custom:
+                            for (int a = 0; a < evt.CustomCode.Count; a++)
+                            {
+                                evt.CustomCode[a].DoEvent(null);
+                            }
                             break;
                         default:
                             break;

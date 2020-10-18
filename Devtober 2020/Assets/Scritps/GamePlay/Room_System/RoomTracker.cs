@@ -41,9 +41,6 @@ namespace GamePlay
         [SerializeField]
         LayerMask canDetected = 0;
 
-        //[SerializeField]
-        //LayerMask canRoomTracked = 0;
-
         [SerializeField]
         LayerMask reportEmergency = 0;
 
@@ -54,11 +51,11 @@ namespace GamePlay
 
 
         #region Value
-
-        //RaycastHit hitRoom;
-
         bool tempCheck;
-        public List<GameObject> temp = new List<GameObject>();
+        [HideInInspector]
+        public List<GameObject> NPCList = new List<GameObject>();
+
+        List<GameObject> removeObjs = new List<GameObject>();
         #endregion
 
         public void Awake()
@@ -76,6 +73,28 @@ namespace GamePlay
         {
             Detecting();
             DialogueChecking();
+            List<GameObject> tempObjs = NPC();
+            foreach(var temp in tempObjs)
+            {
+                if (!NPCList.Contains(temp))
+                {
+                    NPCList.Add(temp);
+                }
+            }
+            foreach (var temp in NPCList)
+            {
+                if (!tempObjs.Contains(temp))
+                {
+                    removeObjs.Add(temp);
+                }
+            }
+
+            foreach(var temp in removeObjs)
+            {
+                NPCList.Remove(temp);
+            }
+
+            removeObjs.Clear();
         }
 
         private void Detecting()
@@ -129,14 +148,24 @@ namespace GamePlay
             }
             return tempObjs;
         }
-
-        public List<GameObject> Tiles()
+        public List<GameObject> RestingPos()
         {
             List<GameObject> tempObjs = new List<GameObject>();
             foreach (GameObject temp in AllObjs())
             {
-                if (temp.layer == LayerMask.NameToLayer("Tile"))
+                if (temp.layer == LayerMask.NameToLayer("RestingPos"))
                     tempObjs.Add(temp);
+            }
+            return tempObjs;
+        }
+
+        public List<Transform> WayPoints()
+        {
+            List<Transform> tempObjs = new List<Transform>();
+            foreach (GameObject temp in AllObjs())
+            {
+                if (temp.layer == LayerMask.NameToLayer("WayPoints"))
+                    tempObjs.Add(temp.transform);
             }
             return tempObjs;
         }
@@ -236,7 +265,6 @@ namespace GamePlay
 
         public void DialogueOptionShowUp(List<OptionClass> opts)
         {
-            OptionList.Clear();
             OptionList = opts;
             if(GameManager.GetInstance().CurrentRoom == this)
             {

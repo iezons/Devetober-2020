@@ -9,7 +9,6 @@ public class ControllerBased : MonoBehaviour
     #endregion
 
     #region RightClickMenus
-    public bool HasRightClickMenu = false;
     public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
 
     public void AddMenu(string unchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0)

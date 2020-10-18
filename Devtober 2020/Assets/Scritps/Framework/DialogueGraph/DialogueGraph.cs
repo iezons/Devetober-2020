@@ -43,14 +43,9 @@ namespace DiaGraph
 
             //If the Next One is Waiting Node, init it.
             WaitingNode Wait = current as WaitingNode;
-            DialogueNode Dialo = current as DialogueNode;
             if (Wait != null)
             {
                 Wait.StartWaiting();
-            }
-            else if(Dialo != null)
-            {
-                EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.TalkingPersonName", Dialo.TalkingPerson);
             }
         }
 

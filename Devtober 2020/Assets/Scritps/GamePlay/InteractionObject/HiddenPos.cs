@@ -3,26 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using GamePlay;
 
-public class HiddenPos : ControllerBased
+public class HiddenPos : Item_SO
 {
-    public bool isTaken;
-
-    public Transform finalPos;
-
-    void Awake()
+    private void Awake()
     {
-        HasRightClickMenu = true;
+        Anim = GetComponent<Animator>();
+        AddMenu("Hide In", "Hide In", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
     }
 
-    void Start()
-    {
-        AddMenu("Hide In", "Hide In", true, CallNPC, 1 << LayerMask.GetMask("NPC"));
-    }
-
-    public void CallNPC(object obj)
-    {
-        GameObject gameObj = (GameObject)obj;
-        NpcController npc = gameObj.GetComponent<NpcController>();
-        npc.ReceiveLockerCall(finalPos.position);
-    }
 }

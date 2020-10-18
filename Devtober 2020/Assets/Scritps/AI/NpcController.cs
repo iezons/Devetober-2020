@@ -18,14 +18,14 @@ public class NpcController : ControllerBased
         public string npcName;
         public string description;
 
-        public int maxHealth = 0;
-        public int currentHealth = 0;
+        public float maxHealth = 0;
+        public float currentHealth = 0;
 
-        public int maxStamina = 0;
+        public float maxStamina = 0;
         public float currentStamina = 0;
 
-        public int maxCredit = 0;
-        public int currentCredit = 0;
+        public float maxCredit = 0;
+        public float currentCredit = 0;
 
         public List<EventSO> toDoList;
     }
@@ -61,6 +61,15 @@ public class NpcController : ControllerBased
     float dodgeAngle = 0;
 
     [SerializeField]
+    float dodgeSpeed = 0;
+
+    [SerializeField]
+    float restTime = 0;
+
+    [SerializeField]
+    float recoverTime = 0;
+
+    [SerializeField]
     [Tooltip("The rest distance before reach destination. ")]
     float restDistance = 0.2f;
 
@@ -76,43 +85,73 @@ public class NpcController : ControllerBased
 
 
     #region Value
+    float recordRestTimer, recordRecoverTimer, recordSpeed;
+
     [HideInInspector]
     public Vector3 currentTerminalPos;
 
     Transform finalHidingPos;
     Transform finalEscapingPos;
 
-    public List<RoomTracker> roomScripts = new List<RoomTracker>();
-    public List<GameObject> hiddenSpots = new List<GameObject>();
-    public List<GameObject> rooms = new List<GameObject>();
+    List<RoomTracker> roomScripts = new List<RoomTracker>();
+    List<GameObject> hiddenSpots = new List<GameObject>();
+    List<GameObject> rooms = new List<GameObject>();
+
+    public bool isSafe = false;
+    bool MoveAcrossNavMeshesStarted;
 
     GameObject hideIn = null;
     HiddenPos hiddenPos;
     #endregion
 
+    #region InteractWithItem
+    [Header("Interact Item")]
+    public float DampPosSpeed = 0.2f;
+    public float DampRotSpeed = 0.2f;
+    public BoxCollider boxCollider;
+
+    Item_SO CurrentInteractItem;
+    LocatorList locatorList;
+
+    bool HasInteract = false;
+
+    float VelocityPosX;
+    float VelocityPosZ;
+    #endregion
 
     private void Awake()
     {
-        HasRightClickMenu = true;
+        boxCollider = GetComponent<BoxCollider>();
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
         status.toDoList.Clear();
+        recordRestTimer = restTime;
+        recordRecoverTimer = recoverTime;
+        recordSpeed = navAgent.speed;
 
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "ReceivingHideCall" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "ReceivingHideCall" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "ReceivingHideCall" } },
-            { "ReceivingHideCall", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem" } },
+            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        #endregion
+
+        #region RightClickMenu
+        //AddMenu("Move", "Move", false, ReadyForDispatch);
+        //AddMenu("HideAll", "Hide All", false, TriggerHiding); //TODO NPC集体躲进去。Call一个方法，这个方法给GM发消息，带上自己在的房间，然后GM就会识别你带的房间，然后给本房间内所有的NPC发消息，让他们躲起来
+        AddMenu("Interact", "Interact", true, ReceiveItemCall, 1 << LayerMask.NameToLayer("HiddenPos") 
+            | 1 << LayerMask.NameToLayer("RestingPos") 
+            | 1 << LayerMask.NameToLayer("TerminalPos"));
         #endregion
     }
 
@@ -120,8 +159,6 @@ public class NpcController : ControllerBased
     {
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
-        AddMenu("Move", "Move", false, ReadyForDispatch);
-        AddMenu("Hide", "Hide", false, TriggerHiding);
 
         Invoke("GenerateList", 0.00001f);
     }
@@ -154,12 +191,31 @@ public class NpcController : ControllerBased
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
-                Dispatch(currentTerminalPos);
-                GenerateNewDestination();
-                TriggerDodging();
+                restTime -= Time.deltaTime;
+                if(restTime > 0)
+                {
+                    Dispatch(currentTerminalPos);
+                    GenerateNewDestination();
+                    TriggerDodging();
+                }
+                else
+                {
+                    navAgent.ResetPath();
+                    recoverTime = recordRecoverTimer;
+                    m_fsm.ChangeState("Rest");
+                }
                 break;
             case "Rest":
-                //Rest();
+                if(m_fsm.GetPreviousState() == "Patrol")
+                {
+                    animator.Play("Idle", 0);
+                    recoverTime -= Time.deltaTime * status.currentStamina / 100;
+                    if (recoverTime <= 0)
+                    {
+                        restTime = recordRestTimer;
+                        BackToPatrol();
+                    }
+                }
                 break;
             case "Dispatch":
                 CompleteDispatching();
@@ -179,17 +235,31 @@ public class NpcController : ControllerBased
                 Dispatch(finalEscapingPos.position);
                 CompleteEscaping();
                 break;
-            case "ReceivingHideCall":
-                playHidingAni();
+            case "InteractWithItem":
+                PlayGetInAnim();
                 break;
             default:
                 break;
         }
         #endregion
         //CheckEvent();
+        if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
+        {
+            StartCoroutine(MoveAcrossNavMeshLink());
+            MoveAcrossNavMeshesStarted = true;
+        }
+
     }
 
     #region Move
+    public void BackToPatrol(object obj = null)
+    {
+        navAgent.speed = recordSpeed;
+        currentTerminalPos = NewDestination();
+        m_fsm.ChangeState("Patrol");
+        ResetHiddenPos();
+    }
+
     public float distance()
     {
         float a = navAgent.destination.x - transform.position.x;
@@ -209,73 +279,77 @@ public class NpcController : ControllerBased
 
     private void GenerateNewDestination()
     {
+        OffMeshLinkData data = navAgent.currentOffMeshLinkData;
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        
         if (Mathf.Abs(c) < patrolRange.banned || !navAgent.CalculatePath(currentTerminalPos, path))
         {
             currentTerminalPos = NewDestination();
         }
     }
 
+    IEnumerator MoveAcrossNavMeshLink()
+    {
+        OffMeshLinkData data = navAgent.currentOffMeshLinkData;
+   
+        Vector3 startPos = navAgent.transform.position;
+        Vector3 endPos = data.endPos + Vector3.up * navAgent.baseOffset;
+        float duration = (endPos - startPos).magnitude / navAgent.velocity.magnitude;
+        float t = 0.0f;
+        float tStep = 1.0f / duration;
+        while (t < 1.0f)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            t += tStep * Time.deltaTime;
+            yield return null;
+        }
+        transform.position = endPos;
+        navAgent.CompleteOffMeshLink();
+        MoveAcrossNavMeshesStarted = false;
+    }
+
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
-        //animator.SetFloat("Ground", 1);
-    }
 
-
-    #endregion
-
-    #region Receive Call
-    public void ReceiveLockerCall(Vector3 finalPos)
-    {
-        Dispatch(finalPos);
-        m_fsm.ChangeState("ReceivingHideCall");
-    }
-    #endregion
-
-    #region Special Action
-    private void Rest(float restRate)
-    {
-        navAgent.ResetPath();
-        if (status.currentStamina >= status.maxStamina)
+        if(m_fsm.GetCurrentState() != "InteractWithItem")
         {
-            status.currentStamina = status.maxStamina;
-            BackToPatrol();
-        }
-        else
-        {
-            status.currentStamina += Time.deltaTime * restRate;
-        }
-    }
-
-    private void Dodging()
-    {
-        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
-
-        for (int i = 0; i< hitObjects.Length; i++)
-        {
-            Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
-            Vector3 movingDirection = (currentTerminalPos- transform.position).normalized;
-
-            float a = currentTerminalPos.x - transform.position.x;
-            float b = currentTerminalPos.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-
-            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 
-                || Mathf.Abs(c) < patrolRange.banned
-                || !navAgent.CalculatePath(currentTerminalPos, path))
+            if(navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
             {
-                currentTerminalPos = NewDestination();
+                animator.Play("Walk", 0);
+            }
+            else if(!navAgent.isOnOffMeshLink)
+            {
+                animator.Play("Idle", 0);
             }
         }
-        Dispatch(currentTerminalPos);
+    }
 
-        if(hitObjects.Length == 0)
+    public void ReadyForDispatch(object newPos)
+    {
+        Debug.Log("Ready for Dispatch");
+        navAgent.SetDestination((Vector3)newPos);
+        m_fsm.ChangeState("Dispatch");
+    }
+
+    public void CompleteDispatching()
+    {
+        if (distance() < restDistance)
         {
+            navAgent.ResetPath();
             BackToPatrol();
         }
+    }
+    #endregion
+
+    #region Hiding
+    public void TriggerHiding(object obj = null)
+    {
+        RemoveAndInsertMenu("Interact", "BackToPatrol", "Leave", false, BackToPatrol);
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Hiding");
     }
 
     void Hiding()
@@ -283,22 +357,53 @@ public class NpcController : ControllerBased
         float minDistance = Mathf.Infinity;
         foreach (GameObject temp in hiddenSpots)
         {
-            if (temp.GetComponent<HiddenPos>().isTaken == true)
-                continue;
-            Transform tempTrans = temp.transform;
-            float a = tempTrans.position.x - transform.position.x;
-            float b = tempTrans.position.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            float distance = Mathf.Abs(c);
-
-            if (distance < minDistance)
+            HiddenPos hpos = temp.GetComponent<HiddenPos>();
+            bool isTaken = false;
+            for (int i = 0; i < hpos.Locators.Count; i++)
             {
-                minDistance = distance;
-                hideIn = temp;
-                hiddenPos = temp.GetComponent<HiddenPos>();
-                finalHidingPos = tempTrans;
+                if (hpos.Locators[i].npc != null)
+                {
+                    isTaken = true;
+                    break;
+                }
+            }
+            if (isTaken)
+                continue;
+            foreach (var item in hpos.Locators)
+            {
+                Transform tempTrans = item.Locator;
+                float a = tempTrans.position.x - transform.position.x;
+                float b = tempTrans.position.z - transform.position.z;
+                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                float distance = Mathf.Abs(c);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    hideIn = temp;
+                    hiddenPos = temp.GetComponent<HiddenPos>();
+                    finalHidingPos = tempTrans;
+                }
             }
         }
+    }
+
+    void ResetHiddenPos()
+    {
+        if (hideIn != null && hiddenPos != null)
+        {
+            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = null;
+            hideIn = null;
+            hiddenPos = null;
+        }
+    }
+    #endregion
+
+    #region Event
+    public void TriggerEvent()
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Event");
     }
 
     private void Event()
@@ -311,22 +416,21 @@ public class NpcController : ControllerBased
                 case DoingWithNPC.Talking:
                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                     {
-                        if (evt.NPCTalking[a].MoveToClassA.Name == status.npcName)
+                        for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                         {
-                            Dispatch(evt.NPCTalking[a].MoveToClassA.MoveTO);
-                        }
-                        else if (evt.NPCTalking[a].MoveToClassB.Name == status.npcName)
-                        {
-                            Dispatch(evt.NPCTalking[a].MoveToClassB.MoveTO);
+                            if(evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
+                            {
+                                Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                            }
                         }
                     }
                     break;
                 case DoingWithNPC.MoveTo:
                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                     {
-                        if (evt.NPCWayPoint[a].Name == status.npcName)
+                        if (evt.NPCWayPoint[a].NPC == gameObject)
                         {
-                            Dispatch(evt.NPCWayPoint[a].MoveTO);
+                            Dispatch(evt.NPCWayPoint[a].MoveTO.position);
                         }
                     }
                     break;
@@ -339,82 +443,77 @@ public class NpcController : ControllerBased
         }
     }
 
-    #endregion
-
-    #region Reset
-    void ResetNPC()
+    public void CheckEvent()
     {
-        this.gameObject.layer = LayerMask.NameToLayer("NPC");
+        if (status.toDoList != null)
+        {
+            if (status.toDoList.Count != 0)
+            {
+                m_fsm.ChangeState("Event");
+            }
+        }
     }
 
-    void ResetHiddenPos()
+    public void ReachDestination()
     {
-        RemoveAndInsertMenu("BackToPatrol", "Hide", "Hide", false, TriggerHiding);
-        if (hideIn != null && hiddenPos != null)
+        if (distance() <= restDistance)
         {
-            hiddenPos.isTaken = false;
-            hideIn = null;
-            hiddenPos = null;
+            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
+            //TODO 修改NPC Arrive call的方法
+            navAgent.ResetPath();
         }
     }
     #endregion
 
-    #region Play Animation
-    void playHidingAni()
-    {
-        if (distance() < restDistance)
-        {
-            
-        }
-    }
-
-    #endregion
-
-    #region Swtich State
-    public void ReadyForDispatch(object newPos)
-    {
-        Debug.Log("Ready for Dispatch");
-        navAgent.SetDestination((Vector3)newPos);
-        m_fsm.ChangeState("Dispatch");
-    }
-
-    public void BackToPatrol(object obj = null)
-    {
-        currentTerminalPos = NewDestination();
-        m_fsm.ChangeState("Patrol");
-        ResetNPC();
-        ResetHiddenPos();
-    }
-
-    public void TriggerEvent()
-    {
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Event");
-    }
-
+    #region Dodging
     public void TriggerDodging()
     {
         hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
         if (hitObjects.Length != 0)
         {
+            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
             m_fsm.ChangeState("Dodging");
         }
     }
-    public void TriggerHiding(object obj = null)
-    {
-        RemoveAndInsertMenu("Hide", "BackToPatrol", "Leave", false, BackToPatrol);
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Hiding");
-    }
 
+    private void Dodging()
+    {
+        hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
+
+        for (int i = 0; i < hitObjects.Length; i++)
+        {
+            Vector3 enemyDirection = (transform.position - hitObjects[i].gameObject.transform.position).normalized;
+            Vector3 movingDirection = (currentTerminalPos - transform.position).normalized;
+
+            float a = currentTerminalPos.x - transform.position.x;
+            float b = currentTerminalPos.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+
+            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2
+                || Mathf.Abs(c) < patrolRange.banned
+                || !navAgent.CalculatePath(currentTerminalPos, path))
+            {
+                currentTerminalPos = NewDestination();
+            }
+        }
+        Dispatch(currentTerminalPos);
+
+        if (hitObjects.Length == 0)
+        {
+            BackToPatrol();
+        }
+    }
+    #endregion
+
+    #region Escaping
     public void TriggerEscaping()
     {
         navAgent.ResetPath();
-        
+
         RaycastHit hitroom;
         Physics.Raycast(transform.position, -transform.up, out hitroom, patrolRange.y, (int)Mathf.Pow(2, 9));
 
-        foreach(GameObject temp in rooms)
+        foreach (GameObject temp in rooms)
         {
             if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
             {
@@ -426,14 +525,6 @@ public class NpcController : ControllerBased
         m_fsm.ChangeState("Escaping");
     }
 
-    public void CompleteHiding()
-    {
-        hiddenPos.isTaken = true;
-        navAgent.ResetPath();
-        this.gameObject.layer = LayerMask.NameToLayer("Safe");
-        m_fsm.ChangeState("Rest");
-    }
-
     public void CompleteEscaping()
     {
         if (distance() < restDistance)
@@ -442,55 +533,199 @@ public class NpcController : ControllerBased
             BackToPatrol();
         }
     }
+    #endregion
 
-    public void CompleteDispatching()
+    #region Receive Call
+    public void ReceiveItemCall(object obj)
     {
-        if (distance() < restDistance)
+        GameObject gameObj = (GameObject)obj;
+        Item_SO item = gameObj.GetComponent<Item_SO>();
+
+        if(item != null)
         {
-            navAgent.ResetPath();
-            BackToPatrol();
+            Debug.Log("Receive");
+
+            Vector3 Pos = Vector3.zero;
+            float minDistance = Mathf.Infinity;
+            for (int i = 0; i < item.Locators.Count; i++)
+            {
+                float a = item.Locators[i].Locator.position.x - transform.position.x;
+                float b = item.Locators[i].Locator.position.z - transform.position.z;
+                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                float distance = Mathf.Abs(c);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    Pos = item.Locators[i].Locator.position;
+                    locatorList = item.Locators[i];
+                }
+            }
+
+            CurrentInteractItem = item;
+            HasInteract = false;
+            Dispatch(Pos);
+            m_fsm.ChangeState("InteractWithItem");
         }
     }
-    
-    public void CheckEvent()
+    #endregion
+
+    #region Play Animation
+    void PlayGetInAnim()
     {
-        if(status.toDoList != null)
+        if (distance() < restDistance || !navAgent.enabled)
         {
-            if(status.toDoList.Count != 0)
+            boxCollider.enabled = false;
+            bool Damping = false;
+
+            Vector3 TraPos = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 IntPos = new Vector3(locatorList.Locator.position.x, 0, locatorList.Locator.position.z);
+
+            if(TraPos.magnitude - IntPos.magnitude >= 0.0001)
             {
-                m_fsm.ChangeState("Event");
+                transform.position = new Vector3(Mathf.SmoothDamp(transform.position.x, locatorList.Locator.position.x, ref VelocityPosX, DampPosSpeed)
+                , transform.position.y
+                , Mathf.SmoothDamp(transform.position.z, locatorList.Locator.position.z, ref VelocityPosZ, DampPosSpeed));
+                Damping = true;
+            }
+
+            if(Quaternion.Angle(transform.rotation, locatorList.Locator.rotation) >= 0.2)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, locatorList.Locator.rotation, DampRotSpeed);
+                Damping = true;
+            }
+
+            if (Damping)
+            {
+                Debug.Log("Damping");
+            }
+            else if (!HasInteract)
+            {
+                switch (CurrentInteractItem.type)
+                {
+                    case Item_SO.ItemType.Locker:
+                        CurrentInteractItem.NPCInteract(0);
+                        animator.Play("GetInLocker", 0);
+                        isSafe = true;
+                        HasInteract = true;
+                        navAgent.enabled = false;
+                        break;
+                    case Item_SO.ItemType.Box:
+                        isSafe = true;
+                        HasInteract = true;
+                        navAgent.enabled = false;
+                        break;
+                    case Item_SO.ItemType.Bed:
+                        animator.Play("GetOnBed", 0);
+                        HasInteract = true;
+                        navAgent.enabled = false;
+                        break;
+                    case Item_SO.ItemType.Chair:
+                        HasInteract = true;
+                        navAgent.enabled = false;
+                        break;
+                    case Item_SO.ItemType.Terminal:
+                        CurrentInteractItem.NPCInteract(0);
+                        animator.Play("OperateTerminal", 0);
+                        HasInteract = true;
+                        navAgent.enabled = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-    }
-
-    public void ReachDestination()
-    {
-        if(distance() <= restDistance)
+        else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
         {
-            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
+            animator.Play("Walk", 0);
+        }
+        else if (!navAgent.isOnOffMeshLink)
+        {
+            animator.Play("Idle", 0);
         }
     }
 
+    public void PlayGetOutAnim(object obj)
+    {
+        GameObject gameObj = (GameObject)obj;
+        Item_SO item = gameObj.GetComponent<Item_SO>();
+        switch (item.type)
+        {
+            case Item_SO.ItemType.Locker:
+                animator.Play("GetOutLocker", 0);
+                isSafe = false;
+                break;
+            case Item_SO.ItemType.Box:
+                break;
+            case Item_SO.ItemType.Bed:
+                break;
+            case Item_SO.ItemType.Chair:
+                break;
+            case Item_SO.ItemType.Terminal:
+                animator.Play("GetOutTerminal", 0);
+                break;
+            default:
+                break;
+        }
+        CurrentInteractItem = item;
+
+    }
+
+    public void CompleteGetInItemAction()
+    {
+        CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = this;
+        m_fsm.ChangeState("Rest");
+    }
+
+    public void CompleteGetOutItemAction()
+    {
+        boxCollider.enabled = true;
+        navAgent.enabled = true;
+        switch (CurrentInteractItem.type)
+        {
+            case Item_SO.ItemType.Locker:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            case Item_SO.ItemType.Box:
+                break;
+            case Item_SO.ItemType.Bed:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            case Item_SO.ItemType.Chair:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            case Item_SO.ItemType.Terminal:
+                CurrentInteractItem.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                break;
+            default:
+                break;
+        }
+        BackToPatrol();
+    }
     #endregion
 
     #region Status Change
-    public void ApplyHealth(int healthAmount)
+    public void ApplyHealth(float healthAmount)
     {
         status.currentHealth = status.currentHealth + healthAmount > status.maxHealth ? status.maxHealth : status.currentHealth += healthAmount;
     }
 
-    public void ApplyStamina(int staminaAmount)
+    public void ApplyStamina(float staminaAmount)
     {
         status.currentStamina = status.currentStamina + staminaAmount > status.maxStamina ? status.maxStamina : status.currentStamina += staminaAmount;
     }
 
-    public void ApplyCredit(int creditAmount)
+    public void ApplyCredit(float creditAmount)
     {
         status.currentCredit = status.currentCredit + creditAmount > status.maxCredit ? status.maxCredit : status.currentCredit += creditAmount;
     }
 
+    public void RecoverStamina(float rate)
+    {
+        status.currentStamina = status.currentStamina + rate * Time.deltaTime > status.maxStamina ? status.maxStamina : status.currentStamina += rate * Time.deltaTime;
+    }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         status.currentHealth -= damageAmount;
 
@@ -500,12 +735,12 @@ public class NpcController : ControllerBased
         }
     }
 
-    public void ConsumeStamina(int staminaAmount)
+    public void ConsumeStamina(float staminaAmount)
     {
         status.currentStamina = status.currentStamina - staminaAmount <= 0 ? 0 : status.currentStamina -= staminaAmount;
     }
 
-    public void ReduceCredit(int creditAmount)
+    public void ReduceCredit(float creditAmount)
     {
         status.currentCredit = status.currentCredit - creditAmount <= 0 ? 0 : status.currentCredit -= creditAmount;
     }

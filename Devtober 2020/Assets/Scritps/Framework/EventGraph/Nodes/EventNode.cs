@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GraphBase;
 using System;
+using System.Text.RegularExpressions;
 
 namespace EvtGraph
 {
@@ -16,6 +17,8 @@ namespace EvtGraph
 
 		[HideInInspector]
 		public string GUID = Guid.NewGuid().ToString();
+		public string EventName = string.Empty;
+		public int CurrentEditingSONum = 0;
 		public List<EventSO> eventSO;
 		[TextArea(5, 5)]
 		public string Comment;
@@ -51,6 +54,27 @@ namespace EvtGraph
 
 			EventCenter.GetInstance().EventTriggered("Event.Finished");
 			return this;
+		}
+
+		public string GetBriefDialog()
+        {
+			string temp = string.Empty;
+			if (EventName != string.Empty)
+			{
+				temp = EventName;
+				if (temp.IndexOf('\n') > 0)
+					temp = Regex.Match(EventName, @".+(?=\n)").Value;
+				if (temp.Length >= 15)
+				{
+					temp = temp.Substring(0, 14) + "…";
+				}
+				temp = "Event: " + temp;
+			}
+			else
+			{
+				temp = "Basic Event Node";
+			}
+			return temp;
 		}
 	}
 
