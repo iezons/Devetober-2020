@@ -37,7 +37,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -5925883236627597343}
+        node: {fileID: 3331458462082411346}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -127,74 +127,6 @@ MonoBehaviour:
   - What wrong with you!?
   curIndex: 0
   IsMax: 1
---- !u!114 &-5925883236627597343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b329bd0343160746993a35180aff24c, type: 3}
-  m_Name: 'Option: Relax guys'
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1032, y: -136}
-  ports:
-    keys:
-    - Input
-    - Option
-    - Option 0
-    - Option 1
-    values:
-    - _fieldName: Input
-      _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -7279196033682425925}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Option
-      _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.OptionClass,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Option 0
-      _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 5029483617706262898}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: Option 1
-      _node: {fileID: -5925883236627597343}
-      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -769504376008528109}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-  Option: []
 --- !u!114 &-3389402201724021683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +248,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Option 1
-        node: {fileID: -5925883236627597343}
+        node: {fileID: 3331458462082411346}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -352,7 +284,6 @@ MonoBehaviour:
   - {fileID: 7896657214987075499}
   - {fileID: 6307696755916235156}
   - {fileID: -6784927936571157754}
-  - {fileID: -5925883236627597343}
   - {fileID: 5029483617706262898}
   - {fileID: -769504376008528109}
   - {fileID: -7279196033682425925}
@@ -365,11 +296,12 @@ MonoBehaviour:
   - {fileID: -2104318366541594679}
   - {fileID: 581102396823219195}
   - {fileID: 7416999905853703522}
+  - {fileID: 3331458462082411346}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -5925883236627597343}
+  current: {fileID: -6784927936571157754}
   DiaPlay: {fileID: 0}
 --- !u!114 &581102396823219195
 MonoBehaviour:
@@ -515,6 +447,76 @@ MonoBehaviour:
   - Could please don't touch me?
   curIndex: 0
   IsMax: 1
+--- !u!114 &3331458462082411346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b329bd0343160746993a35180aff24c, type: 3}
+  m_Name: 'Option: Relax'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1016, y: -136}
+  ports:
+    keys:
+    - Input
+    - Option
+    - Option 0
+    - Option 1
+    values:
+    - _fieldName: Input
+      _node: {fileID: 3331458462082411346}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -7279196033682425925}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Option
+      _node: {fileID: 3331458462082411346}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.OptionClass,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Option 0
+      _node: {fileID: 3331458462082411346}
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 5029483617706262898}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: Option 1
+      _node: {fileID: 3331458462082411346}
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -769504376008528109}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  Option:
+  - Text: Relax
+  - Text: Jesus
 --- !u!114 &5029483617706262898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +542,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Option 0
-        node: {fileID: -5925883236627597343}
+        node: {fileID: 3331458462082411346}
         reroutePoints: []
       _direction: 0
       _connectionType: 0

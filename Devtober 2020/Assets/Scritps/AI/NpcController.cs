@@ -416,22 +416,21 @@ public class NpcController : ControllerBased
                 case DoingWithNPC.Talking:
                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                     {
-                        if (evt.NPCTalking[a].MoveToClassA.Name == status.npcName)
+                        for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                         {
-                            Dispatch(evt.NPCTalking[a].MoveToClassA.MoveTO);
-                        }
-                        else if (evt.NPCTalking[a].MoveToClassB.Name == status.npcName)
-                        {
-                            Dispatch(evt.NPCTalking[a].MoveToClassB.MoveTO);
+                            if(evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
+                            {
+                                Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                            }
                         }
                     }
                     break;
                 case DoingWithNPC.MoveTo:
                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                     {
-                        if (evt.NPCWayPoint[a].Name == status.npcName)
+                        if (evt.NPCWayPoint[a].NPC == gameObject)
                         {
-                            Dispatch(evt.NPCWayPoint[a].MoveTO);
+                            Dispatch(evt.NPCWayPoint[a].MoveTO.position);
                         }
                     }
                     break;
