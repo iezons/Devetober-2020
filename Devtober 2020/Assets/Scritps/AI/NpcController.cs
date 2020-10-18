@@ -89,6 +89,7 @@ public class NpcController : ControllerBased
 
     #region Value
     RaycastHit hit;
+    RoomTracker currentRoomTracker;
     float recordRestTimer, recordRecoverTimer, recordSpeed;
 
     [HideInInspector]
@@ -162,6 +163,7 @@ public class NpcController : ControllerBased
 
     private void Start()
     {
+        DetectRoom();
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
 
@@ -193,7 +195,10 @@ public class NpcController : ControllerBased
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
-                restTime -= Time.deltaTime;
+                if (!currentRoomTracker.isEnemyDetected())
+                {
+                    restTime -= Time.deltaTime;
+                }
                 if(restTime > 0)
                 {
                     DetectRoom();
@@ -211,6 +216,7 @@ public class NpcController : ControllerBased
             case "Rest":
                 if(m_fsm.GetPreviousState() == "Patrol")
                 {
+                    TriggerDodging();
                     animator.Play("Idle", 0);
                     recoverTime -= Time.deltaTime * status.currentStamina / 100;
                     if (recoverTime <= 0)
@@ -263,7 +269,7 @@ public class NpcController : ControllerBased
         ResetHiddenPos();
     }
 
-    public float distance()
+    public float Distance()
     {
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
@@ -273,13 +279,11 @@ public class NpcController : ControllerBased
 
     public Vector3 NewDestination()
     {
-        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+        int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
-        //int tempInt = Random.Range(0, wayPoints.Count);
-
-        //float x = Random.Range(wayPoints[tempInt].position.x, transform.position.x);
-        //float z = Random.Range(wayPoints[tempInt].position.z, transform.position.z);
+        float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
+        float z = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.z, transform.position.z);
         Vector3 tempPos = new Vector3(x, transform.position.y, z);
         return tempPos;
     }
@@ -318,20 +322,7 @@ public class NpcController : ControllerBased
 
     void DetectRoom()
     {
-        if(Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room")))
-        {
-            RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
-            foreach (var item in currentRoomTracker.WayPoints())
-            {
-                if (!wayPoints.Contains(item))
-                    wayPoints.Add(item);
-            }
-            //print(wayPoints[0].gameObject.name);
-        }
-
-        //wayPoints.AddRange(hit.collider.gameObject.GetComponent<RoomTracker>().WayPoints());
-        //currentTerminalPos.x = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.x, transform.position.x);
-        //currentTerminalPos.z = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.z, transform.position.z);
+        Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
     }
 
     public void Dispatch(object newPos)
@@ -360,7 +351,7 @@ public class NpcController : ControllerBased
 
     public void CompleteDispatching()
     {
-        if (distance() < restDistance)
+        if (Distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -480,7 +471,7 @@ public class NpcController : ControllerBased
 
     public void ReachDestination()
     {
-        if (distance() <= restDistance)
+        if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
             //TODO 修改NPC Arrive call的方法
@@ -551,7 +542,7 @@ public class NpcController : ControllerBased
 
     public void CompleteEscaping()
     {
-        if (distance() < restDistance)
+        if (Distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -603,7 +594,7 @@ public class NpcController : ControllerBased
     #region Play Animation
     void PlayGetInAnim()
     {
-        if (distance() < restDistance || !navAgent.enabled)
+        if (Distance() < restDistance || !navAgent.enabled)
         {
             boxCollider.enabled = false;
             bool Damping = false;
