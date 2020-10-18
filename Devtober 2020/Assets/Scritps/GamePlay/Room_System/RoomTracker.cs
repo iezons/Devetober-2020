@@ -53,6 +53,7 @@ namespace GamePlay
         #region Value
         bool tempCheck;
         public List<Transform> tempWayPoints = new List<Transform>();
+        public bool isScanOn;
         #endregion
 
         public void Awake()
@@ -60,20 +61,21 @@ namespace GamePlay
             Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
             navSurface = GetComponent<NavMeshSurface>();
-            tempWayPoints.AddRange(WayPoints());
+            if (isScanOn)
+            {
+                AddWayPoints();
+            }
         }
 
         public void Start()
         {
             EventCenter.GetInstance().EventTriggered("GM.Room.Add", this);
-            
         }
 
         private void Update()
         {
             Detecting();
             DialogueChecking();
-            
         }
 
         private void Detecting()
@@ -138,15 +140,13 @@ namespace GamePlay
             return tempObjs;
         }
 
-        public List<Transform> WayPoints()
+        public void AddWayPoints()
         {
-            List<Transform> tempObjs = new List<Transform>();
-            foreach (GameObject temp in AllObjs())
+            foreach (var temp in AllObjs())
             {
                 if (temp.layer == LayerMask.NameToLayer("WayPoints"))
-                    tempObjs.Add(temp.transform);
+                    tempWayPoints.Add(temp.transform);
             }
-            return tempObjs;
         }
 
         public string RoomName()

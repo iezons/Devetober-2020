@@ -89,6 +89,7 @@ public class NpcController : ControllerBased
 
     #region Value
     RaycastHit hit;
+    RoomTracker currentRoomTracker;
     float recordRestTimer, recordRecoverTimer, recordSpeed;
 
     [HideInInspector]
@@ -194,7 +195,10 @@ public class NpcController : ControllerBased
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
-                restTime -= Time.deltaTime;
+                if (!currentRoomTracker.isEnemyDetected())
+                {
+                    restTime -= Time.deltaTime;
+                }
                 if(restTime > 0)
                 {
                     DetectRoom();
@@ -212,6 +216,7 @@ public class NpcController : ControllerBased
             case "Rest":
                 if(m_fsm.GetPreviousState() == "Patrol")
                 {
+                    TriggerDodging();
                     animator.Play("Idle", 0);
                     recoverTime -= Time.deltaTime * status.currentStamina / 100;
                     if (recoverTime <= 0)
@@ -264,7 +269,7 @@ public class NpcController : ControllerBased
         ResetHiddenPos();
     }
 
-    public float distance()
+    public float Distance()
     {
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
@@ -274,7 +279,7 @@ public class NpcController : ControllerBased
 
     public Vector3 NewDestination()
     {
-        RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
         int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
         float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
@@ -346,7 +351,7 @@ public class NpcController : ControllerBased
 
     public void CompleteDispatching()
     {
-        if (distance() < restDistance)
+        if (Distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -466,7 +471,7 @@ public class NpcController : ControllerBased
 
     public void ReachDestination()
     {
-        if (distance() <= restDistance)
+        if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
             //TODO 修改NPC Arrive call的方法
@@ -537,7 +542,7 @@ public class NpcController : ControllerBased
 
     public void CompleteEscaping()
     {
-        if (distance() < restDistance)
+        if (Distance() < restDistance)
         {
             navAgent.ResetPath();
             BackToPatrol();
@@ -589,7 +594,7 @@ public class NpcController : ControllerBased
     #region Play Animation
     void PlayGetInAnim()
     {
-        if (distance() < restDistance || !navAgent.enabled)
+        if (Distance() < restDistance || !navAgent.enabled)
         {
             boxCollider.enabled = false;
             bool Damping = false;
