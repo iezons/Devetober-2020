@@ -52,10 +52,6 @@ namespace GamePlay
 
         #region Value
         bool tempCheck;
-        [HideInInspector]
-        public List<GameObject> NPCList = new List<GameObject>();
-
-        List<GameObject> removeObjs = new List<GameObject>();
         #endregion
 
         public void Awake()
@@ -73,28 +69,6 @@ namespace GamePlay
         {
             Detecting();
             DialogueChecking();
-            List<GameObject> tempObjs = NPC();
-            foreach(var temp in tempObjs)
-            {
-                if (!NPCList.Contains(temp))
-                {
-                    NPCList.Add(temp);
-                }
-            }
-            foreach (var temp in NPCList)
-            {
-                if (!tempObjs.Contains(temp))
-                {
-                    removeObjs.Add(temp);
-                }
-            }
-
-            foreach(var temp in removeObjs)
-            {
-                NPCList.Remove(temp);
-            }
-
-            removeObjs.Clear();
         }
 
         private void Detecting()

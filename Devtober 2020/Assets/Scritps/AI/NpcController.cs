@@ -6,7 +6,6 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
-using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcController : ControllerBased
@@ -48,6 +47,10 @@ public class NpcController : ControllerBased
     PatrolRange patrolRange = null;
 
     [SerializeField]
+    [Range(0f, 50f)]
+    public float detectRay = 0;
+
+    [SerializeField]
     [Range(0f, 100f)]
     float alertRadius = 0;
 
@@ -85,6 +88,7 @@ public class NpcController : ControllerBased
 
 
     #region Value
+    RaycastHit hit;
     float recordRestTimer, recordRecoverTimer, recordSpeed;
 
     [HideInInspector]
@@ -96,6 +100,7 @@ public class NpcController : ControllerBased
     List<RoomTracker> roomScripts = new List<RoomTracker>();
     List<GameObject> hiddenSpots = new List<GameObject>();
     List<GameObject> rooms = new List<GameObject>();
+    public List<Transform> wayPoints = new List<Transform>();
 
     public bool isSafe = false;
     bool MoveAcrossNavMeshesStarted;
@@ -173,10 +178,7 @@ public class NpcController : ControllerBased
         for (int i = 0; i < roomScripts.Count; i++)
         {
             rooms.Add(roomScripts[i].Room());
-        }
 
-        for (int i = 0; i < roomScripts.Count; i++)
-        {
             foreach (GameObject temp in roomScripts[i].HiddenPos())
             {
                 if (!hiddenSpots.Contains(temp))
@@ -194,6 +196,7 @@ public class NpcController : ControllerBased
                 restTime -= Time.deltaTime;
                 if(restTime > 0)
                 {
+                    DetectRoom();
                     Dispatch(currentTerminalPos);
                     GenerateNewDestination();
                     TriggerDodging();
@@ -270,21 +273,24 @@ public class NpcController : ControllerBased
 
     public Vector3 NewDestination()
     {
-        float x = UnityEngine.Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = UnityEngine.Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
+        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
 
-        Vector3 tempPos = new Vector3(x, transform.position.y, z);     
+        //int tempInt = Random.Range(0, wayPoints.Count);
+
+        //float x = Random.Range(wayPoints[tempInt].position.x, transform.position.x);
+        //float z = Random.Range(wayPoints[tempInt].position.z, transform.position.z);
+        Vector3 tempPos = new Vector3(x, transform.position.y, z);
         return tempPos;
     }
 
     private void GenerateNewDestination()
     {
-        OffMeshLinkData data = navAgent.currentOffMeshLinkData;
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
         
-        if (Mathf.Abs(c) < patrolRange.banned || !navAgent.CalculatePath(currentTerminalPos, path))
+        if (Mathf.Abs(c) < restDistance || !navAgent.CalculatePath(currentTerminalPos,path))
         {
             currentTerminalPos = NewDestination();
         }
@@ -308,6 +314,22 @@ public class NpcController : ControllerBased
         transform.position = endPos;
         navAgent.CompleteOffMeshLink();
         MoveAcrossNavMeshesStarted = false;
+    }
+
+    void DetectRoom()
+    {
+        Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
+        RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+        foreach (var item in currentRoomTracker.WayPoints())
+        {
+            if (!wayPoints.Contains(item))
+                wayPoints.Add(item);
+        }
+        
+
+        //wayPoints.AddRange(hit.collider.gameObject.GetComponent<RoomTracker>().WayPoints());
+        //currentTerminalPos.x = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.x, transform.position.x);
+        //currentTerminalPos.z = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.z, transform.position.z);
     }
 
     public void Dispatch(object newPos)
@@ -548,8 +570,12 @@ public class NpcController : ControllerBased
 
             Vector3 Pos = Vector3.zero;
             float minDistance = Mathf.Infinity;
+            bool isEmpty = false;
             for (int i = 0; i < item.Locators.Count; i++)
             {
+                if (item.Locators[i].npc != null)
+                    continue;
+                isEmpty = true;
                 float a = item.Locators[i].Locator.position.x - transform.position.x;
                 float b = item.Locators[i].Locator.position.z - transform.position.z;
                 float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
@@ -562,10 +588,12 @@ public class NpcController : ControllerBased
                     locatorList = item.Locators[i];
                 }
             }
-
+            if (!isEmpty)
+                return;
             CurrentInteractItem = item;
             HasInteract = false;
             Dispatch(Pos);
+            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
             m_fsm.ChangeState("InteractWithItem");
         }
     }
@@ -760,7 +788,7 @@ public class NpcController : ControllerBased
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, alertRadius);
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, -transform.up * patrolRange.y);
+        Gizmos.DrawRay(transform.position, -transform.up * detectRay);
     }
     #endregion
 }

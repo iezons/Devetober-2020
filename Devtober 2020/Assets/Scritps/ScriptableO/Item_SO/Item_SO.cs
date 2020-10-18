@@ -102,6 +102,7 @@ public class Item_SO : ControllerBased
         for (int i = 0; i < Locators.Count; i++)
         {
             Locators[i].npc.PlayGetOutAnim(gameObject);
+            Locators[i].npc = null;
         }
         switch (type)
         {

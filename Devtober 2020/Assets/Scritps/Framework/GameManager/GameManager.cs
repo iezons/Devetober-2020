@@ -181,7 +181,7 @@ public class GameManager : SingletonBase<GameManager>
         {
             if (Rooms.Count >= 1)
             {
-                NPCList = CurrentRoom.NPCList;
+                NPCList = CurrentRoom.NPC();
 
                 if(NPCList != LastNPCList)
                 {
