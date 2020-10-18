@@ -493,7 +493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57547324}
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -911,13 +911,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 15
-    y: 3
-    maxZ: 15
-    banned: 0
   detectRay: 0
   alertRadius: 8.7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -2262,13 +2258,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 20
-    y: 2
-    maxZ: 20
-    banned: 3
   detectRay: 0
   alertRadius: 7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -4821,13 +4813,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 20
-    y: 2
-    maxZ: 20
-    banned: 3
   detectRay: 0
   alertRadius: 7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -5064,13 +5052,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 20
-    y: 2
-    maxZ: 20
-    banned: 3
   detectRay: 0
   alertRadius: 7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -7118,7 +7102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749725, y: 0}
+  m_AnchoredPosition: {x: 87.74981, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
@@ -7888,6 +7872,10 @@ PrefabInstance:
     - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: alertRadius
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: bannedRadius
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1879624289633352510, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_Name

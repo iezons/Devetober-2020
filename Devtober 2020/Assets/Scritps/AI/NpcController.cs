@@ -31,21 +31,6 @@ public class NpcController : ControllerBased
 
     public Status status = null;
 
-    [System.Serializable]
-    public class PatrolRange
-    {
-        [Range(0f, 50f)]
-        public float maxX = 0;
-        [Range(0f, 50f)]
-        public float y = 0;
-        [Range(0f, 50f)]
-        public float maxZ = 0;
-        [Range(0f, 50f)]
-        public float banned = 0;
-    }
-    [SerializeField]
-    PatrolRange patrolRange = null;
-
     [SerializeField]
     [Range(0f, 50f)]
     public float detectRay = 0;
@@ -53,6 +38,10 @@ public class NpcController : ControllerBased
     [SerializeField]
     [Range(0f, 100f)]
     float alertRadius = 0;
+
+    [SerializeField]
+    [Range(0f, 100f)]
+    float bannedRadius = 0;
 
     [SerializeField]
     LayerMask needDodged = 0;
@@ -504,9 +493,7 @@ public class NpcController : ControllerBased
             float b = currentTerminalPos.z - transform.position.z;
             float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
 
-            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2
-                || Mathf.Abs(c) < patrolRange.banned
-                || !navAgent.CalculatePath(currentTerminalPos, path))
+            if (Vector3.Angle(enemyDirection, movingDirection) > dodgeAngle / 2 || Mathf.Abs(c) < bannedRadius)
             {
                 currentTerminalPos = NewDestination();
             }
@@ -526,7 +513,7 @@ public class NpcController : ControllerBased
         navAgent.ResetPath();
 
         RaycastHit hitroom;
-        Physics.Raycast(transform.position, -transform.up, out hitroom, patrolRange.y, (int)Mathf.Pow(2, 9));
+        Physics.Raycast(transform.position, -transform.up, out hitroom, detectRay, (int)Mathf.Pow(2, 9));
 
         foreach (GameObject temp in rooms)
         {
@@ -777,15 +764,13 @@ public class NpcController : ControllerBased
     #region Gizmos
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.maxX, 0, patrolRange.maxZ));
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, patrolRange.banned);
-        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentTerminalPos, 1);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, bannedRadius);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, alertRadius);
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, -transform.up * detectRay);
     }
     #endregion
