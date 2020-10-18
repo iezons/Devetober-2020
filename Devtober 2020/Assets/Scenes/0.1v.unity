@@ -493,7 +493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57547324}
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -916,6 +916,7 @@ MonoBehaviour:
     y: 3
     maxZ: 15
     banned: 0
+  detectRay: 0
   alertRadius: 8.7
   needDodged:
     serializedVersion: 2
@@ -927,6 +928,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
@@ -1487,7 +1489,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
 --- !u!4 &262208105
 Transform:
   m_ObjectHideFlags: 0
@@ -1825,8 +1826,30 @@ MonoBehaviour:
       _dynamic: 0
   GUID: c1184ac2-aba8-4fb2-b162-0c00a9823603
   EventName: Tutorials
-  eventSO: []
-  CurrentEditingSONum: -1
+  eventSO:
+  - ID: ec2340d0-36fe-481b-89fe-0c47619d5c19
+    TODOList: []
+    doingWith: 2
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    doingWithRoom: 0
+    CustomCode: []
+  - ID: 69764ba2-409f-4896-b179-759ac11dd294
+    TODOList: []
+    doingWith: 3
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    doingWithRoom: 0
+    CustomCode: []
+  CurrentEditingSONum: 0
   Comment: 
 --- !u!1 &447884733
 GameObject:
@@ -2236,6 +2259,7 @@ MonoBehaviour:
     y: 2
     maxZ: 20
     banned: 3
+  detectRay: 0
   alertRadius: 7
   needDodged:
     serializedVersion: 2
@@ -2247,6 +2271,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
@@ -2783,7 +2808,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
 --- !u!4 &867595337
 Transform:
   m_ObjectHideFlags: 0
@@ -3649,7 +3673,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
 --- !u!114 &1107192302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3935,7 +3958,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
 --- !u!114 &1139417002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4762,6 +4784,7 @@ MonoBehaviour:
     y: 2
     maxZ: 20
     banned: 3
+  detectRay: 0
   alertRadius: 7
   needDodged:
     serializedVersion: 2
@@ -4773,6 +4796,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
@@ -5003,6 +5027,7 @@ MonoBehaviour:
     y: 2
     maxZ: 20
     banned: 3
+  detectRay: 0
   alertRadius: 7
   needDodged:
     serializedVersion: 2
@@ -5014,6 +5039,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.12
@@ -5431,7 +5457,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
 --- !u!65 &1440105554
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7035,7 +7060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749825, y: 0}
+  m_AnchoredPosition: {x: 87.74974, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
@@ -7072,7 +7097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<sprite=1>New Text New Text New Text New Text New Text New Text New Text
+  m_text: 'New Text New Text New Text New Text New Text New Text New Text New Text
     New Text New Text New Text New Text New Text New Text New Text New Text New Text
     New Text New Text New Text New Text New Text New Text New Text New Text New Text
     New Text New Text New Text New Text New Text New Text New Text New Text New Text
@@ -7081,7 +7106,7 @@ MonoBehaviour:
     New Text New Text New Text New Text New Text New Text New Text New Text New Text
     New Text New Text New Text New Text New Text New Text New Text New Text New Text
     New Text New Text New Text New Text New Text New Text New Text New Text New Text
-    New Text New Text New Text New Text New Text '
+    New Text New Text New Text New Text '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7789,6 +7814,10 @@ PrefabInstance:
     - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: dodgeSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: detectRay
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1879624289633352510, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_Name

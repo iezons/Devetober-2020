@@ -318,14 +318,16 @@ public class NpcController : ControllerBased
 
     void DetectRoom()
     {
-        Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
-        RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
-        foreach (var item in currentRoomTracker.WayPoints())
+        if(Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room")))
         {
-            if (!wayPoints.Contains(item))
-                wayPoints.Add(item);
+            RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+            foreach (var item in currentRoomTracker.WayPoints())
+            {
+                if (!wayPoints.Contains(item))
+                    wayPoints.Add(item);
+            }
+            //print(wayPoints[0].gameObject.name);
         }
-        
 
         //wayPoints.AddRange(hit.collider.gameObject.GetComponent<RoomTracker>().WayPoints());
         //currentTerminalPos.x = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.x, transform.position.x);
