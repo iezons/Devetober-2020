@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace EvtGraph
 {
-	[NodeWidth(280)]
+	[NodeWidth(350)]
 	[CreateNodeMenu("Event", order = 0)]
 	[NodeTint("#00CED1")]//深绿宝石
 	public class EventNode : Node
@@ -18,8 +18,9 @@ namespace EvtGraph
 		[HideInInspector]
 		public string GUID = Guid.NewGuid().ToString();
 		public string EventName = string.Empty;
-		public int CurrentEditingSONum = 0;
-		public List<EventSO> eventSO;
+		
+		public List<EventSO> eventSO = new List<EventSO>();
+		public int CurrentEditingSONum = -1;
 		[TextArea(5, 5)]
 		public string Comment;
 

@@ -52,16 +52,19 @@ namespace GamePlay
 
         #region Value
         bool tempCheck;
-        [HideInInspector]
-        public List<GameObject> NPCList = new List<GameObject>();
-
-        List<GameObject> removeObjs = new List<GameObject>();
+        public List<Transform> tempWayPoints = new List<Transform>();
+        public bool isScanOn;
         #endregion
 
         public void Awake()
         {
+            Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
             navSurface = GetComponent<NavMeshSurface>();
+            if (isScanOn)
+            {
+                AddWayPoints();
+            }
         }
 
         public void Start()
@@ -73,28 +76,6 @@ namespace GamePlay
         {
             Detecting();
             DialogueChecking();
-            List<GameObject> tempObjs = NPC();
-            foreach(var temp in tempObjs)
-            {
-                if (!NPCList.Contains(temp))
-                {
-                    NPCList.Add(temp);
-                }
-            }
-            foreach (var temp in NPCList)
-            {
-                if (!tempObjs.Contains(temp))
-                {
-                    removeObjs.Add(temp);
-                }
-            }
-
-            foreach(var temp in removeObjs)
-            {
-                NPCList.Remove(temp);
-            }
-
-            removeObjs.Clear();
         }
 
         private void Detecting()
@@ -159,15 +140,13 @@ namespace GamePlay
             return tempObjs;
         }
 
-        public List<Transform> WayPoints()
+        public void AddWayPoints()
         {
-            List<Transform> tempObjs = new List<Transform>();
-            foreach (GameObject temp in AllObjs())
+            foreach (var temp in AllObjs())
             {
                 if (temp.layer == LayerMask.NameToLayer("WayPoints"))
-                    tempObjs.Add(temp.transform);
+                    tempWayPoints.Add(temp.transform);
             }
-            return tempObjs;
         }
 
         public string RoomName()

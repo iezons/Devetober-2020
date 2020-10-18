@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 'Event: Tutorial'
   m_EditorClassIdentifier: 
   graph: {fileID: 1309321390}
-  position: {x: -168, y: -232}
+  position: {x: -136, y: -216}
   ports:
     keys:
     - Input
@@ -261,7 +261,7 @@ MonoBehaviour:
   eventSO:
   - ID: 634ee9ae-f522-43d2-b217-2e40d22e6228
     TODOList: []
-    doingWith: 3
+    doingWith: 2
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
@@ -296,7 +296,11 @@ MonoBehaviour:
     TODOList: []
     doingWith: 0
     doingWithNPC: 0
-    NPCTalking: []
+    NPCTalking:
+    - moveToClasses:
+      - NPC: {fileID: 0}
+        MoveTO: {fileID: 0}
+      Graph: {fileID: 0}
     NPCWayPoint: []
     doingWithEnemy: 0
     SpawnPoint: []
