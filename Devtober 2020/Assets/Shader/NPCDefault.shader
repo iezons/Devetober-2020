@@ -5,22 +5,13 @@
         _MainTex("Texture", 2D) = "white" {}
         _Color("Color", Color) = (0.5, 0.5, 0.5, 1)
         _GeoRes("Geometric Resolution", Float) = 70
-        _EdgeColor("XRay EdgeColor", Color) = (0, 0, 0, 0)
     }
     SubShader
     {
-        Stencil
-        {
-            Ref 0
-            Comp Always
-            Pass Replace
-        }
-
         Tags
         {
             "Queue" = "Geometry"
             "RenderType" = "Opaque"
-            "XRay" = "XRay"
         }
         LOD 200
 

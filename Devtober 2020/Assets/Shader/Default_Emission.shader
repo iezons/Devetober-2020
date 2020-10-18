@@ -14,13 +14,6 @@
             "RenderType" = "Opaque"
         }
 
-        Stencil
-        {
-            Ref 1
-            Comp Always
-            Pass Replace
-        }
-
         Pass
         {
             Tags {"LightMode" = "ForwardBase"}

@@ -10,7 +10,8 @@ namespace EvtGraph
     {
         NPC,
         Room,
-        Enemy
+        Enemy,
+        Custom
     }
 
     public enum DoingWithNPC
@@ -31,10 +32,10 @@ namespace EvtGraph
         None,
     }
 
-    [CreateAssetMenu(menuName = "Graph/Event SO")]
-    public class EventSO : ScriptableObject
+    [Serializable]
+    public class EventSO
     {
-        public string ID = System.Guid.NewGuid().ToString();
+        public string ID = Guid.NewGuid().ToString();
         public List<EventScriptInterface> TODOList = new List<EventScriptInterface>();
 
         public DoingWith doingWith = DoingWith.NPC;
@@ -49,34 +50,50 @@ namespace EvtGraph
 
         public DoingWithRoom doingWithRoom = DoingWithRoom.None;
 
-        //public void TalkingTO(TalkingClass talking)
-        //{
-        //    NPCMoveTO(talking.MoveToClassA);
-        //    NPCMoveTO(talking.MoveToClassB);
-        //}
+        public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
 
-        //public void NPCMoveTO(MoveToClass move)
-        //{
-        //    NpcController NPCCtrl = move.Object.GetComponent<NpcController>();
-        //    NPCCtrl.readyForDispatch();
-        //    NPCCtrl.Dispatch(move.MoveTO.position);
-        //}
+        public EventSO()
+        {
+            ID = Guid.NewGuid().ToString();
+            TODOList = new List<EventScriptInterface>();
+
+            doingWith = DoingWith.NPC;
+
+            doingWithNPC = DoingWithNPC.Talking;
+            NPCTalking = new List<TalkingClass>();
+            NPCWayPoint = new List<MoveToClass>();
+
+            doingWithEnemy = DoingWithEnemy.Spawn;
+            SpawnPoint = new List<Transform>();
+            EnemyWayPoint = new List<MoveToClass>();
+
+            doingWithRoom = DoingWithRoom.None;
+
+            CustomCode = new List<EventScriptInterface>();
+        }
     }
 
     [Serializable]
     public class TalkingClass
     {
-        public MoveToClass MoveToClassA;
-        public MoveToClass MoveToClassB;
+        public List<MoveToClass> moveToClasses;
+        //public MoveToClass MoveToClassA;
+        //public MoveToClass MoveToClassB;
         public DialogueGraph Graph;
     }
 
     [Serializable]
     public class MoveToClass
     {
-        public string Name; //指的是谁要去移动
-        public Vector3 MoveTO; //指的是要移动到哪里
+        public GameObject NPC; //指的是谁要去移动
+        public Transform MoveTO; //指的是要移动到哪里
     }
 
-    public class EventScriptInterface : MonoBehaviour{ }
+    public class EventScriptInterface : MonoBehaviour
+    {
+        public virtual void DoEvent(object obj)
+        {
+            Destroy(this);
+        }
+    }
 }

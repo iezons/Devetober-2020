@@ -239,7 +239,6 @@ namespace GamePlay
 
         public void DialogueOptionShowUp(List<OptionClass> opts)
         {
-            OptionList.Clear();
             OptionList = opts;
             if(GameManager.GetInstance().CurrentRoom == this)
             {

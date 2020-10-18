@@ -47,5 +47,10 @@ public class ControllerBased : MonoBehaviour
             InsertMenu(index, InsertUnchangedName, functionName, NeedTarget, function, InteractLayer);
         }
     }
+
+    public int MenuContains(string UnchangedName)
+    {
+        return rightClickMenus.FindIndex((Rcm) => (Rcm.unchangedName == UnchangedName));
+    }
     #endregion
 }

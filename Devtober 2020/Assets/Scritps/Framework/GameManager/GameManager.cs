@@ -29,7 +29,8 @@ public enum GameManagerState
 public class GameManager : SingletonBase<GameManager>
 {
     [Header("Event")]
-    public EventGraph eventGraph;
+    public EventGraphScene eventGraph;
+    //public EventGraph eventGraph;
     public GameManagerState gmState;
 
     [Header("Dialogue")]
@@ -46,8 +47,6 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Info Pool")]
     public List<RoomTracker> Rooms;
-    public List<GameObject> NPCList;
-    public List<GameObject> LastNPCList;
     public RoomTracker CurrentRoom;
     public List<NpcController> NPC;
 
@@ -86,6 +85,7 @@ public class GameManager : SingletonBase<GameManager>
     void Awake()
     {
         SetupScene();
+        eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
     }
@@ -117,7 +117,6 @@ public class GameManager : SingletonBase<GameManager>
         }
         Option.Clear();
         CurrentRoom.OptionSelect(index);
-        CurrentRoom.OptionList.Clear();
     }
 
     public void SetupOption()
@@ -153,6 +152,68 @@ public class GameManager : SingletonBase<GameManager>
         TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
     }
 
+    void InstanceNPCListBtn(string npcName)
+    {
+        GameObject obj = Instantiate(NPCListBtn);
+        NPCListButtons.Add(obj);
+        obj.transform.SetParent(NPCListPanel, false);
+        obj.name = npcName;
+        obj.GetComponentInChildren<Text>().text = npcName;
+    }
+
+    void UpdateNPCList()
+    {
+        List<GameObject> tempObjs = CurrentRoom.NPC();
+        List<int> RemoveIndex = new List<int>();
+
+        //Check is there a npc enter the room
+        foreach (var temp in tempObjs)
+        {
+            string NPCName = temp.GetComponent<NpcController>().status.npcName;
+            bool IsContains = false;
+            for (int i = 0; i < NPCListButtons.Count; i++)
+            {
+                if(NPCListButtons[i].name == NPCName)
+                {
+                    IsContains = true;
+                    break;
+                }
+            }
+            if(!IsContains)
+            {
+                InstanceNPCListBtn(NPCName);
+            }
+        }
+
+        //Check is there a npc leave the room
+        for (int a = 0; a < NPCListButtons.Count; a++)
+        {
+            bool IsContains = false;
+            for (int i = 0; i < tempObjs.Count; i++)
+            {
+                if (NPCListButtons[a].name == tempObjs[i].GetComponent<NpcController>().status.npcName)
+                {
+                    IsContains = true;
+                    break;
+                }
+            }
+
+            if(!IsContains)
+            {
+                RemoveIndex.Add(a);
+            }
+        }
+
+        for (int i = 0; i < RemoveIndex.Count; i++)
+        {
+            GameObject gameObj = NPCListButtons[RemoveIndex[i]];
+            NPCListButtons.RemoveAt(RemoveIndex[i]);
+            Destroy(gameObj);
+        }
+
+        RemoveIndex.Clear();
+    }
+
     void Update()
     {
         //Test Code
@@ -177,31 +238,9 @@ public class GameManager : SingletonBase<GameManager>
         StartCoroutine(UpdateText());
 
         //----------------------
-        if (Rooms != null)
+        if (CurrentRoom != null)
         {
-            if (Rooms.Count >= 1)
-            {
-                NPCList = CurrentRoom.NPC();
-
-                if(NPCList != LastNPCList)
-                {
-                    for (int i = 0; i < NPCListButtons.Count; i++)
-                    {
-                        Destroy(NPCListButtons[i]);
-                    }
-                    NPCListButtons.Clear();
-
-                    for (int i = 0; i < NPCList.Count; i++)
-                    {
-                        GameObject obj = Instantiate(NPCListBtn);
-                        NPCListButtons.Add(obj);
-                        obj.transform.SetParent(NPCListPanel, false);
-                        obj.name = NPCList[i].GetComponent<NpcController>().status.npcName;
-                        obj.GetComponentInChildren<Text>().text = NPCList[i].GetComponent<NpcController>().status.npcName;
-                    }
-                    LastNPCList = NPCList;
-                }
-            }
+            UpdateNPCList();
         }
 
         //Process Event Graph
@@ -380,14 +419,14 @@ public class GameManager : SingletonBase<GameManager>
         switch (gmState)
         {
             case GameManagerState.OFF:
-                eventGraph.SetNode();
-                eventGraph.Next();
+                eventGraph.graph.SetNode();
+                eventGraph.graph.Next();
                 TriggerEvent();
                 break;
             case GameManagerState.PROGRESSING:
                 break;
             case GameManagerState.PAUSED:
-                eventGraph.Next();
+                eventGraph.graph.Next();
                 TriggerEvent();
                 break;
             default:
@@ -398,7 +437,7 @@ public class GameManager : SingletonBase<GameManager>
     void TriggerEvent()
     {
         GoToState(GameManagerState.PROGRESSING);
-        EventNode cur =  eventGraph.current as EventNode;
+        EventNode cur =  eventGraph.graph.current as EventNode;
         if(cur != null)
         {
             List<EventSO> eventSO = cur.eventSO;
@@ -415,30 +454,20 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.Talking:
                                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                                     {
-                                        for (int b = 0; b < NPC.Count; b++)
+                                        for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                                         {
-                                            if(NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassA.Name)
+                                            for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                NPC[b].status.toDoList.Add(evt);
-                                                //TODO Find room and assign 
-                                                for (int t = 0; t < Rooms.Count; t++)
+                                                if(evt.NPCTalking[a].moveToClasses[b].NPC.gameObject == NPC[c])
                                                 {
-                                                    if(Rooms[t].NPC().Contains(NPC[b].gameObject))
+                                                    NPC[c].status.toDoList.Add(evt);
+                                                    for (int t = 0; t < Rooms.Count; t++)
                                                     {
-                                                        Rooms[t].NPCAgentList.Add(NPC[b].status.npcName, false);
-                                                        Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
-                                                    }
-                                                }
-                                            }
-                                            else if (NPC[b].status.npcName == evt.NPCTalking[a].MoveToClassB.Name)
-                                            {
-                                                NPC[b].status.toDoList.Add(evt);
-                                                for (int t = 0; t < Rooms.Count; t++)
-                                                {
-                                                    if (Rooms[t].NPC().Contains(NPC[b].gameObject))
-                                                    {
-                                                        Rooms[t].NPCAgentList.Add(NPC[b].status.npcName, false);
-                                                        Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
+                                                        if(Rooms[t].NPC().Contains(NPC[c].gameObject))
+                                                        {
+                                                            Rooms[t].NPCAgentList.Add(NPC[c].status.npcName, false);
+                                                            Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -450,7 +479,7 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if (NPC[b].status.npcName == evt.NPCWayPoint[a].Name)
+                                            if (NPC[b].gameObject == evt.NPCWayPoint[a].NPC)
                                             {
                                                 NPC[b].status.toDoList.Add(evt);
                                             }
@@ -468,6 +497,12 @@ public class GameManager : SingletonBase<GameManager>
                             break;
                         case DoingWith.Enemy:
                             //TODO
+                            break;
+                        case DoingWith.Custom:
+                            for (int a = 0; a < evt.CustomCode.Count; a++)
+                            {
+                                evt.CustomCode[a].DoEvent(null);
+                            }
                             break;
                         default:
                             break;

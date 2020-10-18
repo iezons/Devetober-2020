@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using GraphBase;
 using System;
+using System.Text.RegularExpressions;
 
 namespace EvtGraph
 {
-	[NodeWidth(280)]
+	[NodeWidth(350)]
 	[CreateNodeMenu("Event", order = 0)]
 	[NodeTint("#00CED1")]//深绿宝石
 	public class EventNode : Node
@@ -16,7 +17,10 @@ namespace EvtGraph
 
 		[HideInInspector]
 		public string GUID = Guid.NewGuid().ToString();
-		public List<EventSO> eventSO;
+		public string EventName = string.Empty;
+		
+		public List<EventSO> eventSO = new List<EventSO>();
+		public int CurrentEditingSONum = -1;
 		[TextArea(5, 5)]
 		public string Comment;
 
@@ -51,6 +55,27 @@ namespace EvtGraph
 
 			EventCenter.GetInstance().EventTriggered("Event.Finished");
 			return this;
+		}
+
+		public string GetBriefDialog()
+        {
+			string temp = string.Empty;
+			if (EventName != string.Empty)
+			{
+				temp = EventName;
+				if (temp.IndexOf('\n') > 0)
+					temp = Regex.Match(EventName, @".+(?=\n)").Value;
+				if (temp.Length >= 15)
+				{
+					temp = temp.Substring(0, 14) + "…";
+				}
+				temp = "Event: " + temp;
+			}
+			else
+			{
+				temp = "Basic Event Node";
+			}
+			return temp;
 		}
 	}
 
