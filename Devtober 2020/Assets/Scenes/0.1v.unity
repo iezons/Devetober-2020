@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57547324}
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -911,13 +911,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 15
-    y: 3
-    maxZ: 15
-    banned: 0
   detectRay: 0
   alertRadius: 8.7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -1814,6 +1810,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381814177}
   m_CullTransparentMesh: 0
+--- !u!114 &384700986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
+  m_Name: 'Event: Tutorials'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1099859918}
+  position: {x: -168, y: -136}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 384700986}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 878053478}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 384700986}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GUID: c1184ac2-aba8-4fb2-b162-0c00a9823603
+  EventName: Tutorials
+  eventSO: []
+  CurrentEditingSONum: -1
+  Comment: 
 --- !u!1 &447884733
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,13 +2258,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 20
-    y: 2
-    maxZ: 20
-    banned: 3
   detectRay: 0
   alertRadius: 7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -2787,6 +2824,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &878053478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0e81891ac3abc43be081b16708f73f, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1099859918}
+  position: {x: -392, y: -136}
+  ports:
+    keys:
+    - Output
+    values:
+    - _fieldName: Output
+      _node: {fileID: 878053478}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 384700986}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
 --- !u!1 &932130400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3475,6 +3542,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099449614}
   m_CullTransparentMesh: 0
+--- !u!114 &1099859918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027505f66edd504fb546bbe4c07743e, type: 3}
+  m_Name: GM-graph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 384700986}
+  - {fileID: 878053478}
+  startNode: {fileID: 0}
+  eventNode: {fileID: 0}
+  current: {fileID: 0}
 --- !u!1 &1107192296
 GameObject:
   m_ObjectHideFlags: 0
@@ -4728,13 +4813,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 20
-    y: 2
-    maxZ: 20
-    banned: 3
   detectRay: 0
   alertRadius: 7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -4971,13 +5052,9 @@ MonoBehaviour:
     maxCredit: 0
     currentCredit: 0
     toDoList: []
-  patrolRange:
-    maxX: 20
-    y: 2
-    maxZ: 20
-    banned: 3
   detectRay: 0
   alertRadius: 7
+  bannedRadius: 0
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
@@ -6041,7 +6118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ebea33e8360024382f13032e8ce0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph: {fileID: 0}
+  graph: {fileID: 1099859918}
 --- !u!1 &1526561373
 GameObject:
   m_ObjectHideFlags: 0
@@ -7025,7 +7102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74977, y: 0}
+  m_AnchoredPosition: {x: 87.74981, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
@@ -7795,6 +7872,10 @@ PrefabInstance:
     - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: alertRadius
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: bannedRadius
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1879624289633352510, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_Name
