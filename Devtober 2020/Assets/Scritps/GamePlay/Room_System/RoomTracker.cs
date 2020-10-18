@@ -52,23 +52,28 @@ namespace GamePlay
 
         #region Value
         bool tempCheck;
+        public List<Transform> tempWayPoints = new List<Transform>();
         #endregion
 
         public void Awake()
         {
+            Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
             navSurface = GetComponent<NavMeshSurface>();
+            tempWayPoints.AddRange(WayPoints());
         }
 
         public void Start()
         {
             EventCenter.GetInstance().EventTriggered("GM.Room.Add", this);
+            
         }
 
         private void Update()
         {
             Detecting();
             DialogueChecking();
+            
         }
 
         private void Detecting()

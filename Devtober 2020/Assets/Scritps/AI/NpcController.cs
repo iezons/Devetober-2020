@@ -162,6 +162,7 @@ public class NpcController : ControllerBased
 
     private void Start()
     {
+        DetectRoom();
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
 
@@ -273,13 +274,11 @@ public class NpcController : ControllerBased
 
     public Vector3 NewDestination()
     {
-        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+        RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+        int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
-        //int tempInt = Random.Range(0, wayPoints.Count);
-
-        //float x = Random.Range(wayPoints[tempInt].position.x, transform.position.x);
-        //float z = Random.Range(wayPoints[tempInt].position.z, transform.position.z);
+        float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
+        float z = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.z, transform.position.z);
         Vector3 tempPos = new Vector3(x, transform.position.y, z);
         return tempPos;
     }
@@ -319,17 +318,6 @@ public class NpcController : ControllerBased
     void DetectRoom()
     {
         Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
-        RoomTracker currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
-        foreach (var item in currentRoomTracker.WayPoints())
-        {
-            if (!wayPoints.Contains(item))
-                wayPoints.Add(item);
-        }
-        
-
-        //wayPoints.AddRange(hit.collider.gameObject.GetComponent<RoomTracker>().WayPoints());
-        //currentTerminalPos.x = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.x, transform.position.x);
-        //currentTerminalPos.z = Random.Range((currentRoomTracker.WayPoints()[tempInt]).position.z, transform.position.z);
     }
 
     public void Dispatch(object newPos)

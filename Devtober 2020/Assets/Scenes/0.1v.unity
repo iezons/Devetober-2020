@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57547324}
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -916,6 +916,7 @@ MonoBehaviour:
     y: 3
     maxZ: 15
     banned: 0
+  detectRay: 0
   alertRadius: 8.7
   needDodged:
     serializedVersion: 2
@@ -927,6 +928,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
@@ -1286,6 +1288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 229565525}
+  - component: {fileID: 229565526}
   m_Layer: 15
   m_Name: Waypoints (4)
   m_TagString: Untagged
@@ -1307,6 +1310,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &229565526
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229565524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &251778059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1503,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
+  tempWayPoints: []
 --- !u!4 &262208105
 Transform:
   m_ObjectHideFlags: 0
@@ -1511,6 +1527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 265333880}
+  - component: {fileID: 265333881}
   m_Layer: 15
   m_Name: Waypoints
   m_TagString: Untagged
@@ -1532,6 +1549,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &265333881
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265333879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &332888862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,6 +2266,7 @@ MonoBehaviour:
     y: 2
     maxZ: 20
     banned: 3
+  detectRay: 0
   alertRadius: 7
   needDodged:
     serializedVersion: 2
@@ -2247,6 +2278,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
@@ -2783,7 +2815,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
+  tempWayPoints: []
 --- !u!4 &867595337
 Transform:
   m_ObjectHideFlags: 0
@@ -3356,6 +3388,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1051931693}
+  - component: {fileID: 1051931694}
   m_Layer: 15
   m_Name: Waypoints (2)
   m_TagString: Untagged
@@ -3377,6 +3410,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1051931694
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051931692}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1099449614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,7 +3695,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
+  tempWayPoints: []
 --- !u!114 &1107192302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3930,12 +3976,12 @@ MonoBehaviour:
     z: 30
   canDetected:
     serializedVersion: 2
-    m_Bits: 3328
+    m_Bits: 36096
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
+  tempWayPoints: []
 --- !u!114 &1139417002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4014,6 +4060,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139692319}
+  - component: {fileID: 1139692320}
   m_Layer: 15
   m_Name: Waypoints (1)
   m_TagString: Untagged
@@ -4035,6 +4082,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1139692320
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139692318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1150213772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +4822,7 @@ MonoBehaviour:
     y: 2
     maxZ: 20
     banned: 3
+  detectRay: 0
   alertRadius: 7
   needDodged:
     serializedVersion: 2
@@ -4773,6 +4834,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
@@ -5003,6 +5065,7 @@ MonoBehaviour:
     y: 2
     maxZ: 20
     banned: 3
+  detectRay: 0
   alertRadius: 7
   needDodged:
     serializedVersion: 2
@@ -5014,6 +5077,7 @@ MonoBehaviour:
   recoverTime: 0
   restDistance: 0.2
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  wayPoints: []
   isSafe: 0
   DampPosSpeed: 0.2
   DampRotSpeed: 0.12
@@ -5431,7 +5495,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
-  NPCList: []
+  tempWayPoints: []
 --- !u!65 &1440105554
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6075,6 +6139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1526561374}
+  - component: {fileID: 1526561375}
   m_Layer: 15
   m_Name: Waypoints (3)
   m_TagString: Untagged
@@ -6096,6 +6161,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1526561375
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526561373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1556767343
 GameObject:
   m_ObjectHideFlags: 0
@@ -7035,7 +7113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749825, y: 0}
+  m_AnchoredPosition: {x: 87.74978, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
@@ -7789,6 +7867,18 @@ PrefabInstance:
     - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: dodgeSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: detectRay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: patrolRange.maxX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645130549746435692, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: patrolRange.maxZ
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879624289633352510, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_Name
