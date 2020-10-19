@@ -1,4 +1,4 @@
-﻿Shader "Lit/XRay"
+﻿Shader "PS1/XRay"
 {
 	Properties
 	{
