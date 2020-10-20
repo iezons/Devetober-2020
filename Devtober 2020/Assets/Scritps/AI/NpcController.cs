@@ -169,17 +169,20 @@ public class NpcController : ControllerBased
         for (int i = 0; i < roomScripts.Count; i++)
         {
             rooms.Add(roomScripts[i].Room());
+        }
 
-            foreach (GameObject temp in roomScripts[i].HiddenPos())
-            {
-                if (!hiddenSpots.Contains(temp))
-                    hiddenSpots.Add(temp);
-            }
+
+        foreach (GameObject temp in currentRoomTracker.HiddenPos())
+        {
+            if (!hiddenSpots.Contains(temp))
+                hiddenSpots.Add(temp);
         }
     }
 
     private void Update()
     {
+                if(currentRoomTracker != null) {
+        
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
@@ -247,6 +250,7 @@ public class NpcController : ControllerBased
             MoveAcrossNavMeshesStarted = true;
         }
 
+        }
     }
 
     #region Move
@@ -268,12 +272,16 @@ public class NpcController : ControllerBased
 
     public Vector3 NewDestination()
     {
-        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
-        int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
+        Vector3 tempPos = Vector3.zero;
+        if (currentRoomTracker != null)
+        {
+            currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+            int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
-        float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
-        float z = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.z, transform.position.z);
-        Vector3 tempPos = new Vector3(x, transform.position.y, z);
+            float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
+            float z = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.z, transform.position.z);
+            tempPos = new Vector3(x, transform.position.y, z); 
+        }
         return tempPos;
     }
 

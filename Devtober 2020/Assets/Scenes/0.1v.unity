@@ -493,7 +493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57547324}
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -719,6 +719,9 @@ GameObject:
   - component: {fileID: 96796239}
   - component: {fileID: 96796238}
   - component: {fileID: 96796237}
+  - component: {fileID: 96796243}
+  - component: {fileID: 96796242}
+  - component: {fileID: 96796241}
   m_Layer: 9
   m_Name: Tunnel
   m_TagString: Room 8
@@ -802,6 +805,89 @@ Transform:
   m_Father: {fileID: 1107192300}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &96796241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96796236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 0}
+  DiaPlay: {fileID: 0}
+  WaitingGraph: {fileID: 0}
+  HistoryText: 
+  OptionList: []
+  navSurface: {fileID: 0}
+  scaleAndOffset:
+  - length: 17
+    height: 24
+    width: 12
+    x: 0
+    y: 0
+    z: 0
+  canDetected:
+    serializedVersion: 2
+    m_Bits: 64768
+  reportEmergency:
+    serializedVersion: 2
+    m_Bits: 1024
+  hitInformation: []
+  tempWayPoints: []
+  isScanOn: 0
+--- !u!114 &96796242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96796236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!114 &96796243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96796236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca7c79bdd2ff0d4a9a2684a8e6abdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomTracker: {fileID: 0}
+  currentGraph: {fileID: 0}
+  Language: English
+  d_state: 0
+  n_state: 2
+  TextSpeed: 15
+  WholeText: 
+  MaxVisible: 0
 --- !u!1001 &96886508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1488,10 +1574,7 @@ MonoBehaviour:
   HistoryText: 
   OptionList: []
   navSurface: {fileID: 0}
-  scaleRate:
-    x: 30
-    y: 11.5
-    z: 30
+  scaleAndOffset: []
   canDetected:
     serializedVersion: 2
     m_Bits: 3328
@@ -2797,10 +2880,7 @@ MonoBehaviour:
   HistoryText: 
   OptionList: []
   navSurface: {fileID: 0}
-  scaleRate:
-    x: 30
-    y: 11.5
-    z: 30
+  scaleAndOffset: []
   canDetected:
     serializedVersion: 2
     m_Bits: 3328
@@ -3678,10 +3758,13 @@ MonoBehaviour:
   HistoryText: 
   OptionList: []
   navSurface: {fileID: 0}
-  scaleRate:
-    x: 30
-    y: 11.5
-    z: 30
+  scaleAndOffset:
+  - length: 28
+    height: 28
+    width: 31
+    x: 0
+    y: 0
+    z: 0
   canDetected:
     serializedVersion: 2
     m_Bits: 3328
@@ -3965,13 +4048,16 @@ MonoBehaviour:
   HistoryText: 
   OptionList: []
   navSurface: {fileID: 0}
-  scaleRate:
-    x: 30
-    y: 11.5
-    z: 30
+  scaleAndOffset:
+  - length: 33
+    height: 21
+    width: 28
+    x: 0
+    y: 0
+    z: 0
   canDetected:
     serializedVersion: 2
-    m_Bits: 36096
+    m_Bits: 65280
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
@@ -5123,6 +5209,9 @@ GameObject:
   - component: {fileID: 1386112289}
   - component: {fileID: 1386112288}
   - component: {fileID: 1386112287}
+  - component: {fileID: 1386112293}
+  - component: {fileID: 1386112292}
+  - component: {fileID: 1386112291}
   m_Layer: 9
   m_Name: Tunnel (1)
   m_TagString: Room 8
@@ -5206,6 +5295,89 @@ Transform:
   m_Father: {fileID: 1139417000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386112291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386112286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomCamera: {fileID: 0}
+  DiaPlay: {fileID: 0}
+  WaitingGraph: {fileID: 0}
+  HistoryText: 
+  OptionList: []
+  navSurface: {fileID: 0}
+  scaleAndOffset:
+  - length: 19
+    height: 21
+    width: 12
+    x: 0
+    y: 0
+    z: 0
+  canDetected:
+    serializedVersion: 2
+    m_Bits: 64768
+  reportEmergency:
+    serializedVersion: 2
+    m_Bits: 1024
+  hitInformation: []
+  tempWayPoints: []
+  isScanOn: 0
+--- !u!114 &1386112292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386112286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!114 &1386112293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386112286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca7c79bdd2ff0d4a9a2684a8e6abdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomTracker: {fileID: 0}
+  currentGraph: {fileID: 0}
+  Language: English
+  d_state: 0
+  n_state: 2
+  TextSpeed: 15
+  WholeText: 
+  MaxVisible: 0
 --- !u!1001 &1435285448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5472,10 +5644,13 @@ MonoBehaviour:
   HistoryText: 
   OptionList: []
   navSurface: {fileID: 0}
-  scaleRate:
-    x: 30
-    y: 11.5
-    z: 30
+  scaleAndOffset:
+  - length: 32
+    height: 21
+    width: 30
+    x: 0
+    y: 0
+    z: 0
   canDetected:
     serializedVersion: 2
     m_Bits: 3328
@@ -7102,7 +7277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74981, y: 0}
+  m_AnchoredPosition: {x: 87.74977, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
@@ -7791,7 +7966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19
+      value: 27.27
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7799,7 +7974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9
+      value: -7.62
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalRotation.x
