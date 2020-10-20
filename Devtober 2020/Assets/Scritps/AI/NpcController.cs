@@ -556,7 +556,7 @@ public class NpcController : ControllerBased
     {
         GameObject gameObj = (GameObject)obj;
         Interact_SO item = gameObj.GetComponent<Interact_SO>();
-        StorgePos storge = item as StorgePos;
+        StoragePos storge = item as StoragePos;
         if(item != null)
         {
             Debug.Log("Receive Interact Call");
@@ -621,7 +621,7 @@ public class NpcController : ControllerBased
 
     }
 
-    public void ReceiveGrabOut(StorgePos storgePos, int Index, bool Grabbing)
+    public void ReceiveGrabOut(StoragePos storgePos, int Index, bool Grabbing)
     {
         Vector3 Pos = Vector3.zero;
         float minDistance = Mathf.Infinity;
@@ -738,7 +738,7 @@ public class NpcController : ControllerBased
                             break;
                         case Interact_SO.InteractType.Storge:
                             HasInteract = true;
-                            StorgePos sto = CurrentInteractObject.GetComponent<StorgePos>();
+                            StoragePos sto = CurrentInteractObject.GetComponent<StoragePos>();
                             //取东西
                             if (IsGrabbing)
                             {
@@ -746,7 +746,7 @@ public class NpcController : ControllerBased
                                 if (status.CarryItem != string.Empty)//如果NPC身上带着东西
                                 {
                                     //Debug.Log(status.npcName + ": I cannot grab this item out because I have no place to put the item that I already carried on. ");
-                                    string GrabOutItem = sto.StorgeItem[GrabOutIndex];
+                                    string GrabOutItem = sto.StorageItem[GrabOutIndex];
                                     string PutInItem = status.CarryItem;
 
                                     CurrentInteractObject.NPCInteract(GrabOutIndex); // 删掉箱子内的物品
@@ -755,16 +755,16 @@ public class NpcController : ControllerBased
                                 }
                                 else//如果NPC身上没带东西
                                 {
-                                    status.CarryItem = sto.StorgeItem[GrabOutIndex];
+                                    status.CarryItem = sto.StorageItem[GrabOutIndex];
                                     CurrentInteractObject.NPCInteract(GrabOutIndex);
                                 }
                             }
                             else //存东西
                             {
                                 animator.Play("GrabOutItem");
-                                if(sto.StorgeItem.Count + 1 <= sto.MaxStorge)
+                                if(sto.StorageItem.Count + 1 <= sto.MaxStorage)
                                 {
-                                    sto.StorgeItem.Add(status.CarryItem);
+                                    sto.StorageItem.Add(status.CarryItem);
                                     status.CarryItem = string.Empty;
                                 }
                                 else
