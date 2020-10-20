@@ -15,15 +15,22 @@ namespace GamePlay
         #region Inspector View
 
         [System.Serializable]
-        public class ScaleRate
+        public class ScaleAndOffset
         {
             [Range(0f, 100f)]
+            public float length = 0;
+            [Range(0f, 100f)]
+            public float height = 0;
+            [Range(0f, 100f)]
+            public float width = 0;
+            [Range(-100f, 100f)]
             public float x = 0;
-            [Range(0f, 100f)]
+            [Range(-100f, 100f)]
             public float y = 0;
-            [Range(0f, 100f)]
+            [Range(-100f, 100f)]
             public float z = 0;
         }
+
         [Header("Camera")]
         public Camera RoomCamera;
         [Header("Dialogue")]
@@ -36,7 +43,7 @@ namespace GamePlay
         public NavMeshSurface navSurface;
 
         [SerializeField]
-        ScaleRate scaleRate = null;
+        List<ScaleAndOffset> scaleAndOffset = new List<ScaleAndOffset>();
 
         [SerializeField]
         LayerMask canDetected = 0;
@@ -45,7 +52,7 @@ namespace GamePlay
         LayerMask reportEmergency = 0;
 
         [SerializeField]
-        Collider[] hitInformation;
+        List<Collider> hitInformation = new List<Collider>();
 
         #endregion
 
@@ -80,10 +87,12 @@ namespace GamePlay
 
         private void Detecting()
         {
+            hitInformation.Clear();
             //Track Object in the area
-            hitInformation = Physics.OverlapBox(transform.position, new Vector3 (scaleRate.x, scaleRate.y, scaleRate.z)/2, Quaternion.identity, canDetected);
-            ////Track Room Number
-            //Physics.Raycast(transform.position, -transform.up, out hitRoom, scaleRate.y / 2, canRoomTracked);
+            for (int i = 0; i < scaleAndOffset.Count; i++)
+            {
+                hitInformation.AddRange(Physics.OverlapBox(transform.position + new Vector3(scaleAndOffset[i].x, scaleAndOffset[i].y, scaleAndOffset[i].z), new Vector3(scaleAndOffset[i].length, scaleAndOffset[i].height, scaleAndOffset[i].width) / 2, Quaternion.identity, canDetected));
+            }
         }
 
         #region Information Pool
@@ -92,7 +101,8 @@ namespace GamePlay
             List<GameObject> tempobjs = new List<GameObject>();
             foreach (Collider temp in hitInformation)
             {
-                tempobjs.Add(temp.gameObject);
+                if(!tempobjs.Contains(temp.gameObject))
+                    tempobjs.Add(temp.gameObject);
             }
             return tempobjs;
         }
@@ -161,7 +171,7 @@ namespace GamePlay
 
         public bool isEnemyDetected()
         {
-            for (int i = 0; i < hitInformation.Length; i++)
+            for (int i = 0; i < hitInformation.Count; i++)
             {
                 if (hitInformation[i].gameObject.layer == Mathf.Log(reportEmergency.value, 2))
                 {
@@ -262,10 +272,10 @@ namespace GamePlay
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(transform.position, new Vector3(scaleRate.x, scaleRate.y, scaleRate.z));
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, -transform.up * scaleRate.y/2);
+            for (int i = 0; i < scaleAndOffset.Count; i++)
+            {
+                Gizmos.DrawWireCube(transform.position + new Vector3(scaleAndOffset[i].x, scaleAndOffset[i].y, scaleAndOffset[i].z), new Vector3(scaleAndOffset[i].length, scaleAndOffset[i].height, scaleAndOffset[i].width));
+            }
         }
         #endregion
     }
