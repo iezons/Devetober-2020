@@ -1,11 +1,10 @@
-﻿Shader "PS1/Emission"
+﻿Shader "PS1/PS1_PerspectiveCorrect"
 {
-    Properties
+   Properties
     {
         _MainTex("Texture", 2D) = "white" {}
-        _Color("Color", Color) = (0.5, 0.5, 0.5, 1)
+        _Color("Color", Color) = (0.3, 0.3, 0.3, 1)
         _GeoRes("Geometric Resolution", Float) = 70
-        [HDR]_EmissionColor("EmissonColor", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -35,13 +34,12 @@
                 fixed3 diff : COLOR0;
                 fixed3 ambient : COLOR1;
                 float4 pos : SV_POSITION;
-                float3 texcoord : TEXCOORD;
+                float2 uv : TEXCOORD;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _Color;
-            float4 _EmissionColor;
             float _GeoRes;
 
             v2f vert(appdata_base v)
@@ -56,7 +54,7 @@
 
                 //o.uv = v.texcoord;
                 float2 uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-                o.texcoord = float3(uv * sp.w, sp.w);
+                o.uv = v.texcoord;
                 
                 half3 worldNormal = UnityObjectToWorldNormal(v.normal);
                 half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
@@ -70,14 +68,12 @@
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float2 uv = i.texcoord.xy / i.texcoord.z;
-                float4 col = tex2D(_MainTex, uv) * _Color;
+                float4 col = tex2D(_MainTex, i.uv) * _Color;
                 // compute shadow attenuation (1.0 = fully lit, 0.0 = fully shadowed)
                 fixed shadow = SHADOW_ATTENUATION(i);
                 // darken light's illumination with shadow, keep ambient intact
                 fixed3 lighting = i.diff * shadow + i.ambient;
                 col.rgb *= lighting;
-                col += _EmissionColor;
                 return col;
             }
             ENDCG
@@ -150,45 +146,6 @@
                     return col;
                 }
                 ENDCG
-        }
-
-        Pass
-        {
-            Name "META"
-            Tags {"LightMode" = "Meta"}
-            Cull Off
-            CGPROGRAM
-
-            #include "UnityStandardMeta.cginc"
-            #pragma vertex vert_meta
-            #pragma fragment frag_meta_custom
-
-            struct v2f
-            {
-                float4 pos : SV_POSITION;
-                float3 texcoord : TEXCOORD0;
-                float3 normal : TEXCOORD1;
-                float3 wPos : TEXCOORD2;
-                LIGHTING_COORDS(3, 4)
-                //SHADOW_COORDS(2)
-            };
-
-            fixed4 frag_meta_custom(v2f i) : SV_Target
-            {
-                // Colors                
-                fixed4 col = (1, 0, 0, 0); // The emission color
-
-                // Calculate emission
-                UnityMetaInput metaIN;
-                    UNITY_INITIALIZE_OUTPUT(UnityMetaInput, metaIN);
-                    metaIN.Albedo = col.rgb;
-                    metaIN.Emission = col.rgb;
-                    return UnityMetaFragment(metaIN);
-
-                return col;
-            }
-
-            ENDCG
         }
 
         // shadow casting support

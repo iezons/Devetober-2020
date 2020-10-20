@@ -1,4 +1,4 @@
-﻿Shader "Lit/Diffuse With Shadows"
+﻿Shader "PS1/PS1_Default"
 {
     Properties
     {

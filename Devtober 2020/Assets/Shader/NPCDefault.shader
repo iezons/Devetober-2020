@@ -1,4 +1,4 @@
-﻿Shader "Lit/NPCDefault"
+﻿Shader "PS1/NPCDefault"
 {
     Properties
     {
