@@ -11,22 +11,24 @@ public class ControllerBased : MonoBehaviour
     #region RightClickMenus
     public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
 
-    public void AddMenu(string unchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0)
+    public void AddMenu(string unchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0, object DefaultCallValue = null)
     {
         rightClickMenus.Add(new RightClickMenus { unchangedName = unchangedName });
         rightClickMenus[rightClickMenus.Count - 1].functionName = functionName;
         rightClickMenus[rightClickMenus.Count - 1].NeedTarget = NeedTarget;
         rightClickMenus[rightClickMenus.Count - 1].InteractLayer = InteractLayer;
         rightClickMenus[rightClickMenus.Count - 1].function += function;
+        rightClickMenus[rightClickMenus.Count - 1].DefaultCallValue = DefaultCallValue;
     }
 
-    public void InsertMenu(int index, string unchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0)
+    public void InsertMenu(int index, string unchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0, object DefaultCallValue = null)
     {
         rightClickMenus.Insert(index, new RightClickMenus { unchangedName = unchangedName });
         rightClickMenus[index].functionName = functionName;
         rightClickMenus[index].NeedTarget = NeedTarget;
         rightClickMenus[index].InteractLayer = InteractLayer;
         rightClickMenus[index].function += function;
+        rightClickMenus[index].DefaultCallValue = DefaultCallValue;
     }
 
     /// <summary>
@@ -38,19 +40,24 @@ public class ControllerBased : MonoBehaviour
         rightClickMenus.RemoveAll((Rcm) => (Rcm.unchangedName == unchangedName));
     }
 
-    public void RemoveAndInsertMenu(string RemoveUnchangedName, string InsertUnchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0)
+    public void RemoveAndInsertMenu(string RemoveUnchangedName, string InsertUnchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0, object DefaultCallValue = null)
     {
         int index = rightClickMenus.FindIndex((Rcm) => (Rcm.unchangedName == RemoveUnchangedName));
         if(index >= 0)
         {
             rightClickMenus.RemoveAt(index);
-            InsertMenu(index, InsertUnchangedName, functionName, NeedTarget, function, InteractLayer);
+            InsertMenu(index, InsertUnchangedName, functionName, NeedTarget, function, InteractLayer, DefaultCallValue);
         }
     }
 
     public int MenuContains(string UnchangedName)
     {
         return rightClickMenus.FindIndex((Rcm) => (Rcm.unchangedName == UnchangedName));
+    }
+
+    public void RemoveAllMenu()
+    {
+        rightClickMenus.Clear();
     }
     #endregion
 }

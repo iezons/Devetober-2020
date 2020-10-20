@@ -12,6 +12,7 @@ public class RightClickMenus
     public bool NeedTarget = false;
     public LayerMask InteractLayer;
     public event MenuHandler function;
+    public object DefaultCallValue = null;
     public void DoFunction(object obj)
     {
         function(obj);

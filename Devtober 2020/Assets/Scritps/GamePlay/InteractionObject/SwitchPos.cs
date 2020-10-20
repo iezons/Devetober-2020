@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using GamePlay;
 
-public class SwitchPos : Item_SO
+public class SwitchPos : Interact_SO
 {
     public DoorController door;
 
     private void Awake()
     {
-        type = ItemType.Switch;
+        type = InteractType.Switch;
         AddMenu("TurnON", "TurnON", true, CallNPC, 1<<LayerMask.NameToLayer("NPC"));
     }
 

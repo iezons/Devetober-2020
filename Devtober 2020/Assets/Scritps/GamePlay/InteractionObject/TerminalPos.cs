@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerminalPos : Item_SO
+public class TerminalPos : Interact_SO
 {
     private void Awake()
     {

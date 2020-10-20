@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RestingPos : Item_SO
+public class RestingPos : Interact_SO
 {
     public float RecovryRate = 0.1f;
 

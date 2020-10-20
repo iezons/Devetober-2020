@@ -12,6 +12,12 @@ using System;
 using System.Linq;
 using UnityEngine.AI;
 
+public class DefaultValueWithGO
+{
+    public object DefaultValue;
+    public GameObject GO;
+}
+
 public class WaitingNPCArrive
 {
     public string RoomNum;
@@ -362,7 +368,19 @@ public class GameManager : SingletonBase<GameManager>
                 //ChangeDefaultCursor
                 if (Input.GetMouseButtonDown(0))
                 {
-                    RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                    if(RightClickMs.DefaultCallValue != null)
+                    {
+                        DefaultValueWithGO dwg = new DefaultValueWithGO
+                        {
+                            DefaultValue = RightClickMs.DefaultCallValue,
+                            GO = hitInfo.collider.gameObject,
+                        };
+                        RightClickMs.DoFunction(dwg);
+                    }
+                    else
+                    {
+                        RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                    }
                     IsWaitingForClickObj = false;
                 }
             }

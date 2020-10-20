@@ -11,19 +11,20 @@ public class LocatorList
     public Transform Locator;
 }
 
-public class Item_SO : ControllerBased
+public class Interact_SO : ControllerBased
 {
-    public enum ItemType
+    public enum InteractType
     {
         Locker,
         Box,
         Bed,
         Chair,
         Terminal,
-        Switch
+        Switch,
+        Storge
     }
 
-    public ItemType type;
+    public InteractType type;
 
     [Header("State")]
 
@@ -69,30 +70,30 @@ public class Item_SO : ControllerBased
     {
         GameObject gameObj = (GameObject)obj;
         NpcController npc = gameObj.GetComponent<NpcController>();
-        npc.ReceiveItemCall(gameObject);
+        npc.ReceiveInteractCall(gameObject);
     }
 
     public virtual void NPCInteract(int InteractWay = 0)
     {
         switch (type)
         {
-            case ItemType.Locker:
+            case InteractType.Locker:
                 PlayAnimation(InteractWay.ToString());
                 RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, NPCInteractFinish);
                 break;
-            case ItemType.Box:
+            case InteractType.Box:
                 break;
-            case ItemType.Bed:
+            case InteractType.Bed:
                 RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
                 break;
-            case ItemType.Chair:
+            case InteractType.Chair:
                 RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
                 break;
-            case ItemType.Terminal:
+            case InteractType.Terminal:
                 //PlayAnimation(InteractWay.ToString());
                 RemoveAndInsertMenu("Operate", "Leave", "Leave", false, NPCInteractFinish);
                 break;
-            case ItemType.Switch:
+            case InteractType.Switch:
                 break;
             default:
                 break;
@@ -108,18 +109,18 @@ public class Item_SO : ControllerBased
         }
         switch (type)
         {
-            case ItemType.Locker:
+            case InteractType.Locker:
                 PlayAnimation("1");
                 break;
-            case ItemType.Box:
+            case InteractType.Box:
                 break;
-            case ItemType.Bed:
+            case InteractType.Bed:
                 break;
-            case ItemType.Chair:
+            case InteractType.Chair:
                 break;
-            case ItemType.Terminal:
+            case InteractType.Terminal:
                 break;
-            case ItemType.Switch:
+            case InteractType.Switch:
                 break;
             default:
                 break;

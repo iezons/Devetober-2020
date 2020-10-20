@@ -27,6 +27,8 @@ public class NpcController : ControllerBased
         public float currentCredit = 0;
 
         public List<EventSO> toDoList;
+
+        public string CarryItem;
     }
 
     public Status status = null;
@@ -105,8 +107,12 @@ public class NpcController : ControllerBased
     public float DampRotSpeed = 0.2f;
     public BoxCollider boxCollider;
 
-    Item_SO CurrentInteractItem;
+    Interact_SO CurrentInteractObject;
     LocatorList locatorList;
+    int GrabOutIndex;
+    bool IsGrabbing = false;
+
+    Item_SO CurrentInteractItem;
 
     bool HasInteract = false;
 
@@ -144,7 +150,7 @@ public class NpcController : ControllerBased
         #region RightClickMenu
         //AddMenu("Move", "Move", false, ReadyForDispatch);
         //AddMenu("HideAll", "Hide All", false, TriggerHiding); //TODO NPC集体躲进去。Call一个方法，这个方法给GM发消息，带上自己在的房间，然后GM就会识别你带的房间，然后给本房间内所有的NPC发消息，让他们躲起来
-        AddMenu("Interact", "Interact", true, ReceiveItemCall, 1 << LayerMask.NameToLayer("HiddenPos") 
+        AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos") 
             | 1 << LayerMask.NameToLayer("RestingPos") 
             | 1 << LayerMask.NameToLayer("TerminalPos"));
         #endregion
@@ -396,7 +402,7 @@ public class NpcController : ControllerBased
     {
         if (hideIn != null && hiddenPos != null)
         {
-            CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = null;
+            CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = null;
             hideIn = null;
             hiddenPos = null;
         }
@@ -538,15 +544,15 @@ public class NpcController : ControllerBased
     #endregion
 
     #region Receive Call
-    public void ReceiveItemCall(object obj)
+    public void ReceiveInteractCall(object obj)
     {
         GameObject gameObj = (GameObject)obj;
-        Item_SO item = gameObj.GetComponent<Item_SO>();
-
+        Interact_SO item = gameObj.GetComponent<Interact_SO>();
+        StorgePos storge = item as StorgePos;
         if(item != null)
         {
-            Debug.Log("Receive");
-
+            Debug.Log("Receive Interact Call");
+            
             Vector3 Pos = Vector3.zero;
             float minDistance = Mathf.Infinity;
             bool isEmpty = false;
@@ -569,12 +575,88 @@ public class NpcController : ControllerBased
             }
             if (!isEmpty)
                 return;
-            CurrentInteractItem = item;
+
+            if (storge != null)
+            {
+                IsGrabbing = false;
+            }
+
+            CurrentInteractObject = item;
             HasInteract = false;
             Dispatch(Pos);
             navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
             m_fsm.ChangeState("InteractWithItem");
         }
+    }
+
+    public void ReceiveItemCall(object obj)
+    {
+        GameObject gameObj = (GameObject)obj;
+        Item_SO item = gameObj.GetComponent<Item_SO>();
+
+        if(item != null)
+        {
+            Debug.Log("Receive Item Call");
+        }
+
+        CurrentInteractItem = item;
+        HasInteract = false;
+        Dispatch(gameObj.transform.position);
+        navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+        m_fsm.ChangeState("InteractWithItem");
+        locatorList.Locator = gameObj.transform;
+        locatorList.npc = null;
+    }
+
+    public void CallGrabOut(object obj)
+    {
+
+    }
+
+    public void ReceiveGrabOut(StorgePos storgePos, int Index, bool Grabbing)
+    {
+        Vector3 Pos = Vector3.zero;
+        float minDistance = Mathf.Infinity;
+        bool isEmpty = false;
+        for (int i = 0; i < storgePos.Locators.Count; i++)
+        {
+            if (storgePos.Locators[i].npc != null)
+                continue;
+            isEmpty = true;
+            float a = storgePos.Locators[i].Locator.position.x - transform.position.x;
+            float b = storgePos.Locators[i].Locator.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                Pos = storgePos.Locators[i].Locator.position;
+                locatorList = storgePos.Locators[i];
+            }
+        }
+
+        if (!isEmpty)
+            return;
+
+        IsGrabbing = Grabbing;
+        CurrentInteractObject = storgePos;
+        if (Grabbing)
+        {
+            GrabOutIndex = Index;
+        }
+        else
+        {
+            if(status.CarryItem == string.Empty)
+            {
+                Debug.Log(status.npcName + ": I don't have Item to store");
+                return;
+            }
+        }
+        HasInteract = false;
+        Dispatch(Pos);
+        navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+        m_fsm.ChangeState("InteractWithItem");
     }
     #endregion
 
@@ -609,44 +691,98 @@ public class NpcController : ControllerBased
             }
             else if (!HasInteract)
             {
-                switch (CurrentInteractItem.type)
+                if(CurrentInteractObject != null)
                 {
-                    case Item_SO.ItemType.Locker:
-                        CurrentInteractItem.NPCInteract(0);
-                        animator.Play("GetInLocker", 0);
-                        isSafe = true;
-                        HasInteract = true;
-                        navAgent.enabled = false;
-                        break;
-                    case Item_SO.ItemType.Box:
-                        isSafe = true;
-                        HasInteract = true;
-                        navAgent.enabled = false;
-                        break;
-                    case Item_SO.ItemType.Bed:
-                        animator.Play("GetOnBed", 0);
-                        HasInteract = true;
-                        navAgent.enabled = false;
-                        break;
-                    case Item_SO.ItemType.Chair:
-                        HasInteract = true;
-                        navAgent.enabled = false;
-                        break;
-                    case Item_SO.ItemType.Terminal:
-                        CurrentInteractItem.NPCInteract(0);
-                        animator.Play("OperateTerminal", 0);
-                        HasInteract = true;
-                        navAgent.enabled = false;
-                        break;
-                    case Item_SO.ItemType.Switch:
-                        CurrentInteractItem.NPCInteract(0);
-                        animator.Play("OperateSwitch", 0);
-                        HasInteract = true;
-                        navAgent.enabled = false;
-                        break;
-                    default:
-                        break;
+                    switch (CurrentInteractObject.type)
+                    {
+                        case Interact_SO.InteractType.Locker:
+                            CurrentInteractObject.NPCInteract(0);
+                            animator.Play("GetInLocker", 0);
+                            isSafe = true;
+                            HasInteract = true;
+                            navAgent.enabled = false;
+                            break;
+                        case Interact_SO.InteractType.Box:
+                            isSafe = true;
+                            HasInteract = true;
+                            navAgent.enabled = false;
+                            break;
+                        case Interact_SO.InteractType.Bed:
+                            animator.Play("GetOnBed", 0);
+                            HasInteract = true;
+                            navAgent.enabled = false;
+                            break;
+                        case Interact_SO.InteractType.Chair:
+                            HasInteract = true;
+                            navAgent.enabled = false;
+                            break;
+                        case Interact_SO.InteractType.Terminal:
+                            CurrentInteractObject.NPCInteract(0);
+                            animator.Play("OperateTerminal", 0);
+                            HasInteract = true;
+                            navAgent.enabled = false;
+                            break;
+                        case Interact_SO.InteractType.Switch:
+                            CurrentInteractObject.NPCInteract(0);
+                            animator.Play("OperateSwitch", 0);
+                            HasInteract = true;
+                            navAgent.enabled = false;
+                            break;
+                        case Interact_SO.InteractType.Storge:
+                            HasInteract = true;
+                            StorgePos sto = CurrentInteractObject.GetComponent<StorgePos>();
+                            //取东西
+                            if (IsGrabbing)
+                            {
+                                animator.Play("GrabOutItem");
+                                if (status.CarryItem != string.Empty)//如果NPC身上带着东西
+                                {
+                                    //Debug.Log(status.npcName + ": I cannot grab this item out because I have no place to put the item that I already carried on. ");
+                                    string GrabOutItem = sto.StorgeItem[GrabOutIndex];
+                                    string PutInItem = status.CarryItem;
+
+                                    CurrentInteractObject.NPCInteract(GrabOutIndex); // 删掉箱子内的物品
+                                    sto.Store(PutInItem);// 放入NPC身上的物品
+                                    status.CarryItem = GrabOutItem;//NPC 身上的东西等于要取出的东西
+                                }
+                                else//如果NPC身上没带东西
+                                {
+                                    status.CarryItem = sto.StorgeItem[GrabOutIndex];
+                                    CurrentInteractObject.NPCInteract(GrabOutIndex);
+                                }
+                            }
+                            else //存东西
+                            {
+                                animator.Play("GrabOutItem");
+                                if(sto.StorgeItem.Count + 1 <= sto.MaxStorge)
+                                {
+                                    sto.StorgeItem.Add(status.CarryItem);
+                                    status.CarryItem = string.Empty;
+                                }
+                                else
+                                {
+                                    Debug.Log(status.npcName + ": It doesn't have place to store.");
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                else if(CurrentInteractItem != null)
+                {
+                    switch (CurrentInteractItem.type)
+                    {
+                        case Item_SO.ItemType.MedicalKit:
+                            animator.Play("GrabItem", 0);
+                            status.CarryItem = CurrentInteractItem.type.ToString();
+                            CurrentInteractItem.NPCInteract(0);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
             }
         }
         else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
@@ -662,32 +798,32 @@ public class NpcController : ControllerBased
     public void PlayGetOutAnim(object obj)
     {
         GameObject gameObj = (GameObject)obj;
-        Item_SO item = gameObj.GetComponent<Item_SO>();
+        Interact_SO item = gameObj.GetComponent<Interact_SO>();
         switch (item.type)
         {
-            case Item_SO.ItemType.Locker:
+            case Interact_SO.InteractType.Locker:
                 animator.Play("GetOutLocker", 0);
                 isSafe = false;
                 break;
-            case Item_SO.ItemType.Box:
+            case Interact_SO.InteractType.Box:
                 break;
-            case Item_SO.ItemType.Bed:
+            case Interact_SO.InteractType.Bed:
                 break;
-            case Item_SO.ItemType.Chair:
+            case Interact_SO.InteractType.Chair:
                 break;
-            case Item_SO.ItemType.Terminal:
+            case Interact_SO.InteractType.Terminal:
                 animator.Play("GetOutTerminal", 0);
                 break;
             default:
                 break;
         }
-        CurrentInteractItem = item;
+        CurrentInteractObject = item;
 
     }
 
     public void CompleteGetInItemAction()
     {
-        CurrentInteractItem.Locators.Find((x) => (x == locatorList)).npc = this;
+        CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
         m_fsm.ChangeState("Rest");
     }
 
@@ -695,21 +831,21 @@ public class NpcController : ControllerBased
     {
         boxCollider.enabled = true;
         navAgent.enabled = true;
-        switch (CurrentInteractItem.type)
+        switch (CurrentInteractObject.type)
         {
-            case Item_SO.ItemType.Locker:
-                CurrentInteractItem.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            case Interact_SO.InteractType.Locker:
+                CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                 break;
-            case Item_SO.ItemType.Box:
+            case Interact_SO.InteractType.Box:
                 break;
-            case Item_SO.ItemType.Bed:
-                CurrentInteractItem.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            case Interact_SO.InteractType.Bed:
+                CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                 break;
-            case Item_SO.ItemType.Chair:
-                CurrentInteractItem.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            case Interact_SO.InteractType.Chair:
+                CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                 break;
-            case Item_SO.ItemType.Terminal:
-                CurrentInteractItem.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractItem.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            case Interact_SO.InteractType.Terminal:
+                CurrentInteractObject.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                 break;
             default:
                 break;

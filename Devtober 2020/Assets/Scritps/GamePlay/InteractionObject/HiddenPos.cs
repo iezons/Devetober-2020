@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GamePlay;
 
-public class HiddenPos : Item_SO
+public class HiddenPos : Interact_SO
 {
     private void Awake()
     {
