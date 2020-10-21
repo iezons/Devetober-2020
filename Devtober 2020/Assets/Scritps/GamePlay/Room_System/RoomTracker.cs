@@ -31,8 +31,22 @@ namespace GamePlay
             public float z = 0;
         }
 
+        [System.Serializable]
+        public class CameraList
+        {
+            public Camera roomCamera = null;
+            public bool isLocked = false;
+            public float speed = 0;
+            public float angle = 0;
+            public float recordedAngle = 0;
+        }
+
         [Header("Camera")]
         public Camera RoomCamera;
+
+        public List<CameraList> cameraLists = new List<CameraList>();
+         
+
         [Header("Dialogue")]
         public DialoguePlay DiaPlay;
         public DialogueGraph WaitingGraph;
@@ -72,6 +86,11 @@ namespace GamePlay
             {
                 AddWayPoints();
             }
+
+            for (int i = 0; i < cameraLists.Count; i++)
+            {
+                cameraLists[i].recordedAngle = cameraLists[i].roomCamera.transform.rotation.eulerAngles.y;
+            }
         }
 
         public void Start()
@@ -83,17 +102,57 @@ namespace GamePlay
         {
             Detecting();
             DialogueChecking();
+            if(Input.GetAxisRaw("Horizontal") != 0)
+            {
+                print(Input.GetAxisRaw("Horizontal"));
+                Rotate(Input.GetAxisRaw("Horizontal"), 0);
+            }
         }
 
         private void Detecting()
         {
             hitInformation.Clear();
-            //Track Object in the area
+            //Track Objects in the area
             for (int i = 0; i < scaleAndOffset.Count; i++)
             {
                 hitInformation.AddRange(Physics.OverlapBox(transform.position + new Vector3(scaleAndOffset[i].x, scaleAndOffset[i].y, scaleAndOffset[i].z), new Vector3(scaleAndOffset[i].length, scaleAndOffset[i].height, scaleAndOffset[i].width) / 2, Quaternion.identity, canDetected));
             }
         }
+
+        #region Camera Movement
+        public void Rotate(float direction, int index)
+        {
+            Camera currentCam = cameraLists[index].roomCamera;
+            float rotation = direction * cameraLists[index].speed * Time.deltaTime;
+            currentCam.transform.Rotate(Vector3.up, rotation, Space.World);
+            print(currentCam.transform.rotation.y);
+            //if (currentCam.transform.eulerAngles.y >= cameraLists[index].recordedAngle + cameraLists[index].angle || currentCam.transform.eulerAngles.y <= cameraLists[index].recordedAngle - cameraLists[index].angle)
+            //{
+            //    cameraLists[index].speed *= -1;
+            //}
+            float yAngle;
+            if(currentCam.transform.eulerAngles.y > 180)
+            {
+                yAngle = currentCam.transform.eulerAngles.y - 360;
+            }
+            else
+            {
+                yAngle = currentCam.transform.eulerAngles.y;
+            }
+
+            if(yAngle < 0)
+            {
+                currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, 360 + Mathf.Clamp(yAngle, cameraLists[index].recordedAngle - cameraLists[index].angle, 0), currentCam.transform.eulerAngles.z);
+            }
+            else
+            {
+                currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, Mathf.Clamp(currentCam.transform.eulerAngles.y, 0, cameraLists[index].recordedAngle + cameraLists[index].angle), currentCam.transform.eulerAngles.z);
+            }
+            
+        }
+
+
+        #endregion
 
         #region Information Pool
         public List<GameObject> AllObjs()
@@ -103,6 +162,14 @@ namespace GamePlay
             {
                 if(!tempobjs.Contains(temp.gameObject))
                     tempobjs.Add(temp.gameObject);
+            }
+
+            foreach (var obj in tempobjs)
+            {
+                if (!hitInformation.Contains(obj.GetComponent<Collider>()))
+                {
+                    tempobjs.Remove(obj);
+                }
             }
             return tempobjs;
         }
