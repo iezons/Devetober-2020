@@ -186,9 +186,7 @@ public class NpcController : ControllerBased
     }
 
     private void Update()
-    {
-                if(currentRoomTracker != null) {
-        
+    {   
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
@@ -255,8 +253,6 @@ public class NpcController : ControllerBased
             StartCoroutine(MoveAcrossNavMeshLink());
             MoveAcrossNavMeshesStarted = true;
         }
-
-        }
     }
 
     #region Move
@@ -279,9 +275,9 @@ public class NpcController : ControllerBased
     public Vector3 NewDestination()
     {
         Vector3 tempPos = Vector3.zero;
+        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
         if (currentRoomTracker != null)
         {
-            currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
             int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
             float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
