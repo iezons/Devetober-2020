@@ -8,8 +8,8 @@ public class SwitchLight : MonoBehaviour
     // Start is called before the first frame update
     public GameObject door;
     public Light currentLight;
-    public Color green = new Color(0, 225, 0, 255);
-    public Color red = new Color(255, 0, 0, 255);
+    public Color green = new Color(0, 1, 0, 1);
+    public Color red = new Color(1, 0, 0, 1);
     // Start is called before the first frame update
     void Awake()
     {
