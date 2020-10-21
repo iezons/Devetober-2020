@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StorgePos : Interact_SO
+public class StoragePos : Interact_SO
 {
-    public int MaxStorge = 5;
-    public List<string> StorgeItem = new List<string>();
+    public int MaxStorage = 5;
+    public List<string> StorageItem = new List<string>();
 
     private void Awake()
     {
@@ -28,20 +28,20 @@ public class StorgePos : Interact_SO
     public override void NPCInteract(int InteractWay = 0)
     {
         if(InteractWay >= 0)
-            StorgeItem.RemoveAt(InteractWay);
+            StorageItem.RemoveAt(InteractWay);
         UpdateMenu();
     }
 
     void UpdateMenu()
     {
         RemoveAllMenu();
-        if(StorgeItem.Count < MaxStorge)
+        if(StorageItem.Count < MaxStorage)
         {
-            AddMenu("Store", "Store" + StorgeItem.Count + "/" + MaxStorge, true, Store, 1 << LayerMask.NameToLayer("NPC"));
+            AddMenu("Store", "Store" + StorageItem.Count + "/" + MaxStorage, true, Store, 1 << LayerMask.NameToLayer("NPC"));
         }
-        for (int i = 0; i < StorgeItem.Count; i++)
+        for (int i = 0; i < StorageItem.Count; i++)
         {
-            AddMenu("Grab" + i.ToString(), "Grab " + StorgeItem[i], true, GrabOut, 1 << LayerMask.NameToLayer("NPC"), i);
+            AddMenu("Grab" + i.ToString(), "Grab " + StorageItem[i], true, GrabOut, 1 << LayerMask.NameToLayer("NPC"), i);
         }
     }
 }

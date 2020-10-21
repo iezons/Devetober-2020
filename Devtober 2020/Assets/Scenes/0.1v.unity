@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 436f7f0a5a2be794187c1196fd3a4153, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 436f7f0a5a2be794187c1196fd3a4153, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -728,7 +728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &96796237
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -818,6 +818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
+  cameraLists: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -1570,6 +1571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
+  cameraLists: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -2877,6 +2879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
+  cameraLists: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -3102,7 +3105,7 @@ MonoBehaviour:
   OutlineAlpha: 0
   rightClickMenus: []
   detectRange:
-    x: 15
+    x: 17.1
     y: 5
     z: 8.5
   canDetected:
@@ -3664,7 +3667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1107192297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3755,6 +3758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 1044236175}
+  cameraLists: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -4025,10 +4029,10 @@ Transform:
   m_LocalScale: {x: 29.713501, y: 0.30252308, z: 29.713501}
   m_Children:
   - {fileID: 1386112290}
+  - {fileID: 1699601441}
   - {fileID: 3722483}
   - {fileID: 214676574}
   - {fileID: 1707226424}
-  - {fileID: 1699601441}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4045,6 +4049,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 1699601440}
+  cameraLists:
+  - roomCamera: {fileID: 1699601440}
+    isLocked: 0
+    speed: 20
+    angle: 40
+    recordedAngle: 0
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -4772,7 +4782,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279706218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16, y: 0.88, z: -6}
+  m_LocalPosition: {x: 13.98, y: 0.87, z: 0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2001144421}
@@ -5222,7 +5232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1386112287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5312,6 +5322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 0}
+  cameraLists: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -5447,7 +5458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 652610077807146939, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 652610077807146939, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5629,7 +5640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1440105553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5643,6 +5654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomCamera: {fileID: 1110665840}
+  cameraLists: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -6763,13 +6775,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699601438}
-  m_LocalRotation: {x: 0.19336544, y: 0.2930822, z: -0.06065305, w: 0.9343629}
-  m_LocalPosition: {x: -0.4980901, y: 37.021965, z: -0.62934357}
+  m_LocalRotation: {x: 0.16237944, y: -0.58589983, z: 0.121251345, w: 0.7846353}
+  m_LocalPosition: {x: -0.4980901, y: 37.021942, z: -0.62934357}
   m_LocalScale: {x: 0.033654734, y: 0.20260905, z: 0.039871752}
   m_Children: []
   m_Father: {fileID: 1139417000}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 23.384, y: 34.83, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 23.384, y: -73.499, z: 0}
 --- !u!1001 &1707226419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6815,7 +6827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7998880285303042238, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7998880285303042238, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7281,7 +7293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749825, y: 0}
+  m_AnchoredPosition: {x: 87.7498, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
@@ -7970,7 +7982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.27
+      value: 17.75
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7978,7 +7990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.62
+      value: 10.71
       objectReference: {fileID: 0}
     - target: {fileID: 1251460809162940804, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -8127,6 +8139,14 @@ PrefabInstance:
     - target: {fileID: 4513287914553280856, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.2693996
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647741225707811525, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647741225707811525, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5942822304333134085, guid: 653ca0f41ec082043a83b47431cde81b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
