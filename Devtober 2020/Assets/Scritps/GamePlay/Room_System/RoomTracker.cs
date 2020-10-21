@@ -130,11 +130,25 @@ namespace GamePlay
             //{
             //    cameraLists[index].speed *= -1;
             //}
+            float yAngle;
             if(currentCam.transform.eulerAngles.y > 180)
             {
-
+                yAngle = currentCam.transform.eulerAngles.y - 360;
             }
-            currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, Mathf.Clamp(currentCam.transform.eulerAngles.y, cameraLists[index].recordedAngle - cameraLists[index].angle, cameraLists[index].recordedAngle + cameraLists[index].angle), currentCam.transform.eulerAngles.z);
+            else
+            {
+                yAngle = currentCam.transform.eulerAngles.y;
+            }
+
+            if(yAngle < 0)
+            {
+                currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, 360 + Mathf.Clamp(yAngle, cameraLists[index].recordedAngle - cameraLists[index].angle, 0), currentCam.transform.eulerAngles.z);
+            }
+            else
+            {
+                currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, Mathf.Clamp(currentCam.transform.eulerAngles.y, 0, cameraLists[index].recordedAngle + cameraLists[index].angle), currentCam.transform.eulerAngles.z);
+            }
+            
         }
 
 
