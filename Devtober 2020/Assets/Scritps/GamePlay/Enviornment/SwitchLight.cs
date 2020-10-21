@@ -1,22 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class SwitchLight : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject pointLight;
     public GameObject door;
     public Light currentLight;
-    public Vector4 green;
-    public Vector4 red;
+    public Color green = new Color(0, 225, 0, 255);
+    public Color red = new Color(255, 0, 0, 255);
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        pointLight = transform.GetChild(0).gameObject;
-        currentLight = pointLight.GetComponent<Light>();
-        red = new Vector4(255f, 0f, 0f, 255f);
-        green = new Vector4(20f, 225f, 20f, 255f);
+        currentLight = transform.GetChild(0).GetComponent<Light>();
     }
 
 // Update is called once per frame
@@ -27,9 +24,9 @@ void Update()
 
     void LightCheck(bool isClosed)
     {
+        //currentLight.
         if (isClosed) { currentLight.color = red; }
         else
         { currentLight.color = green; }
-
     }
 }

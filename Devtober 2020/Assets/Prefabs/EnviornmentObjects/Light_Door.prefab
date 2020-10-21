@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953178887419856569}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.013860351, y: 0.094, z: 15.5}
+  m_LocalPosition: {x: 0.013860351, y: -0.45, z: 9.29}
   m_LocalScale: {x: 0.43121386, y: 1.2584188, z: 2.3714495}
   m_Children: []
   m_Father: {fileID: 3101903523166578803}
@@ -42,7 +42,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.8962264, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 6.642283
   m_SpotAngle: 44.074383
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 3101903523166578803}
   - component: {fileID: 2063764928378922966}
   - component: {fileID: 4271382829398463260}
-  - component: {fileID: 3938740917934109578}
+  - component: {fileID: 7523768539415614110}
   m_Layer: 0
   m_Name: Light_Door
   m_TagString: Untagged
@@ -118,7 +118,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2326105347490591433}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 27.757, y: 2.6477532, z: 1.4}
   m_LocalScale: {x: 2.319035, y: 0.794648, z: 0.421683}
   m_Children:
@@ -176,7 +176,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3938740917934109578
+--- !u!114 &7523768539415614110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,8 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735d1142d82f0c848bbc172bc8fc27a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLight: {fileID: 0}
   door: {fileID: 0}
   currentLight: {fileID: 0}
-  green: {x: 0, y: 0, z: 0, w: 0}
-  red: {x: 0, y: 0, z: 0, w: 0}
+  green: {r: 0, g: 225, b: 0, a: 255}
+  red: {r: 255, g: 0, b: 0, a: 255}
