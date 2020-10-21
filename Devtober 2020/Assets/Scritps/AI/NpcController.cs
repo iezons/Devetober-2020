@@ -154,12 +154,14 @@ public class NpcController : ControllerBased
             | 1 << LayerMask.NameToLayer("RestingPos") 
             | 1 << LayerMask.NameToLayer("TerminalPos"));
         #endregion
+
+        DetectRoom();
     }
 
     private void Start()
     {
-        DetectRoom();
         currentTerminalPos = NewDestination();
+        Debug.Log(currentRoomTracker.gameObject.name);
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
 
         Invoke("GenerateList", 0.00001f);
@@ -187,7 +189,7 @@ public class NpcController : ControllerBased
 
     private void Update()
     {
-                if(currentRoomTracker != null) {
+        //if(currentRoomTracker != null) {
         
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
@@ -256,7 +258,7 @@ public class NpcController : ControllerBased
             MoveAcrossNavMeshesStarted = true;
         }
 
-        }
+        //}
     }
 
     #region Move
@@ -279,9 +281,9 @@ public class NpcController : ControllerBased
     public Vector3 NewDestination()
     {
         Vector3 tempPos = Vector3.zero;
+        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
         if (currentRoomTracker != null)
         {
-            currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
             int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
             float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
@@ -325,7 +327,10 @@ public class NpcController : ControllerBased
 
     void DetectRoom()
     {
-        Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
+        if(Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room")))
+        {
+            //currentRoomTracker = hit.collider.GetComponent<RoomTracker>();
+        }
     }
 
     public void Dispatch(object newPos)
@@ -810,6 +815,7 @@ public class NpcController : ControllerBased
         switch (item.type)
         {
             case Interact_SO.InteractType.Locker:
+                transform.eulerAngles += new Vector3(0, 180, 0);
                 animator.Play("GetOutLocker", 0);
                 isSafe = false;
                 break;
