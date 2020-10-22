@@ -126,10 +126,6 @@ namespace GamePlay
             float rotation = direction * cameraLists[index].speed * Time.deltaTime;
             currentCam.transform.Rotate(Vector3.up, rotation, Space.World);
             print(currentCam.transform.rotation.y);
-            //if (currentCam.transform.eulerAngles.y >= cameraLists[index].recordedAngle + cameraLists[index].angle || currentCam.transform.eulerAngles.y <= cameraLists[index].recordedAngle - cameraLists[index].angle)
-            //{
-            //    cameraLists[index].speed *= -1;
-            //}
             float yAngle;
             if(currentCam.transform.eulerAngles.y > 180)
             {

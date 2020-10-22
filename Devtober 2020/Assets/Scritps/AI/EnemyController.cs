@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     float attackRadius = 0;
 
     [SerializeField]
+    float discoverAngle = 0;
+
+    [SerializeField]
     int attackDamage = 0;
 
     [SerializeField]
@@ -26,6 +29,9 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     LayerMask canChased = 0;
+
+    [SerializeField]
+    LayerMask canBlocked = 0;
 
     [SerializeField]
     Collider[] hitNPCs;
@@ -62,6 +68,7 @@ public class EnemyController : MonoBehaviour
 
     Transform finalPos;
     GameObject target;
+    bool inAngle, isBlocked;
     #endregion
 
 
@@ -175,7 +182,7 @@ public class EnemyController : MonoBehaviour
                 finalPos = tempTrans;
             }
         }
-        if (finalPos != null && !target.GetComponent<NpcController>().isSafe)
+        if (target != null && finalPos != null && !target.GetComponent<NpcController>().isSafe && inAngle && !isBlocked)
         {
             Dispatch(finalPos.position);
         }
@@ -221,19 +228,38 @@ public class EnemyController : MonoBehaviour
         navAgent.ResetPath();
         m_fsm.ChangeState("Dispatch");
     }
+
     private void Discover()
     {
         hitNPCs = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
+        
 
         if (hitNPCs.Length != 0 && !hasAttacked)
         {
-            m_fsm.ChangeState("Chase");
+            if(m_fsm.GetCurrentState() != "Chase")
+            {
+                m_fsm.ChangeState("Chase");
+            }
+
+            if (target != null)
+            {
+                isBlocked = Physics.Linecast(transform.position, target.transform.position, canBlocked);
+                Vector3 direction = (target.transform.position - transform.position).normalized;
+                float targetAngle = Vector3.Angle(transform.forward, direction);
+                inAngle = targetAngle <= discoverAngle / 2 ? true : false;
+                
+            }
+            
         }
+
+     
     }
+
     void lossTarget()
     {
         if (hitNPCs.Length == 0)
         {
+            target = null;
             m_fsm.ChangeState("Patrol");
         }
     }
@@ -247,13 +273,45 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRadius);
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, discoverRadius);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(patrolRange.maxX, 0, patrolRange.maxZ));
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(currentPos, 1);
+
+        if(hitNPCs.Length != 0 && target != null)
+        {
+            if (isBlocked)
+            {
+                Gizmos.color = Color.blue;
+            }
+            else
+            {
+                Gizmos.color = inAngle ? Color.red : Color.green;
+            }
+            
+            Gizmos.DrawLine(transform.position + new Vector3(0,2,0), target.transform.position + new Vector3(0, 2, 0));
+        }
+
+        //float yAngle;
+        //if (transform.eulerAngles.y > 180)
+        //{
+        //    yAngle = transform.eulerAngles.y - 360;
+        //}
+        //else
+        //{
+        //    yAngle = transform.eulerAngles.y;
+        //}
+
+        //Gizmos.color = Color.green;
+        //float x = Mathf.Sin(yAngle + discoverAngle / 2);
+        //float z = Mathf.Cos(yAngle - discoverAngle / 2);
+        //Vector3 lineEnd1 = new Vector3(x, 0, -z);
+        //Vector3 lineEnd2 = new Vector3(-x, 0, -z);
+        //Gizmos.DrawLine(transform.position, transform.position + lineEnd1 * discoverRadius);
+        //Gizmos.DrawLine(transform.position, transform.position + lineEnd2 * discoverRadius);
     }
 
     #endregion
