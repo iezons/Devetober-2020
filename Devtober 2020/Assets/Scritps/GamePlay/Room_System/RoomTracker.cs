@@ -45,7 +45,10 @@ namespace GamePlay
         public Camera RoomCamera;
 
         public List<CameraList> cameraLists = new List<CameraList>();
-         
+
+        [Header("RoomObject")]
+        public Interact_SO CBoard;
+        public List<DoorController> Door;
 
         [Header("Dialogue")]
         public DialoguePlay DiaPlay;
