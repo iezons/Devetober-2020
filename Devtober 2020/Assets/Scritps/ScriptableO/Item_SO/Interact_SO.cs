@@ -21,7 +21,7 @@ public class Interact_SO : ControllerBased
         Chair,
         Terminal,
         Switch,
-        Storge
+        Storage
     }
 
     public InteractType type;

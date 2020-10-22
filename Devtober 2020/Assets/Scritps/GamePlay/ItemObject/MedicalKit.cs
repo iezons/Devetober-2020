@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MedicalKit : Item_SO
 {
+    public float HPRecovery = 50f;
     public override void NPCInteract(int InteractWay = 0)
     {
         Destroy(gameObject);

@@ -5,11 +5,11 @@ using UnityEngine;
 public class StoragePos : Interact_SO
 {
     public int MaxStorage = 5;
-    public List<string> StorageItem = new List<string>();
+    public List<Item_SO.ItemType> StorageItem = new List<Item_SO.ItemType>();
 
     private void Awake()
     {
-        type = InteractType.Storge;
+        type = InteractType.Storage;
         UpdateMenu();
     }
 

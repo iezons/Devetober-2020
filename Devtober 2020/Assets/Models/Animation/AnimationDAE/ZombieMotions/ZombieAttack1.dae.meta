@@ -38,7 +38,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       internalID: 0
-      firstFrame: 150
+      firstFrame: 170
       lastFrame: 205
       wrapMode: 0
       orientationOffsetY: 0
@@ -58,7 +58,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.2951541
+        functionName: ON
+        data: 
+        objectReferenceParameter: {fileID: 5844494492860026727, guid: 674b095be9229744493e3a9cbe88557f, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5022026
+        functionName: OFF
+        data: 
+        objectReferenceParameter: {fileID: 5844494492860026727, guid: 674b095be9229744493e3a9cbe88557f, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

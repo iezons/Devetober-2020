@@ -28,7 +28,7 @@ public class NpcController : ControllerBased
 
         public List<EventSO> toDoList;
 
-        public string CarryItem;
+        public Item_SO.ItemType CarryItem = Item_SO.ItemType.None;
     }
 
     public Status status = null;
@@ -161,7 +161,6 @@ public class NpcController : ControllerBased
         DetectRoom();
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
-
         Invoke("GenerateList", 0.00001f);
     }
 
@@ -651,7 +650,7 @@ public class NpcController : ControllerBased
         }
         else
         {
-            if(status.CarryItem == string.Empty)
+            if(status.CarryItem == Item_SO.ItemType.None)
             {
                 Debug.Log(status.npcName + ": I don't have Item to store");
                 return;
@@ -732,18 +731,18 @@ public class NpcController : ControllerBased
                             HasInteract = true;
                             navAgent.enabled = false;
                             break;
-                        case Interact_SO.InteractType.Storge:
+                        case Interact_SO.InteractType.Storage:
                             HasInteract = true;
                             StoragePos sto = CurrentInteractObject.GetComponent<StoragePos>();
                             //取东西
                             if (IsGrabbing)
                             {
                                 animator.Play("GrabOutItem");
-                                if (status.CarryItem != string.Empty)//如果NPC身上带着东西
+                                if (status.CarryItem != Item_SO.ItemType.None)//如果NPC身上带着东西
                                 {
                                     //Debug.Log(status.npcName + ": I cannot grab this item out because I have no place to put the item that I already carried on. ");
-                                    string GrabOutItem = sto.StorageItem[GrabOutIndex];
-                                    string PutInItem = status.CarryItem;
+                                    Item_SO.ItemType GrabOutItem = sto.StorageItem[GrabOutIndex];
+                                    Item_SO.ItemType PutInItem = status.CarryItem;
 
                                     CurrentInteractObject.NPCInteract(GrabOutIndex); // 删掉箱子内的物品
                                     sto.Store(PutInItem);// 放入NPC身上的物品
@@ -761,7 +760,7 @@ public class NpcController : ControllerBased
                                 if(sto.StorageItem.Count + 1 <= sto.MaxStorage)
                                 {
                                     sto.StorageItem.Add(status.CarryItem);
-                                    status.CarryItem = string.Empty;
+                                    status.CarryItem = Item_SO.ItemType.None;
                                 }
                                 else
                                 {
@@ -779,7 +778,7 @@ public class NpcController : ControllerBased
                     {
                         case Item_SO.ItemType.MedicalKit:
                             animator.Play("GrabItem", 0);
-                            status.CarryItem = CurrentInteractItem.type.ToString();
+                            status.CarryItem = CurrentInteractItem.type;
                             CurrentInteractItem.NPCInteract(0);
                             break;
                         default:

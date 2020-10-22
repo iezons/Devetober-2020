@@ -7,6 +7,7 @@ public class Item_SO : ControllerBased
 {
     public enum ItemType
     {
+        None,
         MedicalKit
     }
 
