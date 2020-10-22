@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1340,29 +1340,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178690193}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &214676570 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 163635663612718337, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
-  m_PrefabInstance: {fileID: 1435285448}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &214676571
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214676570}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.9464226, y: 7.11025, z: 2.1290674}
-  m_Center: {x: -0.008303523, y: 3.4868286, z: 3.1879573}
---- !u!4 &214676574 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 652610077807146939, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
-  m_PrefabInstance: {fileID: 1435285448}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &229565524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,7 +1886,7 @@ MonoBehaviour:
   m_Name: 'Event: Tutorials'
   m_EditorClassIdentifier: 
   graph: {fileID: 1099859918}
-  position: {x: -168, y: -136}
+  position: {x: -168, y: -184}
   ports:
     keys:
     - Input
@@ -1938,8 +1915,20 @@ MonoBehaviour:
       _dynamic: 0
   GUID: c1184ac2-aba8-4fb2-b162-0c00a9823603
   EventName: Tutorials
-  eventSO: []
-  CurrentEditingSONum: -1
+  eventSO:
+  - ID: 5cd4dd1b-4561-447e-a10c-4d311dfe9e0f
+    TODOList: []
+    doingWith: 3
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    doingWithRoom: 0
+    CustomCode:
+    - {fileID: 0}
+  CurrentEditingSONum: 0
   Comment: 
 --- !u!1 &447884733
 GameObject:
@@ -3228,11 +3217,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &960919703 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 536596813355322498, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
-  m_PrefabInstance: {fileID: 1435285448}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &981080691
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,7 +4110,7 @@ Transform:
   - {fileID: 1386112290}
   - {fileID: 1699601441}
   - {fileID: 3722483}
-  - {fileID: 214676574}
+  - {fileID: 1435285449}
   - {fileID: 1707226424}
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -5510,11 +5494,11 @@ PrefabInstance:
     - target: {fileID: 1435285450, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
       propertyPath: Locator.Array.data[0]
       value: 
-      objectReference: {fileID: 960919703}
+      objectReference: {fileID: 0}
     - target: {fileID: 1435285450, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
       propertyPath: Locators.Array.data[0].Locator
       value: 
-      objectReference: {fileID: 960919703}
+      objectReference: {fileID: 0}
     - target: {fileID: 163635663612718337, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
       propertyPath: m_Name
       value: Locker
@@ -5609,6 +5593,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+--- !u!4 &1435285449 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6686388584568320889, guid: 0432cb39e1bfd0141a036949b59ab37b, type: 3}
+  m_PrefabInstance: {fileID: 1435285448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1435397677
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,9 +6,9 @@
       <authoring_tool>FBX COLLADA exporter</authoring_tool>
       <comments/>
     </contributor>
-    <created>2020-10-16T17:22:03Z</created>
+    <created>2020-10-21T18:46:41Z</created>
     <keywords/>
-    <modified>2020-10-16T17:22:03Z</modified>
+    <modified>2020-10-21T18:46:41Z</modified>
     <revision/>
     <subject/>
     <title/>
@@ -3344,12 +3344,11 @@
           </technique_common>
         </source>
         <source id="Hand_LController-Weights">
-          <float_array id="Hand_LController-Weights-array" count="19">
+          <float_array id="Hand_LController-Weights-array" count="9">
 
-1.000000 0.963876 0.035499 0.978870 0.020620 0.001439 0.949437 0.049125 0.001589 0.924796 0.073615 0.499896 0.499896 0.499788 0.499788 0.499635
-0.499635 0.499763 0.499763</float_array>
+1.000000 1.000000 1.000000 0.999999 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
           <technique_common>
-            <accessor source="#Hand_LController-Weights-array" count="19">
+            <accessor source="#Hand_LController-Weights-array" count="9">
               <param type="float"/>
             </accessor>
           </technique_common>
@@ -3361,8 +3360,8 @@
         <vertex_weights count="8">
           <input semantic="JOINT" offset="0" source="#Hand_LController-Joints"/>
           <input semantic="WEIGHT" offset="1" source="#Hand_LController-Weights"/>
-          <vcount>2 2 3 3 2 2 2 2</vcount>
-          <v>2 1 3 2 2 3 3 4 0 5 2 6 3 7 0 8 2 9 3 10 2 11 3 12 2 13 3 14 2 15 3 16 2 17 3 18</v>
+          <vcount>1 1 1 1 1 1 1 1</vcount>
+          <v>2 1 2 2 2 3 2 4 2 5 2 6 2 7 2 8</v>
         </vertex_weights>
       </skin>
     </controller>
@@ -3441,12 +3440,11 @@
           </technique_common>
         </source>
         <source id="Lower_Arm_LeftController-Weights">
-          <float_array id="Lower_Arm_LeftController-Weights-array" count="17">
+          <float_array id="Lower_Arm_LeftController-Weights-array" count="14">
 
-1.000000 0.999853 1.000000 1.000000 1.000000 0.005260 0.994478 1.000000 0.991833 0.007715 0.999999 0.007018 0.992958 0.999545 0.999860 0.120868
-0.878930</float_array>
+1.000000 0.993021 0.006979 1.000000 0.999871 1.000000 0.999999 1.000000 0.999984 1.000000 0.999528 0.999814 0.999999 0.999994</float_array>
           <technique_common>
-            <accessor source="#Lower_Arm_LeftController-Weights-array" count="17">
+            <accessor source="#Lower_Arm_LeftController-Weights-array" count="14">
               <param type="float"/>
             </accessor>
           </technique_common>
@@ -3458,8 +3456,8 @@
         <vertex_weights count="12">
           <input semantic="JOINT" offset="0" source="#Lower_Arm_LeftController-Joints"/>
           <input semantic="WEIGHT" offset="1" source="#Lower_Arm_LeftController-Weights"/>
-          <vcount>1 1 1 1 2 1 2 1 2 1 1 2</vcount>
-          <v>1 1 1 2 1 3 1 4 0 5 1 6 1 7 1 8 2 9 1 10 0 11 1 12 1 13 1 14 0 15 1 16</v>
+          <vcount>2 1 1 1 1 1 1 1 1 1 1 1</vcount>
+          <v>1 1 3 2 1 3 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 1 12 1 13</v>
         </vertex_weights>
       </skin>
     </controller>
@@ -3538,11 +3536,11 @@
           </technique_common>
         </source>
         <source id="Upper_Arm_LeftController-Weights">
-          <float_array id="Upper_Arm_LeftController-Weights-array" count="15">
+          <float_array id="Upper_Arm_LeftController-Weights-array" count="13">
 
-1.000000 1.000000 1.000000 1.000000 1.000000 0.999999 0.999999 1.000000 1.000000 0.995372 0.004128 0.996385 0.003237 0.999902 0.999836</float_array>
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 0.999992 0.999988 0.999997 1.000000 0.999981 0.999914</float_array>
           <technique_common>
-            <accessor source="#Upper_Arm_LeftController-Weights-array" count="15">
+            <accessor source="#Upper_Arm_LeftController-Weights-array" count="13">
               <param type="float"/>
             </accessor>
           </technique_common>
@@ -3554,8 +3552,8 @@
         <vertex_weights count="12">
           <input semantic="JOINT" offset="0" source="#Upper_Arm_LeftController-Joints"/>
           <input semantic="WEIGHT" offset="1" source="#Upper_Arm_LeftController-Weights"/>
-          <vcount>1 1 1 1 1 1 1 1 2 2 1 1</vcount>
-          <v>0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0 9 1 10 0 11 1 12 0 13 0 14</v>
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1</vcount>
+          <v>0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0 9 0 10 0 11 0 12</v>
         </vertex_weights>
       </skin>
     </controller>
@@ -3751,7 +3749,7 @@
     </controller>
   </library_controllers>
   <library_visual_scenes>
-    <visual_scene id="HighPreist" name="HighPreist">
+    <visual_scene id="Highpreist" name="Highpreist">
       <node name="Head1" id="Head1" sid="Head1">
         <instance_controller url="#Head1Controller">
           <bind_material>
@@ -3972,7 +3970,7 @@
               </technique>
             </extra>
             <node name="joint13" id="joint13" sid="joint13" type="JOINT">
-              <matrix sid="matrix">0.088286 -0.996095 0.000000 -0.314056 0.996095 0.088286 0.000000 0.000007 -0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+              <matrix sid="matrix">0.088286 -0.996095 0.000000 -0.314056 0.996095 0.088286 0.000000 0.000007 0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
               <extra>
                 <technique profile="FCOLLADA">
                   <visibility>1.000000</visibility>
@@ -4228,6 +4226,6 @@
     </visual_scene>
   </library_visual_scenes>
   <scene>
-    <instance_visual_scene url="#HighPreist"/>
+    <instance_visual_scene url="#Highpreist"/>
   </scene>
 </COLLADA>

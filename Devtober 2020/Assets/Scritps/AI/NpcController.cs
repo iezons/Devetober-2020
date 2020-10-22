@@ -807,6 +807,7 @@ public class NpcController : ControllerBased
         {
             case Interact_SO.InteractType.Locker:
                 animator.Play("GetOutLocker", 0);
+                transform.eulerAngles += new Vector3(0, 180, 0);
                 isSafe = false;
                 break;
             case Interact_SO.InteractType.Box:

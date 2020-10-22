@@ -95,7 +95,7 @@
                 struct v2f
                 {
                     float4 pos : SV_POSITION;
-                    float3 texcoord : TEXCOORD0;
+                    float2 uv : TEXCOORD0;
                     float3 normal : TEXCOORD1;
                     float3 wPos : TEXCOORD2;
                     LIGHTING_COORDS(3, 4)
@@ -117,8 +117,8 @@
                     o.pos = sp;
                     //o.pos = UnityObjectToClipPos(data.vertex);
 
-                    float2 uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-                    o.texcoord = float3(uv * sp.w, sp.w);
+                    //float2 uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+                    o.uv = v.texcoord;
 
                     o.wPos = mul(unity_ObjectToWorld, v.vertex);
 
@@ -131,7 +131,6 @@
 
                 float4 frag(v2f i) :SV_Target
                 {
-                    float2 uv = i.texcoord.xy / i.texcoord.z;
 
                     float3 N = normalize(UnityObjectToWorldNormal(i.normal));//////
 
@@ -139,7 +138,7 @@
 
                     float atten = LIGHT_ATTENUATION(i);
 
-                    float4 col = tex2D(_MainTex, uv) * _Color;
+                    float4 col = tex2D(_MainTex, i.uv) * _Color;
 
                     col.rgb *= _LightColor0.rgb * saturate(dot(N, L)) * atten;
 
