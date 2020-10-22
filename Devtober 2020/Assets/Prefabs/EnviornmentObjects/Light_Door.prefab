@@ -188,7 +188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735d1142d82f0c848bbc172bc8fc27a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsClosed: 0
   door: {fileID: 0}
   currentLight: {fileID: 0}
-  green: {r: 0, g: 225, b: 0, a: 255}
-  red: {r: 255, g: 0, b: 0, a: 255}
+  green: {r: 0, g: 1, b: 0, a: 255}
+  red: {r: 1, g: 0, b: 0, a: 255}
+  LightMaterial: {fileID: 2100000, guid: fc51bad0494d2c745b54075e5e2d04c5, type: 2}
+  BodyMaterial: {fileID: 2100000, guid: 0f53caee99a38e545ae0af3d07436bc9, type: 2}
