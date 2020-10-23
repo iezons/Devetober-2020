@@ -519,7 +519,7 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.Custom:
                             for (int a = 0; a < evt.CustomCode.Count; a++)
                             {
-                                evt.CustomCode[a].DoEvent(null);
+                                //evt.CustomCode[a].DoEvent(null);
                             }
                             break;
                         default:

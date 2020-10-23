@@ -306,8 +306,8 @@ public class EnemyController : MonoBehaviour
         //}
 
         //Gizmos.color = Color.green;
-        //float x = Mathf.Sin(yAngle + discoverAngle / 2);
-        //float z = Mathf.Cos(yAngle - discoverAngle / 2);
+        //float x = Mathf.Sin(yAngle - discoverAngle / 2);
+        //float z = Mathf.Cos(yAngle + discoverAngle / 2);
         //Vector3 lineEnd1 = new Vector3(x, 0, -z);
         //Vector3 lineEnd2 = new Vector3(-x, 0, -z);
         //Gizmos.DrawLine(transform.position, transform.position + lineEnd1 * discoverRadius);
