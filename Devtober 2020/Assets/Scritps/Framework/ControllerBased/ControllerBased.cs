@@ -11,6 +11,7 @@ public class ControllerBased : MonoBehaviour
 
     public virtual void SetOutline(bool IsOutline)
     {
+        outline.SetOutline(IsOutline);
         if(IsOutline)
         {
             outline.OutlineWidth = OutlineWidth;

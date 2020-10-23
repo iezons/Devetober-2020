@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineAlpha: 0
+  OutlineWidth: 0
+  outline: {fileID: 0}
+  IsInteracting: 0
   rightClickMenus: []
   detectRange:
     x: 10

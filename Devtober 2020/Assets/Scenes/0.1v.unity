@@ -545,7 +545,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999636
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -868,8 +868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 0}
   cameraLists: []
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -1602,8 +1602,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 0}
   cameraLists: []
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -1985,6 +1985,7 @@ MonoBehaviour:
     doingWithRoom: 0
     CustomCode:
     - {fileID: 0}
+    timelines: []
   CurrentEditingSONum: 0
   Comment: 
 --- !u!1 &447884733
@@ -2973,8 +2974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 0}
   cameraLists: []
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -4019,8 +4020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 1044236175}
   cameraLists: []
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -4312,13 +4313,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 1699601440}
   cameraLists:
   - roomCamera: {fileID: 1699601440}
     isLocked: 0
     speed: 20
     angle: 40
     recordedAngle: 0
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -5595,8 +5596,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 0}
   cameraLists: []
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -5944,8 +5945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 1110665840}
   cameraLists: []
+  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
@@ -6505,6 +6506,7 @@ GameObject:
   - component: {fileID: 1522710184}
   - component: {fileID: 1522710186}
   - component: {fileID: 1522710187}
+  - component: {fileID: 1522710188}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -6524,6 +6526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d8b9fc4ad028f4986c626f3c55c8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveLeft: 
+  MoveRight: 
   eventGraph: {fileID: 0}
   gmState: 0
   TestGraph: {fileID: 11400000, guid: 682fbcc344ef66d4db21e27d0ac8f064, type: 2}
@@ -6546,21 +6550,14 @@ MonoBehaviour:
   RightClickLayermask:
     serializedVersion: 2
     m_Bits: 229120
-  LeftClickLayermask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  FloorLayermask:
-    serializedVersion: 2
-    m_Bits: 0
-  NotFloorLayermask:
-    serializedVersion: 2
-    m_Bits: 0
   RightClickMenuPanel: {fileID: 1242323680}
   RCButton: {fileID: 3319980946669896904, guid: a013ce12d3c777f40a089d16a745b958, type: 3}
   RightClickButton: []
   Canvas: {fileID: 806690992}
   NPCListPanel: {fileID: 143807093}
   NPCListBtn: {fileID: 7162329537241489045, guid: e05afe1d5d108c249bad4aa5e335f888, type: 3}
+  CameraButtonListPanel: {fileID: 0}
+  CameraButton: {fileID: 0}
 --- !u!4 &1522710185
 Transform:
   m_ObjectHideFlags: 0
@@ -6608,6 +6605,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graph: {fileID: 1099859918}
+--- !u!320 &1522710188
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522710183}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1526561373
 GameObject:
   m_ObjectHideFlags: 0
@@ -6835,8 +6849,8 @@ RectTransform:
   m_Father: {fileID: 1820003041}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7599,7 +7613,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749725, y: 0}
+  m_AnchoredPosition: {x: 87.74887, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430

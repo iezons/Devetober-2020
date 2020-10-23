@@ -6,9 +6,9 @@
       <authoring_tool>FBX COLLADA exporter</authoring_tool>
       <comments/>
     </contributor>
-    <created>2020-10-20T07:49:09Z</created>
+    <created>2020-10-22T06:57:09Z</created>
     <keywords/>
-    <modified>2020-10-20T07:49:09Z</modified>
+    <modified>2020-10-22T06:57:09Z</modified>
     <revision/>
     <subject/>
     <title/>
@@ -2852,6 +2852,1154 @@
     </controller>
   </library_controllers>
   <library_animations>
+    <animation id="Neck-anim" name="Neck">
+      <animation>
+        <source id="Neck-visibility-animation-input">
+          <float_array id="Neck-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Neck-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Neck-visibility-animation-output">
+          <float_array id="Neck-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Neck-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Neck-visibility-animation-intan">
+          <float_array id="Neck-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Neck-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Neck-visibility-animation-outtan">
+          <float_array id="Neck-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Neck-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Neck-visibility-animation-interpolation">
+          <Name_array id="Neck-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Neck-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Neck-visibility-animation">
+          <input semantic="INPUT" source="#Neck-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Neck-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Neck-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Neck-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Neck-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Neck-visibility-animation" target="Neck/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Chest-anim" name="Chest">
+      <animation>
+        <source id="Chest-visibility-animation-input">
+          <float_array id="Chest-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Chest-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Chest-visibility-animation-output">
+          <float_array id="Chest-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Chest-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Chest-visibility-animation-intan">
+          <float_array id="Chest-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Chest-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Chest-visibility-animation-outtan">
+          <float_array id="Chest-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Chest-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Chest-visibility-animation-interpolation">
+          <Name_array id="Chest-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Chest-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Chest-visibility-animation">
+          <input semantic="INPUT" source="#Chest-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Chest-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Chest-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Chest-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Chest-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Chest-visibility-animation" target="Chest/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Butt-anim" name="Butt">
+      <animation>
+        <source id="Butt-visibility-animation-input">
+          <float_array id="Butt-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Butt-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Butt-visibility-animation-output">
+          <float_array id="Butt-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Butt-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Butt-visibility-animation-intan">
+          <float_array id="Butt-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Butt-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Butt-visibility-animation-outtan">
+          <float_array id="Butt-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Butt-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Butt-visibility-animation-interpolation">
+          <Name_array id="Butt-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Butt-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Butt-visibility-animation">
+          <input semantic="INPUT" source="#Butt-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Butt-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Butt-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Butt-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Butt-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Butt-visibility-animation" target="Butt/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Head-anim" name="Head">
+      <animation>
+        <source id="Head-visibility-animation-input">
+          <float_array id="Head-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Head-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Head-visibility-animation-output">
+          <float_array id="Head-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Head-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Head-visibility-animation-intan">
+          <float_array id="Head-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Head-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Head-visibility-animation-outtan">
+          <float_array id="Head-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Head-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Head-visibility-animation-interpolation">
+          <Name_array id="Head-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Head-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Head-visibility-animation">
+          <input semantic="INPUT" source="#Head-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Head-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Head-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Head-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Head-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Head-visibility-animation" target="Head/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Hand_R-anim" name="Hand_R">
+      <animation>
+        <source id="Hand_R-visibility-animation-input">
+          <float_array id="Hand_R-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Hand_R-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_R-visibility-animation-output">
+          <float_array id="Hand_R-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Hand_R-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_R-visibility-animation-intan">
+          <float_array id="Hand_R-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Hand_R-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_R-visibility-animation-outtan">
+          <float_array id="Hand_R-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Hand_R-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_R-visibility-animation-interpolation">
+          <Name_array id="Hand_R-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Hand_R-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Hand_R-visibility-animation">
+          <input semantic="INPUT" source="#Hand_R-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Hand_R-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Hand_R-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Hand_R-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Hand_R-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Hand_R-visibility-animation" target="Hand_R/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Lower_Right_Arm1-anim" name="Lower_Right_Arm1">
+      <animation>
+        <source id="Lower_Right_Arm1-visibility-animation-input">
+          <float_array id="Lower_Right_Arm1-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Arm1-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Arm1-visibility-animation-output">
+          <float_array id="Lower_Right_Arm1-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Arm1-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Arm1-visibility-animation-intan">
+          <float_array id="Lower_Right_Arm1-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Arm1-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Arm1-visibility-animation-outtan">
+          <float_array id="Lower_Right_Arm1-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Arm1-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Arm1-visibility-animation-interpolation">
+          <Name_array id="Lower_Right_Arm1-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Arm1-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Lower_Right_Arm1-visibility-animation">
+          <input semantic="INPUT" source="#Lower_Right_Arm1-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Lower_Right_Arm1-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Lower_Right_Arm1-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Lower_Right_Arm1-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Lower_Right_Arm1-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Lower_Right_Arm1-visibility-animation" target="Lower_Right_Arm1/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Upper_Right_Arm-anim" name="Upper_Right_Arm">
+      <animation>
+        <source id="Upper_Right_Arm-visibility-animation-input">
+          <float_array id="Upper_Right_Arm-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Arm-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Arm-visibility-animation-output">
+          <float_array id="Upper_Right_Arm-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Arm-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Arm-visibility-animation-intan">
+          <float_array id="Upper_Right_Arm-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Arm-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Arm-visibility-animation-outtan">
+          <float_array id="Upper_Right_Arm-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Arm-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Arm-visibility-animation-interpolation">
+          <Name_array id="Upper_Right_Arm-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Arm-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Upper_Right_Arm-visibility-animation">
+          <input semantic="INPUT" source="#Upper_Right_Arm-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Upper_Right_Arm-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Upper_Right_Arm-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Upper_Right_Arm-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Upper_Right_Arm-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Upper_Right_Arm-visibility-animation" target="Upper_Right_Arm/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Upper_Right_Leg-anim" name="Upper_Right_Leg">
+      <animation>
+        <source id="Upper_Right_Leg-visibility-animation-input">
+          <float_array id="Upper_Right_Leg-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Leg-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Leg-visibility-animation-output">
+          <float_array id="Upper_Right_Leg-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Leg-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Leg-visibility-animation-intan">
+          <float_array id="Upper_Right_Leg-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Leg-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Leg-visibility-animation-outtan">
+          <float_array id="Upper_Right_Leg-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Leg-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Right_Leg-visibility-animation-interpolation">
+          <Name_array id="Upper_Right_Leg-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Upper_Right_Leg-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Upper_Right_Leg-visibility-animation">
+          <input semantic="INPUT" source="#Upper_Right_Leg-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Upper_Right_Leg-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Upper_Right_Leg-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Upper_Right_Leg-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Upper_Right_Leg-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Upper_Right_Leg-visibility-animation" target="Upper_Right_Leg/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Lower_Right_Leg-anim" name="Lower_Right_Leg">
+      <animation>
+        <source id="Lower_Right_Leg-visibility-animation-input">
+          <float_array id="Lower_Right_Leg-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Leg-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Leg-visibility-animation-output">
+          <float_array id="Lower_Right_Leg-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Leg-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Leg-visibility-animation-intan">
+          <float_array id="Lower_Right_Leg-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Leg-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Leg-visibility-animation-outtan">
+          <float_array id="Lower_Right_Leg-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Leg-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Right_Leg-visibility-animation-interpolation">
+          <Name_array id="Lower_Right_Leg-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Lower_Right_Leg-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Lower_Right_Leg-visibility-animation">
+          <input semantic="INPUT" source="#Lower_Right_Leg-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Lower_Right_Leg-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Lower_Right_Leg-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Lower_Right_Leg-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Lower_Right_Leg-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Lower_Right_Leg-visibility-animation" target="Lower_Right_Leg/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Lower_Left_Arm1-anim" name="Lower_Left_Arm1">
+      <animation>
+        <source id="Lower_Left_Arm1-visibility-animation-input">
+          <float_array id="Lower_Left_Arm1-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Arm1-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Arm1-visibility-animation-output">
+          <float_array id="Lower_Left_Arm1-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Arm1-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Arm1-visibility-animation-intan">
+          <float_array id="Lower_Left_Arm1-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Arm1-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Arm1-visibility-animation-outtan">
+          <float_array id="Lower_Left_Arm1-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Arm1-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Arm1-visibility-animation-interpolation">
+          <Name_array id="Lower_Left_Arm1-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Arm1-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Lower_Left_Arm1-visibility-animation">
+          <input semantic="INPUT" source="#Lower_Left_Arm1-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Lower_Left_Arm1-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Lower_Left_Arm1-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Lower_Left_Arm1-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Lower_Left_Arm1-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Lower_Left_Arm1-visibility-animation" target="Lower_Left_Arm1/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Hand_L-anim" name="Hand_L">
+      <animation>
+        <source id="Hand_L-visibility-animation-input">
+          <float_array id="Hand_L-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Hand_L-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_L-visibility-animation-output">
+          <float_array id="Hand_L-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Hand_L-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_L-visibility-animation-intan">
+          <float_array id="Hand_L-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Hand_L-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_L-visibility-animation-outtan">
+          <float_array id="Hand_L-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Hand_L-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Hand_L-visibility-animation-interpolation">
+          <Name_array id="Hand_L-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Hand_L-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Hand_L-visibility-animation">
+          <input semantic="INPUT" source="#Hand_L-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Hand_L-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Hand_L-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Hand_L-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Hand_L-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Hand_L-visibility-animation" target="Hand_L/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Upper_Left_Arm-anim" name="Upper_Left_Arm">
+      <animation>
+        <source id="Upper_Left_Arm-visibility-animation-input">
+          <float_array id="Upper_Left_Arm-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Arm-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Arm-visibility-animation-output">
+          <float_array id="Upper_Left_Arm-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Arm-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Arm-visibility-animation-intan">
+          <float_array id="Upper_Left_Arm-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Arm-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Arm-visibility-animation-outtan">
+          <float_array id="Upper_Left_Arm-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Arm-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Arm-visibility-animation-interpolation">
+          <Name_array id="Upper_Left_Arm-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Arm-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Upper_Left_Arm-visibility-animation">
+          <input semantic="INPUT" source="#Upper_Left_Arm-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Upper_Left_Arm-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Upper_Left_Arm-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Upper_Left_Arm-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Upper_Left_Arm-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Upper_Left_Arm-visibility-animation" target="Upper_Left_Arm/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Upper_Left_Leg-anim" name="Upper_Left_Leg">
+      <animation>
+        <source id="Upper_Left_Leg-visibility-animation-input">
+          <float_array id="Upper_Left_Leg-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Leg-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Leg-visibility-animation-output">
+          <float_array id="Upper_Left_Leg-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Leg-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Leg-visibility-animation-intan">
+          <float_array id="Upper_Left_Leg-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Leg-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Leg-visibility-animation-outtan">
+          <float_array id="Upper_Left_Leg-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Leg-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Upper_Left_Leg-visibility-animation-interpolation">
+          <Name_array id="Upper_Left_Leg-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Upper_Left_Leg-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Upper_Left_Leg-visibility-animation">
+          <input semantic="INPUT" source="#Upper_Left_Leg-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Upper_Left_Leg-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Upper_Left_Leg-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Upper_Left_Leg-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Upper_Left_Leg-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Upper_Left_Leg-visibility-animation" target="Upper_Left_Leg/visibility"/>
+      </animation>
+    </animation>
+    <animation id="Lower_Left_Leg-anim" name="Lower_Left_Leg">
+      <animation>
+        <source id="Lower_Left_Leg-visibility-animation-input">
+          <float_array id="Lower_Left_Leg-visibility-animation-input-array" count="70">
+
+0.033333 0.066667 0.100000 0.133333 0.166667 0.200000 0.233333 0.266667 0.300000 0.333333 0.366667 0.400000 0.433333 0.466667 0.500000 0.533333
+0.566667 0.600000 0.633333 0.666667 0.700000 0.733333 0.766667 0.800000 0.833333 0.866667 0.900000 0.933333 0.966667 1.000000 1.033333 1.066667
+1.100000 1.133333 1.166667 1.200000 1.233333 1.266667 1.300000 1.333333 1.366667 1.400000 1.433333 1.466667 1.500000 1.533333 1.566667 1.600000
+1.633333 1.666667 1.700000 1.733333 1.766667 1.800000 1.833333 1.866667 1.900000 1.933333 1.966667 2.000000 2.033333 2.066667 2.100000 2.133333
+2.166667 2.200000 2.233333 2.266667 2.300000 2.333333</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Leg-visibility-animation-input-array" count="70">
+              <param name="TIME" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Leg-visibility-animation-output">
+          <float_array id="Lower_Left_Leg-visibility-animation-output-array" count="70">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Leg-visibility-animation-output-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Leg-visibility-animation-intan">
+          <float_array id="Lower_Left_Leg-visibility-animation-intan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Leg-visibility-animation-intan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Leg-visibility-animation-outtan">
+          <float_array id="Lower_Left_Leg-visibility-animation-outtan-array" count="70">
+
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</float_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Leg-visibility-animation-outtan-array" count="70">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Lower_Left_Leg-visibility-animation-interpolation">
+          <Name_array id="Lower_Left_Leg-visibility-animation-interpolation-array" count="70">
+ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER
+BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
+          <technique_common>
+            <accessor source="#Lower_Left_Leg-visibility-animation-interpolation-array" count="70">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <sampler id="Lower_Left_Leg-visibility-animation">
+          <input semantic="INPUT" source="#Lower_Left_Leg-visibility-animation-input"/>
+          <input semantic="OUTPUT" source="#Lower_Left_Leg-visibility-animation-output"/>
+          <input semantic="IN_TANGENT" source="#Lower_Left_Leg-visibility-animation-intan"/>
+          <input semantic="OUT_TANGENT" source="#Lower_Left_Leg-visibility-animation-outtan"/>
+          <input semantic="INTERPOLATION" source="#Lower_Left_Leg-visibility-animation-interpolation"/>
+        </sampler>
+        <channel source="#Lower_Left_Leg-visibility-animation" target="Lower_Left_Leg/visibility"/>
+      </animation>
+    </animation>
     <animation id="Arm_R-anim" name="Arm_R">
       <animation>
         <source id="Arm_R-Matrix-animation-input">
@@ -3067,66 +4215,66 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
         <source id="LowerArm_R-Matrix-animation-output-transform">
           <float_array id="LowerArm_R-Matrix-animation-output-transform-array" count="960">
 
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
-0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#LowerArm_R-Matrix-animation-output-transform-array" count="60" stride="16">
               <param type="float4x4"/>
@@ -3431,26 +4579,26 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
           <float_array id="LowerLeg_L-Matrix-animation-output-transform-array" count="1120">
 
 0.852099 0.000145 0.523381 1.228420 -0.000124 1.000000 -0.000076 -0.000357 -0.523381 0.000000 0.852099 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.838847 0.000145 0.544367 1.228420 -0.000122 1.000000 -0.000079 -0.000357 -0.544367 -0.000000 0.838847 0.000000 0.000000 0.000000 0.000000 1.000000
-0.800713 0.000145 0.599048 1.228420 -0.000116 1.000000 -0.000087 -0.000357 -0.599048 0.000000 0.800713 0.000000 0.000000 0.000000 0.000000 1.000000
-0.739027 0.000145 0.673676 1.228420 -0.000107 1.000000 -0.000098 -0.000357 -0.673676 0.000000 0.739027 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.838847 0.000145 0.544367 1.228420 -0.000122 1.000000 -0.000079 -0.000357 -0.544367 0.000000 0.838847 0.000000 0.000000 0.000000 0.000000 1.000000
+0.800713 0.000145 0.599048 1.228420 -0.000116 1.000000 -0.000087 -0.000357 -0.599048 -0.000000 0.800713 0.000000 0.000000 0.000000 0.000000 1.000000
+0.739027 0.000145 0.673676 1.228420 -0.000107 1.000000 -0.000098 -0.000357 -0.673676 0.000000 0.739027 0.000000 0.000000 0.000000 0.000000 1.000000
 0.656565 0.000145 0.754269 1.228420 -0.000095 1.000000 -0.000110 -0.000357 -0.754269 0.000000 0.656565 0.000000 0.000000 0.000000 0.000000 1.000000
 0.559725 0.000145 0.828679 1.228420 -0.000081 1.000000 -0.000120 -0.000357 -0.828679 0.000000 0.559725 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.458842 0.000145 0.888518 1.228420 -0.000067 1.000000 -0.000129 -0.000357 -0.888518 0.000000 0.458842 0.000000 0.000000 0.000000 0.000000 1.000000
-0.367058 0.000145 0.930198 1.228420 -0.000053 1.000000 -0.000135 -0.000357 -0.930198 0.000000 0.367058 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.458842 0.000145 0.888518 1.228420 -0.000067 1.000000 -0.000129 -0.000357 -0.888518 0.000000 0.458842 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.367058 0.000145 0.930198 1.228420 -0.000053 1.000000 -0.000135 -0.000357 -0.930198 -0.000000 0.367058 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.298563 0.000145 0.954390 1.228420 -0.000043 1.000000 -0.000139 -0.000357 -0.954390 0.000000 0.298563 0.000000 0.000000 0.000000 0.000000 1.000000
 0.267109 0.000145 0.963666 1.228420 -0.000039 1.000000 -0.000140 -0.000357 -0.963666 -0.000000 0.267109 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.260071 0.000145 0.965590 1.228420 -0.000038 1.000000 -0.000140 -0.000357 -0.965590 0.000000 0.260071 0.000000 0.000000 0.000000 0.000000 1.000000
 0.255795 0.000145 0.966731 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.966731 0.000000 0.255795 0.000000 0.000000 0.000000 0.000000 1.000000
-0.253597 0.000145 0.967310 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967310 0.000000 0.253597 0.000000 0.000000 0.000000 0.000000 1.000000
-0.252787 0.000145 0.967522 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967522 -0.000000 0.252787 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.253597 0.000145 0.967310 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967310 0.000000 0.253597 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.252787 0.000145 0.967522 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967522 0.000000 0.252787 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.252671 0.000145 0.967552 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967552 -0.000000 0.252671 0.000000 0.000000 0.000000 0.000000 1.000000
 0.252556 0.000145 0.967582 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967582 0.000000 0.252556 0.000000 0.000000 0.000000 0.000000 1.000000
-0.251745 0.000145 0.967793 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967793 -0.000000 0.251745 0.000000 0.000000 0.000000 0.000000 1.000000
-0.249545 0.000145 0.968363 1.228420 -0.000036 1.000000 -0.000141 -0.000357 -0.968363 -0.000000 0.249545 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.245257 0.000145 0.969458 1.228420 -0.000036 1.000000 -0.000141 -0.000357 -0.969458 0.000000 0.245257 0.000000 0.000000 0.000000 0.000000 1.000000
-0.238177 0.000145 0.971222 1.228420 -0.000035 1.000000 -0.000141 -0.000357 -0.971222 -0.000000 0.238177 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.209977 0.000145 0.977706 1.228420 -0.000031 1.000000 -0.000142 -0.000357 -0.977706 -0.000000 0.209977 0.000000 0.000000 0.000000 0.000000 1.000000
+0.251745 0.000145 0.967793 1.228420 -0.000037 1.000000 -0.000141 -0.000357 -0.967793 0.000000 0.251745 0.000000 0.000000 0.000000 0.000000 1.000000
+0.249545 0.000145 0.968363 1.228420 -0.000036 1.000000 -0.000141 -0.000357 -0.968363 0.000000 0.249545 0.000000 0.000000 0.000000 0.000000 1.000000
+0.245257 0.000145 0.969458 1.228420 -0.000036 1.000000 -0.000141 -0.000357 -0.969458 0.000000 0.245257 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.238177 0.000145 0.971222 1.228420 -0.000035 1.000000 -0.000141 -0.000357 -0.971222 0.000000 0.238177 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.209977 0.000145 0.977706 1.228420 -0.000031 1.000000 -0.000142 -0.000357 -0.977706 0.000000 0.209977 0.000000 0.000000 0.000000 0.000000 1.000000
 0.154895 0.000145 0.987931 1.228420 -0.000023 1.000000 -0.000144 -0.000357 -0.987931 0.000000 0.154895 0.000000 0.000000 0.000000 0.000000 1.000000
 0.091528 0.000145 0.995802 1.228420 -0.000013 1.000000 -0.000145 -0.000357 -0.995802 0.000000 0.091528 0.000000 0.000000 0.000000 0.000000 1.000000
 0.039205 0.000145 0.999231 1.228420 -0.000006 1.000000 -0.000145 -0.000357 -0.999231 -0.000000 0.039205 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -3470,31 +4618,31 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
 0.017454 0.000145 0.999848 1.228420 -0.000003 1.000000 -0.000145 -0.000357 -0.999848 -0.000000 0.017454 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.017454 0.000145 0.999848 1.228420 -0.000003 1.000000 -0.000145 -0.000357 -0.999848 -0.000000 0.017454 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.017454 0.000145 0.999848 1.228420 -0.000003 1.000000 -0.000145 -0.000357 -0.999848 -0.000000 0.017454 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.017806 0.000145 0.999841 1.228420 -0.000003 1.000000 -0.000145 -0.000357 -0.999841 0.000000 0.017806 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.017806 0.000145 0.999841 1.228420 -0.000003 1.000000 -0.000145 -0.000357 -0.999841 -0.000000 0.017806 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.020271 0.000145 0.999795 1.228420 -0.000003 1.000000 -0.000145 -0.000357 -0.999795 -0.000000 0.020271 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.026963 0.000145 0.999636 1.228420 -0.000004 1.000000 -0.000145 -0.000357 -0.999636 -0.000000 0.026963 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.039989 0.000145 0.999200 1.228420 -0.000006 1.000000 -0.000145 -0.000357 -0.999200 -0.000000 0.039989 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.061450 0.000145 0.998110 1.228420 -0.000009 1.000000 -0.000145 -0.000357 -0.998110 -0.000000 0.061450 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.112748 0.000145 0.993624 1.228420 -0.000016 1.000000 -0.000144 -0.000357 -0.993624 0.000000 0.112748 0.000000 0.000000 0.000000 0.000000 1.000000
 0.196305 0.000145 0.980543 1.228420 -0.000029 1.000000 -0.000143 -0.000357 -0.980543 0.000000 0.196305 0.000000 0.000000 0.000000 0.000000 1.000000
-0.285663 0.000145 0.958330 1.228420 -0.000042 1.000000 -0.000139 -0.000357 -0.958330 0.000000 0.285663 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.355762 0.000145 0.934577 1.228420 -0.000052 1.000000 -0.000136 -0.000357 -0.934577 -0.000000 0.355762 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 -0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 -0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.285663 0.000145 0.958330 1.228420 -0.000042 1.000000 -0.000139 -0.000357 -0.958330 -0.000000 0.285663 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.355762 0.000145 0.934577 1.228420 -0.000052 1.000000 -0.000136 -0.000357 -0.934577 -0.000000 0.355762 0.000000 0.000000 0.000000 0.000000 1.000000
 0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 -0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 -0.000000 0.383971 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
+0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
 0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 -0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
 0.383971 0.000145 0.923345 1.228420 -0.000056 1.000000 -0.000134 -0.000357 -0.923345 0.000000 0.383971 0.000000 0.000000 0.000000 0.000000 1.000000
-0.400093 0.000145 0.916475 1.228420 -0.000058 1.000000 -0.000133 -0.000357 -0.916475 -0.000000 0.400093 0.000000 0.000000 0.000000 0.000000 1.000000
-0.443219 0.000145 0.896413 1.228420 -0.000064 1.000000 -0.000130 -0.000357 -0.896413 -0.000000 0.443219 0.000000 0.000000 0.000000 0.000000 1.000000
+0.400093 0.000145 0.916475 1.228420 -0.000058 1.000000 -0.000133 -0.000357 -0.916475 0.000000 0.400093 0.000000 0.000000 0.000000 0.000000 1.000000
+0.443219 0.000145 0.896413 1.228420 -0.000064 1.000000 -0.000130 -0.000357 -0.896413 -0.000000 0.443219 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.504917 0.000145 0.863168 1.228420 -0.000073 1.000000 -0.000125 -0.000357 -0.863168 0.000000 0.504917 0.000000 0.000000 0.000000 0.000000 1.000000
-0.576475 0.000145 0.817115 1.228420 -0.000084 1.000000 -0.000119 -0.000357 -0.817115 -0.000000 0.576475 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.649587 0.000145 0.760288 1.228420 -0.000094 1.000000 -0.000111 -0.000357 -0.760288 -0.000000 0.649587 0.000000 0.000000 0.000000 0.000000 1.000000
+0.576475 0.000145 0.817115 1.228420 -0.000084 1.000000 -0.000119 -0.000357 -0.817115 0.000000 0.576475 0.000000 0.000000 0.000000 0.000000 1.000000
+0.649587 0.000145 0.760288 1.228420 -0.000094 1.000000 -0.000111 -0.000357 -0.760288 0.000000 0.649587 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.717128 0.000145 0.696941 1.228420 -0.000104 1.000000 -0.000101 -0.000357 -0.696941 0.000000 0.717128 0.000000 0.000000 0.000000 0.000000 1.000000
 0.773785 0.000145 0.633448 1.228420 -0.000112 1.000000 -0.000092 -0.000357 -0.633448 0.000000 0.773785 0.000000 0.000000 0.000000 0.000000 1.000000
 0.816253 0.000145 0.577695 1.228420 -0.000119 1.000000 -0.000084 -0.000357 -0.577695 0.000000 0.816253 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -3803,25 +4951,6 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
         <source id="LowerArm_R1-Matrix-animation-output-transform">
           <float_array id="LowerArm_R1-Matrix-animation-output-transform-array" count="1120">
 
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -3843,7 +4972,13 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -3859,13 +4994,26 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
-0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
 0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -4176,28 +5324,28 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
         <source id="LowerLeg_R-Matrix-animation-output-transform">
           <float_array id="LowerLeg_R-Matrix-animation-output-transform-array" count="1120">
 
-0.809638 0.000145 0.586929 1.228423 -0.000118 1.000000 -0.000085 -0.000000 -0.586929 -0.000000 0.809638 0.000000 0.000000 0.000000 0.000000 1.000000
-0.794823 0.000145 0.606842 1.228423 -0.000116 1.000000 -0.000088 -0.000000 -0.606842 -0.000000 0.794823 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.809638 0.000145 0.586929 1.228423 -0.000118 1.000000 -0.000085 -0.000000 -0.586929 -0.000000 0.809638 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.794823 0.000145 0.606842 1.228423 -0.000116 1.000000 -0.000088 0.000000 -0.606842 0.000000 0.794823 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.752624 0.000145 0.658451 1.228423 -0.000109 1.000000 -0.000096 0.000000 -0.658451 0.000000 0.752624 0.000000 0.000000 0.000000 0.000000 1.000000
-0.685418 0.000145 0.728150 1.228423 -0.000100 1.000000 -0.000106 0.000000 -0.728150 -0.000000 0.685418 0.000000 0.000000 0.000000 0.000000 1.000000
+0.685418 0.000145 0.728150 1.228423 -0.000100 1.000000 -0.000106 0.000000 -0.728150 0.000000 0.685418 0.000000 0.000000 0.000000 0.000000 1.000000
 0.597042 0.000145 0.802210 1.228423 -0.000087 1.000000 -0.000117 -0.000000 -0.802210 0.000000 0.597042 0.000000 0.000000 0.000000 0.000000 1.000000
-0.494802 0.000145 0.869006 1.228423 -0.000072 1.000000 -0.000126 -0.000000 -0.869006 0.000000 0.494802 0.000000 0.000000 0.000000 0.000000 1.000000
-0.389644 0.000145 0.920966 1.228423 -0.000057 1.000000 -0.000134 -0.000000 -0.920966 0.000000 0.389644 0.000000 0.000000 0.000000 0.000000 1.000000
+0.494802 0.000145 0.869006 1.228423 -0.000072 1.000000 -0.000126 -0.000000 -0.869006 -0.000000 0.494802 0.000000 0.000000 0.000000 0.000000 1.000000
+0.389644 0.000145 0.920966 1.228423 -0.000057 1.000000 -0.000134 -0.000000 -0.920966 -0.000000 0.389644 0.000000 0.000000 0.000000 0.000000 1.000000
 0.294944 0.000145 0.955514 1.228423 -0.000043 1.000000 -0.000139 0.000000 -0.955514 0.000000 0.294944 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.224801 0.000145 0.974405 1.228423 -0.000033 1.000000 -0.000142 -0.000000 -0.974405 -0.000000 0.224801 0.000000 0.000000 0.000000 0.000000 1.000000
-0.192731 0.000145 0.981252 1.228423 -0.000028 1.000000 -0.000143 -0.000000 -0.981252 0.000000 0.192731 0.000000 0.000000 0.000000 0.000000 1.000000
-0.185567 0.000145 0.982632 1.228423 -0.000027 1.000000 -0.000143 0.000000 -0.982632 0.000000 0.185567 0.000000 0.000000 0.000000 0.000000 1.000000
-0.181216 0.000145 0.983443 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.983443 0.000000 0.181216 0.000000 0.000000 0.000000 0.000000 1.000000
-0.178981 0.000145 0.983853 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.983853 0.000000 0.178981 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.178157 0.000145 0.984002 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.984002 0.000000 0.178157 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.178039 0.000145 0.984023 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.984023 0.000000 0.178039 0.000000 0.000000 0.000000 0.000000 1.000000
-0.177921 0.000145 0.984045 1.228423 -0.000026 1.000000 -0.000143 0.000000 -0.984045 -0.000000 0.177921 0.000000 0.000000 0.000000 0.000000 1.000000
-0.177097 0.000145 0.984193 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.984193 -0.000000 0.177097 0.000000 0.000000 0.000000 0.000000 1.000000
-0.174860 0.000145 0.984593 1.228423 -0.000025 1.000000 -0.000143 0.000000 -0.984593 0.000000 0.174860 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.170501 0.000145 0.985357 1.228423 -0.000025 1.000000 -0.000143 -0.000000 -0.985358 0.000000 0.170501 0.000000 0.000000 0.000000 0.000000 1.000000
-0.163307 0.000145 0.986575 1.228423 -0.000024 1.000000 -0.000143 -0.000000 -0.986575 -0.000000 0.163307 0.000000 0.000000 0.000000 0.000000 1.000000
-0.134694 0.000145 0.990887 1.228423 -0.000020 1.000000 -0.000144 -0.000000 -0.990887 0.000000 0.134694 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.078992 0.000145 0.996875 1.228423 -0.000011 1.000000 -0.000145 0.000000 -0.996875 -0.000000 0.078992 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.224801 0.000145 0.974405 1.228423 -0.000033 1.000000 -0.000142 -0.000000 -0.974405 -0.000000 0.224801 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.192731 0.000145 0.981252 1.228423 -0.000028 1.000000 -0.000143 0.000000 -0.981252 0.000000 0.192731 0.000000 0.000000 0.000000 0.000000 1.000000
+0.185567 0.000145 0.982632 1.228423 -0.000027 1.000000 -0.000143 -0.000000 -0.982632 -0.000000 0.185567 0.000000 0.000000 0.000000 0.000000 1.000000
+0.181216 0.000145 0.983443 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.983443 -0.000000 0.181216 0.000000 0.000000 0.000000 0.000000 1.000000
+0.178981 0.000145 0.983853 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.983853 0.000000 0.178981 0.000000 0.000000 0.000000 0.000000 1.000000
+0.178157 0.000145 0.984002 1.228423 -0.000026 1.000000 -0.000143 0.000000 -0.984002 0.000000 0.178157 0.000000 0.000000 0.000000 0.000000 1.000000
+0.178039 0.000145 0.984023 1.228423 -0.000026 1.000000 -0.000143 0.000000 -0.984023 0.000000 0.178039 0.000000 0.000000 0.000000 0.000000 1.000000
+0.177921 0.000145 0.984045 1.228423 -0.000026 1.000000 -0.000143 0.000000 -0.984045 0.000000 0.177921 0.000000 0.000000 0.000000 0.000000 1.000000
+0.177097 0.000145 0.984193 1.228423 -0.000026 1.000000 -0.000143 -0.000000 -0.984193 0.000000 0.177097 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.174860 0.000145 0.984593 1.228423 -0.000025 1.000000 -0.000143 -0.000000 -0.984593 0.000000 0.174860 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.170501 0.000145 0.985357 1.228423 -0.000025 1.000000 -0.000143 -0.000000 -0.985358 -0.000000 0.170501 0.000000 0.000000 0.000000 0.000000 1.000000
+0.163307 0.000145 0.986575 1.228423 -0.000024 1.000000 -0.000143 -0.000000 -0.986575 -0.000000 0.163307 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.134694 0.000145 0.990887 1.228423 -0.000020 1.000000 -0.000144 -0.000000 -0.990887 0.000000 0.134694 0.000000 0.000000 0.000000 0.000000 1.000000
+0.078992 0.000145 0.996875 1.228423 -0.000011 1.000000 -0.000145 0.000000 -0.996875 -0.000000 0.078992 0.000000 0.000000 0.000000 0.000000 1.000000
 0.015209 0.000145 0.999884 1.228423 -0.000002 1.000000 -0.000145 0.000000 -0.999884 -0.000000 0.015209 -0.000000 0.000000 0.000000 0.000000 1.000000
 -0.037224 0.000145 0.999307 1.228423 0.000005 1.000000 -0.000145 -0.000000 -0.999307 -0.000000 -0.037224 0.000000 0.000000 0.000000 0.000000 1.000000
 -0.058958 0.000145 0.998260 1.228423 0.000009 1.000000 -0.000145 -0.000000 -0.998260 0.000000 -0.058958 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -4222,30 +5370,30 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
 -0.036439 0.000145 0.999336 1.228423 0.000005 1.000000 -0.000145 -0.000000 -0.999336 0.000000 -0.036439 0.000000 0.000000 0.000000 0.000000 1.000000
 -0.014958 0.000145 0.999888 1.228423 0.000002 1.000000 -0.000145 -0.000000 -0.999888 0.000000 -0.014958 0.000000 0.000000 0.000000 0.000000 1.000000
 0.036534 0.000145 0.999332 1.228423 -0.000005 1.000000 -0.000145 0.000000 -0.999332 -0.000000 0.036534 0.000000 0.000000 0.000000 0.000000 1.000000
-0.120845 0.000145 0.992671 1.228423 -0.000018 1.000000 -0.000144 -0.000000 -0.992671 -0.000000 0.120845 0.000000 0.000000 0.000000 0.000000 1.000000
+0.120845 0.000145 0.992671 1.228423 -0.000018 1.000000 -0.000144 0.000000 -0.992671 -0.000000 0.120845 0.000000 0.000000 0.000000 0.000000 1.000000
 0.211639 0.000145 0.977348 1.228423 -0.000031 1.000000 -0.000142 -0.000000 -0.977348 -0.000000 0.211639 0.000000 0.000000 0.000000 0.000000 1.000000
 0.283347 0.000145 0.959017 1.228423 -0.000041 1.000000 -0.000139 0.000000 -0.959017 -0.000000 0.283347 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
 0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
-0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 0.000000 0.312331 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 -0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
-0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
+0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 0.000000 0.312331 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
 0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
-0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
-0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
+0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 0.000000 0.312331 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 -0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
 0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 -0.000000 -0.949973 0.000000 0.312331 0.000000 0.000000 0.000000 0.000000 1.000000
+0.312331 0.000145 0.949973 1.228423 -0.000045 1.000000 -0.000138 0.000000 -0.949973 0.000000 0.312331 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.328931 0.000145 0.944354 1.228423 -0.000048 1.000000 -0.000137 0.000000 -0.944354 0.000000 0.328931 0.000000 0.000000 0.000000 0.000000 1.000000
-0.373463 0.000145 0.927645 1.228423 -0.000054 1.000000 -0.000135 -0.000000 -0.927645 -0.000000 0.373463 0.000000 0.000000 0.000000 0.000000 1.000000
-0.437521 0.000145 0.899208 1.228423 -0.000064 1.000000 -0.000131 0.000000 -0.899208 0.000000 0.437521 0.000000 0.000000 0.000000 0.000000 1.000000
+0.373463 0.000145 0.927645 1.228423 -0.000054 1.000000 -0.000135 0.000000 -0.927645 -0.000000 0.373463 0.000000 0.000000 0.000000 0.000000 1.000000
+0.437521 0.000145 0.899208 1.228423 -0.000064 1.000000 -0.000131 -0.000000 -0.899208 0.000000 0.437521 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.512387 0.000145 0.858755 1.228423 -0.000074 1.000000 -0.000125 -0.000000 -0.858755 0.000000 0.512387 0.000000 0.000000 0.000000 0.000000 1.000000
-0.589625 0.000145 0.807677 1.228423 -0.000086 1.000000 -0.000117 -0.000000 -0.807677 0.000000 0.589625 0.000000 0.000000 0.000000 0.000000 1.000000
+0.589625 0.000145 0.807677 1.228423 -0.000086 1.000000 -0.000117 -0.000000 -0.807677 0.000000 0.589625 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.661807 0.000145 0.749674 1.228423 -0.000096 1.000000 -0.000109 0.000000 -0.749674 0.000000 0.661807 0.000000 0.000000 0.000000 0.000000 1.000000
-0.723148 0.000145 0.690693 1.228423 -0.000105 1.000000 -0.000100 -0.000000 -0.690693 0.000000 0.723148 0.000000 0.000000 0.000000 0.000000 1.000000
-0.769750 0.000145 0.638346 1.228423 -0.000112 1.000000 -0.000093 0.000000 -0.638346 -0.000000 0.769750 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.799233 0.000145 0.601022 1.228423 -0.000116 1.000000 -0.000087 0.000000 -0.601022 0.000000 0.799233 0.000000 0.000000 0.000000 0.000000 1.000000
-0.809642 0.000145 0.586924 1.228423 -0.000118 1.000000 -0.000085 -0.000000 -0.586924 -0.000000 0.809642 0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.723148 0.000145 0.690693 1.228423 -0.000105 1.000000 -0.000100 0.000000 -0.690693 0.000000 0.723148 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.769750 0.000145 0.638346 1.228423 -0.000112 1.000000 -0.000093 -0.000000 -0.638346 -0.000000 0.769750 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.799233 0.000145 0.601022 1.228423 -0.000116 1.000000 -0.000087 -0.000000 -0.601022 -0.000000 0.799233 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.809642 0.000145 0.586924 1.228423 -0.000118 1.000000 -0.000085 -0.000000 -0.586924 0.000000 0.809642 0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#LowerLeg_R-Matrix-animation-output-transform-array" count="70" stride="16">
               <param type="float4x4"/>
@@ -4352,11 +5500,11 @@ LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Na
         <source id="Body-Matrix-animation-output-transform">
           <float_array id="Body-Matrix-animation-output-transform-array" count="1120">
 
-0.000000 -1.000000 -0.000000 0.000301 0.957436 0.000000 -0.288647 4.626816 0.288647 0.000000 0.957436 0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 -1.000000 -0.000000 0.000301 0.957436 0.000000 -0.288647 4.626816 0.288647 -0.000000 0.957436 0.000000 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.956048 0.000000 -0.293209 4.616144 0.293209 0.000000 0.956048 0.010334 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.952121 0.000000 -0.305720 4.586615 0.305720 0.000000 0.952121 0.038030 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.945923 0.000000 -0.324390 4.541963 0.324390 0.000000 0.945923 0.078126 0.000000 0.000000 0.000000 1.000000
-0.000000 -1.000000 -0.000000 0.000301 0.937712 0.000000 -0.347414 4.485924 0.347414 0.000000 0.937712 0.125663 0.000000 0.000000 0.000000 1.000000
+0.000000 -1.000000 -0.000000 0.000301 0.937712 0.000000 -0.347414 4.485924 0.347414 -0.000000 0.937712 0.125663 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.927830 0.000000 -0.373003 4.422231 0.373003 0.000000 0.927830 0.175680 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.916771 0.000000 -0.399413 4.354619 0.399413 0.000000 0.916771 0.223217 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.905209 0.000000 -0.424966 4.286821 0.424966 0.000000 0.905209 0.263314 0.000000 0.000000 0.000000 1.000000
@@ -4393,7 +5541,7 @@ LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Na
 0.000000 -1.000000 -0.000000 0.000301 0.968015 0.000000 -0.250893 3.739606 0.250893 0.000000 0.968015 -0.883554 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.968015 0.000000 -0.250893 3.739606 0.250893 0.000000 0.968015 -0.883554 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.958302 0.000000 -0.285758 3.719382 0.285758 0.000000 0.958302 -0.823048 0.000000 0.000000 0.000000 1.000000
-0.000000 -1.000000 -0.000000 0.000301 0.930997 0.000000 -0.365028 3.671156 0.365028 0.000000 0.930997 -0.683531 0.000000 0.000000 0.000000 1.000000
+0.000000 -1.000000 -0.000000 0.000301 0.930997 0.000000 -0.365028 3.671156 0.365028 -0.000000 0.930997 -0.683531 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.892417 0.000000 -0.451211 3.613597 0.451211 0.000000 0.892417 -0.527998 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.859709 0.000000 -0.510784 3.565371 0.510784 0.000000 0.859709 -0.419447 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.857446 0.000000 -0.514574 3.545147 0.514574 0.000000 0.857446 -0.420877 0.000000 0.000000 0.000000 1.000000
@@ -4408,7 +5556,7 @@ LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Na
 0.000000 -1.000000 -0.000000 0.000301 0.817982 0.000000 -0.575244 3.875807 0.575244 0.000000 0.817982 0.120624 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.827848 0.000000 -0.560953 3.922112 0.560953 0.000000 0.827848 0.177652 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.838436 0.000000 -0.544999 3.968969 0.544999 0.000000 0.838436 0.229611 0.000000 0.000000 0.000000 1.000000
-0.000000 -1.000000 -0.000000 0.000301 0.849260 0.000000 -0.527975 4.016130 0.527975 0.000000 0.849260 0.274137 0.000000 0.000000 0.000000 1.000000
+0.000000 -1.000000 -0.000000 0.000301 0.849260 0.000000 -0.527975 4.016130 0.527975 -0.000000 0.849260 0.274137 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.859874 0.000000 -0.510506 4.063350 0.510506 0.000000 0.859874 0.308868 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.869888 0.000000 -0.493250 4.110383 0.493250 0.000000 0.869888 0.331439 0.000000 0.000000 0.000000 1.000000
 0.000000 -1.000000 -0.000000 0.000301 0.878961 0.000000 -0.476893 4.156981 0.476893 0.000000 0.878961 0.339488 0.000000 0.000000 0.000000 1.000000
@@ -4557,13 +5705,13 @@ BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Na
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
-0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 -0.000000 0.301456 -0.008948 0.953438 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
-0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 -0.000000 0.301456 -0.008948 0.953438 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 -0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000
@@ -4728,46 +5876,46 @@ LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
         <source id="Butt_ncl1_1-Matrix-animation-output-transform">
           <float_array id="Butt_ncl1_1-Matrix-animation-output-transform-array" count="640">
 
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
 0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
-0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000</float_array>
+0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 -0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000
+0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#Butt_ncl1_1-Matrix-animation-output-transform-array" count="40" stride="16">
               <param type="float4x4"/>
@@ -5052,61 +6200,29 @@ LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
           </technique>
         </extra>
       </node>
-      <node name="group1" id="group1" sid="group1">
-        <matrix sid="matrix">1.000000 0.000000 -0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+      <node name="Arm_R" id="Arm_R" sid="Arm_R" type="JOINT">
+        <matrix sid="matrix">0.318027 0.948082 0.000000 0.490141 -0.907727 0.304491 -0.288647 4.683773 -0.273661 0.091798 0.957436 0.017171 0.000000 0.000000 0.000000 1.000000</matrix>
         <extra>
           <technique profile="FCOLLADA">
             <visibility>1.000000</visibility>
           </technique>
         </extra>
-        <node name="Arm_R" id="Arm_R" sid="Arm_R" type="JOINT">
-          <matrix sid="matrix">0.318027 0.948082 0.000000 0.490141 -0.907727 0.304491 -0.288647 4.683773 -0.273661 0.091798 0.957436 0.017171 0.000000 0.000000 0.000000 1.000000</matrix>
+        <node name="LowerArm_R" id="LowerArm_R" sid="LowerArm_R" type="JOINT">
+          <matrix sid="matrix">0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 -0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
           <extra>
             <technique profile="FCOLLADA">
               <visibility>1.000000</visibility>
             </technique>
           </extra>
-          <node name="LowerArm_R" id="LowerArm_R" sid="LowerArm_R" type="JOINT">
-            <matrix sid="matrix">0.750028 0.086266 -0.655756 0.950987 -0.064944 0.996272 0.056781 -0.000000 0.658209 0.000000 0.752835 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+          <node name="Hand_R_ncl1_1" id="Hand_R_ncl1_1" sid="Hand_R_ncl1_1" type="JOINT">
+            <matrix sid="matrix">0.980208 0.148324 -0.131118 0.898248 -0.147014 0.988939 0.019665 -0.000000 0.132584 -0.000000 0.991172 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
             <extra>
               <technique profile="FCOLLADA">
                 <visibility>1.000000</visibility>
               </technique>
             </extra>
-            <node name="Hand_R_ncl1_1" id="Hand_R_ncl1_1" sid="Hand_R_ncl1_1" type="JOINT">
-              <matrix sid="matrix">0.980208 0.148324 -0.131118 0.898248 -0.147014 0.988939 0.019665 -0.000000 0.132584 0.000000 0.991172 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-              <extra>
-                <technique profile="FCOLLADA">
-                  <visibility>1.000000</visibility>
-                </technique>
-              </extra>
-              <node name="joint9" id="joint9" sid="joint9" type="JOINT">
-                <matrix sid="matrix">0.088286 -0.996095 0.000000 0.314056 0.996095 0.088286 0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-                <extra>
-                  <technique profile="FCOLLADA">
-                    <visibility>1.000000</visibility>
-                  </technique>
-                </extra>
-              </node>
-            </node>
-          </node>
-        </node>
-        <node name="Leg_L" id="Leg_L" sid="Leg_L" type="JOINT">
-          <matrix sid="matrix">-0.132557 0.971735 -0.195347 -0.330576 -0.916454 -0.045089 0.397592 2.776401 0.377546 0.231730 0.896527 -0.319387 0.000000 0.000000 0.000000 1.000000</matrix>
-          <extra>
-            <technique profile="FCOLLADA">
-              <visibility>1.000000</visibility>
-            </technique>
-          </extra>
-          <node name="LowerLeg_L" id="LowerLeg_L" sid="LowerLeg_L" type="JOINT">
-            <matrix sid="matrix">0.852099 0.000145 0.523381 1.228420 -0.000124 1.000000 -0.000076 -0.000357 -0.523381 0.000000 0.852099 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-            <extra>
-              <technique profile="FCOLLADA">
-                <visibility>1.000000</visibility>
-              </technique>
-            </extra>
-            <node name="joint12" id="joint12" sid="joint12" type="JOINT">
-              <matrix sid="matrix">0.000000 -1.000000 0.000000 1.696404 1.000000 0.000000 0.000000 -0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+            <node name="joint9" id="joint9" sid="joint9" type="JOINT">
+              <matrix sid="matrix">0.088286 -0.996095 -0.000000 0.314056 0.996095 0.088286 -0.000000 0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
               <extra>
                 <technique profile="FCOLLADA">
                   <visibility>1.000000</visibility>
@@ -5115,93 +6231,117 @@ LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
             </node>
           </node>
         </node>
-        <node name="Arm_R1" id="Arm_R1" sid="Arm_R1" type="JOINT">
-          <matrix sid="matrix">0.318027 0.948082 0.000000 -0.490141 0.907727 -0.304491 0.288647 4.683773 0.273661 -0.091798 -0.957436 0.017171 0.000000 0.000000 0.000000 1.000000</matrix>
+      </node>
+      <node name="Leg_L" id="Leg_L" sid="Leg_L" type="JOINT">
+        <matrix sid="matrix">-0.132557 0.971735 -0.195347 -0.330576 -0.916454 -0.045089 0.397592 2.776401 0.377546 0.231730 0.896527 -0.319387 0.000000 0.000000 0.000000 1.000000</matrix>
+        <extra>
+          <technique profile="FCOLLADA">
+            <visibility>1.000000</visibility>
+          </technique>
+        </extra>
+        <node name="LowerLeg_L" id="LowerLeg_L" sid="LowerLeg_L" type="JOINT">
+          <matrix sid="matrix">0.852099 0.000145 0.523381 1.228420 -0.000124 1.000000 -0.000076 -0.000357 -0.523381 0.000000 0.852099 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
           <extra>
             <technique profile="FCOLLADA">
               <visibility>1.000000</visibility>
             </technique>
           </extra>
-          <node name="LowerArm_R1" id="LowerArm_R1" sid="LowerArm_R1" type="JOINT">
-            <matrix sid="matrix">0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+          <node name="joint12" id="joint12" sid="joint12" type="JOINT">
+            <matrix sid="matrix">0.000000 -1.000000 0.000000 1.696404 1.000000 0.000000 0.000000 -0.000000 -0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
             <extra>
               <technique profile="FCOLLADA">
                 <visibility>1.000000</visibility>
               </technique>
             </extra>
-            <node name="Hand_R1" id="Hand_R1" sid="Hand_R1" type="JOINT">
-              <matrix sid="matrix">0.906627 0.148324 -0.395003 -0.898247 -0.135978 0.988939 0.059244 -0.000002 0.399421 0.000000 0.916767 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+          </node>
+        </node>
+      </node>
+      <node name="Arm_R1" id="Arm_R1" sid="Arm_R1" type="JOINT">
+        <matrix sid="matrix">0.318027 0.948082 0.000000 -0.490141 0.907727 -0.304491 0.288647 4.683773 0.273661 -0.091798 -0.957436 0.017171 0.000000 0.000000 0.000000 1.000000</matrix>
+        <extra>
+          <technique profile="FCOLLADA">
+            <visibility>1.000000</visibility>
+          </technique>
+        </extra>
+        <node name="LowerArm_R1" id="LowerArm_R1" sid="LowerArm_R1" type="JOINT">
+          <matrix sid="matrix">0.858943 0.086266 -0.504753 -0.950984 -0.074375 0.996272 0.043706 -0.000001 0.506641 0.000000 0.862157 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+          <extra>
+            <technique profile="FCOLLADA">
+              <visibility>1.000000</visibility>
+            </technique>
+          </extra>
+          <node name="Hand_R1" id="Hand_R1" sid="Hand_R1" type="JOINT">
+            <matrix sid="matrix">0.906627 0.148324 -0.395003 -0.898247 -0.135978 0.988939 0.059244 -0.000002 0.399421 -0.000000 0.916767 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+            <extra>
+              <technique profile="FCOLLADA">
+                <visibility>1.000000</visibility>
+              </technique>
+            </extra>
+            <node name="joint13" id="joint13" sid="joint13" type="JOINT">
+              <matrix sid="matrix">0.088286 -0.996095 0.000000 -0.314056 0.996095 0.088286 0.000000 0.000007 -0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
               <extra>
                 <technique profile="FCOLLADA">
                   <visibility>1.000000</visibility>
                 </technique>
               </extra>
-              <node name="joint13" id="joint13" sid="joint13" type="JOINT">
-                <matrix sid="matrix">0.088286 -0.996095 -0.000000 -0.314056 0.996095 0.088286 0.000000 0.000007 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-                <extra>
-                  <technique profile="FCOLLADA">
-                    <visibility>1.000000</visibility>
-                  </technique>
-                </extra>
-              </node>
             </node>
           </node>
         </node>
-        <node name="Leg_R" id="Leg_R" sid="Leg_R" type="JOINT">
-          <matrix sid="matrix">0.175602 0.978308 0.109898 0.330576 -0.910246 0.118828 0.396651 2.776401 0.374988 -0.169687 0.911367 -0.319387 0.000000 0.000000 0.000000 1.000000</matrix>
+      </node>
+      <node name="Leg_R" id="Leg_R" sid="Leg_R" type="JOINT">
+        <matrix sid="matrix">0.175602 0.978308 0.109898 0.330576 -0.910246 0.118828 0.396651 2.776401 0.374988 -0.169687 0.911367 -0.319387 0.000000 0.000000 0.000000 1.000000</matrix>
+        <extra>
+          <technique profile="FCOLLADA">
+            <visibility>1.000000</visibility>
+          </technique>
+        </extra>
+        <node name="LowerLeg_R" id="LowerLeg_R" sid="LowerLeg_R" type="JOINT">
+          <matrix sid="matrix">0.809638 0.000145 0.586929 1.228423 -0.000118 1.000000 -0.000085 -0.000000 -0.586929 -0.000000 0.809638 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
           <extra>
             <technique profile="FCOLLADA">
               <visibility>1.000000</visibility>
             </technique>
           </extra>
-          <node name="LowerLeg_R" id="LowerLeg_R" sid="LowerLeg_R" type="JOINT">
-            <matrix sid="matrix">0.809638 0.000145 0.586929 1.228423 -0.000118 1.000000 -0.000085 -0.000000 -0.586929 -0.000000 0.809638 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+          <node name="joint12_ncl1_1" id="joint12_ncl1_1" sid="joint12_ncl1_1" type="JOINT">
+            <matrix sid="matrix">0.000000 -1.000000 0.000000 1.696401 1.000000 0.000000 -0.000000 -0.000000 -0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
             <extra>
               <technique profile="FCOLLADA">
                 <visibility>1.000000</visibility>
               </technique>
             </extra>
-            <node name="joint12_ncl1_1" id="joint12_ncl1_1" sid="joint12_ncl1_1" type="JOINT">
-              <matrix sid="matrix">0.000000 -1.000000 0.000000 1.696401 1.000000 0.000000 0.000000 -0.000000 -0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-              <extra>
-                <technique profile="FCOLLADA">
-                  <visibility>1.000000</visibility>
-                </technique>
-              </extra>
-            </node>
           </node>
         </node>
-        <node name="Body" id="Body" sid="Body" type="JOINT">
-          <matrix sid="matrix">0.000000 -1.000000 -0.000000 0.000301 0.957436 0.000000 -0.288647 4.626816 0.288647 0.000000 0.957436 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+      </node>
+      <node name="Body" id="Body" sid="Body" type="JOINT">
+        <matrix sid="matrix">0.000000 -1.000000 -0.000000 0.000301 0.957436 0.000000 -0.288647 4.626816 0.288647 -0.000000 0.957436 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+        <extra>
+          <technique profile="FCOLLADA">
+            <visibility>1.000000</visibility>
+          </technique>
+        </extra>
+        <node name="Neck_ncl1_1" id="Neck_ncl1_1" sid="Neck_ncl1_1" type="JOINT">
+          <matrix sid="matrix">0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
           <extra>
             <technique profile="FCOLLADA">
               <visibility>1.000000</visibility>
             </technique>
           </extra>
-          <node name="Neck_ncl1_1" id="Neck_ncl1_1" sid="Neck_ncl1_1" type="JOINT">
-            <matrix sid="matrix">0.953464 -0.002974 -0.301492 0.150882 0.005533 0.999956 0.007635 0.000000 0.301456 -0.008948 0.953438 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-            <extra>
-              <technique profile="FCOLLADA">
-                <visibility>1.000000</visibility>
-              </technique>
-            </extra>
-            <node name="Head_ncl1_1" id="Head_ncl1_1" sid="Head_ncl1_1" type="JOINT">
-              <matrix sid="matrix">0.005455 0.905222 0.424903 0.657566 -0.999334 -0.010398 0.034983 0.000000 0.036086 -0.424811 0.904563 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
-              <extra>
-                <technique profile="FCOLLADA">
-                  <visibility>1.000000</visibility>
-                </technique>
-              </extra>
-            </node>
-          </node>
-          <node name="Butt_ncl1_1" id="Butt_ncl1_1" sid="Butt_ncl1_1" type="JOINT">
-            <matrix sid="matrix">0.937106 0.000000 0.349045 -1.498884 0.000000 1.000000 -0.000000 -0.002652 -0.349045 0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000</matrix>
+          <node name="Head_ncl1_1" id="Head_ncl1_1" sid="Head_ncl1_1" type="JOINT">
+            <matrix sid="matrix">0.005455 0.905222 0.424903 0.657566 -0.999334 -0.010398 0.034983 0.000000 0.036086 -0.424811 0.904563 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
             <extra>
               <technique profile="FCOLLADA">
                 <visibility>1.000000</visibility>
               </technique>
             </extra>
           </node>
+        </node>
+        <node name="Butt_ncl1_1" id="Butt_ncl1_1" sid="Butt_ncl1_1" type="JOINT">
+          <matrix sid="matrix">0.937106 -0.000000 0.349045 -1.498884 0.000000 1.000000 0.000000 -0.002652 -0.349045 -0.000000 0.937106 0.040921 0.000000 0.000000 0.000000 1.000000</matrix>
+          <extra>
+            <technique profile="FCOLLADA">
+              <visibility>1.000000</visibility>
+            </technique>
+          </extra>
         </node>
       </node>
       <extra>

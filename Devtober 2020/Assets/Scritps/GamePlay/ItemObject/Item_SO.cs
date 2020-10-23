@@ -17,7 +17,7 @@ public class Item_SO : ControllerBased
     {
         GameObject gameObj = (GameObject)obj;
         NpcController npc = gameObj.GetComponent<NpcController>();
-        npc.ReceiveInteractCall(gameObject);
+        npc.ReceiveItemCall(gameObject);
     }
 
     public virtual void NPCInteract(int InteractWay = 0)

@@ -34,6 +34,10 @@ public enum GameManagerState
 
 public class GameManager : SingletonBase<GameManager>
 {
+    [Header("Input")]
+    public string MoveLeft;
+    public string MoveRight;
+
     [Header("Event")]
     public EventGraphScene eventGraph;
     //public EventGraph eventGraph;
@@ -79,6 +83,9 @@ public class GameManager : SingletonBase<GameManager>
     GameObject NPCListBtn = null;
     List<GameObject> NPCListButtons = new List<GameObject>();
 
+    [Header("Camera Button List")]
+    public Transform CameraButtonListPanel;
+    public GameObject CameraButton;
     bool justEnter = true;
     //DialogueGraph graph;
     //Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
@@ -96,7 +103,8 @@ public class GameManager : SingletonBase<GameManager>
 
     void Start()
     {
-        RoomSwitch("Room 9", 0);
+        RoomSwitch("Main Hall", 0);
+        SetupCameraButton();
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -110,11 +118,35 @@ public class GameManager : SingletonBase<GameManager>
             
             if (Rooms[i].gameObject.name == RoomName)
             {
-                Rooms[i].cameraLists[CameraIndex].roomCamera.gameObject.SetActive(false);
+                Rooms[i].cameraLists[CameraIndex].roomCamera.gameObject.SetActive(true);
+                Rooms[i].CurrentCameraIndex = CameraIndex;
                 CurrentRoom = Rooms[i];
             }
         }
         SetupOption();
+    }
+
+    void SetupCameraButton()
+    {
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
+            {
+                string RoomName = Rooms[i].RoomName();
+                int index = a;
+
+                GameObject gameobj = Instantiate(CameraButton);
+
+                gameobj.transform.SetParent(CameraButtonListPanel, false);
+                if(Rooms[i].cameraLists.Count > 1)
+                    gameobj.GetComponentInChildren<TMP_Text>().text = RoomName + " " + (index + 1).ToString();
+                else
+                    gameobj.GetComponentInChildren<TMP_Text>().text = RoomName;
+                SwitchCameraButton SCB = gameobj.GetComponent<SwitchCameraButton>();
+                SCB.RoomName = RoomName;
+                SCB.CameraIndex = index;
+            }
+        }
     }
 
     public void OptionSelect(int index)
@@ -224,8 +256,17 @@ public class GameManager : SingletonBase<GameManager>
 
     void Update()
     {
+        if (Input.GetKey(MoveLeft))
+        {
+            CurrentRoom.Rotate(-1, CurrentRoom.CurrentCameraIndex);
+        }
+        else if (Input.GetKey(MoveRight))
+        {
+            CurrentRoom.Rotate(1, CurrentRoom.CurrentCameraIndex);
+        }
+
         //Test Code
-        if(Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             CurrentRoom.PlayingDialogue(TestGraph);
         }
@@ -237,7 +278,10 @@ public class GameManager : SingletonBase<GameManager>
             {
                 if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
                 {
-                    Rooms[i].navSurface.BuildNavMesh();
+                    for (int a = 0; a < Rooms[i].navSurface.Count; a++)
+                    {
+                        Rooms[i].navSurface[a].BuildNavMesh();
+                    }
                 }
             }
         }
@@ -293,7 +337,7 @@ public class GameManager : SingletonBase<GameManager>
         if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
             ClearRightClickButton();
-            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(MousePos);
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ScreenPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
@@ -377,7 +421,7 @@ public class GameManager : SingletonBase<GameManager>
         }
 
         //HighLight
-        Ray ray_outline = CurrentRoom.RoomCamera.ScreenPointToRay(MousePos);
+        Ray ray_outline = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ScreenPointToRay(MousePos);
         if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
         {
             //HighLight
@@ -387,13 +431,15 @@ public class GameManager : SingletonBase<GameManager>
                 if (curCB != LastCB)
                 {
                     LastCB.SetOutline(false);
-                    curCB.SetOutline(true);
+                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room"))
+                        curCB.SetOutline(true);
                     LastCB = curCB;
                 }
             }
             else
             {
-                curCB.SetOutline(true);
+                if (curCB.gameObject.layer != LayerMask.NameToLayer("Room"))
+                    curCB.SetOutline(true);
                 LastCB = curCB;
             }
         }
@@ -410,10 +456,9 @@ public class GameManager : SingletonBase<GameManager>
         if(IsWaitingForClickObj)
         {
             //ChangeWaitingCursor
-            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(MousePos);
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ScreenPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
-                Debug.Log(hitInfo.collider.name);
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 
                 //ChangeDefaultCursor

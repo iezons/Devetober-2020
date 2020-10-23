@@ -12,7 +12,7 @@ public class SwitchLight : MonoBehaviour
     public Light currentLight;
     public Color green = Color.green;
     public Color red = Color.red;
-    Renderer renderer;
+    Renderer render;
     [SerializeField]
     Material LightMaterial = null;
     [SerializeField]
@@ -22,13 +22,13 @@ public class SwitchLight : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        renderer = GetComponent<Renderer>();
+        render = GetComponent<Renderer>();
         Light = Instantiate(LightMaterial);
         Body = Instantiate(BodyMaterial);
         List<Material> mat = new List<Material>();
         mat.Add(Light);
         mat.Add(Body);
-        renderer.sharedMaterials = mat.ToArray();
+        render.sharedMaterials = mat.ToArray();
         currentLight = transform.GetChild(0).GetComponent<Light>();
     }
 

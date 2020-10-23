@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Outline))]
 public class DoorController : ControllerBased
 {
     #region Inspector View
@@ -43,9 +44,9 @@ public class DoorController : ControllerBased
     NavMeshObstacle navOb;
     #endregion
 
-
     private void Awake()
     {
+        outline = GetComponent<Outline>();
         door = transform.GetChild(0).gameObject;
         navOb = door.GetComponent<NavMeshObstacle>();
     }

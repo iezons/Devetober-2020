@@ -10,6 +10,7 @@ public class SwitchPos : Interact_SO
 
     private void Awake()
     {
+        outline = GetComponent<Outline>();
         type = InteractType.Switch;
         if(door != null)
         {
@@ -18,6 +19,15 @@ public class SwitchPos : Interact_SO
         else if(Light != null)
         {
             AddMenu("TurnON Light", "TurnON Light", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        }
+    }
+
+    public override void SetOutline(bool IsOutline)
+    {
+        base.SetOutline(IsOutline);
+        if(door != null)
+        {
+            door.SetOutline(IsOutline);
         }
     }
 
