@@ -21,12 +21,11 @@ public class Interact_SO : ControllerBased
         Chair,
         Terminal,
         Switch,
-        Storage
+        Storage,
+        CBoard
     }
 
     public InteractType type;
-
-    [Header("State")]
 
     [Header("Animation")]
     public Animator Anim;
@@ -82,6 +81,8 @@ public class Interact_SO : ControllerBased
                 RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case InteractType.Box:
+                PlayAnimation(InteractWay.ToString());
+                RemoveAndInsertMenu("Hide In", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case InteractType.Bed:
                 RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
@@ -113,6 +114,7 @@ public class Interact_SO : ControllerBased
                 PlayAnimation("1");
                 break;
             case InteractType.Box:
+                PlayAnimation("1");
                 break;
             case InteractType.Bed:
                 break;

@@ -2,14 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Outline))]
 public class ControllerBased : MonoBehaviour
 {
     #region MouseHover
-    public float OutlineAlpha = 0;
+    public float OutlineWidth = 3;
+    public Outline outline;
+
+    public virtual void SetOutline(bool IsOutline)
+    {
+        if(IsOutline)
+        {
+            outline.OutlineWidth = OutlineWidth;
+        }
+        else
+        {
+            outline.OutlineWidth = 0;
+        }
+        
+    }
     #endregion
 
     #region RightClickMenus
+    [Header("State")]
+    public bool IsInteracting = false;
+
     public List<RightClickMenus> rightClickMenus = new List<RightClickMenus>();
+
+    public void Interacting()
+    {
+        IsInteracting = true;
+    }
+
+    public void NotInteracting()
+    {
+        IsInteracting = false;
+    }
 
     public void AddMenu(string unchangedName, string functionName, bool NeedTarget, MenuHandler function, int InteractLayer = 1 << 0, object DefaultCallValue = null)
     {

@@ -59,11 +59,9 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Click")]
     public RightClickMenus RightClickMs;
     public bool IsWaitingForClickObj = false;
+    public ControllerBased LastCB = null;
 
     public LayerMask RightClickLayermask = 0;
-    public LayerMask LeftClickLayermask = 0;
-    public LayerMask FloorLayermask = 0;
-    public LayerMask NotFloorLayermask = 0;
 
     [SerializeField]
     RectTransform RightClickMenuPanel = null;
@@ -98,17 +96,21 @@ public class GameManager : SingletonBase<GameManager>
 
     void Start()
     {
-        RoomSwitch("Room 9");
+        RoomSwitch("Room 9", 0);
     }
 
-    public void RoomSwitch(string roomName)
+    public void RoomSwitch(string RoomName, int CameraIndex)
     {
         for (int i = 0; i < Rooms.Count; i++)
         {
-            Rooms[i].RoomCamera.gameObject.SetActive(false);
-            if (Rooms[i].gameObject.name == roomName)
+            for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
             {
-                Rooms[i].RoomCamera.gameObject.SetActive(true);
+                Rooms[i].cameraLists[a].roomCamera.gameObject.SetActive(false);
+            }
+            
+            if (Rooms[i].gameObject.name == RoomName)
+            {
+                Rooms[i].cameraLists[CameraIndex].roomCamera.gameObject.SetActive(false);
                 CurrentRoom = Rooms[i];
             }
         }
@@ -235,7 +237,6 @@ public class GameManager : SingletonBase<GameManager>
             {
                 if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
                 {
-                    Debug.Log("Build");
                     Rooms[i].navSurface.BuildNavMesh();
                 }
             }
@@ -275,11 +276,24 @@ public class GameManager : SingletonBase<GameManager>
                 break;
         }
 
+        //Mouse Position Correction
+        Vector3 MousePos = Input.mousePosition;
+
+        LayerMask DoWithLayer;
+        if(IsWaitingForClickObj)
+        {
+            DoWithLayer = RightClickMs.InteractLayer;
+        }
+        else
+        {
+            DoWithLayer = RightClickLayermask;
+        }
+
         //Right Click Menu
         if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
             ClearRightClickButton();
-            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
@@ -291,7 +305,10 @@ public class GameManager : SingletonBase<GameManager>
                     {
                         if(based.rightClickMenus.Count >= 0)
                         {
-                            SetupRightClickMenu(based.rightClickMenus);
+                            if(!based.IsInteracting)
+                            {
+                                SetupRightClickMenu(based.rightClickMenus);
+                            }
                         }
                     }
                 }
@@ -306,7 +323,10 @@ public class GameManager : SingletonBase<GameManager>
                             {
                                 if (baseds[0].rightClickMenus.Count >= 0)
                                 {
-                                    SetupRightClickMenu(baseds[0].rightClickMenus);
+                                    if (!based.IsInteracting)
+                                    {
+                                        SetupRightClickMenu(baseds[0].rightClickMenus);
+                                    }
                                 }
                             }
                         }
@@ -356,15 +376,46 @@ public class GameManager : SingletonBase<GameManager>
             }
         }
 
+        //HighLight
+        Ray ray_outline = CurrentRoom.RoomCamera.ScreenPointToRay(MousePos);
+        if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
+        {
+            //HighLight
+            ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
+            if (LastCB != null)
+            {
+                if (curCB != LastCB)
+                {
+                    LastCB.SetOutline(false);
+                    curCB.SetOutline(true);
+                    LastCB = curCB;
+                }
+            }
+            else
+            {
+                curCB.SetOutline(true);
+                LastCB = curCB;
+            }
+        }
+        else
+        {
+            //HighLight
+            if(LastCB != null)
+            {
+                LastCB.SetOutline(false);
+                LastCB = null;
+            }
+        }
+
         if(IsWaitingForClickObj)
         {
             //ChangeWaitingCursor
-            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CurrentRoom.RoomCamera.ScreenPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
                 Debug.Log(hitInfo.collider.name);
                 Debug.DrawLine(ray.origin, hitInfo.point);
-                //HighLight
+                
                 //ChangeDefaultCursor
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -519,7 +570,8 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.Custom:
                             for (int a = 0; a < evt.CustomCode.Count; a++)
                             {
-                                //evt.CustomCode[a].DoEvent(null);
+                                if(evt.CustomCode[a] != null)
+                                    evt.CustomCode[a].DoEvent(null);
                             }
                             break;
                         default:
