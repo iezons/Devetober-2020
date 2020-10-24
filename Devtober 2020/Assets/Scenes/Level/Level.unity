@@ -5805,8 +5805,8 @@ RectTransform:
   m_Father: {fileID: 1627242056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14222,7 +14222,7 @@ MonoBehaviour:
   m_Name: Basic Event Node
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
-  position: {x: -72, y: -136}
+  position: {x: -392, y: -248}
   ports:
     keys:
     - Input
@@ -14244,16 +14244,33 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 1315279411}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   GUID: 271f229c-4a80-4cb4-ad39-6e9872fd5cec
   EventName: 
-  eventSO: []
-  CurrentEditingSONum: -1
-  Comment: 
+  conditionSOs: []
+  CurrentEditingConNum: -1
+  eventSO:
+  - ID: 74a73442-6f02-42d3-b650-a5ed7d769a87
+    TODOList: []
+    doingWith: 4
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 0
+  Comment: Setup Tutorial Level and Scenes
 --- !u!1001 &782038662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20800,6 +20817,8 @@ MonoBehaviour:
   nodes:
   - {fileID: 1812912816}
   - {fileID: 781134309}
+  - {fileID: 1315279411}
+  - {fileID: 2092799393}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
   current: {fileID: 0}
@@ -20942,6 +20961,7 @@ MonoBehaviour:
   Rooms: []
   CurrentRoom: {fileID: 0}
   NPC: []
+  Enemy: []
   RightClickMs:
     unchangedName: 
     functionName: 
@@ -23457,6 +23477,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
+--- !u!114 &1315279411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
+  m_Name: Basic Event Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1157949084}
+  position: {x: 24, y: -248}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 1315279411}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 781134309}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 1315279411}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 2092799393}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GUID: d5ba390c-56de-45fc-b584-4611f5e6b671
+  EventName: 
+  conditionSOs: []
+  CurrentEditingConNum: -1
+  eventSO:
+  - ID: 2e2f0b83-c875-4a18-9563-851e61847cb9
+    TODOList: []
+    doingWith: 4
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 0
+  Comment: "\u73A9\u5BB6\u82CF\u9192\u7684Cut Scenes, glitch \u95EA\u5C4F"
 --- !u!1 &1320022151
 GameObject:
   m_ObjectHideFlags: 0
@@ -23526,7 +23608,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74977, y: 0}
+  m_AnchoredPosition: {x: 87.7498, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -32419,7 +32501,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
-  position: {x: -238, y: -126.5}
+  position: {x: -552, y: -248}
   ports:
     keys:
     - Output
@@ -38148,6 +38230,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1212739484276237568, guid: 4039d8d79765352499d49a33137d03bc, type: 3}
   m_PrefabInstance: {fileID: 2092070327}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2092799393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
+  m_Name: Basic Event Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1157949084}
+  position: {x: 424, y: -248}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 2092799393}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 1315279411}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 2092799393}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GUID: 2d6c28ec-9c59-47d0-883c-6b94b26631f3
+  EventName: 
+  conditionSOs: []
+  CurrentEditingConNum: -1
+  eventSO:
+  - ID: 2106fc42-9e4e-4db7-bb63-072b083f4255
+    TODOList: []
+    doingWith: 0
+    doingWithNPC: 0
+    NPCTalking:
+    - moveToClasses:
+      - NPC: {fileID: 0}
+        MoveTO: {fileID: 0}
+      Graph: {fileID: 0}
+    NPCWayPoint: []
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 0
+  Comment: "\u79D1\u5B66\u5BB6\u5F00\u59CB\u5BF9\u8BDD"
 --- !u!1 &2099802201
 GameObject:
   m_ObjectHideFlags: 0

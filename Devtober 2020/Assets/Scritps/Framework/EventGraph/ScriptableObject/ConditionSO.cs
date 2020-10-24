@@ -1,10 +1,13 @@
 ﻿using GamePlay;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class ConditionSO
 {
+    public string ID = Guid.NewGuid().ToString();
     public enum ConditionWith
     {
         NPC,
@@ -19,7 +22,7 @@ public class ConditionSO
         HP,
     }
 
-    public enum NPCHPWith
+    public enum EqualType
     {
         Greater,
         Less,
@@ -46,22 +49,25 @@ public class ConditionSO
     public NPCConditionWith nPCConditinoWith = NPCConditionWith.HP;
     public List<NpcController> NPC = new List<NpcController>();
     //--HP
-    public NPCHPWith nPCHPWith = NPCHPWith.Equal;
+    public EqualType nPCHPWith = EqualType.Equal;
     public float HP = 0f;
 
     //----------------------Enemy---------------------------
     public EnemyConditionWith enemyConditionWith;
     //--Overall_Numbers
+    public EqualType Enemy_Num = EqualType.Equal;
     public int OverallNumbers = 0;
 
     //----------------------Room---------------------------
     public RoomConditionWith roomConditionWith = RoomConditionWith.Number_of_NPCs;
     public List<RoomTracker> roomTrackers = new List<RoomTracker>();
     //---NPCNumber
+    public EqualType Room_NPC_Num = EqualType.Equal;
     public int NPC_Number = 0;
     //---Specific_NPCs
-    public List<NpcController> npcControllers = new List<NpcController>();
+    public List<SpecificRoomNPC> SpecificRoomNPCs = new List<SpecificRoomNPC>();
     //--Number_of_Enemys
+    public EqualType Room_Enemy_Num = EqualType.Equal;
     public int Enemy_Number = 0;
 
     //----------------------Event---------------------------
@@ -71,15 +77,29 @@ public class ConditionSO
     public List<CustomCondition> customConditions = new List<CustomCondition>();
 }
 
+[Serializable]
 public class EventTrigger
 {
     public bool IsTriggered;
     public string EventName;
 }
 
-public class CustomCondition
+[Serializable]
+public class SpecificRoomNPC
 {
-    public bool IsWaiting;
+    public RoomTracker roomTracker;
+    public List<NpcController> npcControllers;
+}
+
+public class CustomCondition : MonoBehaviour
+{
+    public bool Instan = false;
+
+    public virtual void OnEnable()
+    {
+        Instan = true;
+    }
+
     public virtual bool Conditional()
     {
         return false;

@@ -95,9 +95,24 @@ namespace EvtGraph
 
     public class EventScriptInterface : MonoBehaviour
     {
+        private bool isEventFinish = false;
+        public bool IsEventFinish { get => isEventFinish;}
+
+        public bool Instan = false;
+
+        public virtual void OnEnable()
+        {
+            Instan = true;
+        }
+
         public virtual void DoEvent(object obj)
         {
-            Destroy(this);
+            
+        }
+
+        public void FinishEvent()
+        {
+            isEventFinish = true;
         }
     }
 }
