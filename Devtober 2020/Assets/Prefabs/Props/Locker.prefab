@@ -85,7 +85,9 @@ MonoBehaviour:
   rightClickMenus: []
   type: 0
   Anim: {fileID: 0}
-  Locators: []
+  Locators:
+  - npc: {fileID: 0}
+    Locator: {fileID: 2770286621681075007}
   maxHealth: 0
   currentHealth: 0
 --- !u!65 &3423974734650564591

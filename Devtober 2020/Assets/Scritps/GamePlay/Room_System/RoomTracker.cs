@@ -1,15 +1,17 @@
 ﻿using DiaGraph;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 namespace GamePlay
 {
     [RequireComponent(typeof(DialoguePlay))]
     [RequireComponent(typeof(NavMeshSurface))]
-    public class RoomTracker : MonoBehaviour
+    public class RoomTracker : ControllerBased
     {
 
         #region Inspector View
@@ -39,12 +41,14 @@ namespace GamePlay
             public float speed = 0;
             public float angle = 0;
             public float recordedAngle = 0;
+            public float plusAngle = 0;
         }
 
         [Header("Camera")]
-        public Camera RoomCamera;
+        //public Camera RoomCamera;
 
         public List<CameraList> cameraLists = new List<CameraList>();
+        public int CurrentCameraIndex = 0;
 
         [Header("RoomObject")]
         public Interact_SO CBoard;
@@ -57,7 +61,7 @@ namespace GamePlay
         public Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
         public List<OptionClass> OptionList = new List<OptionClass>();
         [Header("NavMesh")]
-        public NavMeshSurface navSurface;
+        public List<NavMeshSurface> navSurface = new List<NavMeshSurface>();
 
         [SerializeField]
         List<ScaleAndOffset> scaleAndOffset = new List<ScaleAndOffset>();
@@ -84,7 +88,7 @@ namespace GamePlay
         {
             Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
-            navSurface = GetComponent<NavMeshSurface>();
+            navSurface = GetComponents<NavMeshSurface>().ToList();
             if (isScanOn)
             {
                 AddWayPoints();
@@ -105,11 +109,11 @@ namespace GamePlay
         {
             Detecting();
             DialogueChecking();
-            if(Input.GetAxisRaw("Horizontal") != 0)
-            {
-                print(Input.GetAxisRaw("Horizontal"));
-                Rotate(Input.GetAxisRaw("Horizontal"), 0);
-            }
+            //if (Input.GetAxisRaw("Horizontal") != 0)
+            //{
+            //    print(Input.GetAxisRaw("Horizontal"));
+            //    Rotate(Input.GetAxisRaw("Horizontal"), 0);
+            //}
         }
 
         private void Detecting()
@@ -125,29 +129,21 @@ namespace GamePlay
         #region Camera Movement
         public void Rotate(float direction, int index)
         {
-            Camera currentCam = cameraLists[index].roomCamera;
-            float rotation = direction * cameraLists[index].speed * Time.deltaTime;
-            currentCam.transform.Rotate(Vector3.up, rotation, Space.World);
-            print(currentCam.transform.rotation.y);
-            float yAngle;
-            if(currentCam.transform.eulerAngles.y > 180)
+            CameraList currentCam = cameraLists[index];
+            float rotationSpeed = direction * cameraLists[index].speed * Time.deltaTime;
+            if(currentCam.plusAngle + rotationSpeed > currentCam.angle / 2)
             {
-                yAngle = currentCam.transform.eulerAngles.y - 360;
+                currentCam.plusAngle = currentCam.angle / 2;
+            }
+            else if(currentCam.plusAngle + rotationSpeed < -currentCam.angle / 2)
+            {
+                currentCam.plusAngle = -currentCam.angle / 2;
             }
             else
             {
-                yAngle = currentCam.transform.eulerAngles.y;
+                currentCam.plusAngle += rotationSpeed;
             }
-
-            if(yAngle < 0)
-            {
-                currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, 360 + Mathf.Clamp(yAngle, cameraLists[index].recordedAngle - cameraLists[index].angle, 0), currentCam.transform.eulerAngles.z);
-            }
-            else
-            {
-                currentCam.transform.eulerAngles = new Vector3(currentCam.transform.eulerAngles.x, Mathf.Clamp(currentCam.transform.eulerAngles.y, 0, cameraLists[index].recordedAngle + cameraLists[index].angle), currentCam.transform.eulerAngles.z);
-            }
-            
+            currentCam.roomCamera.transform.eulerAngles = new Vector3(currentCam.roomCamera.transform.eulerAngles.x, currentCam.recordedAngle + currentCam.plusAngle, currentCam.roomCamera.transform.eulerAngles.z);
         }
 
 

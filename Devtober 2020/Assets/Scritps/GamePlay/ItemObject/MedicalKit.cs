@@ -10,23 +10,19 @@ public class MedicalKit : Item_SO
         Destroy(gameObject);
     }
 
-    void Awake()
-    {
-        Init();
-    }
-
     void OnEnable()
     {
         Init();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         RemoveMenu("Grab");
     }
 
     void Init()
     {
+        outline = GetComponent<Outline>();
         type = ItemType.MedicalKit;
         AddMenu("Grab", "Grab", true, CallNPC, 1<<LayerMask.NameToLayer("NPC"));
     }

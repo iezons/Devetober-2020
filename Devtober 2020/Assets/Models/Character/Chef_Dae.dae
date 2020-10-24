@@ -6,9 +6,9 @@
       <authoring_tool>FBX COLLADA exporter</authoring_tool>
       <comments/>
     </contributor>
-    <created>2020-10-21T23:15:44Z</created>
+    <created>2020-10-23T07:28:05Z</created>
     <keywords/>
-    <modified>2020-10-21T23:15:44Z</modified>
+    <modified>2020-10-23T07:28:05Z</modified>
     <revision/>
     <subject/>
     <title/>
@@ -19,8 +19,8 @@
     <material id="lambert2" name="lambert2">
       <instance_effect url="#lambert2-fx"/>
     </material>
-    <material id="lambert3" name="lambert3">
-      <instance_effect url="#lambert3-fx"/>
+    <material id="lambert1" name="lambert1">
+      <instance_effect url="#lambert1-fx"/>
     </material>
   </library_materials>
   <library_effects>
@@ -47,7 +47,7 @@
         </technique>
       </profile_COMMON>
     </effect>
-    <effect id="lambert3-fx" name="lambert3">
+    <effect id="lambert1-fx" name="lambert1">
       <profile_COMMON>
         <technique sid="standard">
           <lambert>
@@ -2575,7 +2575,7 @@
         <vertices id="pPlane1-VERTEX">
           <input semantic="POSITION" source="#pPlane1-POSITION"/>
         </vertices>
-        <triangles count="22" material="lambert3">
+        <triangles count="22" material="lambert1">
           <input semantic="VERTEX" offset="0" source="#pPlane1-VERTEX"/>
           <input semantic="NORMAL" offset="1" source="#pPlane1-Normal0"/>
           <input semantic="TEXCOORD" offset="2" set="0" source="#pPlane1-UV0"/>
@@ -2601,10 +2601,10 @@
         <source id="NeckController-Matrices">
           <float_array id="NeckController-Matrices-array" count="64">
 
-0.000000 1.000002 0.000000 -4.893742 -0.999998 0.000000 -0.000001 0.000301 -0.000001 0.000000 0.999998 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.000000 1.000002 0.000000 -5.044624 -0.999998 0.000000 -0.000001 0.000301 -0.000001 0.000000 0.999998 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.999998 -0.000000 0.000001 -0.000301 -0.000000 1.000002 -0.000000 -5.702190 -0.000001 -0.000000 0.999998 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.000000 1.000002 0.000000 -3.310183 -0.999998 0.000000 -0.000001 0.002953 -0.000001 0.000000 0.999998 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.000000 1.000000 0.000000 -4.893732 -1.000000 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000 -5.044614 -1.000000 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+1.000000 0.000000 0.000000 -0.000301 -0.000000 1.000000 0.000000 -5.702180 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000 -3.310173 -1.000000 0.000000 0.000000 0.002953 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#NeckController-Matrices-array" count="4" stride="16">
               <param type="float4x4"/>
@@ -2746,10 +2746,10 @@
         <source id="HeadController-Matrices">
           <float_array id="HeadController-Matrices-array" count="64">
 
-0.000000 1.000000 0.000000 -4.893730 -0.999999 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000001 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.000000 1.000000 0.000000 -5.044612 -0.999999 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000001 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.999999 0.000000 0.000000 -0.000301 -0.000000 1.000000 0.000000 -5.702179 0.000000 -0.000000 1.000001 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.000000 1.000000 0.000000 -3.310171 -0.999999 0.000000 0.000000 0.002953 0.000000 -0.000000 1.000001 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.000000 1.000000 0.000000 -4.893732 -1.000000 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000 -5.044614 -1.000000 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+1.000000 0.000000 0.000000 -0.000301 -0.000000 1.000000 0.000000 -5.702181 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000 -3.310173 -1.000000 0.000000 0.000000 0.002953 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#HeadController-Matrices-array" count="4" stride="16">
               <param type="float4x4"/>
@@ -3021,7 +3021,7 @@
     </controller>
     <controller id="Lower_Left_Arm1Controller">
       <skin source="#Lower_Left_Arm1-lib">
-        <bind_shape_matrix>-1.000000 0.000000 -0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+        <bind_shape_matrix>-1.000000 -0.000000 -0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
 </bind_shape_matrix>
         <source id="Lower_Left_Arm1Controller-Joints">
           <Name_array id="Lower_Left_Arm1Controller-Joints-array" count="4">
@@ -3037,8 +3037,8 @@
 
 0.318027 0.948082 0.000000 -4.540178 0.948082 -0.318027 -0.000000 2.039953 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.235055 0.971982 0.000000 -3.751793 0.971982 -0.235055 -0.000000 1.722724 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.088286 0.996095 -0.000000 -3.077503 0.996095 -0.088286 -0.000000 1.280422 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
-1.000000 -0.000000 0.000000 1.031440 -0.000000 -1.000000 -0.000000 2.865700 0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.088286 0.996095 0.000000 -3.077503 0.996095 -0.088286 -0.000000 1.280422 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+1.000000 0.000000 -0.000000 1.031440 0.000000 -1.000000 -0.000000 2.865700 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#Lower_Left_Arm1Controller-Matrices-array" count="4" stride="16">
               <param type="float4x4"/>
@@ -3048,7 +3048,7 @@
         <source id="Lower_Left_Arm1Controller-Weights">
           <float_array id="Lower_Left_Arm1Controller-Weights-array" count="13">
 
-1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+1.000000 0.999993 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 0.999993 0.999992 0.999994 0.999987</float_array>
           <technique_common>
             <accessor source="#Lower_Left_Arm1Controller-Weights-array" count="13">
               <param type="float"/>
@@ -3069,7 +3069,7 @@
     </controller>
     <controller id="Hand_LController">
       <skin source="#Hand_L-lib">
-        <bind_shape_matrix>-1.000000 0.000000 -0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+        <bind_shape_matrix>-1.000000 -0.000000 -0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
 </bind_shape_matrix>
         <source id="Hand_LController-Joints">
           <Name_array id="Hand_LController-Joints-array" count="4">
@@ -3085,8 +3085,8 @@
 
 0.318027 0.948082 0.000000 -4.540178 0.948082 -0.318027 -0.000000 2.039953 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.235055 0.971982 0.000000 -3.751793 0.971982 -0.235055 -0.000000 1.722724 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.088286 0.996095 -0.000000 -3.077503 0.996095 -0.088286 -0.000000 1.280422 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
-1.000000 -0.000000 0.000000 1.031440 -0.000000 -1.000000 -0.000000 2.865700 0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.088286 0.996095 0.000000 -3.077503 0.996095 -0.088286 -0.000000 1.280422 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+1.000000 0.000000 -0.000000 1.031440 0.000000 -1.000000 -0.000000 2.865700 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#Hand_LController-Matrices-array" count="4" stride="16">
               <param type="float4x4"/>
@@ -3096,7 +3096,7 @@
         <source id="Hand_LController-Weights">
           <float_array id="Hand_LController-Weights-array" count="9">
 
-1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+1.000000 0.999803 0.999997 0.999994 0.999989 1.000000 1.000000 1.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#Hand_LController-Weights-array" count="9">
               <param type="float"/>
@@ -3117,7 +3117,7 @@
     </controller>
     <controller id="Upper_Left_ArmController">
       <skin source="#Upper_Left_Arm-lib">
-        <bind_shape_matrix>-1.000000 0.000000 -0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+        <bind_shape_matrix>-1.000000 -0.000000 -0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000
 </bind_shape_matrix>
         <source id="Upper_Left_ArmController-Joints">
           <Name_array id="Upper_Left_ArmController-Joints-array" count="4">
@@ -3133,8 +3133,8 @@
 
 0.318027 0.948082 0.000000 -4.540178 0.948082 -0.318027 -0.000000 2.039953 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
 0.235055 0.971982 0.000000 -3.751793 0.971982 -0.235055 -0.000000 1.722724 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
-0.088286 0.996095 -0.000000 -3.077503 0.996095 -0.088286 -0.000000 1.280422 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
-1.000000 -0.000000 0.000000 1.031440 -0.000000 -1.000000 -0.000000 2.865700 0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+0.088286 0.996095 0.000000 -3.077503 0.996095 -0.088286 -0.000000 1.280422 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+1.000000 0.000000 -0.000000 1.031440 0.000000 -1.000000 -0.000000 2.865700 -0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
           <technique_common>
             <accessor source="#Upper_Left_ArmController-Matrices-array" count="4" stride="16">
               <param type="float4x4"/>
@@ -3144,7 +3144,7 @@
         <source id="Upper_Left_ArmController-Weights">
           <float_array id="Upper_Left_ArmController-Weights-array" count="13">
 
-1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000</float_array>
+1.000000 0.999997 1.000000 0.999983 1.000000 0.999991 1.000000 0.999993 1.000000 0.999907 0.999994 0.999999 0.999965</float_array>
           <technique_common>
             <accessor source="#Upper_Left_ArmController-Weights-array" count="13">
               <param type="float"/>
@@ -3258,9 +3258,58 @@
         </vertex_weights>
       </skin>
     </controller>
+    <controller id="pPlane1Controller">
+      <skin source="#pPlane1-lib">
+        <bind_shape_matrix>0.471773 -0.000000 0.000000 0.000000 0.000000 1.000000 -0.000000 5.530061 0.000000 0.000000 0.343147 0.368436 0.000000 0.000000 0.000000 1.000000
+</bind_shape_matrix>
+        <source id="pPlane1Controller-Joints">
+          <Name_array id="pPlane1Controller-Joints-array" count="4">
+ Body Neck_ncl1_1 Head_ncl1_1 Butt_ncl1_1</Name_array>
+          <technique_common>
+            <accessor source="#pPlane1Controller-Joints-array" count="4">
+              <param type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="pPlane1Controller-Matrices">
+          <float_array id="pPlane1Controller-Matrices-array" count="64">
+
+0.000000 1.000000 0.000000 -4.893732 -1.000000 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000 -5.044614 -1.000000 0.000000 0.000000 0.000301 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+1.000000 0.000000 0.000000 -0.000301 -0.000000 1.000000 0.000000 -5.702180 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000
+0.000000 1.000000 0.000000 -3.310173 -1.000000 0.000000 0.000000 0.002953 0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#pPlane1Controller-Matrices-array" count="4" stride="16">
+              <param type="float4x4"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="pPlane1Controller-Weights">
+          <float_array id="pPlane1Controller-Weights-array" count="20">
+
+1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+1.000000 1.000000 1.000000 1.000000</float_array>
+          <technique_common>
+            <accessor source="#pPlane1Controller-Weights-array" count="20">
+              <param type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#pPlane1Controller-Joints"/>
+          <input semantic="INV_BIND_MATRIX" source="#pPlane1Controller-Matrices"/>
+        </joints>
+        <vertex_weights count="19">
+          <input semantic="JOINT" offset="0" source="#pPlane1Controller-Joints"/>
+          <input semantic="WEIGHT" offset="1" source="#pPlane1Controller-Weights"/>
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</vcount>
+          <v>2 1 2 2 2 3 2 4 2 5 2 6 2 7 2 8 2 9 2 10 2 11 2 12 2 13 2 14 2 15 2 16 2 17 2 18 2 19</v>
+        </vertex_weights>
+      </skin>
+    </controller>
   </library_controllers>
   <library_visual_scenes>
-    <visual_scene id="Chef" name="Chef">
+    <visual_scene id="Chef_Dae" name="Chef_Dae">
       <node name="Neck" id="Neck" sid="Neck">
         <instance_controller url="#NeckController">
           <bind_material>
@@ -3479,7 +3528,7 @@
               </technique>
             </extra>
             <node name="joint9" id="joint9" sid="joint9" type="JOINT">
-              <matrix sid="matrix">0.088286 -0.996095 0.000000 0.314056 0.996095 0.088286 0.000000 -0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+              <matrix sid="matrix">0.088286 -0.996095 0.000000 0.314056 0.996095 0.088286 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
               <extra>
                 <technique profile="FCOLLADA">
                   <visibility>1.000000</visibility>
@@ -3570,14 +3619,14 @@
         </node>
       </node>
       <node name="Arm_R1" id="Arm_R1" sid="Arm_R1" type="JOINT">
-        <matrix sid="matrix">0.318027 0.948082 -0.000000 -0.490141 0.948082 -0.318027 0.000000 4.953220 -0.000000 -0.000000 -1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+        <matrix sid="matrix">0.318027 0.948082 -0.000000 -0.490141 0.948082 -0.318027 0.000000 4.953220 0.000000 -0.000000 -1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
         <extra>
           <technique profile="FCOLLADA">
             <visibility>1.000000</visibility>
           </technique>
         </extra>
         <node name="LowerArm_R1" id="LowerArm_R1" sid="LowerArm_R1" type="JOINT">
-          <matrix sid="matrix">0.996272 0.086266 -0.000000 -0.950984 -0.086266 0.996272 -0.000000 -0.000001 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+          <matrix sid="matrix">0.996272 0.086266 0.000000 -0.950984 -0.086266 0.996272 0.000000 -0.000001 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
           <extra>
             <technique profile="FCOLLADA">
               <visibility>1.000000</visibility>
@@ -3591,7 +3640,7 @@
               </technique>
             </extra>
             <node name="joint13" id="joint13" sid="joint13" type="JOINT">
-              <matrix sid="matrix">0.088286 -0.996095 0.000000 -0.314056 0.996095 0.088286 -0.000000 0.000007 -0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
+              <matrix sid="matrix">0.088286 -0.996095 -0.000000 -0.314056 0.996095 0.088286 0.000000 0.000007 -0.000000 -0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000</matrix>
               <extra>
                 <technique profile="FCOLLADA">
                   <visibility>1.000000</visibility>
@@ -3602,14 +3651,13 @@
         </node>
       </node>
       <node name="pPlane1" id="pPlane1" sid="pPlane1">
-        <matrix sid="matrix">0.471773 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 5.530061 0.000000 0.000000 0.343147 0.368436 0.000000 0.000000 0.000000 1.000000</matrix>
-        <instance_geometry url="#pPlane1-lib">
+        <instance_controller url="#pPlane1Controller">
           <bind_material>
             <technique_common>
-              <instance_material symbol="lambert3" target="#lambert3"/>
+              <instance_material symbol="lambert1" target="#lambert1"/>
             </technique_common>
           </bind_material>
-        </instance_geometry>
+        </instance_controller>
         <extra>
           <technique profile="FCOLLADA">
             <visibility>1.000000</visibility>
@@ -3628,6 +3676,6 @@
     </visual_scene>
   </library_visual_scenes>
   <scene>
-    <instance_visual_scene url="#Chef"/>
+    <instance_visual_scene url="#Chef_Dae"/>
   </scene>
 </COLLADA>

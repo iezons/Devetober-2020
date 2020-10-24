@@ -8,6 +8,7 @@ public class RestingPos : Interact_SO
 
     private void Awake()
     {
+        outline = GetComponent<Outline>();
         AddMenu("RestIn", "Rest in", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
     }
 

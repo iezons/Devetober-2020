@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DiaGraph;
+using UnityEngine.Timeline;
 
 namespace EvtGraph
 {
@@ -11,6 +12,7 @@ namespace EvtGraph
         NPC,
         Room,
         Enemy,
+        Timeline,
         Custom
     }
 
@@ -51,6 +53,8 @@ namespace EvtGraph
         public DoingWithRoom doingWithRoom = DoingWithRoom.None;
 
         public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
+
+        public List<TimelineAsset> timelines = new List<TimelineAsset>();
 
         public EventSO()
         {

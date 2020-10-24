@@ -9,6 +9,7 @@ public class StoragePos : Interact_SO
 
     private void Awake()
     {
+        outline = GetComponent<Outline>();
         type = InteractType.Storage;
         UpdateMenu();
     }

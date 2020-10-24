@@ -18,7 +18,8 @@ namespace EvtGraph
 		[HideInInspector]
 		public string GUID = Guid.NewGuid().ToString();
 		public string EventName = string.Empty;
-		
+
+		public List<ConditionSO> conditionSOs = new List<ConditionSO>();
 		public List<EventSO> eventSO = new List<EventSO>();
 		public int CurrentEditingSONum = -1;
 		[TextArea(5, 5)]

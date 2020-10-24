@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 2332106106933436950}
   - component: {fileID: 2332106106933436951}
   - component: {fileID: 2332106106933436952}
+  - component: {fileID: 2374103118929475707}
   m_Layer: 8
   m_Name: Guard1
   m_TagString: Untagged
@@ -690,7 +691,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineAlpha: 0
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
   rightClickMenus: []
   status:
     npcName: Guard1
@@ -743,6 +746,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2374103118929475707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214488164344453202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3284835048043160231
 GameObject:
   m_ObjectHideFlags: 0
