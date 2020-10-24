@@ -20,6 +20,7 @@ namespace EvtGraph
 		public string EventName = string.Empty;
 
 		public List<ConditionSO> conditionSOs = new List<ConditionSO>();
+		public int CurrentEditingConNum = -1;
 		public List<EventSO> eventSO = new List<EventSO>();
 		public int CurrentEditingSONum = -1;
 		[TextArea(5, 5)]

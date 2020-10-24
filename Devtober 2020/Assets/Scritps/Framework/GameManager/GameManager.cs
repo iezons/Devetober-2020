@@ -28,6 +28,7 @@ public class WaitingNPCArrive
 public enum GameManagerState
 {
     OFF,
+    CONDITIONING,
     PROGRESSING,
     PAUSED
 }
@@ -40,8 +41,18 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Event")]
     public EventGraphScene eventGraph;
-    //public EventGraph eventGraph;
     public GameManagerState gmState;
+    bool justEnter = true;
+
+    [Header("EventTriggerCache")]
+    List<EventScriptInterface> EventScripts = new List<EventScriptInterface>();
+    bool justEnterEventTrigger = true;
+
+    [Header("EventConditionalCache")]
+    List<EventTrigger> WaitingEvent = new List<EventTrigger>();
+    List<EventNode> WaitingNode = new List<EventNode>();
+    List<CustomCondition> customConditions = new List<CustomCondition>();
+    bool justEnterCondition = true;
 
     [Header("Dialogue")]
     public DialogueGraph TestGraph;
@@ -53,20 +64,18 @@ public class GameManager : SingletonBase<GameManager>
     List<Button> Option = null;
     [SerializeField]
     Transform ButtonContent = null;
-    //string HistoryText = string.Empty;
 
     [Header("Info Pool")]
     public List<RoomTracker> Rooms;
     public RoomTracker CurrentRoom;
     public List<NpcController> NPC;
+    public List<EnemyController> Enemy;
 
     [Header("Click")]
     public RightClickMenus RightClickMs;
     public bool IsWaitingForClickObj = false;
     public ControllerBased LastCB = null;
-
     public LayerMask RightClickLayermask = 0;
-
     [SerializeField]
     RectTransform RightClickMenuPanel = null;
     [SerializeField]
@@ -86,13 +95,7 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Camera Button List")]
     public Transform CameraButtonListPanel;
     public GameObject CameraButton;
-    bool justEnter = true;
-    //DialogueGraph graph;
-    //Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
 
-    //public NavMeshSurface nav;
-
-    // Start is called before the first frame update
     void Awake()
     {
         SetupScene();
@@ -256,6 +259,7 @@ public class GameManager : SingletonBase<GameManager>
 
     void Update()
     {
+        #region Input
         if (Input.GetKey(MoveLeft))
         {
             CurrentRoom.Rotate(-1, CurrentRoom.CurrentCameraIndex);
@@ -264,15 +268,19 @@ public class GameManager : SingletonBase<GameManager>
         {
             CurrentRoom.Rotate(1, CurrentRoom.CurrentCameraIndex);
         }
+        #endregion
 
+        #region Test Code
         //Test Code
         if (Input.GetKeyDown(KeyCode.Y))
         {
             CurrentRoom.PlayingDialogue(TestGraph);
         }
+        #endregion
 
+        #region NavMeshBuilding
         //NavMesh Building
-        if(Time.frameCount % 10 == 0)
+        if (Time.frameCount % 10 == 0)
         {
             for (int i = 0; i < Rooms.Count; i++)
             {
@@ -285,41 +293,57 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
+        #endregion
 
+        #region UpdateText
         StartCoroutine(UpdateText());
+        #endregion
 
+        #region UpdateNPCList()
         //----------------------
         if (CurrentRoom != null)
         {
             UpdateNPCList();
         }
+        #endregion
 
-        //Process Event Graph
-        switch (gmState)
-        {
-            case GameManagerState.OFF:
-                if(justEnter)
-                {
-                    justEnter = false;
-                    Next();
-                }
-                break;
-            case GameManagerState.PROGRESSING:
-                if (justEnter)
-                {
-                    justEnter = false;
-                }
-                break;
-            case GameManagerState.PAUSED:
-                if (justEnter)
-                {
-                    justEnter = false;
-                }
-                break;
-            default:
-                break;
-        }
+        #region Process Event Graph
+        //switch (gmState)
+        //{
+        //    case GameManagerState.OFF:
+        //        if(justEnter)
+        //        {
+        //            justEnter = false;
+        //            Next();
+        //        }
+        //        break;
+        //    case GameManagerState.CONDITIONING:
+        //        if (justEnter)
+        //        {
+        //            justEnter = false;
+        //        }
+        //        if (Conditioning())
+        //            GoToState(GameManagerState.PROGRESSING);
+        //        break;
+        //    case GameManagerState.PROGRESSING:
+        //        if (justEnter)
+        //        {
+        //            justEnter = false;
+        //        }
+        //        TriggerEvent();
+        //        break;
+        //    case GameManagerState.PAUSED:
+        //        if (justEnter)
+        //        {
+        //            justEnter = false;
+        //        }
+        //        break;
+        //    default:
+        //        break;
+        //}
+        #endregion
 
+        #region Mouse Clicking
         //Mouse Position Correction
         Vector3 MousePos = Input.mousePosition;
 
@@ -492,6 +516,7 @@ public class GameManager : SingletonBase<GameManager>
         {
             //CursorOnGround.SetActive(false);
         }
+        #endregion
     }
 
     void SetupRightClickMenu(List<RightClickMenus> menus)
@@ -524,6 +549,8 @@ public class GameManager : SingletonBase<GameManager>
 
     void GoToState(GameManagerState next)
     {
+        ClearConditionCache();
+        ClearEventTriggerCache();
         justEnter = true;
         gmState = next;
     }
@@ -535,22 +562,268 @@ public class GameManager : SingletonBase<GameManager>
             case GameManagerState.OFF:
                 eventGraph.graph.SetNode();
                 eventGraph.graph.Next();
-                TriggerEvent();
+                GoToState(GameManagerState.CONDITIONING);
+                //Conditioning();
+                //TriggerEvent();
+                break;
+            case GameManagerState.CONDITIONING:
                 break;
             case GameManagerState.PROGRESSING:
                 break;
             case GameManagerState.PAUSED:
                 eventGraph.graph.Next();
-                TriggerEvent();
+                GoToState(GameManagerState.CONDITIONING);
+                //Conditioning();
+                //TriggerEvent();
                 break;
             default:
                 break;
         }
     }
 
+    bool Conditioning()
+    {
+        bool HasNotAchieve = false;
+        EventNode cur = eventGraph.graph.current as EventNode;
+        if(cur != null)
+        {
+            for (int i = 0; i < cur.conditionSOs.Count; i++)
+            {
+                ConditionSO con = cur.conditionSOs[i];
+                if (con != null)
+                {
+                    switch (con.conditionWith)
+                    {
+                        case ConditionSO.ConditionWith.NPC:
+                            switch (con.nPCConditinoWith)
+                            {
+                                case ConditionSO.NPCConditionWith.HP:
+                                    for (int a = 0; a < con.NPC.Count; a++)
+                                    {
+                                        switch (con.nPCHPWith)
+                                        {
+                                            case ConditionSO.EqualType.Greater:
+                                                if (con.NPC[a].status.currentHealth <= con.HP)
+                                                {
+                                                    HasNotAchieve = true;
+                                                }
+                                                break;
+                                            case ConditionSO.EqualType.Less:
+                                                if (con.NPC[a].status.currentHealth >= con.HP)
+                                                {
+                                                    HasNotAchieve = true;
+                                                }
+                                                break;
+                                            case ConditionSO.EqualType.Equal:
+                                                if (con.NPC[a].status.currentHealth != con.HP)
+                                                {
+                                                    HasNotAchieve = true;
+                                                }
+                                                break;
+                                            case ConditionSO.EqualType.GEqual:
+                                                if (con.NPC[a].status.currentHealth < con.HP)
+                                                {
+                                                    HasNotAchieve = true;
+                                                }
+                                                break;
+                                            case ConditionSO.EqualType.LEqual:
+                                                if (con.NPC[a].status.currentHealth > con.HP)
+                                                {
+                                                    HasNotAchieve = true;
+                                                }
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        if (HasNotAchieve)
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case ConditionSO.ConditionWith.Room:
+                            switch (con.roomConditionWith)
+                            {
+                                case ConditionSO.RoomConditionWith.Number_of_NPCs:
+                                    for (int a = 0; a < con.roomTrackers.Count; a++)
+                                    {
+                                        switch (con.Room_NPC_Num)
+                                        {
+                                            case ConditionSO.EqualType.Greater:
+                                                if(con.roomTrackers[a].NPC().Count <= con.NPC_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.Less:
+                                                if (con.roomTrackers[a].NPC().Count >= con.NPC_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.Equal:
+                                                if (con.roomTrackers[a].NPC().Count != con.NPC_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.GEqual:
+                                                if (con.roomTrackers[a].NPC().Count < con.NPC_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.LEqual:
+                                                if (con.roomTrackers[a].NPC().Count > con.NPC_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        if (HasNotAchieve)
+                                            break;
+                                    }
+                                    break;
+                                case ConditionSO.RoomConditionWith.Specific_NPCs:
+                                    for (int a = 0; a < con.SpecificRoomNPCs.Count; a++)
+                                    {
+                                        for (int b = 0; b < con.SpecificRoomNPCs[a].npcControllers.Count; b++)
+                                        {
+                                            if(!con.SpecificRoomNPCs[a].roomTracker.NPC().Contains(con.SpecificRoomNPCs[a].npcControllers[b].gameObject))
+                                            {
+                                                HasNotAchieve = true;
+                                                break;
+                                            }
+                                        }
+                                        if (HasNotAchieve)
+                                            break;
+                                    }
+                                    break;
+                                case ConditionSO.RoomConditionWith.Number_of_Enemys:
+                                    for (int a = 0; a < con.roomTrackers.Count; a++)
+                                    {
+                                        switch (con.Room_Enemy_Num)
+                                        {
+                                            case ConditionSO.EqualType.Greater:
+                                                if (con.roomTrackers[a].Enemy().Count <= con.Enemy_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.Less:
+                                                if (con.roomTrackers[a].Enemy().Count >= con.Enemy_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.Equal:
+                                                if (con.roomTrackers[a].Enemy().Count != con.Enemy_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.GEqual:
+                                                if (con.roomTrackers[a].Enemy().Count < con.Enemy_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            case ConditionSO.EqualType.LEqual:
+                                                if (con.roomTrackers[a].Enemy().Count > con.Enemy_Number)
+                                                    HasNotAchieve = true;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        if (HasNotAchieve)
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case ConditionSO.ConditionWith.Enemy:
+                            switch (con.enemyConditionWith)
+                            {
+                                case ConditionSO.EnemyConditionWith.Overall_Numbers:
+                                    switch (con.Enemy_Num)
+                                    {
+                                        case ConditionSO.EqualType.Greater:
+                                            if (Enemy.Count <= con.OverallNumbers)
+                                                HasNotAchieve = true;
+                                            break;
+                                        case ConditionSO.EqualType.Less:
+                                            if (Enemy.Count >= con.OverallNumbers)
+                                                HasNotAchieve = true;
+                                            break;
+                                        case ConditionSO.EqualType.Equal:
+                                            if (Enemy.Count != con.OverallNumbers)
+                                                HasNotAchieve = true;
+                                            break;
+                                        case ConditionSO.EqualType.GEqual:
+                                            if (Enemy.Count < con.OverallNumbers)
+                                                HasNotAchieve = true;
+                                            break;
+                                        case ConditionSO.EqualType.LEqual:
+                                            if (Enemy.Count > con.OverallNumbers)
+                                                HasNotAchieve = true;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    if (HasNotAchieve)
+                                        break;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case ConditionSO.ConditionWith.Event:
+                            if (justEnterCondition)
+                            {
+                                for (int a = 0; a < con.eventTriggers.Count; a++)
+                                {
+                                    WaitingEvent.Add(new EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
+                                }
+                            }
+                            for (int b = 0; b < WaitingEvent.Count; b++)
+                            {
+                                if(!WaitingEvent[b].IsTriggered)
+                                {
+                                    HasNotAchieve = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        case ConditionSO.ConditionWith.Custom:
+                            if (justEnterCondition)
+                            {
+                                for (int a = 0; a < con.customConditions.Count; a++)
+                                {
+                                    if (!con.customConditions[a].Instan)
+                                    {
+                                        CustomCondition com = gameObject.AddComponent(con.customConditions[a].GetType()) as CustomCondition;
+                                        customConditions.Add(com);
+                                    }
+                                    else
+                                    {
+                                        customConditions.Add(con.customConditions[a]);
+                                    }
+                                }
+                            }
+                            for (int a = 0; a < customConditions.Count; a++)
+                            {
+                                if(!customConditions[a].Conditional())
+                                {
+                                    HasNotAchieve = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        justEnterCondition = false;
+
+        if (HasNotAchieve)
+            return false;
+        else
+            return true;
+    }
+
     void TriggerEvent()
     {
-        GoToState(GameManagerState.PROGRESSING);
         EventNode cur =  eventGraph.graph.current as EventNode;
         if(cur != null)
         {
@@ -616,7 +889,18 @@ public class GameManager : SingletonBase<GameManager>
                             for (int a = 0; a < evt.CustomCode.Count; a++)
                             {
                                 if(evt.CustomCode[a] != null)
-                                    evt.CustomCode[a].DoEvent(null);
+                                {
+                                    if(!evt.CustomCode[a].Instan)
+                                    {
+                                        EventScriptInterface com = gameObject.AddComponent(evt.CustomCode[a].GetType()) as EventScriptInterface;
+                                        EventScripts.Add(com);
+                                        com.DoEvent(null);
+                                    }
+                                    else
+                                    {
+                                        evt.CustomCode[a].DoEvent(null);
+                                    }
+                                }
                             }
                             break;
                         default:
@@ -626,5 +910,22 @@ public class GameManager : SingletonBase<GameManager>
             }
         }
         GoToState(GameManagerState.PAUSED);
+    }
+
+    void ClearConditionCache()
+    {
+        WaitingEvent.Clear();
+        WaitingNode.Clear();
+        justEnterCondition = true;
+        for (int i = 0; i < customConditions.Count; i++)
+        {
+            Destroy(customConditions[i]);
+        }
+        customConditions.Clear();
+    }
+
+    void ClearEventTriggerCache()
+    {
+        justEnterEventTrigger = true;
     }
 }

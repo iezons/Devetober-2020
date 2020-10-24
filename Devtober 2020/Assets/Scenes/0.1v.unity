@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -544,8 +544,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57547324}
   m_HandleRect: {fileID: 57547323}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999636
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -868,6 +868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists: []
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
@@ -876,7 +880,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset:
   - length: 17
     height: 24
@@ -1602,6 +1607,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists: []
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
@@ -1610,7 +1619,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset: []
   canDetected:
     serializedVersion: 2
@@ -1930,7 +1940,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381814177}
   m_CullTransparentMesh: 0
---- !u!114 &384700986
+--- !u!114 &407374691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1940,17 +1950,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: 'Event: Tutorials'
+  m_Name: Basic Event Node
   m_EditorClassIdentifier: 
   graph: {fileID: 1099859918}
-  position: {x: -168, y: -184}
+  position: {x: -168, y: -248}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 384700986}
+      _node: {fileID: 407374691}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
@@ -1962,7 +1972,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 384700986}
+      _node: {fileID: 407374691}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -1970,10 +1980,33 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  GUID: c1184ac2-aba8-4fb2-b162-0c00a9823603
-  EventName: Tutorials
+  GUID: 72e6b609-34a9-4197-9b6e-980511dfb868
+  EventName: 
+  conditionSOs:
+  - ID: c20a79b3-167d-456e-adbf-facb0788d539
+    conditionWith: 1
+    nPCConditinoWith: 0
+    NPC: []
+    nPCHPWith: 2
+    HP: 0
+    enemyConditionWith: 0
+    Enemy_Num: 2
+    OverallNumbers: 0
+    roomConditionWith: 1
+    roomTrackers: []
+    Room_NPC_Num: 2
+    NPC_Number: 0
+    SpecificRoomNPCs:
+    - roomTracker: {fileID: 0}
+      npcControllers:
+      - {fileID: 0}
+    Room_Enemy_Num: 2
+    Enemy_Number: 0
+    eventTriggers: []
+    customConditions: []
+  CurrentEditingConNum: 0
   eventSO:
-  - ID: 5cd4dd1b-4561-447e-a10c-4d311dfe9e0f
+  - ID: 5d4f6572-5771-4068-9395-4cf5e3560433
     TODOList: []
     doingWith: 3
     doingWithNPC: 0
@@ -1985,7 +2018,8 @@ MonoBehaviour:
     doingWithRoom: 0
     CustomCode:
     - {fileID: 0}
-    timelines: []
+    timelines:
+    - {fileID: 0}
   CurrentEditingSONum: 0
   Comment: 
 --- !u!1 &447884733
@@ -2974,6 +3008,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists: []
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
@@ -2982,7 +3020,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset: []
   canDetected:
     serializedVersion: 2
@@ -3031,7 +3070,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 384700986}
+        node: {fileID: 407374691}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -3903,8 +3942,8 @@ MonoBehaviour:
   m_Name: GM-graph
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 384700986}
   - {fileID: 878053478}
+  - {fileID: 407374691}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
   current: {fileID: 0}
@@ -4020,6 +4059,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists: []
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
@@ -4028,7 +4071,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset:
   - length: 28
     height: 28
@@ -4313,12 +4357,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists:
   - roomCamera: {fileID: 1699601440}
     isLocked: 0
     speed: 20
     angle: 40
     recordedAngle: 0
+    plusAngle: 0
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
@@ -4326,7 +4375,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset:
   - length: 33
     height: 21
@@ -5596,6 +5646,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists: []
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
@@ -5604,7 +5658,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset:
   - length: 19
     height: 21
@@ -5945,6 +6000,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  IsInteracting: 0
+  rightClickMenus: []
   cameraLists: []
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
@@ -5953,7 +6012,8 @@ MonoBehaviour:
   WaitingGraph: {fileID: 0}
   HistoryText: 
   OptionList: []
-  navSurface: {fileID: 0}
+  navSurface:
+  - {fileID: 0}
   scaleAndOffset:
   - length: 32
     height: 21
@@ -6526,8 +6586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d8b9fc4ad028f4986c626f3c55c8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveLeft: 
-  MoveRight: 
+  MoveLeft: a
+  MoveRight: d
   eventGraph: {fileID: 0}
   gmState: 0
   TestGraph: {fileID: 11400000, guid: 682fbcc344ef66d4db21e27d0ac8f064, type: 2}
@@ -6538,6 +6598,7 @@ MonoBehaviour:
   Rooms: []
   CurrentRoom: {fileID: 0}
   NPC: []
+  Enemy: []
   RightClickMs:
     unchangedName: 
     functionName: 
@@ -6849,8 +6910,8 @@ RectTransform:
   m_Father: {fileID: 1820003041}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7613,7 +7674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74887, y: 0}
+  m_AnchoredPosition: {x: 87.74981, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1903934430
