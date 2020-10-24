@@ -122,7 +122,6 @@ public class NpcController : ControllerBased
 
     private void Awake()
     {
-        outline = GetComponent<Outline>();
         boxCollider = GetComponent<BoxCollider>();
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
@@ -701,20 +700,18 @@ public class NpcController : ControllerBased
                     {
                         case Interact_SO.InteractType.Locker:
                             CurrentInteractObject.NPCInteract(0);
-                            animator.Play("Get In Locker", 0);
+                            animator.Play("GetInLocker", 0);
                             isSafe = true;
                             HasInteract = true;
                             navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Box:
-                            CurrentInteractObject.NPCInteract(0);
-                            animator.Play("Get In Box", 0);
                             isSafe = true;
                             HasInteract = true;
                             navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Bed:
-                            animator.Play("Get On Bed", 0);
+                            animator.Play("GetOnBed", 0);
                             HasInteract = true;
                             navAgent.enabled = false;
                             break;
@@ -808,14 +805,11 @@ public class NpcController : ControllerBased
         switch (item.type)
         {
             case Interact_SO.InteractType.Locker:
-                animator.Play("Get Out Locker", 0);
+                animator.Play("GetOutLocker", 0);
                 transform.eulerAngles += new Vector3(0, 180, 0);
                 isSafe = false;
                 break;
             case Interact_SO.InteractType.Box:
-                animator.Play("Get Out Box", 0);
-                transform.eulerAngles += new Vector3(0, 180, 0);
-                isSafe = false;
                 break;
             case Interact_SO.InteractType.Bed:
                 break;
