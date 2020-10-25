@@ -599,6 +599,7 @@ public class NpcController : ControllerBased
         }
         else
         {
+            Debug.Log("123");
             Interact_SO item = gameObj.GetComponent<Interact_SO>();
             StoragePos storge = item as StoragePos;
             if (item != null)

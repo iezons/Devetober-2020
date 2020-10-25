@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(NavMeshAgent))]
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : ControllerBased
 {
     #region Inspector View
     [SerializeField]
@@ -74,6 +74,8 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
+        IsInteracting = true;
+        outline = GetComponent<Outline>();
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
 
