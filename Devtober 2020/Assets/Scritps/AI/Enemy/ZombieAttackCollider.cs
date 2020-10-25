@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ZombieAttackCollider : MonoBehaviour
 {
+    public float Damage;
     public Transform Hand;
     public Vector3 Size;
     bool IsON;
@@ -12,6 +13,20 @@ public class ZombieAttackCollider : MonoBehaviour
         if(IsON)
         {
             Collider[] coll = Physics.OverlapBox(Hand.position, Size / 2, Hand.rotation);
+            foreach (var collider in coll)
+            {
+                collider.TryGetComponent(out NpcController npcController);
+                if(npcController != null)
+                    //npcController.GetHurt(Damage);
+                else
+                {
+                    collider.TryGetComponent(out Interact_SO interact);
+                    if(interact != null)
+                    {
+                        //interact.TakeDamage();
+                    }
+                }
+            }
         }
     }
 
