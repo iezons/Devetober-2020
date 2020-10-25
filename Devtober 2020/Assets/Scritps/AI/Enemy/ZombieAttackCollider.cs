@@ -11,7 +11,7 @@ public class ZombieAttackCollider : MonoBehaviour
     {
         if(IsON)
         {
-            Physics.OverlapBox(Hand.position, Size / 2, Hand.rotation);
+            Collider[] coll = Physics.OverlapBox(Hand.position, Size / 2, Hand.rotation);
         }
     }
 
