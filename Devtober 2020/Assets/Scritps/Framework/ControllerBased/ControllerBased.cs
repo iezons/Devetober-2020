@@ -25,6 +25,7 @@ public class ControllerBased : MonoBehaviour
     #endregion
 
     #region RightClickMenus
+
     [Header("State")]
     public bool IsInteracting = false;
 

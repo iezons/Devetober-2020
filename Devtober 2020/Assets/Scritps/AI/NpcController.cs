@@ -29,6 +29,7 @@ public class NpcController : ControllerBased
         public List<EventSO> toDoList;
 
         public Item_SO.ItemType CarryItem = Item_SO.ItemType.None;
+        public float healAmount = 0;
     }
 
     public Status status = null;
@@ -99,6 +100,8 @@ public class NpcController : ControllerBased
 
     GameObject hideIn = null;
     HiddenPos hiddenPos;
+
+    Vector3 recordColliderSize;
     #endregion
 
     #region InteractWithItem
@@ -112,7 +115,7 @@ public class NpcController : ControllerBased
     int GrabOutIndex;
     bool IsGrabbing = false;
 
-    Item_SO CurrentInteractItem;
+    public Item_SO CurrentInteractItem;
 
     bool HasInteract = false;
 
@@ -120,10 +123,13 @@ public class NpcController : ControllerBased
     float VelocityPosZ;
     #endregion
 
+
+
     private void Awake()
     {
         outline = GetComponent<Outline>();
         boxCollider = GetComponent<BoxCollider>();
+        recordColliderSize = boxCollider.size;
         navAgent = GetComponent<NavMeshAgent>();
         path = new NavMeshPath();
         animator = GetComponent<Animator>();
@@ -135,14 +141,15 @@ public class NpcController : ControllerBased
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem" } },
-            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing" } },
+            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing" } },
+            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -212,14 +219,13 @@ public class NpcController : ControllerBased
                 }
                 break;
             case "Rest":
-                if(m_fsm.GetPreviousState() == "Patrol")
+                if (m_fsm.GetPreviousState() == "Patrol")
                 {
+                    recoverTime -= Time.deltaTime * status.currentStamina / 100;
                     TriggerDodging();
                     animator.Play("Idle", 0);
-                    recoverTime -= Time.deltaTime * status.currentStamina / 100;
                     if (recoverTime <= 0)
                     {
-                        restTime = recordRestTimer;
                         BackToPatrol();
                     }
                 }
@@ -245,6 +251,8 @@ public class NpcController : ControllerBased
             case "InteractWithItem":
                 PlayGetInAnim();
                 break;
+            case "Healing":
+                break;
             default:
                 break;
         }
@@ -260,6 +268,7 @@ public class NpcController : ControllerBased
     #region Move
     public void BackToPatrol(object obj = null)
     {
+        restTime = recordRestTimer;
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
         m_fsm.ChangeState("Patrol");
@@ -549,74 +558,115 @@ public class NpcController : ControllerBased
     }
     #endregion
 
+    #region Healing
+    public void Heal(object obj)
+    {
+        navAgent.ResetPath();
+        m_fsm.ChangeState("Healing");
+        GameObject gameObj = (GameObject)obj;
+        NpcController NPC = gameObj.GetComponent<NpcController>();
+        if(NPC != this)
+        {
+            //Heal Other
+        }
+        else
+        {
+            //Heal Self
+            switch (Random.Range(0, 2))
+            {
+                case (0):
+                    animator.Play("Stand Heal Self", 0);
+                    break;
+                case (1):
+                    animator.Play("Squat Heal Self", 0);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+    #endregion
+
     #region Receive Call
     public void ReceiveInteractCall(object obj)
     {
         GameObject gameObj = (GameObject)obj;
-        Interact_SO item = gameObj.GetComponent<Interact_SO>();
-        StoragePos storge = item as StoragePos;
-        if(item != null)
+        if (gameObj.GetComponent<MedicalKit>() != null)
         {
-            Debug.Log("Receive Interact Call");
-            
-            Vector3 Pos = Vector3.zero;
-            float minDistance = Mathf.Infinity;
-            bool isEmpty = false;
-            for (int i = 0; i < item.Locators.Count; i++)
+            ReceiveItemCall(gameObj);
+        }
+        else
+        {
+            Debug.Log("123");
+            Interact_SO item = gameObj.GetComponent<Interact_SO>();
+            StoragePos storge = item as StoragePos;
+            if (item != null)
             {
-                if (item.Locators[i].npc != null)
-                    continue;
-                isEmpty = true;
-                float a = item.Locators[i].Locator.position.x - transform.position.x;
-                float b = item.Locators[i].Locator.position.z - transform.position.z;
-                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-                float distance = Mathf.Abs(c);
+                Debug.Log("Receive Interact Call");
 
-                if (distance < minDistance)
+                Vector3 Pos = Vector3.zero;
+                float minDistance = Mathf.Infinity;
+                bool isEmpty = false;
+                for (int i = 0; i < item.Locators.Count; i++)
                 {
-                    minDistance = distance;
-                    Pos = item.Locators[i].Locator.position;
-                    locatorList = item.Locators[i];
+                    if (item.Locators[i].npc != null)
+                        continue;
+                    isEmpty = true;
+                    float a = item.Locators[i].Locator.position.x - transform.position.x;
+                    float b = item.Locators[i].Locator.position.z - transform.position.z;
+                    float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                    float distance = Mathf.Abs(c);
+
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        Pos = item.Locators[i].Locator.position;
+                        locatorList = item.Locators[i];
+                    }
                 }
-            }
-            if (!isEmpty)
-                return;
+                if (!isEmpty)
+                    return;
 
-            if (storge != null)
-            {
-                IsGrabbing = false;
-            }
+                if (storge != null)
+                {
+                    IsGrabbing = false;
+                }
 
-            CurrentInteractObject = item;
-            HasInteract = false;
-            Dispatch(Pos);
-            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
-            m_fsm.ChangeState("InteractWithItem");
+                CurrentInteractObject = item;
+                HasInteract = false;
+                Dispatch(Pos);
+                navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+                m_fsm.ChangeState("InteractWithItem");
+            }
         }
     }
 
     public void ReceiveItemCall(object obj)
     {
-        GameObject gameObj = (GameObject)obj;
-        Item_SO item = gameObj.GetComponent<Item_SO>();
-
-        if(item != null)
+        if (status.CarryItem == Item_SO.ItemType.None)
         {
-            Debug.Log("Receive Item Call");
+            GameObject gameObj = (GameObject)obj;
+            Item_SO item = gameObj.GetComponent<Item_SO>();
+
+            if (item != null)
+            {
+                Debug.Log("Receive Item Call");
+            }
+
+            CurrentInteractObject = null;
+            CurrentInteractItem = item;
+            HasInteract = false;
+            Dispatch(gameObj.transform.position);
+            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+            m_fsm.ChangeState("InteractWithItem");
         }
-
-        CurrentInteractObject = null;
-        CurrentInteractItem = item;
-        HasInteract = false;
-        Dispatch(gameObj.transform.position);
-        navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
-        m_fsm.ChangeState("InteractWithItem");
-    }
-
-    public void GrabItemAnimation()
-    {
-        status.CarryItem = CurrentInteractItem.type;
-        CurrentInteractItem.NPCInteract(0);
+        else
+        {
+            Debug.Log("Leave it alone, dont be too greedy");
+        }
+        
     }
 
     public void InteractMoment()
@@ -681,7 +731,9 @@ public class NpcController : ControllerBased
         {
             if (Distance() < restDistance || !navAgent.enabled)
             {
-                boxCollider.enabled = false;
+                boxCollider.isTrigger = true;
+                IsInteracting = true;
+                navAgent.enabled = false;
                 bool Damping = false;
 
                 Vector3 TraPos = new Vector3(transform.position.x, 0, transform.position.z);
@@ -714,35 +766,37 @@ public class NpcController : ControllerBased
                             animator.Play("Get In Locker", 0);
                             isSafe = true;
                             HasInteract = true;
-                            navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Box:
                             CurrentInteractObject.NPCInteract(0);
                             animator.Play("Get In Box", 0);
                             isSafe = true;
                             HasInteract = true;
-                            navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Bed:
-                            animator.Play("Get On Bed", 0);
+                            CurrentInteractObject.NPCInteract(0);
+                            if (locatorList.Locator.name == "locatorL")
+                                animator.Play("Bed Left On", 0);
+                            else
+                                animator.Play("Bed Right On", 0);
                             HasInteract = true;
-                            navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Chair:
+                            CurrentInteractObject.NPCInteract(0);
                             animator.Play("Sitting On Chair");
                             HasInteract = true;
-                            navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Terminal:
                             CurrentInteractObject.NPCInteract(0);
                             animator.Play("Stand Terminal", 0);
+                            CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             HasInteract = true;
-                            navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Switch:
+                            CurrentInteractObject.NPCInteract(0);
                             animator.Play("Stand Switch", 0);
+                            CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             HasInteract = true;
-                            navAgent.enabled = false;
                             break;
                         case Interact_SO.InteractType.Storage:
                             HasInteract = true;
@@ -797,18 +851,32 @@ public class NpcController : ControllerBased
         }
         else if(CurrentInteractItem != null)
         {
-            Vector3 Des = new Vector3(navAgent.destination.x, 0, navAgent.destination.z);
-            Vector3 Next = new Vector3(navAgent.nextPosition.x, 0, navAgent.nextPosition.z);
-            if((Des - Next).sqrMagnitude <= restDistance)
+            if (Distance() <= restDistance)
             {
-                if(!HasInteract)
+                bool Damping = false;
+                Vector3 dir = (CurrentInteractItem.transform.position - transform.position).normalized;
+                dir.y = 0;
+                Quaternion rotation = Quaternion.LookRotation(dir);
+
+                if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
+                    Damping = true;
+                }
+
+                if (Damping)
+                {
+                    Debug.Log("Damping");
+                }
+                else if (!HasInteract)
                 {
                     switch (CurrentInteractItem.type)
                     {
                         case Item_SO.ItemType.MedicalKit:
                             Debug.Log("23333");
                             animator.Play("Grab Item", 0);
-                            boxCollider.enabled = false;
+                            boxCollider.isTrigger = true;
+                            IsInteracting = true;
                             navAgent.enabled = false;
                             HasInteract = true;
                             break;
@@ -846,11 +914,19 @@ public class NpcController : ControllerBased
                 isSafe = false;
                 break;
             case Interact_SO.InteractType.Bed:
+                if (locatorList.Locator.name == "locatorL")
+                    animator.Play("Bed Left Off", 0);
+                else
+                    animator.Play("Bed Right Off", 0);
                 break;
             case Interact_SO.InteractType.Chair:
+                animator.Play("Sitting Off Chair");
                 break;
             case Interact_SO.InteractType.Terminal:
                 animator.Play("GetOutTerminal", 0);
+                break;
+            case Interact_SO.InteractType.Switch:
+                animator.Play("GetOutSwtich", 0);
                 break;
             default:
                 break;
@@ -860,13 +936,40 @@ public class NpcController : ControllerBased
 
     public void CompleteGetInItemAction()
     {
+        Debug.Log("Get In Animation Done");
+        switch (CurrentInteractObject.type)
+        {
+            case Interact_SO.InteractType.Locker:
+                break;
+            case Interact_SO.InteractType.Box:
+                break;
+            case Interact_SO.InteractType.Bed:
+                break;
+            case Interact_SO.InteractType.Chair:
+                CurrentInteractObject.GetComponent<BoxCollider>().size = CurrentInteractObject.newColliderSize;
+                CurrentInteractObject.GetComponent<BoxCollider>().center = CurrentInteractObject.newColliderCenter;
+                boxCollider.size = Vector3.zero;
+                break;
+            case Interact_SO.InteractType.Terminal:
+                break;
+            case Interact_SO.InteractType.Switch:
+                break;
+            case Interact_SO.InteractType.Storage:
+                break;
+            case Interact_SO.InteractType.CBoard:
+                break;
+            default:
+                break;
+        }
         CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
         m_fsm.ChangeState("Rest");
     }
 
     public void CompleteGetOutItemAction()
     {
-        boxCollider.enabled = true;
+        Debug.Log("Get Out Animation Done");
+        boxCollider.isTrigger = false;
+        IsInteracting = false;
         navAgent.enabled = true;
         if(CurrentInteractObject != null)
         {
@@ -876,12 +979,16 @@ public class NpcController : ControllerBased
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     break;
                 case Interact_SO.InteractType.Box:
+                    CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     break;
                 case Interact_SO.InteractType.Bed:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     break;
                 case Interact_SO.InteractType.Chair:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    CurrentInteractObject.GetComponent<BoxCollider>().size = CurrentInteractObject.recordColliderSize;
+                    CurrentInteractObject.GetComponent<BoxCollider>().center = CurrentInteractObject.recordColliderCenter;
+                    boxCollider.size = recordColliderSize;
                     break;
                 case Interact_SO.InteractType.Terminal:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
@@ -891,20 +998,49 @@ public class NpcController : ControllerBased
                 default:
                     break;
             }
+            CurrentInteractObject = null;
         }
-        else if(CurrentInteractItem != null)
+        else if(CurrentInteractItem != null && status.CarryItem == Item_SO.ItemType.None)
         {
+            Debug.Log("Grabing");
             switch (CurrentInteractItem.type)
             {
                 case Item_SO.ItemType.None:
+                    CurrentInteractItem = null;
                     break;
                 case Item_SO.ItemType.MedicalKit:
+                    status.CarryItem = CurrentInteractItem.type;
+                    status.healAmount = CurrentInteractItem.GetComponent<MedicalKit>().HPRecovery;
+                    CurrentInteractItem.NPCInteract(0);
+                    InsertMenu(1, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                    CurrentInteractItem = null;
                     break;
                 default:
                     break;
             }
         }
-        
+        else if(CurrentInteractItem == null && status.CarryItem != Item_SO.ItemType.None)
+        {
+            switch (status.CarryItem)
+            {
+                case Item_SO.ItemType.None:
+                    break;
+                case Item_SO.ItemType.MedicalKit:
+                    Debug.Log("Healing");
+                    ApplyHealth(status.healAmount);
+                    status.CarryItem = Item_SO.ItemType.None;
+                    status.healAmount = 0;
+                    RemoveMenu("Heal");
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        else if(CurrentInteractItem != null && status.CarryItem != Item_SO.ItemType.None)
+        {
+            CurrentInteractItem = null;
+        }
         BackToPatrol();
     }
     #endregion

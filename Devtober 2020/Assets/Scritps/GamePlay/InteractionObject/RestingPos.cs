@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class RestingPos : Interact_SO
 {
-    public float RecovryRate = 0.1f;
+    public float RecovryRate;
 
     private void Awake()
     {
         outline = GetComponent<Outline>();
         AddMenu("RestIn", "Rest in", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        recordColliderSize = GetComponent<BoxCollider>().size;
+        recordColliderCenter = GetComponent<BoxCollider>().center;
     }
 
     private void Update()
