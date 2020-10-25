@@ -10,7 +10,7 @@ namespace DiaGraph
 	public class StartNode : Node
 	{
         private DialogueGraph dialogueGraph;
-		[Output] public Empty Output;
+        [Output(connectionType = ConnectionType.Override)] public Empty Output;
 
 		public string Language = "English";
 
@@ -59,7 +59,7 @@ namespace DiaGraph
             return this;
         }
 
-        public void FinishDia()
+        void FinishDia()
         {
             DialogueGraph diaGraph = graph as DialogueGraph;
             if (diaGraph != null)

@@ -10,74 +10,84 @@ namespace EvtGraph
         public StartNode startNode;
         public EventNode eventNode;
 
-        public Node current;
+        public List<Node> currentList = new List<Node>();
 
-        public void Next()
+        public void Next(Node current)
         {
+            currentList.Clear();
             StartNode sta = current as StartNode;
             EventNode evt = current as EventNode;
             if(sta != null)
             {
-                current = sta.MoveNext();
+                currentList.AddRange(sta.MoveNext());
             }
             else if(evt != null)
             {
-                current = evt.MoveNext();
+                currentList.AddRange(evt.MoveNext());
             }
         }
 
-        public void SetNode(string NodeGUID = "StartNode")
+        public List<Node> SetNode(List<string> NodeGUID)
         {
-            if(NodeGUID == "StartNode")
+            currentList.Clear();
+            for (int i = 0; i < NodeGUID.Count; i++)
             {
-                List<Node> temp = nodes.FindAll(node =>
+                if (NodeGUID[i] == "StartNode")
                 {
-                    return node.GetType() == typeof(StartNode);
-                });
-                if (temp != null)
-                {
-                    if (temp.Count > 1)
+                    List<Node> temp = nodes.FindAll(node =>
                     {
-                        Debug.LogError("There are multiple Start Node for this Event Graph. You can only have one Start Node for One Graph");
+                        return node.GetType() == typeof(StartNode);
+                    });
+                    if (temp != null)
+                    {
+                        if (temp.Count > 1)
+                        {
+                            Debug.LogError("There are multiple Start Node for this Event Graph. You can only have one Start Node for One Graph");
+                        }
+                        else if (temp.Count == 0)
+                        {
+                            Debug.LogError("There is not a starting point for current event graph");
+                            Debug.Break();
+                        }
+                        else
+                        {
+                            currentList.Add(temp[0]);
+                        }
                     }
-                    else if(temp.Count == 0)
+                    else
                     {
                         Debug.LogError("There is not a starting point for current event graph");
                         Debug.Break();
                     }
-                    else
-                    {
-                        current = temp[0];
-                    }
                 }
                 else
                 {
-                    Debug.LogError("There is not a starting point for current event graph");
-                    Debug.Break();
-                }
-            }
-            else
-            {
-                List<Node> temp = nodes.FindAll(node =>
-                {
-                    return node.GetType() == typeof(EventNode);
-                });
-                for (int i = 0; i < temp.Count; i++)
-                {
-                    EventNode tEvent = temp[i] as EventNode;
-                    if (tEvent != null)
+                    List<Node> temp = nodes.FindAll(node =>
                     {
-                        if (tEvent.GUID == NodeGUID)
+                        return node.GetType() == typeof(EventNode);
+                    });
+                    for (int a = 0; a < temp.Count; a++)
+                    {
+                        EventNode tEvent = temp[a] as EventNode;
+                        if (tEvent != null)
                         {
-                            current = tEvent;
+                            if (tEvent.GUID == NodeGUID[a])
+                            {
+                                currentList.Add(tEvent);
+                            }
                         }
                     }
                 }
-                if (current == null)
-                {
-                    Debug.LogError("Cannot Find a EventNode with GUID provided");
-                    Debug.Break();
-                }
+            }
+            if (currentList.Count <= 0)
+            {
+                Debug.LogError("Cannot Find a EventNode with GUID provided");
+                Debug.Break();
+                return null;
+            }
+            else
+            {
+                return currentList;
             }
         }
     }

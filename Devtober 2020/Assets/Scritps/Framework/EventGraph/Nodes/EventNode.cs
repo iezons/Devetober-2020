@@ -13,9 +13,9 @@ namespace EvtGraph
 	public class EventNode : Node
 	{
 		[Input] public Empty Input;
-		[Output] public Empty Output;
+		[Output(connectionType = ConnectionType.Multiple)] public Empty Output;
 
-		[HideInInspector]
+		//[HideInInspector]
 		public string GUID = Guid.NewGuid().ToString();
 		public string EventName = string.Empty;
 
@@ -38,25 +38,33 @@ namespace EvtGraph
 			return null; // Replace this
 		}
 
-		public Node MoveNext()
+		public List<Node> MoveNext()
 		{
 			NodePort exitPort = GetOutputPort("Output");
 
 			if (!exitPort.IsConnected)
 			{
 				EventCenter.GetInstance().EventTriggered("Event.Finished");
-				return this;
+				return new List<Node> { this };
 			}
 
-			Node node = exitPort.Connection.node;
-			EventNode evt = node as EventNode;
-			if (evt != null)
+			List<NodePort> ports = exitPort.GetConnections();
+			List<Node> evts = new List<Node>();
+			for (int i = 0; i < ports.Count; i++)
 			{
-				return evt;
+				EventNode evt = ports[i].node as EventNode;
+				if (evt != null)
+				{
+					evts.Add(evt);
+				}
+			}
+			if (evts.Count > 0)
+			{
+				return evts;
 			}
 
 			EventCenter.GetInstance().EventTriggered("Event.Finished");
-			return this;
+			return new List<Node> { this };
 		}
 
 		public string GetBriefDialog()

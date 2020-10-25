@@ -16,41 +16,50 @@ namespace DiaGraph
 
 		public Node current;
         public DialoguePlay DiaPlay;
+        public bool IsWaiting = false;
 
-        public void Next(int index = 0)
+        public bool Next(int index = 0)
         {
             //MoveNext
-            OptionNode opt = current as OptionNode;
-            DialogueNode dia = current as DialogueNode;
-            StartNode sta = current as StartNode;
-            WaitingNode wai = current as WaitingNode;
-            if (opt != null)
+            if (!IsWaiting)
             {
-                current = opt.MoveNext(index);
-            }
-            else if (dia != null)
-            {
-                current = dia.MoveNext();
-            }
-            else if (sta != null)
-            {
-                current = sta.MoveNext();
-            }
-            else if (wai != null)
-            {
-                current = wai.MoveNext();
-            }
+                OptionNode opt = current as OptionNode;
+                DialogueNode dia = current as DialogueNode;
+                StartNode sta = current as StartNode;
+                WaitingNode wai = current as WaitingNode;
+                if (opt != null)
+                {
+                    current = opt.MoveNext(index);
+                }
+                else if (dia != null)
+                {
+                    current = dia.MoveNext();
+                }
+                else if (sta != null)
+                {
+                    current = sta.MoveNext();
+                }
+                else if (wai != null)
+                {
+                    current = wai.MoveNext(index);
+                }
 
-            //If the Next One is Waiting Node, init it.
-            WaitingNode Wait = current as WaitingNode;
-            if (Wait != null)
-            {
-                Wait.StartWaiting();
+                //If the Next One is Waiting Node, init it.
+                WaitingNode Wait = current as WaitingNode;
+                if (Wait != null)
+                {
+                    IsWaiting = true;
+                    Wait.StartWaiting();
+                }
+                return true;
             }
+            else
+                return false;
         }
 
         public void SetStartPoint(string lan = "English")
         {
+            IsWaiting = false;
             List<Node> temp = nodes.FindAll(node =>
             {
                 return node.GetType() == typeof(StartNode);

@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class ZombieAttackCollider : MonoBehaviour
 {
-    public BoxCollider coll;
-    void Awake()
+    public Transform Hand;
+    public Vector3 Size;
+    bool IsON;
+    void Update()
     {
-        coll.enabled = false;
-    }
-
-    void OnEnable()
-    {
-        coll.enabled = false;
+        if(IsON)
+        {
+            Physics.OverlapBox(Hand.position, Size / 2, Hand.rotation);
+        }
     }
 
     public void ON()
     {
-        coll.enabled = true;
+        IsON = true;
     }
 
     public void OFF()
     {
-        coll.enabled = false;
+        IsON = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(Hand.position, Size);
     }
 }

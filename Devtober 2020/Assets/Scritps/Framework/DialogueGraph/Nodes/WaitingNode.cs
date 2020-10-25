@@ -14,7 +14,7 @@ namespace DiaGraph
     {
 
         [Input] public Empty Input;
-        [Output(dynamicPortList = true)] public List<WaitingNodeEvent> WaitingOption;
+        [Output(connectionType = ConnectionType.Override, dynamicPortList = true)] public List<WaitingNodeEvent> WaitingOption;
 
         // Use this for initialization
         protected override void Init()
@@ -28,8 +28,24 @@ namespace DiaGraph
             return null; // Replace this
         }
 
-        public Node MoveNext()
+        public Node MoveNext(int index)
         {
+            foreach (var port in DynamicOutputs)
+            {
+                if (port.fieldName == "WaitingOption " + index.ToString())
+                {
+                    if (!port.IsConnected)
+                    {
+                        FinishDia();
+                        return this;
+                    }
+                    else
+                    {
+                        return port.Connection.node;
+                    }
+                }
+            }
+            FinishDia();
             return this;
         }
 
@@ -53,12 +69,40 @@ namespace DiaGraph
 
         public void MoveNextByTime(int index)
         {
-
+            GoNext(index);
         }
 
         public void MoveNextByEvent(string EventName)
         {
+            EventCenter.GetInstance().RemoveEventListenerKeys(EventName);
+            for (int i = 0; i < WaitingOption.Count; i++)
+            {
+                if(WaitingOption[i].Event == EventName)
+                {
+                    GoNext(i);
+                    break;
+                }
+            }
+        }
 
+        void FinishDia()
+        {
+            DialogueGraph diaGraph = graph as DialogueGraph;
+            if (diaGraph != null)
+            {
+                diaGraph.DiaPlay.Finished();
+            }
+        }
+
+        void GoNext(int index)
+        {
+            DialogueGraph diaGraph = graph as DialogueGraph;
+            if (diaGraph != null)
+            {
+                diaGraph.IsWaiting = false;
+                Debug.Log(index);
+                diaGraph.DiaPlay.Next(index);
+            }
         }
 
         public string GetBriefInfo()

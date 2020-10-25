@@ -46,12 +46,15 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("EventTriggerCache")]
     List<EventScriptInterface> EventScripts = new List<EventScriptInterface>();
+    EventNode TriggeringEventNode = null;
     bool justEnterEventTrigger = true;
 
     [Header("EventConditionalCache")]
-    List<EventTrigger> WaitingEvent = new List<EventTrigger>();
-    List<EventNode> WaitingNode = new List<EventNode>();
-    List<CustomCondition> customConditions = new List<CustomCondition>();
+    Dictionary<string, List<EventTrigger>> WaitingEvent = new Dictionary<string, List<EventTrigger>>();
+    Dictionary<string, List<CustomCondition>> customConditions = new Dictionary<string, List<CustomCondition>>();
+    //List<CustomCondition> customConditions = new List<CustomCondition>();
+    //List<EventTrigger> WaitingEvent = new List<EventTrigger>();
+    List<EventNode> ConditionalWaitingNode = new List<EventNode>();
     bool justEnterCondition = true;
 
     [Header("Dialogue")]
@@ -102,6 +105,7 @@ public class GameManager : SingletonBase<GameManager>
         eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
+        EventCenter.GetInstance().AddEventListener<EnemyController>("GM.Enemy.Add", EnemyAdd);
     }
 
     void Start()
@@ -188,9 +192,14 @@ public class GameManager : SingletonBase<GameManager>
         Rooms.Add(Room_obj);
     }
 
+    void EnemyAdd(EnemyController Enemy_obj)
+    {
+        Enemy.Add(Enemy_obj);
+    }
+
     IEnumerator UpdateText()
     {
-        TMPText.maxVisibleCharacters = CurrentRoom.HistoryText.Length + CurrentRoom.DiaPlay.MaxVisible;
+        TMPText.maxVisibleCharacters = CurrentRoom.WordCound + CurrentRoom.DiaPlay.MaxVisible;
         yield return null;
         TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
     }
@@ -276,6 +285,16 @@ public class GameManager : SingletonBase<GameManager>
         {
             CurrentRoom.PlayingDialogue(TestGraph);
         }
+
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            EventCenter.GetInstance().EventTriggered("TU_TurnLeftCheck", "TU_TurnLeftCheck");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            EventCenter.GetInstance().EventTriggered("TU_TurnRightCheck", "TU_TurnRightCheck");
+        }
         #endregion
 
         #region NavMeshBuilding
@@ -308,39 +327,59 @@ public class GameManager : SingletonBase<GameManager>
         #endregion
 
         #region Process Event Graph
-        //switch (gmState)
-        //{
-        //    case GameManagerState.OFF:
-        //        if(justEnter)
-        //        {
-        //            justEnter = false;
-        //            Next();
-        //        }
-        //        break;
-        //    case GameManagerState.CONDITIONING:
-        //        if (justEnter)
-        //        {
-        //            justEnter = false;
-        //        }
-        //        if (Conditioning())
-        //            GoToState(GameManagerState.PROGRESSING);
-        //        break;
-        //    case GameManagerState.PROGRESSING:
-        //        if (justEnter)
-        //        {
-        //            justEnter = false;
-        //        }
-        //        TriggerEvent();
-        //        break;
-        //    case GameManagerState.PAUSED:
-        //        if (justEnter)
-        //        {
-        //            justEnter = false;
-        //        }
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (gmState)
+        {
+            case GameManagerState.OFF:
+                if (justEnter)
+                {
+                    justEnter = false;
+                    Next();
+                }
+                break;
+            case GameManagerState.CONDITIONING:
+                if (justEnter)
+                {
+                    justEnter = false;
+                    for (int i = 0; i < eventGraph.graph.currentList.Count; i++)
+                    {
+                        EventNode evt = eventGraph.graph.currentList[i] as EventNode;
+                        if (evt != null)
+                        {
+                            ConditionalWaitingNode.Add(evt);
+                        }
+                    }
+                }
+                for (int i = 0; i < ConditionalWaitingNode.Count; i++)
+                {
+                    if(Conditioning(ConditionalWaitingNode[i]))
+                    {
+                        TriggeringEventNode = ConditionalWaitingNode[i];
+                        GoToState(GameManagerState.PROGRESSING);
+                        break;
+                    }
+                }
+                justEnterCondition = false;
+                break;
+            case GameManagerState.PROGRESSING:
+                if (justEnter)
+                {
+                    justEnter = false;
+                }
+                if(!TriggerEvent())
+                {
+                    GoToState(GameManagerState.PAUSED);
+                }
+                break;
+            case GameManagerState.PAUSED:
+                if (justEnter)
+                {
+                    justEnter = false;
+                    Next();
+                }
+                break;
+            default:
+                break;
+        }
         #endregion
 
         #region Mouse Clicking
@@ -560,8 +599,7 @@ public class GameManager : SingletonBase<GameManager>
         switch (gmState)
         {
             case GameManagerState.OFF:
-                eventGraph.graph.SetNode();
-                eventGraph.graph.Next();
+                eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() {"StartNode"})[0]);
                 GoToState(GameManagerState.CONDITIONING);
                 //Conditioning();
                 //TriggerEvent();
@@ -571,7 +609,8 @@ public class GameManager : SingletonBase<GameManager>
             case GameManagerState.PROGRESSING:
                 break;
             case GameManagerState.PAUSED:
-                eventGraph.graph.Next();
+                eventGraph.graph.Next(TriggeringEventNode);
+                TriggeringEventNode = null;
                 GoToState(GameManagerState.CONDITIONING);
                 //Conditioning();
                 //TriggerEvent();
@@ -581,10 +620,10 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    bool Conditioning()
+    bool Conditioning(EventNode cur)
     {
         bool HasNotAchieve = false;
-        EventNode cur = eventGraph.graph.current as EventNode;
+        //EventNode cur = eventGraph.graph.current as EventNode;
         if(cur != null)
         {
             for (int i = 0; i < cur.conditionSOs.Count; i++)
@@ -766,23 +805,43 @@ public class GameManager : SingletonBase<GameManager>
                             }
                             break;
                         case ConditionSO.ConditionWith.Event:
+                            #region Event
                             if (justEnterCondition)
                             {
                                 for (int a = 0; a < con.eventTriggers.Count; a++)
                                 {
-                                    WaitingEvent.Add(new EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
+                                    if(!WaitingEvent.ContainsKey(cur.GUID))
+                                    {
+                                        WaitingEvent.Add(cur.GUID, new List<EventTrigger>() { new EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName } });
+                                    }
+                                    else
+                                    {
+                                        WaitingEvent[cur.GUID].Add(new EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
+                                    }
                                 }
                             }
-                            for (int b = 0; b < WaitingEvent.Count; b++)
+                            foreach (var keys in WaitingEvent.Keys)
                             {
-                                if(!WaitingEvent[b].IsTriggered)
+                                if(keys != cur.GUID)
                                 {
-                                    HasNotAchieve = true;
-                                    break;
+                                    continue;
+                                }
+                                else
+                                {
+                                    for (int a = 0; a < WaitingEvent[keys].Count; a++)
+                                    {
+                                        if(!WaitingEvent[keys][a].IsTriggered)
+                                        {
+                                            HasNotAchieve = true;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
+                            #endregion
                             break;
                         case ConditionSO.ConditionWith.Custom:
+                            #region Custom
                             if (justEnterCondition)
                             {
                                 for (int a = 0; a < con.customConditions.Count; a++)
@@ -790,22 +849,47 @@ public class GameManager : SingletonBase<GameManager>
                                     if (!con.customConditions[a].Instan)
                                     {
                                         CustomCondition com = gameObject.AddComponent(con.customConditions[a].GetType()) as CustomCondition;
-                                        customConditions.Add(com);
+                                        if(customConditions.ContainsKey(cur.GUID))
+                                        {
+                                            customConditions[cur.GUID].Add(com);
+                                        }
+                                        else
+                                        {
+                                            customConditions.Add(cur.GUID, new List<CustomCondition>(){ com });
+                                        }
                                     }
                                     else
                                     {
-                                        customConditions.Add(con.customConditions[a]);
+                                        if (customConditions.ContainsKey(cur.GUID))
+                                        {
+                                            customConditions[cur.GUID].Add(con.customConditions[a]);
+                                        }
+                                        else
+                                        {
+                                            customConditions.Add(cur.GUID, new List<CustomCondition>() { con.customConditions[a] });
+                                        }
                                     }
                                 }
                             }
-                            for (int a = 0; a < customConditions.Count; a++)
+                            foreach (var keys in customConditions.Keys)
                             {
-                                if(!customConditions[a].Conditional())
+                                if(keys != cur.GUID)
                                 {
-                                    HasNotAchieve = true;
-                                    break;
+                                    continue;
+                                }
+                                else
+                                {
+                                    for (int a = 0; a < customConditions[keys].Count; a++)
+                                    {
+                                        if(!customConditions[keys][a].Conditional())
+                                        {
+                                            HasNotAchieve = true;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
+                            #endregion
                             break;
                         default:
                             break;
@@ -814,18 +898,17 @@ public class GameManager : SingletonBase<GameManager>
             }
         }
 
-        justEnterCondition = false;
-
         if (HasNotAchieve)
             return false;
         else
             return true;
     }
 
-    void TriggerEvent()
+    //TODO 执行时间
+    bool TriggerEvent()
     {
-        EventNode cur =  eventGraph.graph.current as EventNode;
-        if(cur != null)
+        EventNode cur = TriggeringEventNode;
+        if (cur != null)
         {
             List<EventSO> eventSO = cur.eventSO;
             for (int i = 0; i < eventSO.Count; i++)
@@ -909,17 +992,20 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
-        GoToState(GameManagerState.PAUSED);
+        return false;
     }
 
     void ClearConditionCache()
     {
         WaitingEvent.Clear();
-        WaitingNode.Clear();
+        ConditionalWaitingNode.Clear();
         justEnterCondition = true;
-        for (int i = 0; i < customConditions.Count; i++)
+        foreach (var keys in customConditions.Keys)
         {
-            Destroy(customConditions[i]);
+            for (int i = 0; i < customConditions[keys].Count; i++)
+            {
+                Destroy(customConditions[keys][i]);
+            }
         }
         customConditions.Clear();
     }
@@ -927,5 +1013,10 @@ public class GameManager : SingletonBase<GameManager>
     void ClearEventTriggerCache()
     {
         justEnterEventTrigger = true;
+        for (int i = 0; i < EventScripts.Count; i++)
+        {
+            Destroy(EventScripts[i]);
+        }
+        EventScripts.Clear();
     }
 }

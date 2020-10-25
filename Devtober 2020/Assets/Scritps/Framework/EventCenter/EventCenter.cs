@@ -98,6 +98,31 @@ public class EventCenter : SingletonBase<EventCenter>
     }
 
     /// <summary>
+    /// 直接移除指定Keys下的所有事件监听
+    /// </summary>
+    /// <param name="name">事件名称</param>
+    public void RemoveEventListenerKeys(string name)
+    {
+        EventDic.Remove(name);
+    }
+
+    public void RemoveEventListenerValue(UnityAction acition)
+    {
+        foreach (var keys in EventDic.Keys)
+        {
+            (EventDic[keys] as EventInfo).actions -= acition;
+        }
+    }
+
+    public void RemoveEventListenerValue<T>(UnityAction<T> acition)
+    {
+        foreach (var keys in EventDic.Keys)
+        {
+            (EventDic[keys] as EventInfo<T>).actions -= acition;
+        }
+    }
+
+    /// <summary>
     /// 清空事件中心
     /// 主要用于场景切换
     /// </summary>
@@ -145,14 +170,16 @@ public class EventCenter : SingletonBase<EventCenter>
         callback?.Invoke();
     }
 
-    public Coroutine AddTimeListener<T>(float seconds, UnityAction<T> callback, T obj)
+    public void AddTimeListener<T>(float seconds, UnityAction<T> callback, T obj)
     {
-        return StartCoroutine(WaitingTimes(seconds, callback, obj));
+        Debug.Log("Start Timer");
+        StartCoroutine(WaitingTimes(seconds, callback, obj));
     }
 
     IEnumerator WaitingTimes<T>(float seconds, UnityAction<T> callback, T obj)
     {
         yield return new WaitForSeconds(seconds);
+        Debug.Log("End Timer");
         callback?.Invoke(obj);
     }
 }

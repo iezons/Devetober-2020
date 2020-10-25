@@ -20,7 +20,14 @@ namespace EvtGraph
             GUI.color = Color.white;
             if (eventGraph == null) eventNode = target as EventNode;
             if (eventGraph == null) eventGraph = window.graph as EventGraph;
-            if (eventGraph.current == eventNode) GUI.color = Color.blue;
+            for (int i = 0; i < eventGraph.currentList.Count; i++)
+            {
+                if(eventGraph.currentList[i] == eventNode)
+                {
+                    GUI.color = Color.blue;
+                    break;
+                }
+            }
             string temp = eventNode.GetBriefDialog();
             eventNode.name = temp;
             GUILayout.Label(temp, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));

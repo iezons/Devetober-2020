@@ -57,7 +57,9 @@ namespace GamePlay
         [Header("Dialogue")]
         public DialoguePlay DiaPlay;
         public DialogueGraph WaitingGraph;
+        [TextArea(5,5)]
         public string HistoryText;
+        public int WordCound;
         public Dictionary<string, bool> NPCAgentList = new Dictionary<string, bool>();
         public List<OptionClass> OptionList = new List<OptionClass>();
         [Header("NavMesh")]
@@ -290,7 +292,8 @@ namespace GamePlay
         IEnumerator WaitAndPlay()
         {
             yield return new WaitForSeconds(0.7f);
-            HistoryText += DiaPlay.WholeText + System.Environment.NewLine;
+            HistoryText += DiaPlay.WholeText + "\n";
+            WordCound += DiaPlay.WordCount + 1;
             //EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
             DiaPlay.Next(0);
         }

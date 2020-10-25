@@ -13,7 +13,7 @@ namespace DiaGraph
 	public class OptionNode : Node
 	{
 		[Input] public Empty Input;
-		[Output(dynamicPortList = true)] public List<OptionClass> Option;
+		[Output(connectionType = ConnectionType.Override, dynamicPortList = true)] public List<OptionClass> Option;
 
 		// Use this for initialization
 		protected override void Init()

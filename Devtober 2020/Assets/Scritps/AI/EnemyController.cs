@@ -92,6 +92,7 @@ public class EnemyController : MonoBehaviour
     }
     private void Start()
     {
+        EventCenter.GetInstance().EventTriggered("GM.Enemy.Add", this);
         currentPos = NewDestination();
         recordAttackTime = attackTime;
 

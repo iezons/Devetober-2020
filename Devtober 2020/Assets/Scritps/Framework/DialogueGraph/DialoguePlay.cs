@@ -4,6 +4,8 @@ using UnityEngine;
 using DiaGraph;
 using UnityEngine.EventSystems;
 using GamePlay;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 public enum DiaState
 {
@@ -29,18 +31,29 @@ public class DialoguePlay : MonoBehaviour
     public DiaState d_state = DiaState.OFF;
     public NodeState n_state = NodeState.Start;
     [Header("Settings")]
-    public float TextSpeed = 15;
+    public float TextSpeed = 18;
     [Header("Runtime Var")]
     public string WholeText;
     public int MaxVisible;
-    int WordCount = 0;
+    public int WordCount = 0;
     float timervalue;
     int LastTimerValue = 0;
     bool justEnter;
     bool isFinished = true;
+    [Header("Playing Var")]
+    public float WaitingTime = 0.5f;
+    bool IsWaitingTime = false;
+    float AlreadyWaitTime = 0f;
+    bool IsTypingSpeed = false;
+    float DefaultTypingSpeed = 0f;
+    float ChangedTypingSpeed = 0f;
+    bool IsMuting = false;
+    Dictionary<int, List<string>> EventList = new Dictionary<int, List<string>>();
+
 
     void Awake()
     {
+        DefaultTypingSpeed = TextSpeed;
         roomTracker = GetComponent<RoomTracker>();
         //EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", Finished);
     }
@@ -76,10 +89,37 @@ public class DialoguePlay : MonoBehaviour
                 }
                 if(n_state == NodeState.Dialogue)
                 {
-                    UpdateText();
+                    if(IsTypingSpeed)
+                    {
+                        TextSpeed = ChangedTypingSpeed;
+                    }
+                    else
+                    {
+                        TextSpeed = DefaultTypingSpeed;
+                    }
+                    if(IsWaitingTime)
+                    {
+                        if(AlreadyWaitTime >= WaitingTime)
+                        {
+                            AlreadyWaitTime = 0f;
+                            IsWaitingTime = false;
+                        }
+                        else
+                        {
+                            AlreadyWaitTime += Time.deltaTime;
+                        }
+                    }
+                    else
+                    {
+                        UpdateText();
+                    }
                     CheckTypingFinished();
                 }
                 else if(n_state == NodeState.Option)
+                {
+                    GoToSTATE(DiaState.PAUSED);
+                }
+                else if(n_state == NodeState.WaitNode)
                 {
                     GoToSTATE(DiaState.PAUSED);
                 }
@@ -97,9 +137,71 @@ public class DialoguePlay : MonoBehaviour
 
     void LoadText(string TalkingPersonName, string Text)
     {
-        WholeText = TalkingPersonName + ": " + Text;
-        MaxVisible = TalkingPersonName.Length + 2;
-        WordCount = Text.Length;
+        string temp = string.Empty;
+        if (TalkingPersonName != string.Empty)
+        {
+            temp = "<color=#00FF00>" + TalkingPersonName + ": " + "</color>" + Text;
+            MaxVisible = TalkingPersonName.Length + 2;
+        }
+        else
+        {
+            temp = Text;
+            MaxVisible = 0;
+        }
+        //WordCount = Text.Length;
+        string pattern = "(?<=\\<)[^\\>]+";
+        UpdateContent(temp, pattern);
+    }
+
+    void UpdateContent(string text, string pattern)
+    {
+        string temp = text;
+        EventList.Clear();
+        MatchCollection match = Regex.Matches(temp, pattern);
+        int StartingIndex = 0;
+        int SymbolLength = 0;
+        for (int i = 0; i < match.Count; i++)
+        {
+            Match d_match = Regex.Match(temp.Substring(StartingIndex, temp.Length - StartingIndex - 1), pattern);
+            if(d_match.Value[0].ToString() == "$")
+            {
+                string Value = d_match.Value;
+                int StringNum = Value.Length + 2;
+                int index = d_match.Index - 1;
+                temp = temp.Remove(index + StartingIndex, StringNum);
+                //Insert Profile Value
+            }
+            else
+            {
+                string Value = d_match.Value;
+                if(Value.Contains("w=") || Value.Contains("sp=") || Value.Contains("e=") || Value.Equals("sp") || Value.Equals("w") || Value.Equals("/sp"))
+                {
+                    int StringNum = Value.Length + 2;
+                    int Index = d_match.Index - 1;
+                    temp = temp.Remove(Index + StartingIndex, StringNum);
+                    if(EventList.ContainsKey(Index + StartingIndex - SymbolLength))
+                    {
+                        EventList[Index + StartingIndex - SymbolLength].Add(Value);
+                    }
+                    else
+                    {
+                        EventList.Add(Index + StartingIndex - SymbolLength, new List<string>() { Value });
+                    }
+                }
+                else if (Value.Contains("sprite="))
+                {
+                    StartingIndex += d_match.Index + Value.Length;
+                    SymbolLength += Value.Length + 1;
+                }
+                else
+                {
+                    StartingIndex += d_match.Index + Value.Length;
+                    SymbolLength += Value.Length + 2;
+                }
+            }
+        }
+        WholeText = temp;
+        WordCount = temp.Length - SymbolLength;
     }
 
     void UpdateText()
@@ -108,17 +210,92 @@ public class DialoguePlay : MonoBehaviour
         int diff = (int)Mathf.Floor(timervalue) - LastTimerValue;
         for (int g = 0; g < diff; g++)
         {
-            MaxVisible++;
+            int Min2 = (int)Mathf.Floor(LastTimerValue + g);
+
+            if(IsWaitingTime)
+            {
+                LastTimerValue--;
+            }
+            else
+            {
+                MaxVisible++;
+                if(!IsMuting)
+                {
+                    //Play Voice
+                }
+            }
+
+            if (EventList.ContainsKey(MaxVisible))
+            {
+                for (int i = 0; i < EventList[MaxVisible].Count; i++)
+                {
+                    EventListTrigger(EventList[MaxVisible][i]);
+                }
+                EventList.Remove(MaxVisible);
+            }
         }
         int Min = (int)Mathf.Floor(timervalue);
-        LastTimerValue = Min;
+        if(IsWaitingTime)
+        {
+            LastTimerValue = Min - diff;
+        }
+        else
+        {
+            LastTimerValue = Min;
+        }
+    }
+
+    void EventListTrigger(string str)
+    {
+        Debug.Log(str);
+        switch (str)
+        {
+            case "w":
+                IsWaitingTime = true;
+                WaitingTime = 0.5f;
+                break;
+            case "sp":
+                IsTypingSpeed = true;
+                ChangedTypingSpeed = DefaultTypingSpeed;
+                break;
+            case "/sp":
+                IsTypingSpeed = false;
+                break;
+            default:
+                break;
+        }
+
+        if(str.Contains("="))
+        {
+            string[] sub = str.Split('=');
+            switch (sub[0])
+            {
+                case "w":
+                    IsWaitingTime = true;
+                    WaitingTime = float.Parse(sub[1]);
+                    break;
+                case "sp":
+                    IsTypingSpeed = true;
+                    ChangedTypingSpeed = float.Parse(sub[1]);
+                    break;
+                case "e":
+                    string[] eventNames = sub[1].Split(',');
+                    for (int i = 0; i < eventNames.Length; i++)
+                    {
+                        EventCenter.GetInstance().EventTriggered(eventNames[i]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     void CheckTypingFinished()
     {
         if (d_state == DiaState.TYPING)
         {
-            if ((int)Mathf.Floor(timervalue) >= WordCount)
+            if (MaxVisible > WordCount)
             {
                 if(isFinished)
                 {
@@ -157,15 +334,16 @@ public class DialoguePlay : MonoBehaviour
             case DiaState.TYPING:
                 break;
             case DiaState.PAUSED:
-                currentGraph.Next(OptionIndex);
-                if (isFinished)
+                if(currentGraph.Next(OptionIndex))
                 {
-                    GoToSTATE(DiaState.OFF);
-                }
-                else
-                {
-                    LoadNodeInfo();
-                    GoToSTATE(DiaState.TYPING);
+                    if (isFinished)
+                    {
+                        GoToSTATE(DiaState.OFF);
+                    }
+                    else
+                    {
+                        LoadNodeInfo();
+                    }
                 }
                 break;
             default:
@@ -176,21 +354,25 @@ public class DialoguePlay : MonoBehaviour
     void LoadNodeInfo()
     {
         DialogueNode dia = currentGraph.current as DialogueNode;
+        OptionNode opt = currentGraph.current as OptionNode;
+        WaitingNode wat = currentGraph.current as WaitingNode;
         if (dia != null)
         {
             LoadText(dia.TalkingPerson, dia.Dialogue[dia.curIndex]);
             n_state = NodeState.Dialogue;
+            GoToSTATE(DiaState.TYPING);
         }
-        else
+        else if (opt != null)
         {
-            OptionNode opt = currentGraph.current as OptionNode;
-            if(opt != null)
-            {
-                MaxVisible = 0;
-                n_state = NodeState.Option;
-                //EventCenter.GetInstance().EventTriggered("DialoguePlay.OptionShowUP", opt.Option);
-                roomTracker.DialogueOptionShowUp(opt.Option);
-            }
+            MaxVisible = 0;
+            n_state = NodeState.Option;
+            roomTracker.DialogueOptionShowUp(opt.Option);
+            //GoToSTATE(DiaState.TYPING);
+        }
+        else if(wat != null)
+        {
+            MaxVisible = 0;
+            n_state = NodeState.WaitNode;
         }
     }
 

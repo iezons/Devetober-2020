@@ -13,7 +13,7 @@ namespace DiaGraph
 	{
         
         [Input] public Empty Input;
-        [Output] public Empty Output;
+        [Output(connectionType = ConnectionType.Override)] public Empty Output;
         public string TalkingPerson;
 
         [TextArea(5, 5)]
@@ -89,18 +89,18 @@ namespace DiaGraph
                     return opt;
                 }
 
-                //EventNode evt = node as EventNode;
-                //if (evt != null)
-                //{
-                //    return evt as Node;
-                //}
+                WaitingNode wat = node as WaitingNode;
+                if(wat != null)
+                {
+                    return wat;
+                }
 
                 FinishDia();
                 return this;
             }
         }
 
-        public void FinishDia()
+        void FinishDia()
         {
             DialogueGraph diaGraph = graph as DialogueGraph;
             if (diaGraph != null)
