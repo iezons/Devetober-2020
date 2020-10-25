@@ -37,6 +37,11 @@ public class Interact_SO : ControllerBased
     public int maxHealth = 0;
     public int currentHealth = 0;
 
+    public Vector3 newColliderSize = new Vector3(2.32f, 4.501769f, 2.947044f);
+    public Vector3 newColliderCenter = new Vector3(5.066854e-24f, 2.218753f, -0.7540874f);
+    public Vector3 recordColliderSize;
+    public Vector3 recordColliderCenter;
+
     public void ApplyHealth(int healthAmount)
     {
         currentHealth = currentHealth + healthAmount > maxHealth ? maxHealth : currentHealth += healthAmount;
@@ -105,8 +110,15 @@ public class Interact_SO : ControllerBased
     {
         for (int i = 0; i < Locators.Count; i++)
         {
-            Locators[i].npc.PlayGetOutAnim(gameObject);
-            Locators[i].npc = null;
+            if(Locators[i].npc != null)
+            {
+                Locators[i].npc.PlayGetOutAnim(gameObject);
+                Locators[i].npc = null;
+            }
+            else
+            {
+                Debug.Log("Can't find NPC");
+            }
         }
         switch (type)
         {

@@ -97,19 +97,13 @@ public class DoorController : ControllerBased
         if (isActivated() && !isLocked && !isOpened)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, moveEnd + transform.position, lerpTime * Time.deltaTime);
-            float a = door.transform.position.x - (moveEnd.x + transform.position.x);
-            float b = door.transform.position.z - (moveEnd.z + transform.position.z);
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            isOpened = Mathf.Abs(c) < 0.1f ? true : false; ;
+            isOpened = moveEnd.y + transform.position.y - door.transform.position.y < 0.1f ? true : false; ;
             isClosed = false;
         }
         else if (!isActivated() && !isClosed || isLocked)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, transform.position, lerpTime * Time.deltaTime);
-            float a = door.transform.position.x - transform.position.x;
-            float b = door.transform.position.z - transform.position.z;
-            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            isOperating = Mathf.Abs(c) > 0.1f ? true : false;
+            isOperating = door.transform.position.y - transform.position.y > 0.1f ? true : false;
             isClosed = !isOperating;
             isOpened = false;
         }
