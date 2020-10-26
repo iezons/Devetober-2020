@@ -2103,7 +2103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6380503556899626814, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
       propertyPath: m_RootOrder
-      value: 37
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 6380503556899626814, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3718,7 +3718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 29
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6226,8 +6226,8 @@ RectTransform:
   m_Father: {fileID: 1627242056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6511,7 +6511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 30
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7917,7 +7917,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9878882
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10330,7 +10330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 33
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12712,7 +12712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 34
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13251,8 +13251,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13294,26 +13292,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1718897970}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 45
     height: 15
@@ -13350,8 +13342,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13393,26 +13383,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 396670158}
     isLocked: 0
     speed: 50
     angle: 50
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 15
     height: 12
@@ -13449,8 +13433,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13492,26 +13474,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1372848901}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 17
     height: 12
@@ -13548,8 +13524,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13591,26 +13565,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 2099802204}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 17
     height: 12
@@ -13647,8 +13615,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13690,26 +13656,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1890124186}
     isLocked: 0
     speed: 50
     angle: 50
     recordedAngle: 124.52054
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 774842020}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 24
     height: 12
@@ -13763,8 +13723,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13806,26 +13764,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1158863348}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 31
     height: 13
@@ -13862,8 +13814,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13905,26 +13855,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1523175024}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 16
     height: 15
@@ -13961,8 +13905,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14004,26 +13946,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 341941279}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 27
     height: 13
@@ -14066,8 +14002,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14109,26 +14043,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 859458856}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 16
     height: 15
@@ -14165,8 +14093,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14208,32 +14134,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1845278704}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
   - roomCamera: {fileID: 1461094128}
     isLocked: 0
     speed: 0
     angle: 0
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 7.5
     height: 10
@@ -14282,8 +14201,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14325,26 +14242,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1799371017}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 62
     height: 15
@@ -14381,8 +14292,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14424,26 +14333,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 474482605}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 16
     height: 14
@@ -14480,8 +14383,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14523,26 +14424,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 728202580}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 85.5
     height: 10
@@ -14579,8 +14474,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14622,26 +14515,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1423965722}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 85.5
     height: 15.5
@@ -14678,8 +14565,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14721,26 +14606,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 713730307}
     isLocked: 0
     speed: 50
     angle: 360
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 42
     height: 16
@@ -14777,8 +14656,6 @@ MonoBehaviour:
   TextSpeed: 18
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!114 &774842054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14820,26 +14697,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 889919763}
     isLocked: 0
     speed: 50
     angle: 40
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset:
   - length: 43
     height: 23
@@ -14869,6 +14740,409 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 23.370007, y: 0.35, z: 16.554209}
   m_Center: {x: -5.8037443e-25, y: -0.34, z: 5.8037443e-25}
+--- !u!65 &774842057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38, y: 11, z: 14.759792}
+  m_Center: {x: 36, y: 5.6515026, z: -18.650389}
+--- !u!65 &774842058
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38, y: 11, z: 14.759792}
+  m_Center: {x: 59.88, y: 5.6515026, z: -18.650389}
+--- !u!65 &774842059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 0.1}
+  m_Center: {x: 47.899593, y: 5.6515026, z: -26}
+--- !u!65 &774842060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 0.1}
+  m_Center: {x: 47.899593, y: 5.6515026, z: -11.14}
+--- !u!65 &774842061
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.86, y: 11, z: 0.3}
+  m_Center: {x: 0, y: 5.3678236, z: 8.42}
+--- !u!65 &774842062
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 0.6}
+  m_Center: {x: 0, y: 5.3678236, z: -8.4}
+--- !u!65 &774842063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03, y: 11, z: 16.554213}
+  m_Center: {x: 11.89, y: 5.3678236, z: 0.0000076293945}
+--- !u!65 &774842064
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 11, z: 16.554213}
+  m_Center: {x: -12.1, y: 5.3678236, z: 0.0000076293945}
+--- !u!65 &774842065
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 11, z: 16.554213}
+  m_Center: {x: 11.77, y: 5.3678236, z: 7.3219174e-24}
+--- !u!65 &774842066
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9833219, y: 11, z: 16.554213}
+  m_Center: {x: -11.918091, y: 5.3678236, z: -0.0000028414938}
+--- !u!65 &774842067
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 1.5019408}
+  m_Center: {x: -0.000005548623, y: 5.3678236, z: -8.727389}
+--- !u!65 &774842068
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 1.6466585}
+  m_Center: {x: -0.0000097469365, y: 5.3678236, z: 8.881615}
+--- !u!65 &774842069
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370007, y: 11, z: 0.01}
+  m_Center: {x: 0, y: 5.3678236, z: -8.39}
+--- !u!65 &774842070
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370007, y: 11, z: 0.01}
+  m_Center: {x: 0, y: 5.3678236, z: 8.22}
+--- !u!65 &774842071
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 16.554209}
+  m_Center: {x: -11.7, y: 5.3678236, z: 0}
+--- !u!65 &774842072
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 16.554209}
+  m_Center: {x: 11.78, y: 5.3678236, z: 0}
+--- !u!65 &774842073
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 0.01}
+  m_Center: {x: 47.89958, y: 5.3678236, z: -26.9}
+--- !u!65 &774842074
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.370012, y: 11, z: 0.01}
+  m_Center: {x: 47.89958, y: 5.3678236, z: -10.4}
+--- !u!65 &774842075
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 16.554197}
+  m_Center: {x: 36.3, y: 5.3678236, z: -18.650383}
+--- !u!65 &774842076
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 16.554197}
+  m_Center: {x: 60.2, y: 5.3678236, z: -18.650383}
+--- !u!65 &774842077
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 17.49, y: 11, z: 0.01}
+  m_Center: {x: -3.7, y: 0, z: 5.57}
+--- !u!65 &774842078
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 17.49, y: 11, z: 0.01}
+  m_Center: {x: -3.7, y: 0, z: -5.3}
+--- !u!65 &774842079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 11.29}
+  m_Center: {x: 4.6, y: 0, z: 0.38}
+--- !u!65 &774842080
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 27.401352, y: 11, z: 0.01}
+  m_Center: {x: -26.01059, y: 0, z: -42.64}
+--- !u!65 &774842081
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 27.401352, y: 11, z: 0.01}
+  m_Center: {x: -26.01059, y: 0, z: 33.1}
+--- !u!65 &774842082
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841991}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 11, z: 76.16281}
+  m_Center: {x: -39.4, y: 0, z: -4.882736}
+--- !u!65 &774842083
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.118135, y: 11, z: 0.5}
+  m_Center: {x: -2.5590677, y: 0, z: -35.04}
+--- !u!65 &774842084
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.118135, y: 11, z: 0.5}
+  m_Center: {x: -2.5590677, y: 0, z: 5.6}
+--- !u!65 &774842085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 40.54831}
+  m_Center: {x: -10.44, y: 0, z: -14.774155}
+--- !u!65 &774842086
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 11, z: 40.54831}
+  m_Center: {x: 5.51, y: 0, z: -14.774155}
+--- !u!65 &774842087
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842001}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.679916, y: 25.598396, z: 0.01}
+  m_Center: {x: -2.8399582, y: -4.732931, z: -5.52}
 --- !u!114 &774842088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14956,6 +15230,149 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 2c2ac1c609a53ca4b86051b9495f1cb2, type: 2}
+--- !u!65 &774842091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842001}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.679916, y: 25.598396, z: 0.01}
+  m_Center: {x: -2.8399582, y: -4.732931, z: 5.52}
+--- !u!65 &774842092
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842001}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 25.598396, z: 10.999999}
+  m_Center: {x: -11.13, y: -4.732931, z: -0.000012874602}
+--- !u!65 &774842093
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842001}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 25.598396, z: 10.999999}
+  m_Center: {x: 5.52, y: -4.732931, z: -0.000012874602}
+--- !u!65 &774842094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.679916, y: 25.598396, z: 0.01}
+  m_Center: {x: -2.8399582, y: -4.732931, z: -5.52}
+--- !u!65 &774842095
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.679916, y: 25.598396, z: 0.01}
+  m_Center: {x: -2.8399582, y: -4.732931, z: 5.52}
+--- !u!65 &774842096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 25.598396, z: 10.999999}
+  m_Center: {x: -11.13, y: -4.732931, z: -0.000012874602}
+--- !u!65 &774842097
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 25.598396, z: 10.999999}
+  m_Center: {x: 5.52, y: -4.732931, z: -0.000012874602}
+--- !u!65 &774842098
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.679916, y: 13.566267, z: 0.01}
+  m_Center: {x: -2.8399582, y: 1.2831335, z: -5.43}
+--- !u!65 &774842099
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.679916, y: 13.566267, z: 0.01}
+  m_Center: {x: -2.8399582, y: 1.2831335, z: 5.4}
+--- !u!65 &774842100
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0, y: 13.566267, z: 10.999999}
+  m_Center: {x: -11.22, y: 1.2831335, z: -0.0000019255147}
+--- !u!65 &774842101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774842005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0, y: 13.566267, z: 10.999999}
+  m_Center: {x: 5.65, y: 1.2831335, z: -0.0000019255147}
 --- !u!1001 &779302990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15063,26 +15480,6 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 271f229c-4a80-4cb4-ad39-6e9872fd5cec
   EventName: 
-  conditionSOs:
-  - ID: cb32167c-d6df-450d-bacc-76479683ae39
-    conditionWith: 2
-    nPCConditinoWith: 0
-    NPC: []
-    nPCHPWith: 2
-    HP: 0
-    enemyConditionWith: 0
-    Enemy_Num: 2
-    OverallNumbers: 5
-    roomConditionWith: 0
-    roomTrackers: []
-    Room_NPC_Num: 2
-    NPC_Number: 0
-    SpecificRoomNPCs: []
-    Room_Enemy_Num: 2
-    Enemy_Number: 0
-    eventTriggers: []
-    customConditions: []
-  CurrentEditingConNum: 0
   eventSO:
   - ID: 74a73442-6f02-42d3-b650-a5ed7d769a87
     TODOList: []
@@ -15095,7 +15492,6 @@ MonoBehaviour:
     EnemyWayPoint: []
     doingWithRoom: 0
     CustomCode: []
-    timelines: []
   - ID: 9dba6a94-d798-404f-8902-4968331acc5d
     TODOList: []
     doingWith: 0
@@ -15111,7 +15507,6 @@ MonoBehaviour:
     EnemyWayPoint: []
     doingWithRoom: 0
     CustomCode: []
-    timelines: []
   CurrentEditingSONum: 1
   Comment: Setup Tutorial Level and Scenes
 --- !u!1001 &782038662
@@ -16572,7 +16967,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 449074823}
   m_HandleRect: {fileID: 449074822}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -21679,7 +22074,7 @@ MonoBehaviour:
   - {fileID: 1895363156}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
-  currentList: []
+  current: {fileID: 0}
 --- !u!1 &1158863345
 GameObject:
   m_ObjectHideFlags: 0
@@ -21806,8 +22201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d8b9fc4ad028f4986c626f3c55c8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveLeft: a
-  MoveRight: d
   eventGraph: {fileID: 0}
   gmState: 0
   TestGraph: {fileID: 11400000, guid: dcf1eb784462fb64d83502818b9a93bc, type: 2}
@@ -21818,7 +22211,6 @@ MonoBehaviour:
   Rooms: []
   CurrentRoom: {fileID: 0}
   NPC: []
-  Enemy: []
   RightClickMs:
     unchangedName: 
     functionName: 
@@ -21837,8 +22229,6 @@ MonoBehaviour:
   Canvas: {fileID: 995099843}
   NPCListPanel: {fileID: 732592358}
   NPCListBtn: {fileID: 7162329537241489045, guid: e05afe1d5d108c249bad4aa5e335f888, type: 3}
-  CameraButtonListPanel: {fileID: 956292794}
-  CameraButton: {fileID: 5230421232003243325, guid: dcc4d4b448f6c7445a64aa1bc0426fdb, type: 3}
 --- !u!4 &1166111226
 Transform:
   m_ObjectHideFlags: 0
@@ -22898,7 +23288,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1186918986}
   m_HandleRect: {fileID: 1186918985}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -23941,7 +24331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 31
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24489,8 +24879,6 @@ MonoBehaviour:
       _dynamic: 0
   GUID: d5ba390c-56de-45fc-b584-4611f5e6b671
   EventName: 
-  conditionSOs: []
-  CurrentEditingConNum: -1
   eventSO:
   - ID: 2e2f0b83-c875-4a18-9563-851e61847cb9
     TODOList: []
@@ -24503,7 +24891,6 @@ MonoBehaviour:
     EnemyWayPoint: []
     doingWithRoom: 0
     CustomCode: []
-    timelines: []
   CurrentEditingSONum: 0
   Comment: "\u73A9\u5BB6\u82CF\u9192\u7684Cut Scenes, glitch \u95EA\u5C4F"
 --- !u!1 &1315333409
@@ -24647,7 +25034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74973, y: 0}
+  m_AnchoredPosition: {x: 87.74949, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -27434,7 +27821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 32
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -27962,26 +28349,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292a5b9a942bc454da349a7b992c95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutlineWidth: 3
-  outline: {fileID: 0}
-  IsInteracting: 0
-  rightClickMenus: []
+  RoomCamera: {fileID: 0}
   cameraLists:
   - roomCamera: {fileID: 1479857649}
     isLocked: 0
     speed: 50
     angle: 40
     recordedAngle: 0
-    plusAngle: 0
-  CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
-  WordCound: 0
   OptionList: []
-  navSurface: []
+  navSurface: {fileID: 0}
   scaleAndOffset: []
   canDetected:
     serializedVersion: 2
@@ -28041,8 +28422,6 @@ MonoBehaviour:
   TextSpeed: 15
   WholeText: 
   MaxVisible: 0
-  WordCount: 0
-  WaitingTime: 0.5
 --- !u!1 &1495070189
 GameObject:
   m_ObjectHideFlags: 0
@@ -29973,7 +30352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -30818,7 +31197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 35
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -30928,7 +31307,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 569358659}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -33255,7 +33634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_RootOrder
-      value: 36
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -36312,8 +36691,6 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
   EventName: 
-  conditionSOs: []
-  CurrentEditingConNum: -1
   eventSO: []
   CurrentEditingSONum: -1
   Comment: 
@@ -36604,8 +36981,6 @@ MonoBehaviour:
       _dynamic: 0
   GUID: a30bb683-8c34-4721-ad04-06c810241ebc
   EventName: 
-  conditionSOs: []
-  CurrentEditingConNum: -1
   eventSO:
   - ID: dc6faa96-a8ae-4bfb-8c03-645d63ddc228
     TODOList: []
@@ -36618,8 +36993,6 @@ MonoBehaviour:
     EnemyWayPoint: []
     doingWithRoom: 0
     CustomCode: []
-    timelines:
-    - {fileID: 0}
   CurrentEditingSONum: 0
   Comment: "\u654C\u4EBA\u5F00\u59CB\u7834\u95E8"
 --- !u!4 &1906252597 stripped
@@ -40694,8 +41067,6 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 2d6c28ec-9c59-47d0-883c-6b94b26631f3
   EventName: 
-  conditionSOs: []
-  CurrentEditingConNum: -1
   eventSO:
   - ID: 2106fc42-9e4e-4db7-bb63-072b083f4255
     TODOList: []
@@ -40712,7 +41083,6 @@ MonoBehaviour:
     EnemyWayPoint: []
     doingWithRoom: 0
     CustomCode: []
-    timelines: []
   CurrentEditingSONum: 0
   Comment: "\u79D1\u5B66\u5BB6\u5F00\u59CB\u5BF9\u8BDD"
 --- !u!1 &2099802201
