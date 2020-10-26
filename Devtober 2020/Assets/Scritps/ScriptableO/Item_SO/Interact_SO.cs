@@ -34,8 +34,8 @@ public class Interact_SO : ControllerBased
     public List<LocatorList> Locators = new List<LocatorList>();
 
     [Header("Health")]
-    public int maxHealth = 0;
-    public int currentHealth = 0;
+    public float maxHealth = 0;
+    public float currentHealth = 0;
 
     public Vector3 newColliderSize = new Vector3(2.32f, 4.501769f, 2.947044f);
     public Vector3 newColliderCenter = new Vector3(5.066854e-24f, 2.218753f, -0.7540874f);
@@ -47,7 +47,7 @@ public class Interact_SO : ControllerBased
         currentHealth = currentHealth + healthAmount > maxHealth ? maxHealth : currentHealth += healthAmount;
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
 
