@@ -11,6 +11,8 @@ using UnityEngine.EventSystems;
 using System;
 using System.Linq;
 using UnityEngine.AI;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class DefaultValueWithGO
 {
@@ -52,8 +54,6 @@ public class GameManager : SingletonBase<GameManager>
     [Header("EventConditionalCache")]
     Dictionary<string, List<EventTrigger>> WaitingEvent = new Dictionary<string, List<EventTrigger>>();
     Dictionary<string, List<CustomCondition>> customConditions = new Dictionary<string, List<CustomCondition>>();
-    //List<CustomCondition> customConditions = new List<CustomCondition>();
-    //List<EventTrigger> WaitingEvent = new List<EventTrigger>();
     List<EventNode> ConditionalWaitingNode = new List<EventNode>();
     bool justEnterCondition = true;
 
@@ -101,6 +101,10 @@ public class GameManager : SingletonBase<GameManager>
     public Texture VHSTexture;
     public Transform CameraButtonListPanel;
     public GameObject CameraButton;
+
+    [Header("Timeline Playing")]
+    public PlayableDirector Director;
+    public TimelineAsset timeline;
 
     void Awake()
     {
@@ -297,6 +301,11 @@ public class GameManager : SingletonBase<GameManager>
         if (Input.GetKeyDown(KeyCode.I))
         {
             EventCenter.GetInstance().EventTriggered("TU_TurnRightCheck", "TU_TurnRightCheck");
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Director.Play(timeline);
         }
         #endregion
 

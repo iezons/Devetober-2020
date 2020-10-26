@@ -22,7 +22,8 @@ public class Interact_SO : ControllerBased
         Terminal,
         Switch,
         Storage,
-        CBoard
+        CBoard,
+        TU_Server
     }
 
     public InteractType type;
