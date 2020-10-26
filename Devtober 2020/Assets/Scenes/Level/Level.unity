@@ -6245,8 +6245,8 @@ RectTransform:
   m_Father: {fileID: 1627242056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7935,8 +7935,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9992925
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13353,6 +13353,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842011
@@ -13452,6 +13453,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842014
@@ -13551,6 +13553,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842017
@@ -13650,6 +13653,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842020
@@ -13761,6 +13765,7 @@ MonoBehaviour:
   - {fileID: 187513531}
   - {fileID: 879555480}
   - {fileID: 1827802527}
+  NPCs: []
   tempWayPoints:
   - {fileID: 41899235}
   - {fileID: 1019837571}
@@ -13865,6 +13870,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842026
@@ -13964,6 +13970,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842029
@@ -14069,6 +14076,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842032
@@ -14168,6 +14176,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842035
@@ -14285,6 +14294,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842038
@@ -14384,6 +14394,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842041
@@ -14483,6 +14494,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842044
@@ -14582,6 +14594,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842047
@@ -14681,6 +14694,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842050
@@ -14780,6 +14794,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &774842053
@@ -14879,6 +14894,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!65 &774842056
@@ -24726,7 +24742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74981, y: 0}
+  m_AnchoredPosition: {x: 87.74762, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -28164,6 +28180,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   hitInformation: []
+  NPCs: []
   tempWayPoints: []
   isScanOn: 0
 --- !u!114 &1493272247
