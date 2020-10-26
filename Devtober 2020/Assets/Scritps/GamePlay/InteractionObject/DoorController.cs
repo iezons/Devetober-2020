@@ -32,16 +32,29 @@ public class DoorController : ControllerBased
     float lerpTime = 0;
 
     [SerializeField]
+    float lockTime = 0;
+
+    [SerializeField]
     Vector3 moveEnd = Vector3.zero;
+
+    [SerializeField]
+    public CBordPos cBord;
+
+    [Header("Health")]
+    public float maxHealth = 0;
+    public float currentHealth = 0;
 
     public bool isLocked;
     public bool isOperating;
     #endregion
 
     #region Value
-    GameObject door;
-    public bool isClosed, isOpened;
+    GameObject door, fixNPC;
+    NpcController npc;
+    public bool isClosed, isOpened, isPowerOff, isFixing;
     NavMeshObstacle navOb;
+    float recordLockTime;
+    bool isNPCCalled = false;
     #endregion
 
     private void Awake()
@@ -49,18 +62,25 @@ public class DoorController : ControllerBased
         outline = GetComponent<Outline>();
         door = transform.GetChild(0).gameObject;
         navOb = door.GetComponent<NavMeshObstacle>();
+        recordLockTime = lockTime;
     }
 
     private void Start()
     {
-        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
+        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"), false);
     }
 
     private void Update()
     {
+        navOb.enabled = isLocked;
+
         Detecting();
         Operation();
-        navOb.enabled = isLocked;
+        CheckCurrentStatus();
+        if (isPowerOff)
+        {
+            Fixing();
+        }
     }
 
     private void Detecting()
@@ -82,11 +102,16 @@ public class DoorController : ControllerBased
 
     public void SwtichStates(object obj)
     {
+        DefaultValueWithGO temp = (DefaultValueWithGO)obj;
+        isNPCCalled = (bool)temp.DefaultValue;
         if (!isOperating)
         {
             isLocked = !isLocked;
             if (isLocked)
+            {
                 rightClickMenus[0].functionName = "Unlock";
+                lockTime = recordLockTime;
+            }            
             else
                 rightClickMenus[0].functionName = "Lock";
         }
@@ -108,6 +133,77 @@ public class DoorController : ControllerBased
             isOpened = false;
         }
     }
+    
+    void CheckCurrentStatus()
+    {
+        if (isLocked && !isPowerOff && !isNPCCalled)
+        {
+            lockTime -= Time.deltaTime;
+            if (lockTime <= 0)
+            {
+                isLocked = !isLocked;
+                lockTime = recordLockTime;
+            }
+        }
+
+        if (currentHealth <= 0 && !isPowerOff)
+        {
+            RemoveAndInsertMenu("SwitchStates", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
+            isLocked = true;
+            isPowerOff = true;
+        }
+    }
+
+    void SendFixingNPC(object obj)
+    {
+        Debug.Log("Got a Fix Guy");
+        GameObject gameObj = (GameObject)obj;
+        fixNPC = gameObj;
+        npc = gameObj.GetComponent<NpcController>();
+        npc.Dispatch(transform.position);
+    }
+
+    void Fixing()
+    {
+        if (!isFixing)
+        {
+            Collider[] hits = Physics.OverlapBox(transform.position, transform.localScale, Quaternion.identity, 1 << LayerMask.NameToLayer("NPC"));
+            foreach (var item in hits)
+            {
+                if (item.gameObject == fixNPC)
+                {
+                    npc.TriggerFixing();
+                    isFixing = true;
+                }
+            }
+        }
+        else
+        {
+            currentHealth += 10 * Time.deltaTime;
+            if (currentHealth >= maxHealth)
+            {
+                Debug.Log("Fixed");
+                currentHealth = maxHealth;
+                if (cBord.currentHealth > 0)
+                {                    
+                    isLocked = false;
+                    isPowerOff = false;
+                    isFixing = false;
+                    RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
+                }
+                else if(isActivated())
+                {
+                    isLocked = false;
+                }
+                else
+                {
+                    currentHealth = 80;
+                    isFixing = false;
+                    isLocked = true;
+                }
+            }
+        }
+    }
 
     #region Gizmos
     private void OnDrawGizmosSelected()
@@ -116,6 +212,8 @@ public class DoorController : ControllerBased
         Gizmos.DrawWireCube(transform.position, new Vector3(detectRange.x, detectRange.y, detectRange.z));
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(moveEnd+transform.position, 1);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, transform.localScale / 2);
     }
     #endregion
 }
