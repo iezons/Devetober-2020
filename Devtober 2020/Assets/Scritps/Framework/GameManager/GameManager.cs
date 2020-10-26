@@ -510,7 +510,7 @@ public class GameManager : SingletonBase<GameManager>
             Debug.DrawLine(ray_outline.origin, hitInfomation.point);
             //HighLight
             ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
-            if (LastCB != null)
+            if (LastCB != null && curCB != null)
             {
                 if (curCB != LastCB)
                 {
@@ -522,9 +522,12 @@ public class GameManager : SingletonBase<GameManager>
             }
             else
             {
-                if (curCB.gameObject.layer != LayerMask.NameToLayer("Room"))
-                    curCB.SetOutline(true);
-                LastCB = curCB;
+                if(curCB != null)
+                {
+                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room"))
+                        curCB.SetOutline(true);
+                    LastCB = curCB;
+                }
             }
         }
         else

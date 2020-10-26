@@ -114,7 +114,7 @@ public class DoorController : ControllerBased
     public void TimeBreak(object obj)
     {
         timeLeft = timeInTotal;
-        if (!isOperating)
+        if (!isOperating && !isLocked)
         {
             isLocked = !isLocked;
             if (isLocked)
@@ -125,10 +125,13 @@ public class DoorController : ControllerBased
     }
     public void TimeCount()
     {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft <= 0)
+        if(timeLeft > 0)
         {
-            if (!isOperating)
+            timeLeft -= Time.deltaTime;
+        }
+        else
+        {
+            if (!isOperating && isLocked)
             {
                 isLocked = !isLocked;
                 if (isLocked)
