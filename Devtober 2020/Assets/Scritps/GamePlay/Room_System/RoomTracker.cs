@@ -90,6 +90,7 @@ namespace GamePlay
 
         public void Awake()
         {
+            outline = GetComponent<Outline>();
             Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
             navSurface = GetComponents<NavMeshSurface>().ToList();

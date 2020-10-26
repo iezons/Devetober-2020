@@ -214,7 +214,7 @@ public class NpcController : ControllerBased
                 hiddenSpots.Add(temp);
         }
     }
-
+    
     private void Update()
     {
         #region StringRestrictedFiniteStateMachine Update

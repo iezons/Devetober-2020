@@ -11,6 +11,8 @@ using UnityEngine.EventSystems;
 using System;
 using System.Linq;
 using UnityEngine.AI;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class DefaultValueWithGO
 {
@@ -52,8 +54,6 @@ public class GameManager : SingletonBase<GameManager>
     [Header("EventConditionalCache")]
     Dictionary<string, List<EventTrigger>> WaitingEvent = new Dictionary<string, List<EventTrigger>>();
     Dictionary<string, List<CustomCondition>> customConditions = new Dictionary<string, List<CustomCondition>>();
-    //List<CustomCondition> customConditions = new List<CustomCondition>();
-    //List<EventTrigger> WaitingEvent = new List<EventTrigger>();
     List<EventNode> ConditionalWaitingNode = new List<EventNode>();
     bool justEnterCondition = true;
 
@@ -75,6 +75,7 @@ public class GameManager : SingletonBase<GameManager>
     public List<EnemyController> Enemy;
 
     [Header("Click")]
+    public RectTransform Screen;
     public RightClickMenus RightClickMs;
     public bool IsWaitingForClickObj = false;
     public ControllerBased LastCB = null;
@@ -96,8 +97,14 @@ public class GameManager : SingletonBase<GameManager>
     List<GameObject> NPCListButtons = new List<GameObject>();
 
     [Header("Camera Button List")]
+    public Camera MainCamera;
+    public Texture VHSTexture;
     public Transform CameraButtonListPanel;
     public GameObject CameraButton;
+
+    [Header("Timeline Playing")]
+    public PlayableDirector Director;
+    public TimelineAsset timeline;
 
     void Awake()
     {
@@ -295,6 +302,11 @@ public class GameManager : SingletonBase<GameManager>
         {
             EventCenter.GetInstance().EventTriggered("TU_TurnRightCheck", "TU_TurnRightCheck");
         }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Director.Play(timeline);
+        }
         #endregion
 
         #region NavMeshBuilding
@@ -384,7 +396,15 @@ public class GameManager : SingletonBase<GameManager>
 
         #region Mouse Clicking
         //Mouse Position Correction
+        //Vector3 MousePos = new Vector3(Input.mousePosition.x * (VHSTexture.width / 1920f), Input.mousePosition.y * (VHSTexture.height / 1080f), Input.mousePosition.z);
         Vector3 MousePos = Input.mousePosition;
+        Ray ray_MainCamera = MainCamera.ScreenPointToRay(Input.mousePosition);
+        if(Physics.Raycast(ray_MainCamera, out RaycastHit hit_MainCamera))
+        {
+            MousePos = hit_MainCamera.textureCoord;
+        }
+        Debug.Log(MousePos);
+        
 
         LayerMask DoWithLayer;
         if(IsWaitingForClickObj)
@@ -400,7 +420,7 @@ public class GameManager : SingletonBase<GameManager>
         if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
             ClearRightClickButton();
-            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ScreenPointToRay(MousePos);
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
@@ -441,7 +461,7 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
             //UI 位置适配
-            RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            RightClickMenuPanel.position = new Vector3(MousePos.x, MousePos.y, 0);
             if (Canvas.rect.width - (RightClickMenuPanel.position.x + RightClickMenuPanel.rect.width) >= 0)
             {
                 RightClickMenuPanel.pivot = new Vector2(0, RightClickMenuPanel.pivot.y);
@@ -484,9 +504,10 @@ public class GameManager : SingletonBase<GameManager>
         }
 
         //HighLight
-        Ray ray_outline = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ScreenPointToRay(MousePos);
+        Ray ray_outline = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
         if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
         {
+            Debug.DrawLine(ray_outline.origin, hitInfomation.point);
             //HighLight
             ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
             if (LastCB != null)
@@ -515,11 +536,11 @@ public class GameManager : SingletonBase<GameManager>
                 LastCB = null;
             }
         }
-
+        
         if(IsWaitingForClickObj)
         {
             //ChangeWaitingCursor
-            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ScreenPointToRay(MousePos);
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
