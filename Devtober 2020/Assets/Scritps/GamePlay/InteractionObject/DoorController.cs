@@ -41,6 +41,7 @@ public class DoorController : ControllerBased
     #region Value
     GameObject door;
     public bool isClosed, isOpened;
+    public float timeLeft, timeInTotal;
     NavMeshObstacle navOb;
     #endregion
 
@@ -53,7 +54,7 @@ public class DoorController : ControllerBased
 
     private void Start()
     {
-        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
+        AddMenu("SwitchStates", "Lock", false, TimeBreak, 1 << LayerMask.GetMask("Door"));
     }
 
     private void Update()
@@ -61,6 +62,7 @@ public class DoorController : ControllerBased
         Detecting();
         Operation();
         navOb.enabled = isLocked;
+        TimeCount();
     }
 
     private void Detecting()
@@ -106,6 +108,34 @@ public class DoorController : ControllerBased
             isOperating = door.transform.position.y - transform.position.y > 0.1f ? true : false;
             isClosed = !isOperating;
             isOpened = false;
+        }
+    }
+
+    public void TimeBreak(object obj)
+    {
+        timeLeft = timeInTotal;
+        if (!isOperating)
+        {
+            isLocked = !isLocked;
+            if (isLocked)
+                rightClickMenus[0].functionName = "Unlock";
+            else
+                rightClickMenus[0].functionName = "Lock";
+        }
+    }
+    public void TimeCount()
+    {
+        timeLeft -= Time.deltaTime;
+        if (timeLeft <= 0)
+        {
+            if (!isOperating)
+            {
+                isLocked = !isLocked;
+                if (isLocked)
+                    rightClickMenus[0].functionName = "Unlock";
+                else
+                    rightClickMenus[0].functionName = "Lock";
+            }
         }
     }
 
