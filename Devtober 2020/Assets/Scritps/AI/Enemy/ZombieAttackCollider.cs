@@ -4,29 +4,39 @@ using UnityEngine;
 
 public class ZombieAttackCollider : MonoBehaviour
 {
-    public float Damage;
-    public Transform Hand;
-    public Vector3 Size;
+    public float damage;
+    public Transform hand;
+    public Vector3 size;
     bool IsON;
+    public bool isHit = false;
     void Update()
     {
-        if(IsON)
+        if (IsON)
         {
-            Collider[] coll = Physics.OverlapBox(Hand.position, Size / 2, Hand.rotation);
+            Collider[] coll = Physics.OverlapBox(hand.position, size / 2, hand.rotation);
             foreach (var collider in coll)
             {
                 collider.TryGetComponent(out NpcController npcController);
-                if(npcController != null)
+                if (npcController != null)
                 {
-
+                    if (!isHit)
+                    {
+                        npcController.TakeDamage(damage);
+                        npcController.m_fsm.ChangeState("GotAttacked");
+                        npcController.GotBitted();
+                        isHit = !isHit;
+                    }  
                 }
-                    //npcController.GetHurt(Damage);
                 else
                 {
                     collider.TryGetComponent(out Interact_SO interact);
-                    if(interact != null)
+                    if (interact != null)
                     {
-                        //interact.TakeDamage();
+                        if (!isHit)
+                        {
+                            interact.TakeDamage(damage);
+                            isHit = !isHit;
+                        }      
                     }
                 }
             }
@@ -46,6 +56,6 @@ public class ZombieAttackCollider : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(Hand.position, Size);
+        Gizmos.DrawWireCube(hand.position, size);
     }
 }

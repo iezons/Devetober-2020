@@ -82,6 +82,8 @@ namespace GamePlay
 
         #region Value
         bool tempCheck;
+        List<RoomTracker> roomScripts = new List<RoomTracker>();
+        public List<GameObject> NPCs = new List<GameObject>();
         public List<Transform> tempWayPoints = new List<Transform>();
         public bool isScanOn;
         #endregion
@@ -106,17 +108,27 @@ namespace GamePlay
         public void Start()
         {
             EventCenter.GetInstance().EventTriggered("GM.Room.Add", this);
+            Invoke("GenerateList", 0.00001f);
+        }
+
+        void GenerateList()
+        {
+            foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
+            {
+                roomScripts.Add(temp);
+            }
+
+            for (int i = 0; i < roomScripts.Count; i++)
+            {
+                NPCs.AddRange(roomScripts[i].NPC());
+            }
         }
 
         private void Update()
         {
             Detecting();
             DialogueChecking();
-            //if (Input.GetAxisRaw("Horizontal") != 0)
-            //{
-            //    print(Input.GetAxisRaw("Horizontal"));
-            //    Rotate(Input.GetAxisRaw("Horizontal"), 0);
-            //}
+            RescuingCode();
         }
 
         private void Detecting()
@@ -126,6 +138,34 @@ namespace GamePlay
             for (int i = 0; i < scaleAndOffset.Count; i++)
             {
                 hitInformation.AddRange(Physics.OverlapBox(transform.position + new Vector3(scaleAndOffset[i].x, scaleAndOffset[i].y, scaleAndOffset[i].z), new Vector3(scaleAndOffset[i].length, scaleAndOffset[i].height, scaleAndOffset[i].width) / 2, Quaternion.identity, canDetected));
+            }
+        }
+
+        void RescuingCode()
+        {
+            if(NPCs.Count != 0)
+            {
+                for (int i = 0; i < NPCs.Count; i++)
+                {
+                    NpcController npc = NPCs[i].GetComponent<NpcController>();
+                    if (npc.status.isStruggling)
+                    {
+                        foreach (var item in NPCs)
+                        {
+                            NpcController npcCtrl = item.GetComponent<NpcController>();
+                            if (npcCtrl.status.isStruggling)
+                                continue;
+                            if (npcCtrl.MenuContains("Rescue") >= 0)
+                                continue;
+                            npcCtrl.InsertMenu(rightClickMenus.Count, "Rescue", "Rescue", true, npcCtrl.TriggerRescuing, 1 << LayerMask.NameToLayer("NPC"));
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        npc.RemoveMenu("Rescue");
+                    }
+                }              
             }
         }
 

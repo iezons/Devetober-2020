@@ -30,6 +30,8 @@ public class NpcController : ControllerBased
 
         public Item_SO.ItemType CarryItem = Item_SO.ItemType.None;
         public float healAmount = 0;
+
+        public bool isStruggling = false;
     }
 
     public Status status = null;
@@ -56,7 +58,13 @@ public class NpcController : ControllerBased
     float dodgeAngle = 0;
 
     [SerializeField]
-    float dodgeSpeed = 0;
+    float boostSpeed = 0;
+
+    [SerializeField]
+    LayerMask canBlocked = 0;
+
+    [SerializeField]
+    float discoverAngle = 0;
 
     [SerializeField]
     float restTime = 0;
@@ -68,13 +76,16 @@ public class NpcController : ControllerBased
     [Tooltip("The rest distance before reach destination. ")]
     float restDistance = 0.2f;
 
+    [SerializeField]
+    float limpingLimit;
+
     #endregion
 
 
     #region Fields
-    StringRestrictedFiniteStateMachine m_fsm;
-    Animator animator;
-    NavMeshAgent navAgent;
+    public StringRestrictedFiniteStateMachine m_fsm;
+    public Animator animator;
+    public NavMeshAgent navAgent;
     NavMeshPath path;
     #endregion
 
@@ -102,6 +113,9 @@ public class NpcController : ControllerBased
     HiddenPos hiddenPos;
 
     Vector3 recordColliderSize;
+    GameObject RescuingTarget, HealingTarget;
+    bool inAngle, isBlocked;
+
     #endregion
 
     #region InteractWithItem
@@ -141,15 +155,18 @@ public class NpcController : ControllerBased
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing" } },
-            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing" } },
-            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing", "GotAttacked", "Rescuing", "Idle" } },
+            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "GotAttacked", "Rescuing", "Idle" } },
+            { "GotAttacked", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "Rescuing", "Idle" } },
+            { "Rescuing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Idle" } },
+            { "Idle", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -215,20 +232,19 @@ public class NpcController : ControllerBased
                 {
                     navAgent.ResetPath();
                     recoverTime = recordRecoverTimer;
-                    m_fsm.ChangeState("Rest");
+                    m_fsm.ChangeState("Idle");
+                }
+                break;
+            case "Idle":
+                recoverTime -= Time.deltaTime * status.currentStamina / 100;
+                TriggerDodging();
+                animator.Play("Idle", 0);
+                if (recoverTime <= 0)
+                {
+                    BackToPatrol();
                 }
                 break;
             case "Rest":
-                if (m_fsm.GetPreviousState() == "Patrol")
-                {
-                    recoverTime -= Time.deltaTime * status.currentStamina / 100;
-                    TriggerDodging();
-                    animator.Play("Idle", 0);
-                    if (recoverTime <= 0)
-                    {
-                        BackToPatrol();
-                    }
-                }
                 break;
             case "Dispatch":
                 CompleteDispatching();
@@ -252,6 +268,17 @@ public class NpcController : ControllerBased
                 PlayGetInAnim();
                 break;
             case "Healing":
+                if(HealingTarget != null)
+                {
+                    HealOther();
+                }
+                break;
+            case "GotAttacked":
+                navAgent.ResetPath();
+                break;
+            case "Rescuing":
+                LimpingChange("Run");
+                RescuingProcess();
                 break;
             default:
                 break;
@@ -310,6 +337,32 @@ public class NpcController : ControllerBased
         }
     }
 
+    public void LimpingChange(string type)
+    {
+        if(type == "Walk")
+        {
+            if (status.currentHealth <= limpingLimit)
+            {
+                animator.Play("Limping Walk", 0);
+            }
+            else
+            {
+                animator.Play("Walk", 0);
+            }
+        }
+        else if(type == "Run")
+        {
+            if (status.currentHealth <= limpingLimit)
+            {
+                animator.Play("Limping Run", 0);
+            }
+            else
+            {
+                animator.Play("Run", 0);
+            }
+        }
+    }
+
     IEnumerator MoveAcrossNavMeshLink()
     {
         OffMeshLinkData data = navAgent.currentOffMeshLinkData;
@@ -343,7 +396,14 @@ public class NpcController : ControllerBased
         {
             if(navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
             {
-                animator.Play("Walk", 0);
+                if(m_fsm.GetCurrentState() == "Patrol")
+                {
+                    LimpingChange("Walk");
+                }
+                else
+                {
+                    LimpingChange("Run");
+                }
             }
             else if(!navAgent.isOnOffMeshLink)
             {
@@ -431,6 +491,24 @@ public class NpcController : ControllerBased
         m_fsm.ChangeState("Event");
     }
 
+    public void RandomTalk()
+    {
+        switch (Random.Range(0,3))
+        {
+            case (0):
+                animator.Play("Talking1", 0);
+                break;
+            case (1):
+                animator.Play("Talking2", 0);
+                break;
+            case (2):
+                animator.Play("Talking3", 0);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Event()
     {
         for (int i = 0; i < status.toDoList.Count; i++)
@@ -496,7 +574,7 @@ public class NpcController : ControllerBased
         hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
         if (hitObjects.Length != 0)
         {
-            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
             m_fsm.ChangeState("Dodging");
         }
     }
@@ -544,7 +622,6 @@ public class NpcController : ControllerBased
                 break;
             }
         }
-
         m_fsm.ChangeState("Escaping");
     }
 
@@ -562,12 +639,16 @@ public class NpcController : ControllerBased
     public void Heal(object obj)
     {
         navAgent.ResetPath();
-        m_fsm.ChangeState("Healing");
         GameObject gameObj = (GameObject)obj;
         NpcController NPC = gameObj.GetComponent<NpcController>();
-        if(NPC != this)
+        m_fsm.ChangeState("Healing");
+        if (NPC != this)
         {
             //Heal Other
+            HealingTarget = gameObj;
+            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            Dispatch(gameObj.transform.position);
+
         }
         else
         {
@@ -586,7 +667,115 @@ public class NpcController : ControllerBased
         }
     }
 
+    void HealOther()
+    {
+        if (Distance() < restDistance && HealingTarget != null)
+        {
+            bool Damping = false;
+            Vector3 dir = (HealingTarget.transform.position - transform.position).normalized;
+            dir.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(dir);
 
+            if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
+                Damping = true;
+            }
+            if (Damping)
+            {
+                Debug.Log("Damping");
+            }
+            else if (HealingTarget.GetComponent<NpcController>().m_fsm.GetCurrentState() == "Rest")
+            {
+                animator.Play("Squat Heal Other", 0);
+            }
+            else
+            {
+                HealingTarget.GetComponent<NpcController>().navAgent.ResetPath();
+                animator.Play("Stand Heal Other", 0);
+            }
+        }
+        else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
+        {
+            LimpingChange("Run");
+        }
+        else if (!navAgent.isOnOffMeshLink && !HasInteract)
+        {
+            animator.Play("Idle", 0);
+        }
+    }
+
+    #endregion
+
+    #region Got Attacked
+    public void GotBitted()
+    {
+        animator.Play("Got Hurt", 0);
+    }
+
+    void Death()
+    {
+        animator.Play("Death", 0);
+        status.isStruggling = false;
+        gameObject.layer = LayerMask.NameToLayer("Dead");
+    }
+    #endregion
+
+    #region Rescuing
+    public void TriggerRescuing(object obj)
+    {
+        RescuingTarget = (GameObject)obj;
+        if (RescuingTarget != null)
+        {
+            Debug.Log("I am coming!");
+            Dispatch(RescuingTarget.transform.position);
+            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            m_fsm.ChangeState("Rescuing");
+        }
+    }
+
+    public void RescuingProcess()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, alertRadius, 1 << LayerMask.NameToLayer("NPC") | 1 << LayerMask.NameToLayer("Dead"));
+
+        foreach (var item in hits)
+        {
+            if (item.gameObject == RescuingTarget)
+            {
+                isBlocked = Physics.Linecast(transform.position, item.transform.position, canBlocked);
+                Vector3 direction = (item.transform.position - transform.position).normalized;
+                float targetAngle = Vector3.Angle(transform.forward, direction);
+                inAngle = targetAngle <= discoverAngle / 2 ? true : false;
+
+                NpcController target = item.GetComponent<NpcController>();
+
+                if(inAngle && !isBlocked)
+                {
+                    if (target.status.currentHealth <= 0)
+                    {
+                        Debug.Log("Too Late");
+                        RescuingTarget = null;
+                        BackToPatrol();
+                    }
+                    else if(Distance() <= restDistance + 0.5f)
+                    {
+                        Debug.Log("Got U");
+                        target.status.isStruggling = false;
+                        RescuingTarget = null;
+                        BackToPatrol();
+                    }
+                }
+            }
+        }
+    }
+
+    public void Alive()
+    {
+        restTime = recordRestTimer;
+        navAgent.speed = recordSpeed;
+        currentTerminalPos = NewDestination();
+        m_fsm.ChangeState("Patrol");
+    }
     #endregion
 
     #region Receive Call
@@ -599,7 +788,6 @@ public class NpcController : ControllerBased
         }
         else
         {
-            Debug.Log("123");
             Interact_SO item = gameObj.GetComponent<Interact_SO>();
             StoragePos storge = item as StoragePos;
             if (item != null)
@@ -637,7 +825,7 @@ public class NpcController : ControllerBased
                 CurrentInteractObject = item;
                 HasInteract = false;
                 Dispatch(Pos);
-                navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+                navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
                 m_fsm.ChangeState("InteractWithItem");
             }
         }
@@ -659,14 +847,13 @@ public class NpcController : ControllerBased
             CurrentInteractItem = item;
             HasInteract = false;
             Dispatch(gameObj.transform.position);
-            navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
             m_fsm.ChangeState("InteractWithItem");
         }
         else
         {
             Debug.Log("Leave it alone, dont be too greedy");
-        }
-        
+        }       
     }
 
     public void InteractMoment()
@@ -719,7 +906,7 @@ public class NpcController : ControllerBased
         }
         HasInteract = false;
         Dispatch(Pos);
-        navAgent.speed *= (dodgeSpeed * status.currentStamina) / 100;
+        navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
         m_fsm.ChangeState("InteractWithItem");
     }
     #endregion
@@ -842,7 +1029,7 @@ public class NpcController : ControllerBased
             }
             else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
             {
-                animator.Play("Walk", 0);
+                LimpingChange("Run");
             }
             else if (!navAgent.isOnOffMeshLink)
             {
@@ -887,7 +1074,7 @@ public class NpcController : ControllerBased
             }
             else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
             {
-                animator.Play("Walk", 0);
+                LimpingChange("Run");
             }
             else if (!navAgent.isOnOffMeshLink && !HasInteract)
             {
@@ -1012,7 +1199,7 @@ public class NpcController : ControllerBased
                     status.CarryItem = CurrentInteractItem.type;
                     status.healAmount = CurrentInteractItem.GetComponent<MedicalKit>().HPRecovery;
                     CurrentInteractItem.NPCInteract(0);
-                    InsertMenu(1, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                    InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
                     CurrentInteractItem = null;
                     break;
                 default:
@@ -1027,7 +1214,15 @@ public class NpcController : ControllerBased
                     break;
                 case Item_SO.ItemType.MedicalKit:
                     Debug.Log("Healing");
-                    ApplyHealth(status.healAmount);
+                    if(HealingTarget != null)
+                    {
+                        HealingTarget.GetComponent<NpcController>().ApplyHealth(status.healAmount);
+                        HealingTarget = null;
+                    }
+                    else
+                    {
+                        ApplyHealth(status.healAmount);
+                    }
                     status.CarryItem = Item_SO.ItemType.None;
                     status.healAmount = 0;
                     RemoveMenu("Heal");
@@ -1069,10 +1264,18 @@ public class NpcController : ControllerBased
     public void TakeDamage(float damageAmount)
     {
         status.currentHealth -= damageAmount;
-
         if (status.currentHealth <= 0)
         {
-            //Death();
+            Death();
+        }
+    }
+
+    public void IsStruggling(float rate)
+    {
+        status.currentHealth -= rate * Time.deltaTime;
+        if (status.currentHealth <= 0)
+        {
+            Death();
         }
     }
 
@@ -1099,6 +1302,19 @@ public class NpcController : ControllerBased
         Gizmos.DrawWireSphere(transform.position, alertRadius);
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, -transform.up * detectRay);
+        if(RescuingTarget != null)
+        {
+            if (isBlocked)
+            {
+                Gizmos.color = Color.blue;
+            }
+            else
+            {
+                Gizmos.color = inAngle ? Color.red : Color.green;
+            }
+            Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), RescuingTarget.transform.position + new Vector3(0, 3, 0));
+        }
+
     }
     #endregion
 }
