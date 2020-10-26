@@ -17,6 +17,9 @@ public class ZombieAttackCollider : MonoBehaviour
             {
                 collider.TryGetComponent(out NpcController npcController);
                 if(npcController != null)
+                {
+
+                }
                     //npcController.GetHurt(Damage);
                 else
                 {
