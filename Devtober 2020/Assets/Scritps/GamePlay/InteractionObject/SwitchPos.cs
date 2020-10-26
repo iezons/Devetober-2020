@@ -35,7 +35,7 @@ public class SwitchPos : Interact_SO
     {
         if(door != null)
         {
-            door.isLocked = !door.isLocked;
+            door.SwtichStates(new DefaultValueWithGO { DefaultValue = true, GO = null });
             if (MenuContains("UnLock Door") >= 0)
             {
                 RemoveAndInsertMenu("UnLock Door", "Lock Door", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));

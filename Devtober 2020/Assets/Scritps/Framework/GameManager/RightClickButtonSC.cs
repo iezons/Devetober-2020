@@ -25,8 +25,17 @@ public class RightClickButtonSC : MonoBehaviour
         }
         else
         {
-            menu.DoFunction(obj);
-            transform.parent.gameObject.SetActive(false);
+            if(menu.DefaultCallValue != null)
+            {
+                DefaultValueWithGO valueWithGO = new DefaultValueWithGO { DefaultValue = menu.DefaultCallValue, GO = null};
+                menu.DoFunction(valueWithGO);
+                transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                menu.DoFunction(obj);
+                transform.parent.gameObject.SetActive(false);
+            }
         }
     }
 }

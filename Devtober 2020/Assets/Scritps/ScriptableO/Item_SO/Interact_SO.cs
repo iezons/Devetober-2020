@@ -23,7 +23,6 @@ public class Interact_SO : ControllerBased
         Switch,
         Storage,
         CBoard,
-        TU_Server
     }
 
     public InteractType type;
@@ -97,8 +96,6 @@ public class Interact_SO : ControllerBased
                 RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case InteractType.Terminal:
-                //PlayAnimation(InteractWay.ToString());
-                RemoveAndInsertMenu("Operate", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case InteractType.Switch:
                 break;
