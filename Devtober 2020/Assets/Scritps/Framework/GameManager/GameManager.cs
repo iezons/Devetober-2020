@@ -508,14 +508,13 @@ public class GameManager : SingletonBase<GameManager>
         if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
         {
             Debug.DrawLine(ray_outline.origin, hitInfomation.point);
-            //HighLight
             ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
             if (LastCB != null && curCB != null)
             {
                 if (curCB != LastCB)
                 {
                     LastCB.SetOutline(false);
-                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room"))
+                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
                         curCB.SetOutline(true);
                     LastCB = curCB;
                 }
@@ -524,7 +523,7 @@ public class GameManager : SingletonBase<GameManager>
             {
                 if(curCB != null)
                 {
-                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room"))
+                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
                         curCB.SetOutline(true);
                     LastCB = curCB;
                 }
@@ -532,7 +531,6 @@ public class GameManager : SingletonBase<GameManager>
         }
         else
         {
-            //HighLight
             if(LastCB != null)
             {
                 LastCB.SetOutline(false);
@@ -948,23 +946,22 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.Talking:
                                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                                     {
+                                        Debug.Log("Clear NPC Agent List from GM. ", gameObject);
+                                        evt.NPCTalking[a].room.NPCAgentList.Clear();
                                         for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                                         {
                                             for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                if(evt.NPCTalking[a].moveToClasses[b].NPC.gameObject == NPC[c])
+                                                if(evt.NPCTalking[a].moveToClasses[b].NPC.gameObject == NPC[c].gameObject)
                                                 {
                                                     NPC[c].status.toDoList.Add(evt);
-                                                    for (int t = 0; t < Rooms.Count; t++)
-                                                    {
-                                                        if(Rooms[t].NPC().Contains(NPC[c].gameObject))
-                                                        {
-                                                            Rooms[t].NPCAgentList.Add(NPC[c].status.npcName, false);
-                                                            Rooms[t].WaitingGraph = evt.NPCTalking[a].Graph;
-                                                        }
-                                                    }
+                                                    evt.NPCTalking[a].room.NPCAgentList.Add(NPC[c].status.npcName, false);
                                                 }
                                             }
+                                        }
+                                        if(evt.NPCTalking[a].room.WaitingGraph == null)
+                                        {
+                                            evt.NPCTalking[a].room.WaitingGraph = evt.NPCTalking[a].Graph;
                                         }
                                     }
                                     break;

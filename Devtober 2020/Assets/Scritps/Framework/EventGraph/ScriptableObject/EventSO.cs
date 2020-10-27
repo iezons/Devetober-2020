@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DiaGraph;
 using UnityEngine.Timeline;
+using GamePlay;
 
 namespace EvtGraph
 {
@@ -12,6 +13,7 @@ namespace EvtGraph
         NPC,
         Room,
         Enemy,
+        Dialogue,
         Timeline,
         Custom
     }
@@ -50,6 +52,9 @@ namespace EvtGraph
         public List<Transform> SpawnPoint = new List<Transform>();
         public List<MoveToClass> EnemyWayPoint = new List<MoveToClass>();
 
+        public DialogueGraph Dialogue_Graph;
+        public RoomTracker Dialogue_Room;
+
         public DoingWithRoom doingWithRoom = DoingWithRoom.None;
 
         public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
@@ -81,8 +86,7 @@ namespace EvtGraph
     public class TalkingClass
     {
         public List<MoveToClass> moveToClasses;
-        //public MoveToClass MoveToClassA;
-        //public MoveToClass MoveToClassB;
+        public RoomTracker room;
         public DialogueGraph Graph;
     }
 

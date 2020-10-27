@@ -8,19 +8,26 @@ public class ControllerBased : MonoBehaviour
     #region MouseHover
     public float OutlineWidth = 3;
     public Outline outline;
+    public bool AlwaysOutline = false;
 
     public virtual void SetOutline(bool IsOutline)
     {
-        outline.SetOutline(IsOutline);
-        if(IsOutline)
+        if(outline != null && !AlwaysOutline)
         {
-            outline.OutlineWidth = OutlineWidth;
+            outline.SetOutline(IsOutline);
+            if (IsOutline)
+            {
+                outline.OutlineWidth = OutlineWidth;
+            }
+            else
+            {
+                outline.OutlineWidth = 0;
+            }
         }
-        else
+        else if(AlwaysOutline)
         {
-            outline.OutlineWidth = 0;
+            outline.SetOutline(true);
         }
-        
     }
     #endregion
 

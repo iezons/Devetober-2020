@@ -45,6 +45,7 @@ namespace EvtGraph
 
 
             //Condition SO
+            EditorGUILayout.LabelField("Condition: ");
             //--Number Display
             GUILayout.BeginHorizontal();
             con_index = EditorGUILayout.IntField(eventNode.CurrentEditingConNum + 1) - 1;
@@ -52,13 +53,13 @@ namespace EvtGraph
             GUILayout.EndHorizontal();
             //--Add Button
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Add"))
+            if (GUILayout.Button("+"))
             {
                 eventNode.conditionSOs.Insert(con_index + 1, new ConditionSO());
                 con_index++;
             }
             //--Remove Button
-            if (GUILayout.Button("Remove"))
+            if (GUILayout.Button("-"))
             {
                 if (con_index >= 0 && con_index < eventNode.conditionSOs.Count)
                 {
@@ -80,15 +81,15 @@ namespace EvtGraph
                     }
                 }
             }
-            GUILayout.EndHorizontal();
+            
             //--Previous Next Button
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Previous") && con_index - 1 >= 0)
+           
+            if (GUILayout.Button("←") && con_index - 1 >= 0)
             {
                 con_index--;
             }
 
-            if (GUILayout.Button("Next") && con_index + 1 <= eventNode.conditionSOs.Count - 1)
+            if (GUILayout.Button("→") && con_index + 1 <= eventNode.conditionSOs.Count - 1)
             {
                 con_index++;
             }
@@ -184,6 +185,7 @@ namespace EvtGraph
             EditorGUILayout.Space(5);
 
             //--Event SO
+            EditorGUILayout.LabelField("Event: ");
             //--Number Display
             GUILayout.BeginHorizontal();
             evt_index = EditorGUILayout.IntField(eventNode.CurrentEditingSONum + 1) - 1;
@@ -191,13 +193,13 @@ namespace EvtGraph
             GUILayout.EndHorizontal();
             //--Add Button
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Add"))
+            if (GUILayout.Button("+"))
             {
                 eventNode.eventSO.Insert(evt_index + 1, new EventSO());
                 evt_index++;
             }
             //--Remove Button
-            if (GUILayout.Button("Remove"))
+            if (GUILayout.Button("-"))
             {
                 if(evt_index >= 0 && evt_index < eventNode.eventSO.Count)
                 {
@@ -219,15 +221,15 @@ namespace EvtGraph
                     }
                 }
             }
-            GUILayout.EndHorizontal();
+            
             //--Previous Next Button
-            GUILayout.BeginHorizontal();
-            if(GUILayout.Button("Previous") && evt_index - 1 >= 0)
+            
+            if(GUILayout.Button("←") && evt_index - 1 >= 0)
             {
                 evt_index--;
             }
 
-            if (GUILayout.Button("Next") && evt_index + 1 <= eventNode.eventSO.Count - 1)
+            if (GUILayout.Button("→") && evt_index + 1 <= eventNode.eventSO.Count - 1)
             {
                 evt_index++;
             }
@@ -275,6 +277,10 @@ namespace EvtGraph
                         break;
                     case DoingWith.Room:
                         NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWithRoom"));
+                        break;
+                    case DoingWith.Dialogue:
+                        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("Dialogue_Graph"));
+                        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("Dialogue_Room"));
                         break;
                     case DoingWith.Enemy:
                         NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWithEnemy"));
