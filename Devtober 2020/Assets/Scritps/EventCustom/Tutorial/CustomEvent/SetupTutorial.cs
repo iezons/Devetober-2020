@@ -1,18 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EvtGraph;
 
-public class SetupTutorial : MonoBehaviour
+public class SetupTutorial : EventScriptInterface
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void DoEvent(object obj)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //base.DoEvent(obj);
+        //这里Setup场景
     }
 }

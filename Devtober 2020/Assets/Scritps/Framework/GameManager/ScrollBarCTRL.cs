@@ -28,7 +28,7 @@ public class ScrollBarCTRL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (scrollbar.value == 0)
+        if (scrollbar.value <= 0.07f)
         {
             KeepLowest = true;
         }
