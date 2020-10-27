@@ -26409,7 +26409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749146, y: 0}
+  m_AnchoredPosition: {x: 87.749405, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -41807,7 +41807,7 @@ MonoBehaviour:
     CarryItem: 0
     healAmount: 0
     isStruggling: 0
-  detectRay: 5
+  detectRay: 10
   alertRadius: 10
   bannedRadius: 2
   needDodged:
