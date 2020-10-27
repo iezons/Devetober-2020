@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5109,6 +5109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -5432,6 +5433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -9046,7 +9048,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9203209
+  m_Size: 0.9999804
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10438,6 +10440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 15
@@ -11317,6 +11320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -12360,6 +12364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -13977,6 +13982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 15
@@ -14806,6 +14812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -14906,6 +14913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15006,6 +15014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15106,6 +15115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15206,6 +15216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15323,6 +15334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15423,6 +15435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15523,6 +15536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15629,6 +15643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15729,6 +15744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15847,6 +15863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15947,6 +15964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16047,6 +16065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16147,6 +16166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16247,6 +16267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16347,6 +16368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16631,6 +16653,8 @@ MonoBehaviour:
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
     CustomCode: []
     timelines: []
@@ -24732,6 +24756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -26775,6 +26800,8 @@ MonoBehaviour:
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
     CustomCode: []
     timelines: []
@@ -26849,7 +26876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 86.05645, y: 0}
+  m_AnchoredPosition: {x: 87.7497, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -30246,6 +30273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -31471,6 +31499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 11
@@ -31935,6 +31964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 15
@@ -32166,6 +32196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 10
@@ -34305,6 +34336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   status:
@@ -37695,6 +37727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 7
@@ -44157,6 +44190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -44306,11 +44340,14 @@ MonoBehaviour:
     - moveToClasses:
       - NPC: {fileID: 0}
         MoveTO: {fileID: 0}
+      room: {fileID: 0}
       Graph: {fileID: 0}
     NPCWayPoint: []
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
     CustomCode: []
     timelines: []

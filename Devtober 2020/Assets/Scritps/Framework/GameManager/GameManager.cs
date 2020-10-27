@@ -52,7 +52,7 @@ public class GameManager : SingletonBase<GameManager>
     bool justEnterEventTrigger = true;
 
     [Header("EventConditionalCache")]
-    Dictionary<string, List<EventTrigger>> WaitingEvent = new Dictionary<string, List<EventTrigger>>();
+    Dictionary<string, List<EvtGraph.EventTrigger>> WaitingEvent = new Dictionary<string, List<EvtGraph.EventTrigger>>();
     Dictionary<string, List<CustomCondition>> customConditions = new Dictionary<string, List<CustomCondition>>();
     List<EventNode> ConditionalWaitingNode = new List<EventNode>();
     bool justEnterCondition = true;
@@ -113,6 +113,7 @@ public class GameManager : SingletonBase<GameManager>
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
         EventCenter.GetInstance().AddEventListener<EnemyController>("GM.Enemy.Add", EnemyAdd);
+        RightClickMenuPanel.gameObject.SetActive(false);
     }
 
     void Start()
@@ -302,6 +303,11 @@ public class GameManager : SingletonBase<GameManager>
         {
             EventCenter.GetInstance().EventTriggered("TU_TurnRightCheck", "TU_TurnRightCheck");
         }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EventCenter.GetInstance().EventTriggered("TU_RightclickOnInfo", "TU_RightclickOnInfo");
+        }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -377,7 +383,7 @@ public class GameManager : SingletonBase<GameManager>
                 {
                     justEnter = false;
                 }
-                if(!TriggerEvent())
+                if(TriggerEvent())
                 {
                     GoToState(GameManagerState.PAUSED);
                 }
@@ -421,6 +427,7 @@ public class GameManager : SingletonBase<GameManager>
             Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
+                Debug.Log("Ray");
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 GameObject gameObj = hitInfo.collider.gameObject;
                 gameObj.TryGetComponent(out ControllerBased based);
@@ -458,26 +465,22 @@ public class GameManager : SingletonBase<GameManager>
                     }
                 }
             }
-            //UI 位置适配
-            RightClickMenuPanel.position = new Vector3(MousePos.x, MousePos.y, 0);
-            if (Canvas.rect.width - (RightClickMenuPanel.position.x + RightClickMenuPanel.rect.width) >= 0)
-            {
-                RightClickMenuPanel.pivot = new Vector2(0, RightClickMenuPanel.pivot.y);
-            }
             else
             {
-                RightClickMenuPanel.pivot = new Vector2(1, RightClickMenuPanel.pivot.y);
+                RightClickMenuPanel.gameObject.SetActive(false);
             }
-
-            if (Canvas.rect.height - ((Canvas.rect.height - RightClickMenuPanel.position.y) + RightClickMenuPanel.rect.height) >= 0)
+            //UI Position Fix
+            float RCx = Input.mousePosition.x - Canvas.rect.width / 2;
+            float RCy = Input.mousePosition.y - Canvas.rect.height / 2;
+            if(RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
             {
-                RightClickMenuPanel.pivot = new Vector2(RightClickMenuPanel.pivot.x, 1);
+                RCx -= RightClickMenuPanel.rect.width;
             }
-            else
+            else if(RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
             {
-                RightClickMenuPanel.pivot = new Vector2(RightClickMenuPanel.pivot.x, 0);
+                RCy += RightClickMenuPanel.rect.height;
             }
-            RightClickMenuPanel.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -564,8 +567,9 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
 
-            if(Input.anyKeyDown && !Input.GetMouseButtonDown(0))
+            if(Input.anyKeyDown && !Input.GetKeyDown(MoveLeft) && !Input.GetKeyDown(MoveRight) && !Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Waiting disable");
                 //ChangeDefaultCursor
                 IsWaitingForClickObj = false;
             }
@@ -603,7 +607,17 @@ public class GameManager : SingletonBase<GameManager>
 
     void SetupScene()
     {
-        
+        //if(UnityEngine.Screen.width / UnityEngine.Screen.height != 16 / 9)
+        //{
+        //    if(UnityEngine.Screen.width >= UnityEngine.Screen.height)
+        //    {
+        //        UnityEngine.Screen.SetResolution(UnityEngine.Screen.width, UnityEngine.Screen.width / 16 * 9, true);
+        //    }
+        //    else
+        //    {
+        //        UnityEngine.Screen.SetResolution(UnityEngine.Screen.height / 9 * 16, UnityEngine.Screen.height, true);
+        //    }
+        //}
     }
 
     void GoToState(GameManagerState next)
@@ -832,11 +846,11 @@ public class GameManager : SingletonBase<GameManager>
                                 {
                                     if(!WaitingEvent.ContainsKey(cur.GUID))
                                     {
-                                        WaitingEvent.Add(cur.GUID, new List<EventTrigger>() { new EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName } });
+                                        WaitingEvent.Add(cur.GUID, new List<EvtGraph.EventTrigger>() { new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName } });
                                     }
                                     else
                                     {
-                                        WaitingEvent[cur.GUID].Add(new EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
+                                        WaitingEvent[cur.GUID].Add(new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
                                     }
                                 }
                             }

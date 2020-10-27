@@ -33,6 +33,7 @@ public class SwitchPos : Interact_SO
 
     public override void NPCInteract(int InteractWay = 0)
     {
+        Debug.Log("Switch Interacted");
         if(door != null)
         {
             door.SwtichStates(new DefaultValueWithGO { DefaultValue = true, GO = null });

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "(Theologian): You look good,\u2026"
+  m_Name: "Vortigernus Balbus: You look good,\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 536, y: 120}
+  position: {x: 1784, y: -248}
   ports:
     keys:
     - Input
@@ -25,7 +25,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 798332061208842029}
+        node: {fileID: -7059411884220849437}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -35,12 +35,15 @@ MonoBehaviour:
       _node: {fileID: -9063002128706711358}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: -5879757338768306823}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: (Theologian)
+  TalkingPerson: Vortigernus Balbus
   Dialogue:
   - You look good, <w>servant of god.
   curIndex: 0
@@ -58,7 +61,7 @@ MonoBehaviour:
   m_Name: ":  <sp=60>------\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -360, y: -280}
+  position: {x: -360, y: -440}
   ports:
     keys:
     - Input
@@ -157,6 +160,56 @@ MonoBehaviour:
   - waitingFor: 1
     WaitSeconds: 0
     Event: TU_TurnRightCheck
+--- !u!114 &-7059411884220849437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: ": [Self checking\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1382.0808, y: -235.7724}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -7059411884220849437}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 7655482696754675492}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -7059411884220849437}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -9063002128706711358}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: 
+  Dialogue:
+  - '[Self checking process <w><color=#00FF00>finished</color>]
+
+    <sp=60>-----------------------</sp>'
+  curIndex: 0
+  IsMax: 1
 --- !u!114 &-6707249234351898109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +256,57 @@ MonoBehaviour:
   TalkingPerson: 
   Dialogue:
   - <mark=#00CED180>[Unreconized Data]</mark><e=TU_ShowCamera>
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-5879757338768306823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Vortigernus: I will guide y\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1784, y: 40}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -5879757338768306823}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -9063002128706711358}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -5879757338768306823}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 1769059583887799055}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Vortigernus
+  Dialogue:
+  - 'I will guide you toward to <mark=#00CED180>Serena''s core. </mark>
+
+    <sp=100><mark=#00CED180>[Directed
+    to A9-1 Cruiser]</mark></sp>'
   curIndex: 0
   IsMax: 1
 --- !u!114 &-4543516648084809628
@@ -409,6 +513,10 @@ MonoBehaviour:
   - {fileID: -1274000538394031593}
   - {fileID: 8974725209297846666}
   - {fileID: -9063002128706711358}
+  - {fileID: -5879757338768306823}
+  - {fileID: 1769059583887799055}
+  - {fileID: 7655482696754675492}
+  - {fileID: -7059411884220849437}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
@@ -453,7 +561,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -9063002128706711358}
+        node: {fileID: 7655482696754675492}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -462,9 +570,52 @@ MonoBehaviour:
   TalkingPerson: 
   Dialogue:
   - "[\u221AInformation check]"
-  - '[Self checking process <w><color=#00FF00>finished</color>]
-
-    <sp=60>-----------------------</sp>'
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &1769059583887799055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Vortigernus: These two maes\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1784, y: 328}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 1769059583887799055}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -5879757338768306823}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 1769059583887799055}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Vortigernus
+  Dialogue:
+  - 'These two maesters are working on that. '
+  - 'But it will take some time. '
   curIndex: 0
   IsMax: 1
 --- !u!114 &2188258175194958830
@@ -620,6 +771,59 @@ MonoBehaviour:
   Dialogue:
   - "[\u221ATurn left check]\n<w>[Check camera mobility to right]"
   - '[<e=TU_UnlockCameraToRight>Hold D to check]'
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &7655482696754675492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: ": [<sp=60>Auto d\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 952, y: -280}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 7655482696754675492}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 798332061208842029}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 7655482696754675492}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -7059411884220849437}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: 
+  Dialogue:
+  - '[<sp=60>Auto debugging]'
+  - '[Days since last start:<w> 39,426d 14h 26m 17s]'
+  - '[Current ship:<w> A9-1 Cruiser]'
+  - '[Flight control module:<w> offline]'
+  - '[Number of online decks:<w> 0]'
+  - '[State of War:<w> Unknown]</sp>'
   curIndex: 0
   IsMax: 1
 --- !u!114 &8251310112438953101

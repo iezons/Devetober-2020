@@ -301,7 +301,7 @@ public class NpcController : ControllerBased
         }
         if(currentRoomTracker != null)
         {
-            Debug.Log(m_fsm.GetCurrentState());
+            //Debug.Log(m_fsm.GetCurrentState());
         }
 
     }
@@ -953,8 +953,10 @@ public class NpcController : ControllerBased
 
     public void InteractMoment()
     {
-        if (CurrentInteractItem != null)
+        Debug.Log("InteractMoment");
+        if (CurrentInteractObject != null)
         {
+            Debug.Log("Interact");
             CurrentInteractObject.NPCInteract(0);
         }
     }
@@ -1204,10 +1206,8 @@ public class NpcController : ControllerBased
                 animator.Play("Sitting Off Chair");
                 break;
             case Interact_SO.InteractType.Terminal:
-                animator.Play("GetOutTerminal", 0);
                 break;
             case Interact_SO.InteractType.Switch:
-                animator.Play("GetOutSwtich", 0);
                 break;
             default:
                 break;
@@ -1275,6 +1275,10 @@ public class NpcController : ControllerBased
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     break;
                 case Interact_SO.InteractType.Switch:
+                    for (int i = 0; i < CurrentInteractObject.Locators.Count; i++)
+                    {
+                        CurrentInteractObject.Locators[i].npc = null;
+                    }
                     break;
                 default:
                     break;
