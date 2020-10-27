@@ -84,7 +84,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: -7466090415035023028}
+        node: {fileID: 6336284339205136785}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -232,54 +232,6 @@ MonoBehaviour:
   - waitingFor: 0
     WaitSeconds: 0
     Event: 
---- !u!114 &-7466090415035023028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: 'Castor: What is that'
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -1192, y: 472}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -7466090415035023028}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: WaitingOption 0
-        node: {fileID: 2173435720101496499}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -7466090415035023028}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -9175870815887947532}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Castor
-  Dialogue:
-  - What is that
-  curIndex: 0
-  IsMax: 1
 --- !u!114 &-5916789398103362536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,8 +449,6 @@ MonoBehaviour:
   nodes:
   - {fileID: 2730220204926302256}
   - {fileID: 6336284339205136785}
-  - {fileID: 2173435720101496499}
-  - {fileID: -7466090415035023028}
   - {fileID: -9175870815887947532}
   - {fileID: -5916789398103362536}
   - {fileID: -2178788601958241497}
@@ -516,6 +466,7 @@ MonoBehaviour:
   - {fileID: -3102464601362426106}
   - {fileID: 3032139555282577533}
   - {fileID: 504253450824881646}
+  - {fileID: 391928562345866664}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
@@ -523,6 +474,51 @@ MonoBehaviour:
   current: {fileID: 2730220204926302256}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
+--- !u!114 &391928562345866664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: 'Vortigernus: AHHHHHH'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1398.3003, y: 1339.5997}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 391928562345866664}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 3032139555282577533}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 391928562345866664}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Vortigernus
+  Dialogue:
+  - AHHHHHH
+  curIndex: 0
+  IsMax: 1
 --- !u!114 &504253450824881646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,64 +635,6 @@ MonoBehaviour:
   - waitingFor: 1
     WaitSeconds: 0
     Event: TU_DialogueNext6
---- !u!114 &2173435720101496499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: "Waiting for:TU\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -1176, y: 232}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: 2173435720101496499}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 6336284339205136785}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: 2173435720101496499}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: 2173435720101496499}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -7466090415035023028}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  WaitingOption:
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: TU_DialogueNext2
 --- !u!114 &2667163200017285794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,7 +693,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1ff0e372f025b4a8f1f45c5ac9daf4, type: 3}
-  m_Name: 'Start: English'
+  m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -1432, y: -8}
@@ -811,7 +749,10 @@ MonoBehaviour:
       _node: {fileID: 3032139555282577533}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 391928562345866664}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
@@ -954,7 +895,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 2173435720101496499}
+        node: {fileID: -9175870815887947532}
         reroutePoints: []
       _direction: 1
       _connectionType: 1

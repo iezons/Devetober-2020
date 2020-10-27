@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GraphBase;
+using System.Security.Permissions;
 
 namespace DiaGraph
 {
@@ -54,6 +55,11 @@ namespace DiaGraph
                 return opt;
             }
 
+            WaitingNode wat = node as WaitingNode;
+            if(wat != null)
+            {
+                return wat;
+            }
             FinishDia();
             Debug.LogWarning("Start Node isn't connected");
             return this;

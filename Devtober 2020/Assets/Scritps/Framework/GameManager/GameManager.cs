@@ -5,14 +5,12 @@ using EvtGraph;
 using DiaGraph;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using GamePlay;
 using UnityEngine.EventSystems;
-using System;
 using System.Linq;
-using UnityEngine.AI;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using System;
 
 public class DefaultValueWithGO
 {
@@ -80,6 +78,9 @@ public class GameManager : SingletonBase<GameManager>
     public bool IsWaitingForClickObj = false;
     public ControllerBased LastCB = null;
     public LayerMask RightClickLayermask = 0;
+    public Texture2D DefaultCursor;
+    public Texture2D InteractCursor;
+    public TMP_Text InteractText;
     [SerializeField]
     RectTransform RightClickMenuPanel = null;
     [SerializeField]
@@ -96,11 +97,16 @@ public class GameManager : SingletonBase<GameManager>
     GameObject NPCListBtn = null;
     List<GameObject> NPCListButtons = new List<GameObject>();
 
-    [Header("Camera Button List")]
+    [Header("Camera")]
     public Camera MainCamera;
     public Texture VHSTexture;
     public Transform CameraButtonListPanel;
     public GameObject CameraButton;
+    public TMP_Text CameraName;
+    public TMP_Text TimeText;
+    [Tooltip("x: hours  y: minutes z: seconds")]
+    public Vector3 StartTime;
+    float currentSeconds;
 
     [Header("Timeline Playing")]
     public PlayableDirector Director;
@@ -114,6 +120,7 @@ public class GameManager : SingletonBase<GameManager>
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
         EventCenter.GetInstance().AddEventListener<EnemyController>("GM.Enemy.Add", EnemyAdd);
         RightClickMenuPanel.gameObject.SetActive(false);
+        currentSeconds = StartTime.x * 3600 + StartTime.y * 60 + StartTime.z;
     }
 
     void Start()
@@ -134,6 +141,15 @@ public class GameManager : SingletonBase<GameManager>
             if (Rooms[i].gameObject.name == RoomName)
             {
                 Rooms[i].cameraLists[CameraIndex].roomCamera.gameObject.SetActive(true);
+                if(Rooms[i].cameraLists.Count > 1)
+                {
+                    CameraName.text = Rooms[i].RoomName() + " " + (CameraIndex + 1).ToString();
+                }
+                else
+                {
+                    CameraName.text = Rooms[i].RoomName();
+                }
+                
                 Rooms[i].CurrentCameraIndex = CameraIndex;
                 CurrentRoom = Rooms[i];
             }
@@ -420,6 +436,8 @@ public class GameManager : SingletonBase<GameManager>
             DoWithLayer = RightClickLayermask;
         }
 
+        bool IsSetCursor = false;
+
         //Right Click Menu
         if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
@@ -427,7 +445,6 @@ public class GameManager : SingletonBase<GameManager>
             Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
             {
-                Debug.Log("Ray");
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 GameObject gameObj = hitInfo.collider.gameObject;
                 gameObj.TryGetComponent(out ControllerBased based);
@@ -471,7 +488,7 @@ public class GameManager : SingletonBase<GameManager>
             }
             //UI Position Fix
             float RCx = Input.mousePosition.x - Canvas.rect.width / 2;
-            float RCy = Input.mousePosition.y - Canvas.rect.height / 2;
+            float RCy = Input.mousePosition.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
             if(RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
             {
                 RCx -= RightClickMenuPanel.rect.width;
@@ -509,6 +526,7 @@ public class GameManager : SingletonBase<GameManager>
         if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
         {
             Debug.DrawLine(ray_outline.origin, hitInfomation.point);
+            IsSetCursor = true;
             ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
             if (LastCB != null && curCB != null)
             {
@@ -516,7 +534,11 @@ public class GameManager : SingletonBase<GameManager>
                 {
                     LastCB.SetOutline(false);
                     if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                    {
+                        Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
+                        IsSetCursor = true;
                         curCB.SetOutline(true);
+                    }
                     LastCB = curCB;
                 }
             }
@@ -525,7 +547,11 @@ public class GameManager : SingletonBase<GameManager>
                 if(curCB != null)
                 {
                     if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                    {
+                        Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
+                        IsSetCursor = true;
                         curCB.SetOutline(true);
+                    }  
                     LastCB = curCB;
                 }
             }
@@ -539,8 +565,15 @@ public class GameManager : SingletonBase<GameManager>
             }
         }
         
+        if(!IsSetCursor)
+        {
+            Cursor.SetCursor(DefaultCursor, new Vector2(0, 0), CursorMode.Auto);
+        }
+
         if(IsWaitingForClickObj)
         {
+            InteractText.gameObject.SetActive(true);
+            InteractText.text = "Waiting for: <color=#00FF00>" + RightClickMs.functionName + "</color>";
             //ChangeWaitingCursor
             Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
@@ -573,13 +606,35 @@ public class GameManager : SingletonBase<GameManager>
                 //ChangeDefaultCursor
                 IsWaitingForClickObj = false;
             }
-            //CursorOnGround.transform.position = hitInfo.point;
         }
         else
         {
-            //CursorOnGround.SetActive(false);
+            InteractText.gameObject.SetActive(false);
         }
         #endregion
+
+        #region DisplayTimeText
+        if (currentSeconds + Time.deltaTime >= 86400)
+        {
+            currentSeconds -= 86400;
+        }
+        currentSeconds += Time.deltaTime;
+        int SecondTime = (int)Mathf.Floor(currentSeconds);
+        int Hours = (int)Mathf.Floor(SecondTime / 3600);
+        int Minutes = (int)Mathf.Floor((SecondTime - Hours * 3600) / 60);
+        int Seconds = (int)Mathf.Floor((SecondTime - Hours * 3600 - Minutes * 60));
+        string H = ReverseString((ReverseString(Hours.ToString()) + "00").Substring(0, 2));
+        string M = ReverseString((ReverseString(Minutes.ToString()) + "00").Substring(0, 2));
+        string S = ReverseString((ReverseString(Seconds.ToString()) + "00").Substring(0, 2));
+        TimeText.text = H + ":" + M + ":" + S;
+        #endregion
+    }
+
+    string ReverseString(string str)
+    {
+        char[] cha = str.ToCharArray();
+        Array.Reverse(cha);
+        return new string(cha);
     }
 
     void SetupRightClickMenu(List<RightClickMenus> menus)
@@ -607,17 +662,17 @@ public class GameManager : SingletonBase<GameManager>
 
     void SetupScene()
     {
-        //if(UnityEngine.Screen.width / UnityEngine.Screen.height != 16 / 9)
-        //{
-        //    if(UnityEngine.Screen.width >= UnityEngine.Screen.height)
-        //    {
-        //        UnityEngine.Screen.SetResolution(UnityEngine.Screen.width, UnityEngine.Screen.width / 16 * 9, true);
-        //    }
-        //    else
-        //    {
-        //        UnityEngine.Screen.SetResolution(UnityEngine.Screen.height / 9 * 16, UnityEngine.Screen.height, true);
-        //    }
-        //}
+        if (UnityEngine.Screen.width / UnityEngine.Screen.height != 16 / 9)
+        {
+            if (UnityEngine.Screen.width >= UnityEngine.Screen.height)
+            {
+                UnityEngine.Screen.SetResolution(UnityEngine.Screen.width, UnityEngine.Screen.width / 16 * 9, true);
+            }
+            else
+            {
+                UnityEngine.Screen.SetResolution(UnityEngine.Screen.height / 9 * 16, UnityEngine.Screen.height, true);
+            }
+        }
     }
 
     void GoToState(GameManagerState next)
@@ -944,6 +999,7 @@ public class GameManager : SingletonBase<GameManager>
         EventNode cur = TriggeringEventNode;
         if (cur != null)
         {
+            bool isAllFinished = false;
             List<EventSO> eventSO = cur.eventSO;
             for (int i = 0; i < eventSO.Count; i++)
             {

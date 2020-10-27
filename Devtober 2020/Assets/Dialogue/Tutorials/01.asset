@@ -160,6 +160,62 @@ MonoBehaviour:
   - waitingFor: 1
     WaitSeconds: 0
     Event: TU_TurnRightCheck
+--- !u!114 &-7588340187148349264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b329bd0343160746993a35180aff24c, type: 3}
+  m_Name: 'Option: I can hear you'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -840, y: 136}
+  ports:
+    keys:
+    - Input
+    - Option
+    - Option 0
+    values:
+    - _fieldName: Input
+      _node: {fileID: -7588340187148349264}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -4543516648084809628}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Option
+      _node: {fileID: -7588340187148349264}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.OptionClass,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Option 0
+      _node: {fileID: -7588340187148349264}
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 8386150322659946567}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  Option:
+  - Text: I can hear you
 --- !u!114 &-7059411884220849437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +402,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 8386150322659946567}
+        node: {fileID: -7588340187148349264}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -401,7 +457,7 @@ MonoBehaviour:
   m_Name: ": <mark=#00CED18\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -840, y: 408}
+  position: {x: -840, y: 696}
   ports:
     keys:
     - Input
@@ -517,6 +573,7 @@ MonoBehaviour:
   - {fileID: 1769059583887799055}
   - {fileID: 7655482696754675492}
   - {fileID: -7059411884220849437}
+  - {fileID: -7588340187148349264}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
@@ -887,7 +944,7 @@ MonoBehaviour:
   m_Name: "Unidentity: Start process<\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -840, y: 120}
+  position: {x: -840, y: 408}
   ports:
     keys:
     - Input
@@ -898,8 +955,8 @@ MonoBehaviour:
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: Output
-        node: {fileID: -4543516648084809628}
+      - fieldName: Option 0
+        node: {fileID: -7588340187148349264}
         reroutePoints: []
       _direction: 0
       _connectionType: 0

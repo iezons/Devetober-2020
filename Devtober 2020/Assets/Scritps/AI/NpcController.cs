@@ -1004,7 +1004,7 @@ public class NpcController : ControllerBased
 
     public void InteractMoment()
     {
-        if (CurrentInteractItem != null)
+        if (CurrentInteractObject != null)
         {
             CurrentInteractObject.NPCInteract(0);
         }
@@ -1315,6 +1315,7 @@ public class NpcController : ControllerBased
                     break;
                 case Interact_SO.InteractType.Bed:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    locatorList = null;
                     break;
                 case Interact_SO.InteractType.Chair:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
@@ -1326,6 +1327,10 @@ public class NpcController : ControllerBased
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     break;
                 case Interact_SO.InteractType.Switch:
+                    for (int i = 0; i < CurrentInteractObject.Locators.Count; i++)
+                    {
+                        CurrentInteractObject.Locators[i].npc = null;
+                    }
                     break;
                 default:
                     break;

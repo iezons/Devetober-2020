@@ -20,4 +20,9 @@ public class TutorialEventHolder : MonoBehaviour
     {
         
     }
+
+    public void EventTrigger(string EventName)
+    {
+        EventCenter.GetInstance().EventTriggered(EventName, EventName);
+    }
 }
