@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5080,6 +5080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -5385,6 +5386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -7132,8 +7134,8 @@ RectTransform:
   m_Father: {fileID: 1627242056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8994,7 +8996,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10322,6 +10324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 15
@@ -11201,6 +11204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -12244,6 +12248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -13857,6 +13862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 15
@@ -14686,6 +14692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -14786,6 +14793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -14886,6 +14894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -14986,6 +14995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15086,6 +15096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15203,6 +15214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15303,6 +15315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15403,6 +15416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15509,6 +15523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15609,6 +15624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15727,6 +15743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15827,6 +15844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -15927,6 +15945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16027,6 +16046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16127,6 +16147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16227,6 +16248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -16511,6 +16533,8 @@ MonoBehaviour:
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
     CustomCode: []
     timelines: []
@@ -23761,6 +23785,7 @@ MonoBehaviour:
   CurrentRoom: {fileID: 0}
   NPC: []
   Enemy: []
+  Screen: {fileID: 0}
   RightClickMs:
     unchangedName: 
     functionName: 
@@ -23779,8 +23804,12 @@ MonoBehaviour:
   Canvas: {fileID: 995099843}
   NPCListPanel: {fileID: 732592358}
   NPCListBtn: {fileID: 7162329537241489045, guid: e05afe1d5d108c249bad4aa5e335f888, type: 3}
+  MainCamera: {fileID: 0}
+  VHSTexture: {fileID: 0}
   CameraButtonListPanel: {fileID: 956292794}
   CameraButton: {fileID: 5230421232003243325, guid: dcc4d4b448f6c7445a64aa1bc0426fdb, type: 3}
+  Director: {fileID: 0}
+  timeline: {fileID: 0}
 --- !u!4 &1166111226
 Transform:
   m_ObjectHideFlags: 0
@@ -24607,6 +24636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -26650,6 +26680,8 @@ MonoBehaviour:
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
     CustomCode: []
     timelines: []
@@ -30121,6 +30153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   cameraLists:
@@ -31346,6 +31379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 11
@@ -31810,6 +31844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 15
@@ -32041,6 +32076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   discoverRadius: 10
@@ -37288,6 +37324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 7
@@ -42676,96 +42713,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
   m_PrefabInstance: {fileID: 2048486228}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486232 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8730943313339427192, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486233 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4274609962903339158, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486234 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 289259903856204890, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486235 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -5536357494701933125, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486236 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -7697184795617211537, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486237 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -6887510512052266520, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486238 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5257950236497360527, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486239 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4141738214175360064, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486240 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3567408931093659381, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2915736572639088439, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486242 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -1906626392801049578, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486243 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -5628542856072293122, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486244 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5302455179255257217, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486245 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 667709494677665620, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486246 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -5886734714887272230, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486247 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4167280743394806330, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486248 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3559198505023846410, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2048486249 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 885284574531928182, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
-  m_PrefabInstance: {fileID: 2048486228}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2048486250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42778,31 +42725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 2048486247}
-  - {fileID: 2048486242}
-  - {fileID: 2048486244}
-  - {fileID: 2048486243}
-  - {fileID: 2048486248}
-  - {fileID: 2048486241}
-  - {fileID: 2048486240}
-  - {fileID: 2048486239}
-  - {fileID: 2048486249}
-  - {fileID: 2048486236}
-  - {fileID: 2048486235}
-  - {fileID: 2048486234}
-  - {fileID: 2048486246}
-  - {fileID: 2048486238}
-  - {fileID: 2048486237}
-  - {fileID: 2048486245}
-  - {fileID: 2048486233}
-  - {fileID: 2048486232}
 --- !u!1001 &2049808188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43863,6 +43785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   type: 1
@@ -44012,11 +43935,14 @@ MonoBehaviour:
     - moveToClasses:
       - NPC: {fileID: 0}
         MoveTO: {fileID: 0}
+      room: {fileID: 0}
       Graph: {fileID: 0}
     NPCWayPoint: []
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
     CustomCode: []
     timelines: []
