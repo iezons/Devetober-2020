@@ -15,6 +15,7 @@ public class ServerInteract : Interact_SO
         type = InteractType.TU_Server;
         outline = GetComponent<Outline>();
         IsInteracting = true;
+        AddMenu("SendToNextLevel", "Interact", false, SendToNextLevel);
     }
 
     // Start is called before the first frame update
@@ -26,31 +27,34 @@ public class ServerInteract : Interact_SO
     // Update is called once per frame
     void Update()
     {
-        IsInteracting = !Online;
-
-        Color temp = outline.OutlineColor;
         if (Flashing)
         {
-            outline.OutlineWidth = OutlineWidth;
-            if(outline.OutlineColor.a <= 0.001f)
+            AlwaysOutline = true;
+            SetOutline(true);
+            if(outline.OutlineWidth - Time.deltaTime <= 0f)
                 IsIncreaseing = true;
-            else if (outline.OutlineColor.a >= 0.999f)
+            else if (outline.OutlineWidth + Time.deltaTime >= OutlineWidth)
                 IsIncreaseing = false;
 
             if(IsIncreaseing)
             {
-                temp = new Color(temp.r, temp.g, temp.b, temp.a + Time.deltaTime * FlashingSpeed);
+                outline.OutlineWidth += Time.deltaTime * FlashingSpeed;
             }
             else
             {
-                temp = new Color(temp.r, temp.g, temp.b, temp.a - Time.deltaTime * FlashingSpeed);
+                outline.OutlineWidth -= Time.deltaTime * FlashingSpeed;
             }
         }
     }
 
-    public void SetOnline(bool Set)
+    void SendToNextLevel(object obj)
     {
-        Online = Set;
+
+    }
+
+    public void SetInteract(bool Set)
+    {
+        IsInteracting = Set;
     }
 
     public void SetFlashing(bool Set)

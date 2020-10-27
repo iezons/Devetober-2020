@@ -23,7 +23,7 @@ public class Interact_SO : ControllerBased
         Switch,
         Storage,
         CBoard,
-        TU_Server
+        TU_Server,
     }
 
     public InteractType type;
