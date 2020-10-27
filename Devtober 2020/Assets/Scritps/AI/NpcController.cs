@@ -102,11 +102,7 @@ public class NpcController : ControllerBased
     [HideInInspector]
     public Vector3 currentTerminalPos;
 
-    Transform finalHidingPos;
-    Transform finalEscapingPos;
-
     List<RoomTracker> roomScripts = new List<RoomTracker>();
-    List<GameObject> hiddenSpots = new List<GameObject>();
     List<GameObject> rooms = new List<GameObject>();
     public List<Transform> wayPoints = new List<Transform>();
 
@@ -140,8 +136,6 @@ public class NpcController : ControllerBased
     float VelocityPosX;
     float VelocityPosZ;
     #endregion
-
-
 
     private void Awake()
     {
@@ -185,7 +179,8 @@ public class NpcController : ControllerBased
             | 1 << LayerMask.NameToLayer("TerminalPos")
             | 1 << LayerMask.NameToLayer("SwitchPos")
             | 1 << LayerMask.NameToLayer("Item")
-            | 1 << LayerMask.NameToLayer("CBord"));
+            | 1 << LayerMask.NameToLayer("CBord")
+            | 1 << LayerMask.NameToLayer("StoragePos"));
         #endregion
     }
 
@@ -202,18 +197,6 @@ public class NpcController : ControllerBased
         foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
         {
             roomScripts.Add(temp);
-        }
-
-        for (int i = 0; i < roomScripts.Count; i++)
-        {
-            rooms.Add(roomScripts[i].Room());
-        }
-
-
-        foreach (GameObject temp in currentRoomTracker.HiddenPos())
-        {
-            if (!hiddenSpots.Contains(temp))
-                hiddenSpots.Add(temp);
         }
     }
 
@@ -264,11 +247,9 @@ public class NpcController : ControllerBased
                 break;
             case "Hiding":
                 Hiding();
-                Dispatch(finalHidingPos.position);
                 break;
             case "Escaping":
-                Dispatch(finalEscapingPos.position);
-                CompleteEscaping();
+                Escaping();
                 break;
             case "InteractWithItem":
                 PlayGetInAnim();
@@ -294,16 +275,54 @@ public class NpcController : ControllerBased
         }
         #endregion
         //CheckEvent();
+        AddStopMenu();
         if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
         {
             StartCoroutine(MoveAcrossNavMeshLink());
             MoveAcrossNavMeshesStarted = true;
         }
-        if(currentRoomTracker != null)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(m_fsm.GetCurrentState());
+            TriggerEscaping();
         }
+    }
 
+    void AddStopMenu()
+    {
+        if (m_fsm.GetCurrentState() == "Hiding"
+    || m_fsm.GetCurrentState() == "Escaping"
+    || m_fsm.GetCurrentState() == "InteractWithItem"
+    || m_fsm.GetCurrentState() == "Healing"
+    || m_fsm.GetCurrentState() == "Fixing")
+        {
+            if (Distance() > restDistance + 2)
+            {
+                if (MenuContains("Stop") >= 0)
+                    return;
+                else
+                {
+                    InsertMenu(rightClickMenus.Count, "Stop", "Stop", false, Stop);
+                }
+            }
+        }
+        else if (MenuContains("Stop") >= 0)
+        {
+            RemoveMenu("Stop");
+        }
+    }
+
+    void Stop(object obj)
+    {
+        if (navAgent.enabled)
+        {
+            CurrentInteractObject = null;
+            RescuingTarget = null;
+            HealingTarget = null;
+            CurrentInteractItem = null;
+            fixTarget = null;
+            RemoveMenu("Stop");
+            BackToPatrol();
+        }
     }
 
     #region Move
@@ -399,7 +418,10 @@ public class NpcController : ControllerBased
     void DetectRoom()
     {
         Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
-        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+        if(hit.collider.gameObject != null)
+        {
+            currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
+        }
     }
 
     public void Dispatch(object newPos)
@@ -446,44 +468,52 @@ public class NpcController : ControllerBased
     #region Hiding
     public void TriggerHiding(object obj = null)
     {
-        RemoveAndInsertMenu("Interact", "BackToPatrol", "Leave", false, BackToPatrol);
-        navAgent.ResetPath();
-        m_fsm.ChangeState("Hiding");
+        if(navAgent.enabled != false)
+        {
+            navAgent.ResetPath();
+            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            m_fsm.ChangeState("Hiding");
+        }
     }
 
     void Hiding()
     {
-        float minDistance = Mathf.Infinity;
-        foreach (GameObject temp in hiddenSpots)
+        Vector3 Pos = Vector3.zero;
+        bool isEmpty = false;
+        foreach (GameObject temp in currentRoomTracker.HiddenPos())
         {
             HiddenPos hpos = temp.GetComponent<HiddenPos>();
-            bool isTaken = false;
+            float minDistance = Mathf.Infinity;
+
             for (int i = 0; i < hpos.Locators.Count; i++)
             {
                 if (hpos.Locators[i].npc != null)
-                {
-                    isTaken = true;
-                    break;
-                }
-            }
-            if (isTaken)
-                continue;
-            foreach (var item in hpos.Locators)
-            {
-                Transform tempTrans = item.Locator;
-                float a = tempTrans.position.x - transform.position.x;
-                float b = tempTrans.position.z - transform.position.z;
+                    continue;
+                isEmpty = true;
+                float a = hpos.Locators[i].Locator.position.x - transform.position.x;
+                float b = hpos.Locators[i].Locator.position.z - transform.position.z;
                 float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
                 float distance = Mathf.Abs(c);
 
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    hideIn = temp;
-                    hiddenPos = temp.GetComponent<HiddenPos>();
-                    finalHidingPos = tempTrans;
+                    CurrentInteractObject = hpos;
+                    Pos = hpos.Locators[i].Locator.position;
+                    locatorList = hpos.Locators[i];
                 }
             }
+        }
+        if (!isEmpty)
+        {
+            BackToPatrol();
+        }
+        Dispatch(Pos);
+        if (Distance() < restDistance || !navAgent.enabled)
+        {
+            HasInteract = false;
+            CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
+            m_fsm.ChangeState("InteractWithItem");
         }
     }
 
@@ -623,20 +653,38 @@ public class NpcController : ControllerBased
     #region Escaping
     public void TriggerEscaping()
     {
-        navAgent.ResetPath();
-
-        RaycastHit hitroom;
-        Physics.Raycast(transform.position, -transform.up, out hitroom, detectRay, (int)Mathf.Pow(2, 9));
-
-        foreach (GameObject temp in rooms)
+        if (navAgent.enabled != false)
         {
-            if (!temp.GetComponent<RoomTracker>().isEnemyDetected())
+            navAgent.ResetPath();
+            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            m_fsm.ChangeState("Escaping");
+        }
+    }
+
+    void Escaping()
+    {
+        Vector3 pos = Vector3.zero;
+        foreach (var item in roomScripts)
+        {
+            if (item.isEnemyDetected())
+                continue;
+
+            float minDistance = Mathf.Infinity;
+            foreach (var wayPoint in item.tempWayPoints)
             {
-                finalEscapingPos = temp.transform;
-                break;
+                float a = wayPoint.position.x - transform.position.x;
+                float b = wayPoint.position.z - transform.position.z;
+                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                float distance = Mathf.Abs(c);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    pos = wayPoint.position;
+                }
             }
         }
-        m_fsm.ChangeState("Escaping");
+        Dispatch(pos);
     }
 
     public void CompleteEscaping()
@@ -876,54 +924,57 @@ public class NpcController : ControllerBased
     #region Receive Call
     public void ReceiveInteractCall(object obj)
     {
-        GameObject gameObj = (GameObject)obj;
-        if (gameObj.GetComponent<Item_SO>() != null)
+        if (navAgent.enabled)
         {
-            ReceiveItemCall(gameObj);
-        }
-        else
-        {
-            Interact_SO item = gameObj.GetComponent<Interact_SO>();
-            StoragePos storge = item as StoragePos;
-            if (item != null)
+            GameObject gameObj = (GameObject)obj;
+            if (gameObj.GetComponent<Item_SO>() != null)
             {
-                Debug.Log("Receive Interact Call");
-
-                Vector3 Pos = Vector3.zero;
-                float minDistance = Mathf.Infinity;
-                bool isEmpty = false;
-                for (int i = 0; i < item.Locators.Count; i++)
-                {
-                    if (item.Locators[i].npc != null)
-                        continue;
-                    isEmpty = true;
-                    float a = item.Locators[i].Locator.position.x - transform.position.x;
-                    float b = item.Locators[i].Locator.position.z - transform.position.z;
-                    float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-                    float distance = Mathf.Abs(c);
-
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        Pos = item.Locators[i].Locator.position;
-                        locatorList = item.Locators[i];
-                    }
-                }
-                if (!isEmpty)
-                    return;
-
-                if (storge != null)
-                {
-                    IsGrabbing = false;
-                }
-
-                CurrentInteractObject = item;
-                HasInteract = false;
-                Dispatch(Pos);
-                navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
-                m_fsm.ChangeState("InteractWithItem");
+                ReceiveItemCall(gameObj);
             }
-        }
+            else
+            {
+                Interact_SO item = gameObj.GetComponent<Interact_SO>();
+                StoragePos storge = item as StoragePos;
+                if (item != null)
+                {
+                    Debug.Log("Receive Interact Call");
+
+                    Vector3 Pos = Vector3.zero;
+                    float minDistance = Mathf.Infinity;
+                    bool isEmpty = false;
+                    for (int i = 0; i < item.Locators.Count; i++)
+                    {
+                        if (item.Locators[i].npc != null)
+                            continue;
+                        isEmpty = true;
+                        float a = item.Locators[i].Locator.position.x - transform.position.x;
+                        float b = item.Locators[i].Locator.position.z - transform.position.z;
+                        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                        float distance = Mathf.Abs(c);
+
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            Pos = item.Locators[i].Locator.position;
+                            locatorList = item.Locators[i];
+                        }
+                    }
+                    if (!isEmpty)
+                        return;
+
+                    if (storge != null)
+                    {
+                        IsGrabbing = false;
+                    }
+
+                    CurrentInteractObject = item;
+                    HasInteract = false;
+                    Dispatch(Pos);
+                    navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+                    m_fsm.ChangeState("InteractWithItem");
+                }
+            }
+        }   
     }
 
     public void ReceiveItemCall(object obj)
