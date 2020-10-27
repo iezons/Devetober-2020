@@ -83,6 +83,7 @@ public class NpcController : ControllerBased
     #region Fields
     [HideInInspector]
     public StringRestrictedFiniteStateMachine m_fsm;
+    [HideInInspector]
     public Animator animator;
     NavMeshAgent navAgent;
     RoomTracker currentRoomTracker;
