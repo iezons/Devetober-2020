@@ -37,98 +37,92 @@ public class NpcController : ControllerBased
     }
 
     public Status status = null;
-
-    [SerializeField]
-    [Range(0f, 50f)]
-    public float detectRay = 0;
-
-    [SerializeField]
-    [Range(0f, 100f)]
-    float alertRadius = 0;
-
-    [SerializeField]
-    [Range(0f, 100f)]
-    float bannedRadius = 0;
-
-    [SerializeField]
-    LayerMask needDodged = 0;
-
-    [SerializeField]
-    Collider[] hitObjects = null;
-
-    [SerializeField]
-    float dodgeAngle = 0;
-
     [SerializeField]
     float boostSpeed = 0;
-
     [SerializeField]
-    LayerMask canBlocked = 0;
-
-    [SerializeField]
-    float discoverAngle = 0;
-
-    [SerializeField]
-    float restTime = 0;
-
-    [SerializeField]
-    float recoverTime = 0;
-
+    float limpingLimit = 0;
     [SerializeField]
     [Tooltip("The rest distance before reach destination. ")]
     float restDistance = 0.2f;
 
+    [Header("Visual Setting")]
     [SerializeField]
-    float limpingLimit = 0;
+    [Tooltip("The Ray to detect current Room")]
+    [Range(0f, 50f)]
+    float detectRay = 0;
 
-    public GameObject fixTarget;
+    [SerializeField]
+    [Range(0f, 100f)]
+    float alertRadius = 0;
+    [SerializeField]
+    [Range(0f, 100f)]
+    float bannedRadius = 0;
 
+    [Header("Dodging Setting")]
+    [SerializeField]
+    LayerMask needDodged = 0;
+    [SerializeField]
+    LayerMask canBlocked = 0;
+
+    [SerializeField]
+    float dodgeAngle = 0;
+
+    [Header("Rescuing Setting")]
+    [SerializeField]
+    float discoverAngle = 0;
+
+    [Header("Idle Setting")]
+    [SerializeField]
+    float restTime = 0;
+    [SerializeField]
+    float recoverTime = 0;
     #endregion
 
 
     #region Fields
+    [HideInInspector]
     public StringRestrictedFiniteStateMachine m_fsm;
     public Animator animator;
-    public NavMeshAgent navAgent;
+    NavMeshAgent navAgent;
+    RoomTracker currentRoomTracker;
     NavMeshPath path;
+    HiddenPos hiddenPos;
     #endregion
 
 
     #region Value
-    RaycastHit hit;
-    RoomTracker currentRoomTracker;
-    float recordRestTimer, recordRecoverTimer, recordSpeed;
-
     [HideInInspector]
     public Vector3 currentTerminalPos;
-
-    List<RoomTracker> roomScripts = new List<RoomTracker>();
-    List<GameObject> rooms = new List<GameObject>();
-    public List<Transform> wayPoints = new List<Transform>();
-
-    public bool isSafe = false;
-    bool MoveAcrossNavMeshesStarted;
-
-    GameObject hideIn = null;
-    HiddenPos hiddenPos;
-
     Vector3 recordColliderSize;
-    GameObject RescuingTarget, HealingTarget;
+
+    [HideInInspector]
+    public bool isSafe = false;
+    float recordRestTimer, recordRecoverTimer, recordSpeed;
+    bool MoveAcrossNavMeshesStarted;
     bool inAngle, isBlocked;
 
+    List<RoomTracker> roomScripts = new List<RoomTracker>();
+
+    [HideInInspector]
+    public GameObject fixTarget;
+    GameObject RescuingTarget, HealingTarget;
+
+    RaycastHit hit;
+    Collider[] hitObjects = null;
+    BoxCollider boxCollider;
     #endregion
 
     #region InteractWithItem
     [Header("Interact Item")]
     public float DampPosSpeed = 0.2f;
     public float DampRotSpeed = 0.2f;
-    public BoxCollider boxCollider;
 
     Interact_SO CurrentInteractObject;
     LocatorList locatorList = null;
     int GrabOutIndex;
     bool IsGrabbing = false;
 
+    [HideInInspector]
     public Item_SO CurrentInteractItem;
 
     bool HasInteract = false;
@@ -519,10 +513,9 @@ public class NpcController : ControllerBased
 
     void ResetHiddenPos()
     {
-        if (hideIn != null && hiddenPos != null)
+        if (hiddenPos != null)
         {
             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = null;
-            hideIn = null;
             hiddenPos = null;
         }
     }

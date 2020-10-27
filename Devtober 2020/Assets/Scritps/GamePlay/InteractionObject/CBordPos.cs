@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CBordPos : Interact_SO
 {
+    [HideInInspector]
     public DoorController door = null;
 
     public bool isPowerOff;

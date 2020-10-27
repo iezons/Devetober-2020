@@ -38,10 +38,14 @@ public class Interact_SO : ControllerBased
     public float maxHealth = 0;
     public float currentHealth = 0;
 
+    [HideInInspector]
     public Vector3 newColliderSize = new Vector3(2.32f, 4.501769f, 2.947044f);
+    [HideInInspector]
     public Vector3 newColliderCenter = new Vector3(5.066854e-24f, 2.218753f, -0.7540874f);
-    public Vector3 recordColliderSize;
+    [HideInInspector]
     public Vector3 recordColliderCenter;
+    [HideInInspector]
+    public Vector3 recordColliderSize;
 
     public void ApplyHealth(int healthAmount)
     {
