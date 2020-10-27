@@ -31,8 +31,9 @@ public class NpcController : ControllerBased
         public List<EventSO> toDoList;
 
         public Item_SO.ItemType CarryItem = Item_SO.ItemType.None;
+        [HideInInspector]
         public float healAmount = 0;
-
+        [HideInInspector]
         public bool isStruggling = false;
     }
 
