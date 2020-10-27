@@ -112,6 +112,9 @@ public class GameManager : SingletonBase<GameManager>
     public PlayableDirector Director;
     public TimelineAsset timeline;
 
+    [Header("Game Stages")]
+    public int Stage = 0; // 0-Tutorial 1-Stage01 2-Stage-02
+
     void Awake()
     {
         SetupScene();
@@ -125,8 +128,11 @@ public class GameManager : SingletonBase<GameManager>
 
     void Start()
     {
-        RoomSwitch("Main Hall", 0);
-        SetupCameraButton();
+        if (Stage == 0)
+            RoomSwitch("A7 Server Room", 0);
+        else
+            RoomSwitch("Main Hall", 0);
+        SetupCameraButton(Stage);
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -157,8 +163,13 @@ public class GameManager : SingletonBase<GameManager>
         SetupOption();
     }
 
-    void SetupCameraButton()
+    void SetupCameraButton(int stageNum)
     {
+        for (int i = 0; i < CameraButtonListPanel.childCount; i++)
+        {
+            Destroy(CameraButtonListPanel.GetChild(i).gameObject);
+        }
+        
         for (int i = 0; i < Rooms.Count; i++)
         {
             for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
@@ -398,6 +409,7 @@ public class GameManager : SingletonBase<GameManager>
                 if (justEnter)
                 {
                     justEnter = false;
+                    EventDistribute();
                 }
                 if(TriggerEvent())
                 {
@@ -993,13 +1005,26 @@ public class GameManager : SingletonBase<GameManager>
             return true;
     }
 
-    //TODO 执行时间
+    //TODO 事件分发Debug
+    //TODO 事件完成检测Debug
+    //Custom Condition Add Component功能移除
+
     bool TriggerEvent()
+    {
+        EventNode cur = TriggeringEventNode;
+        if(cur != null)
+        {
+
+        }
+        return false;
+    }
+
+    
+    void EventDistribute()
     {
         EventNode cur = TriggeringEventNode;
         if (cur != null)
         {
-            bool isAllFinished = false;
             List<EventSO> eventSO = cur.eventSO;
             for (int i = 0; i < eventSO.Count; i++)
             {
@@ -1081,7 +1106,6 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
-        return false;
     }
 
     void ClearConditionCache()

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   detectRange:
@@ -105,13 +106,20 @@ MonoBehaviour:
   canDetected:
     serializedVersion: 2
     m_Bits: 1280
-  detectedObj: []
-  lerpTime: 1
   moveEnd: {x: 0, y: 5, z: 0}
+  lerpTime: 1
+  lockTime: 0
+  Locators: []
+  maxHealth: 0
+  currentHealth: 0
+  preFixedHealth: 0
   isLocked: 0
   isOperating: 0
+  cBord: {fileID: 0}
   isClosed: 0
   isOpened: 0
+  isPowerOff: 0
+  isFixing: 0
 --- !u!65 &5527380923064239278
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -232,13 +240,25 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.29
+      value: 2.31
       objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.014
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1701753239051966473, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
@@ -359,13 +379,25 @@ PrefabInstance:
       propertyPath: m_Range
       value: 8.1
       objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.29
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1701753239051966473, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}

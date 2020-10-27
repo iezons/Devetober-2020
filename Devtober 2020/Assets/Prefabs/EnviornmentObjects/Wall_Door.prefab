@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 7527738785915603282}
   - component: {fileID: 4636327666473846946}
   - component: {fileID: 2424401815801141136}
+  - component: {fileID: 1540725414668577296}
   m_Layer: 14
   m_Name: Wall_Door
   m_TagString: Untagged
@@ -117,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 0
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
   detectRange:
@@ -126,13 +128,20 @@ MonoBehaviour:
   canDetected:
     serializedVersion: 2
     m_Bits: 1280
-  detectedObj: []
-  lerpTime: 1
   moveEnd: {x: 0, y: 5, z: 0}
+  lerpTime: 1
+  lockTime: 0
+  Locators: []
+  maxHealth: 0
+  currentHealth: 0
+  preFixedHealth: 0
   isLocked: 0
   isOperating: 0
+  cBord: {fileID: 0}
   isClosed: 0
   isOpened: 0
+  isPowerOff: 0
+  isFixing: 0
 --- !u!65 &2424401815801141136
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146,6 +155,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0008609, z: 2.08736}
   m_Center: {x: 0, y: -0.00043049455, z: 0}
+--- !u!114 &1540725414668577296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320148501908531335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &436160597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332,13 +359,25 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.29
+      value: 1.82
       objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.008
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1701753239051966473, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
@@ -451,13 +490,25 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570872769459531510, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.29
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754070674184436256, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.008
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1701753239051966473, guid: 4bf1e9d8076d1404180b27345e02e567, type: 3}
