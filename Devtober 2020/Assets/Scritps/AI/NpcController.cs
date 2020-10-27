@@ -79,7 +79,9 @@ public class NpcController : ControllerBased
     float restDistance = 0.2f;
 
     [SerializeField]
-    float limpingLimit;
+    float limpingLimit = 0;
+
+    public GameObject fixTarget;
 
     #endregion
 
@@ -178,8 +180,8 @@ public class NpcController : ControllerBased
         #region RightClickMenu
         //AddMenu("Move", "Move", false, ReadyForDispatch);
         //AddMenu("HideAll", "Hide All", false, TriggerHiding); //TODO NPC集体躲进去。Call一个方法，这个方法给GM发消息，带上自己在的房间，然后GM就会识别你带的房间，然后给本房间内所有的NPC发消息，让他们躲起来
-        AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos") 
-            | 1 << LayerMask.NameToLayer("RestingPos") 
+        AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+            | 1 << LayerMask.NameToLayer("RestingPos")
             | 1 << LayerMask.NameToLayer("TerminalPos")
             | 1 << LayerMask.NameToLayer("SwitchPos")
             | 1 << LayerMask.NameToLayer("Item")
@@ -214,7 +216,7 @@ public class NpcController : ControllerBased
                 hiddenSpots.Add(temp);
         }
     }
-    
+
     private void Update()
     {
         #region StringRestrictedFiniteStateMachine Update
@@ -225,7 +227,7 @@ public class NpcController : ControllerBased
                 {
                     restTime -= Time.deltaTime;
                 }
-                if(restTime > 0)
+                if (restTime > 0)
                 {
                     DetectRoom();
                     Dispatch(currentTerminalPos);
@@ -256,7 +258,7 @@ public class NpcController : ControllerBased
             case "Event":
                 Event();
                 ReachDestination();
-                 break;
+                break;
             case "Dodging":
                 Dodging();
                 break;
@@ -272,7 +274,7 @@ public class NpcController : ControllerBased
                 PlayGetInAnim();
                 break;
             case "Healing":
-                if(HealingTarget != null)
+                if (HealingTarget != null)
                 {
                     HealOther();
                 }
@@ -285,6 +287,7 @@ public class NpcController : ControllerBased
                 RescuingProcess();
                 break;
             case "Fixing":
+                Fixing();
                 break;
             default:
                 break;
@@ -296,6 +299,11 @@ public class NpcController : ControllerBased
             StartCoroutine(MoveAcrossNavMeshLink());
             MoveAcrossNavMeshesStarted = true;
         }
+        if(currentRoomTracker != null)
+        {
+            Debug.Log(m_fsm.GetCurrentState());
+        }
+
     }
 
     #region Move
@@ -319,14 +327,13 @@ public class NpcController : ControllerBased
     public Vector3 NewDestination()
     {
         Vector3 tempPos = Vector3.zero;
-        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
         if (currentRoomTracker != null)
         {
             int tempInt = Random.Range(0, currentRoomTracker.tempWayPoints.Count);
 
             float x = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.x, transform.position.x);
             float z = Random.Range(currentRoomTracker.tempWayPoints[tempInt].position.z, transform.position.z);
-            tempPos = new Vector3(x, transform.position.y, z); 
+            tempPos = new Vector3(x, transform.position.y, z);
         }
         return tempPos;
     }
@@ -336,8 +343,8 @@ public class NpcController : ControllerBased
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        
-        if (Mathf.Abs(c) < restDistance || !navAgent.CalculatePath(currentTerminalPos,path))
+
+        if (Mathf.Abs(c) < restDistance || !navAgent.CalculatePath(currentTerminalPos, path))
         {
             currentTerminalPos = NewDestination();
         }
@@ -345,7 +352,7 @@ public class NpcController : ControllerBased
 
     public void LimpingChange(string type)
     {
-        if(type == "Walk")
+        if (type == "Walk")
         {
             if (status.currentHealth <= limpingLimit)
             {
@@ -356,7 +363,7 @@ public class NpcController : ControllerBased
                 animator.Play("Walk", 0);
             }
         }
-        else if(type == "Run")
+        else if (type == "Run")
         {
             if (status.currentHealth <= limpingLimit)
             {
@@ -372,7 +379,7 @@ public class NpcController : ControllerBased
     IEnumerator MoveAcrossNavMeshLink()
     {
         OffMeshLinkData data = navAgent.currentOffMeshLinkData;
-   
+
         Vector3 startPos = navAgent.transform.position;
         Vector3 endPos = data.endPos + Vector3.up * navAgent.baseOffset;
         float duration = (endPos - startPos).magnitude / navAgent.velocity.magnitude;
@@ -392,17 +399,18 @@ public class NpcController : ControllerBased
     void DetectRoom()
     {
         Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
+        currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
     }
 
     public void Dispatch(object newPos)
     {
         navAgent.SetDestination((Vector3)newPos);
 
-        if(m_fsm.GetCurrentState() != "InteractWithItem")
+        if (m_fsm.GetCurrentState() != "InteractWithItem")
         {
-            if(navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
+            if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
             {
-                if(m_fsm.GetCurrentState() == "Patrol")
+                if (m_fsm.GetCurrentState() == "Patrol")
                 {
                     LimpingChange("Walk");
                 }
@@ -411,7 +419,7 @@ public class NpcController : ControllerBased
                     LimpingChange("Run");
                 }
             }
-            else if(!navAgent.isOnOffMeshLink)
+            else if (!navAgent.isOnOffMeshLink)
             {
                 animator.Play("Idle", 0);
             }
@@ -499,7 +507,7 @@ public class NpcController : ControllerBased
 
     public void RandomTalk()
     {
-        switch (Random.Range(0,3))
+        switch (Random.Range(0, 3))
         {
             case (0):
                 animator.Play("Talking1", 0);
@@ -527,7 +535,7 @@ public class NpcController : ControllerBased
                     {
                         for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                         {
-                            if(evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
+                            if (evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
                             {
                                 Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
                             }
@@ -755,7 +763,7 @@ public class NpcController : ControllerBased
 
                 NpcController target = item.GetComponent<NpcController>();
 
-                if(inAngle && !isBlocked)
+                if (inAngle && !isBlocked)
                 {
                     if (target.status.currentHealth <= 0)
                     {
@@ -763,7 +771,7 @@ public class NpcController : ControllerBased
                         RescuingTarget = null;
                         BackToPatrol();
                     }
-                    else if(Distance() <= restDistance + 0.5f)
+                    else if (Distance() <= restDistance + 0.5f)
                     {
                         Debug.Log("Got U");
                         target.status.isStruggling = false;
@@ -787,8 +795,81 @@ public class NpcController : ControllerBased
     #region Fixing
     public void TriggerFixing()
     {
-        animator.Play("Squat Terminal", 0);
+        HasInteract = false;
+        navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
         m_fsm.ChangeState("Fixing");
+    }
+
+    void Fixing()
+    {
+        if (fixTarget != null)
+        {
+            if (Distance() < restDistance)
+            {
+                HasInteract = false;
+                bool Damping = false;
+                Vector3 dir = (CurrentInteractItem.transform.position - transform.position).normalized;
+                dir.y = 0;
+                Quaternion rotation = Quaternion.LookRotation(dir);
+
+                if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
+                    Damping = true;
+                }
+
+                if (Damping)
+                {
+                    Debug.Log("Damping");
+                }
+                else if (!HasInteract)
+                {
+                    if(fixTarget.GetComponent<DoorController>() != null)
+                    {
+                        DoorController door = fixTarget.GetComponent<DoorController>();
+                        door.isFixing = true;
+                        animator.Play("Squat Terminal", 0);
+                        if (door.currentHealth >= door.maxHealth)
+                        {
+                            if (door.cBord.GetComponent<CBordPos>().isPowerOff)
+                            {
+                                Debug.Log("Need Fix CBord ASAP");
+                                Dispatch(door.cBord.Locators[0].Locator.position);
+                                fixTarget = door.cBord.gameObject;
+                            }
+                            else
+                            {
+                                Debug.Log("Fixed");
+                                BackToPatrol();
+                                fixTarget = null;
+                                HasInteract = true;
+                            }
+                        }
+                    }
+                    else if (fixTarget.GetComponent<CBordPos>() != null)
+                    {
+                        CBordPos cBord = fixTarget.GetComponent<CBordPos>();
+                        cBord.isFixing = true;
+                        animator.Play("Squat Terminal", 0);
+                        if (cBord.currentHealth >= cBord.maxHealth)
+                        {
+                            Debug.Log("Fixed");
+                            BackToPatrol();
+                            fixTarget = null;
+                            HasInteract = true;
+                        }
+                    }
+                }         
+            }
+            else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
+            {
+                LimpingChange("Run");
+            }
+            else if (!navAgent.isOnOffMeshLink && !HasInteract)
+            {
+                animator.Play("Idle", 0);
+            }
+        }
     }
     #endregion
 
@@ -867,12 +948,12 @@ public class NpcController : ControllerBased
         else
         {
             Debug.Log("Leave it alone, dont be too greedy");
-        }       
+        }
     }
 
     public void InteractMoment()
     {
-        if(CurrentInteractItem != null)
+        if (CurrentInteractItem != null)
         {
             CurrentInteractObject.NPCInteract(0);
         }
@@ -912,7 +993,7 @@ public class NpcController : ControllerBased
         }
         else
         {
-            if(status.CarryItem == Item_SO.ItemType.None)
+            if (status.CarryItem == Item_SO.ItemType.None)
             {
                 Debug.Log(status.npcName + ": I don't have Item to store");
                 return;
@@ -928,7 +1009,7 @@ public class NpcController : ControllerBased
     #region Play Animation
     void PlayGetInAnim()
     {
-        if(CurrentInteractObject != null)
+        if (CurrentInteractObject != null)
         {
             if (Distance() < restDistance || !navAgent.enabled)
             {
@@ -1049,7 +1130,7 @@ public class NpcController : ControllerBased
                 animator.Play("Idle", 0);
             }
         }
-        else if(CurrentInteractItem != null)
+        else if (CurrentInteractItem != null)
         {
             if (Distance() <= restDistance)
             {
@@ -1094,7 +1175,7 @@ public class NpcController : ControllerBased
                 animator.Play("Idle", 0);
             }
         }
-        
+
     }
 
     public void PlayGetOutAnim(object obj)
@@ -1171,7 +1252,7 @@ public class NpcController : ControllerBased
         boxCollider.isTrigger = false;
         IsInteracting = false;
         navAgent.enabled = true;
-        if(CurrentInteractObject != null)
+        if (CurrentInteractObject != null)
         {
             switch (CurrentInteractObject.type)
             {
@@ -1200,7 +1281,7 @@ public class NpcController : ControllerBased
             }
             CurrentInteractObject = null;
         }
-        else if(CurrentInteractItem != null && status.CarryItem == Item_SO.ItemType.None)
+        else if (CurrentInteractItem != null && status.CarryItem == Item_SO.ItemType.None)
         {
             Debug.Log("Grabing");
             switch (CurrentInteractItem.type)
@@ -1219,7 +1300,7 @@ public class NpcController : ControllerBased
                     break;
             }
         }
-        else if(CurrentInteractItem == null && status.CarryItem != Item_SO.ItemType.None)
+        else if (CurrentInteractItem == null && status.CarryItem != Item_SO.ItemType.None)
         {
             switch (status.CarryItem)
             {
@@ -1227,7 +1308,7 @@ public class NpcController : ControllerBased
                     break;
                 case Item_SO.ItemType.MedicalKit:
                     Debug.Log("Healing");
-                    if(HealingTarget != null)
+                    if (HealingTarget != null)
                     {
                         HealingTarget.GetComponent<NpcController>().ApplyHealth(status.healAmount);
                         HealingTarget = null;
@@ -1243,9 +1324,9 @@ public class NpcController : ControllerBased
                 default:
                     break;
             }
-            
+
         }
-        else if(CurrentInteractItem != null && status.CarryItem != Item_SO.ItemType.None)
+        else if (CurrentInteractItem != null && status.CarryItem != Item_SO.ItemType.None)
         {
             CurrentInteractItem = null;
         }
@@ -1315,7 +1396,7 @@ public class NpcController : ControllerBased
         Gizmos.DrawWireSphere(transform.position, alertRadius);
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, -transform.up * detectRay);
-        if(RescuingTarget != null)
+        if (RescuingTarget != null)
         {
             if (isBlocked)
             {
@@ -1327,7 +1408,6 @@ public class NpcController : ControllerBased
             }
             Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), RescuingTarget.transform.position + new Vector3(0, 3, 0));
         }
-
     }
     #endregion
 }

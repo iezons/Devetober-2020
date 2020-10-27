@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.AI;
 
+[System.Serializable]
+public class Locators
+{
+    //public bool isTaken;
+    public NpcController npc;
+    public Transform Locator;
+}
+
 [RequireComponent(typeof(Outline))]
 public class DoorController : ControllerBased
 {
@@ -37,8 +45,12 @@ public class DoorController : ControllerBased
     [SerializeField]
     Vector3 moveEnd = Vector3.zero;
 
-    [SerializeField]
-    public CBordPos cBord;
+    public CBordPos cBord = null;
+
+    public float preFixedHealth = 0;
+
+    [Header("Locator")]
+    public List<LocatorList> Locators = new List<LocatorList>();
 
     [Header("Health")]
     public float maxHealth = 0;
@@ -49,8 +61,7 @@ public class DoorController : ControllerBased
     #endregion
 
     #region Value
-    GameObject door, fixNPC;
-    NpcController npc;
+    GameObject door;
     public bool isClosed, isOpened, isPowerOff, isFixing;
     NavMeshObstacle navOb;
     float recordLockTime;
@@ -156,35 +167,42 @@ public class DoorController : ControllerBased
 
     void SendFixingNPC(object obj)
     {
+        Vector3 Pos = Vector3.zero;
+        float minDistance = Mathf.Infinity;
+        for (int i = 0; i < Locators.Count; i++)
+        {
+            if (Locators[i].npc != null)
+                continue;
+            float a = Locators[i].Locator.position.x - transform.position.x;
+            float b = Locators[i].Locator.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                Pos = Locators[i].Locator.position;
+            }
+        }
         Debug.Log("Got a Fix Guy");
         GameObject gameObj = (GameObject)obj;
-        fixNPC = gameObj;
-        npc = gameObj.GetComponent<NpcController>();
-        npc.Dispatch(transform.position);
+        NpcController npc = gameObj.GetComponent<NpcController>();
+        npc.fixTarget = gameObj;
+        npc.Dispatch(Pos);
+        npc.TriggerFixing();
     }
 
     void Fixing()
     {
-        if (!isFixing)
+        if(isFixing)
         {
-            Collider[] hits = Physics.OverlapBox(transform.position, transform.localScale, Quaternion.identity, 1 << LayerMask.NameToLayer("NPC"));
-            foreach (var item in hits)
-            {
-                if (item.gameObject == fixNPC)
-                {
-                    npc.TriggerFixing();
-                    isFixing = true;
-                }
-            }
-        }
-        else
-        {
+            //currentHealth += npc.status.fixRate * Time.deltaTime;
             currentHealth += 10 * Time.deltaTime;
             if (currentHealth >= maxHealth)
             {
                 Debug.Log("Fixed");
                 currentHealth = maxHealth;
-                if (cBord.currentHealth > 0)
+                if (!cBord.GetComponent<CBordPos>().isPowerOff)
                 {                    
                     isLocked = false;
                     isPowerOff = false;
@@ -197,7 +215,7 @@ public class DoorController : ControllerBased
                 }
                 else
                 {
-                    currentHealth = 80;
+                    currentHealth = preFixedHealth;
                     isFixing = false;
                     isLocked = true;
                 }
