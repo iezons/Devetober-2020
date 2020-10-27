@@ -26,28 +26,22 @@ public class DoorController : ControllerBased
         [Range(0f, 50f)]
         public float z = 0;
     }
+    [Header("Detecting Setting")]
     [SerializeField]
     DetectRange detectRange = null;
-
     [SerializeField]
     LayerMask canDetected = 0;
 
+    [Header("Door Setting")]
     [SerializeField]
-    Collider[] detectedObj = null;
-
+    Vector3 moveEnd = Vector3.zero;
     [SerializeField]
     [Range(0f, 50f)]
     float lerpTime = 0;
 
+    [Header("Locking Setting")]
     [SerializeField]
     float lockTime = 0;
-
-    [SerializeField]
-    Vector3 moveEnd = Vector3.zero;
-
-    public CBordPos cBord = null;
-
-    public float preFixedHealth = 0;
 
     [Header("Locator")]
     public List<LocatorList> Locators = new List<LocatorList>();
@@ -55,17 +49,21 @@ public class DoorController : ControllerBased
     [Header("Health")]
     public float maxHealth = 0;
     public float currentHealth = 0;
+    public float preFixedHealth = 0;
 
     public bool isLocked;
     public bool isOperating;
     #endregion
 
     #region Value
-    GameObject door;
-    public bool isClosed, isOpened, isPowerOff, isFixing;
     NavMeshObstacle navOb;
-    float recordLockTime;
+    [HideInInspector]
+    public CBordPos cBord = null;
+    GameObject door;
+    Collider[] detectedObj = null;
+    public bool isClosed, isOpened, isPowerOff, isFixing;
     bool isNPCCalled = false;
+    float recordLockTime;
     #endregion
 
     private void Awake()

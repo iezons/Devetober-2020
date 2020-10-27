@@ -10,40 +10,6 @@ using UnityEngine.SceneManagement;
 public class EnemyController : ControllerBased
 {
     #region Inspector View
-    [SerializeField]
-    [Range(0f, 100f)]
-    float discoverRadius = 0;
-
-    [SerializeField]
-    float discoverAngle = 0;
-
-    [SerializeField]
-    float chaseSpeed = 0;
-
-    [SerializeField]
-    [Range(0f, 100f)]
-    float attackRadius = 0;
-
-    [SerializeField]
-    float attackTime = 0;
-
-    [SerializeField]
-    float executingRate = 0;
-
-    [SerializeField]
-    float executeHealth = 0;
-
-    [SerializeField]
-    LayerMask canChased = 0;
-
-    [SerializeField]
-    LayerMask canBlocked = 0;
-
-    [SerializeField]
-    Collider[] hitNPCs;
-    [SerializeField]
-    Collider[] attackable;
-
     [System.Serializable]
     public class PatrolRange
     {
@@ -55,30 +21,64 @@ public class EnemyController : ControllerBased
     [SerializeField]
     PatrolRange patrolRange = null;
 
+    [Header("Visual Setting")]
+    [SerializeField]
+    [Range(0f, 100f)]
+    float discoverRadius = 0;
+
+    [SerializeField]
+    float discoverAngle = 0;
+
+    [Header("Chasing&Attacking Setting")]
+    [SerializeField]
+    LayerMask canChased = 0;
+    [SerializeField]
+    LayerMask canBlocked = 0;
+
+    [SerializeField]
+    float chaseSpeed = 0;
+
+    [SerializeField]
+    [Range(0f, 100f)]
+    float attackRadius = 0;
+    [SerializeField]
+    float attackTime = 0;
+
+    [SerializeField]
+    float executingRate = 0;
+    [SerializeField]
+    float executeHealth = 0;
+
+
     #endregion
 
     #region Fields
-    public StringRestrictedFiniteStateMachine m_fsm;
-
+    StringRestrictedFiniteStateMachine m_fsm;
     NavMeshAgent navAgent;
     NavMeshPath path;
     Animator animator;
-    public NpcController npc;
+    NpcController npc;
     ZombieAttackCollider resetAttack;
     #endregion
 
     #region Value
+    Collider[] hitNPCs;
+    Collider[] attackable;
+
     [HideInInspector]
     public Vector3 currentTerminalPos;
 
-    public bool hasAttacked = false;
+    bool hasAttacked = false;
+    bool inAngle, isBlocked;
+    bool MoveAcrossNavMeshesStarted;
+
     float recordAttackTime, recordSpeed;
+
     List<RoomTracker> roomScripts = new List<RoomTracker>();
 
     Transform finalPos;
+
     GameObject target;
-    bool inAngle, isBlocked;
-    bool MoveAcrossNavMeshesStarted;
     #endregion
 
 
