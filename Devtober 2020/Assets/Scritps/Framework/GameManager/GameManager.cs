@@ -403,8 +403,6 @@ public class GameManager : SingletonBase<GameManager>
         {
             MousePos = hit_MainCamera.textureCoord;
         }
-        Debug.Log(MousePos);
-        
 
         LayerMask DoWithLayer;
         if(IsWaitingForClickObj)

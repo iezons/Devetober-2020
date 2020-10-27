@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class CBordPos : Interact_SO
 {
-    public DoorController door;
+    public DoorController door = null;
+
+    public bool isPowerOff;
+
+    public bool isFixing;
 
     private void Awake()
     {
@@ -14,16 +18,48 @@ public class CBordPos : Interact_SO
 
     private void Update()
     {
-        
+        DoorStatus();
+        if (isPowerOff)
+        {
+            Fixing();
+        }
     }
 
-    void PowerOffDoor()
+    void DoorStatus()
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isPowerOff)
         {
-            door.isLocked = true;
-            door.isPowerOff = true;
             door.currentHealth = 0;
+            RemoveAndInsertMenu("Operate", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
+            isPowerOff = true;
+        }
+    }
+
+    void SendFixingNPC(object obj)
+    {
+        Debug.Log("Got a Fix Guy");
+        GameObject gameObj = (GameObject)obj;
+        NpcController npc = gameObj.GetComponent<NpcController>();
+        npc.fixTarget = gameObject;
+        npc.Dispatch(Locators[0].Locator.position);
+        npc.TriggerFixing();
+    }
+
+    void Fixing()
+    {
+        if (isFixing)
+        {
+            //currentHealth += npc.status.fixRate * Time.deltaTime;
+            currentHealth += 10 * Time.deltaTime;
+            if(currentHealth >= maxHealth)
+            {
+                currentHealth = maxHealth;
+                door.currentHealth = door.maxHealth;
+                door.isPowerOff = false;
+                door.isLocked = false;
+                isPowerOff = false;
+                isFixing = false;
+            }
         }
     }
 }
