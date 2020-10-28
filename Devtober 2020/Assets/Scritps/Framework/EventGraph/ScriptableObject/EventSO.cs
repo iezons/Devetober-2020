@@ -22,7 +22,8 @@ namespace EvtGraph
     {
         Talking,
         MoveTo,
-        Patrol
+        Patrol,
+        AnimState
     }
 
     public enum DoingWithEnemy
@@ -47,6 +48,9 @@ namespace EvtGraph
         public DoingWithNPC doingWithNPC = DoingWithNPC.Talking;
         public List<TalkingClass> NPCTalking= new List<TalkingClass>();
         public List<MoveToClass> NPCWayPoint = new List<MoveToClass>();
+        public List<NpcController> NPC = new List<NpcController>();
+        public bool IsAnimState = true;
+        public string AnimStateName = string.Empty;
 
         public DoingWithEnemy doingWithEnemy = DoingWithEnemy.Spawn;
         public List<Transform> SpawnPoint = new List<Transform>();

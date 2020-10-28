@@ -752,7 +752,7 @@ public class GameManager : SingletonBase<GameManager>
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
             MainLevelGroup.SetActive(true);
-            TutorialLevel.SetActive(false);
+            Destroy(TutorialLevel);
         }
     }
 
@@ -1105,7 +1105,7 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.NPC:
                             switch (evt.doingWithNPC)
                             {
-                                case DoingWithNPC.Talking:
+                                case DoingWithNPC.Talking://√
                                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                                     {
                                         Debug.Log("Clear NPC Agent List from GM. ", gameObject);
@@ -1127,7 +1127,7 @@ public class GameManager : SingletonBase<GameManager>
                                         }
                                     }
                                     break;
-                                case DoingWithNPC.MoveTo:
+                                case DoingWithNPC.MoveTo://√
                                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
@@ -1140,6 +1140,16 @@ public class GameManager : SingletonBase<GameManager>
                                     }
                                     break;
                                 case DoingWithNPC.Patrol:
+                                    for (int a = 0; a < evt.NPC.Count; a++)
+                                    {
+                                        NPC[a].BackToPatrol();
+                                    }
+                                    break;
+                                case DoingWithNPC.AnimState:
+                                    for (int a = 0; a < evt.NPC.Count; a++)
+                                    {
+                                        NPC[a].SwtichAnimState(true, evt.AnimStateName);
+                                    }
                                     break;
                                 default:
                                     break;
@@ -1154,19 +1164,8 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.Custom:
                             for (int a = 0; a < evt.CustomCode.Count; a++)
                             {
-                                if(evt.CustomCode[a] != null)
-                                {
-                                    if(!evt.CustomCode[a].Instan)
-                                    {
-                                        EventScriptInterface com = gameObject.AddComponent(evt.CustomCode[a].GetType()) as EventScriptInterface;
-                                        EventScripts.Add(com);
-                                        com.DoEvent(null);
-                                    }
-                                    else
-                                    {
-                                        evt.CustomCode[a].DoEvent(null);
-                                    }
-                                }
+                                evt.CustomCode[a].enabled = true;
+                                evt.CustomCode[a].DoEvent(null);
                             }
                             break;
                         default:
