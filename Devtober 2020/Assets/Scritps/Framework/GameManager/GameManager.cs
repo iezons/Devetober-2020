@@ -99,6 +99,7 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Camera")]
     public Camera MainCamera;
+    public GameObject CameraScreen;
     public Texture VHSTexture;
     public Transform CameraButtonListPanel;
     public GameObject CameraButton;
@@ -106,6 +107,8 @@ public class GameManager : SingletonBase<GameManager>
     public TMP_Text TimeText;
     [Tooltip("x: hours  y: minutes z: seconds")]
     public Vector3 StartTime;
+    public bool CanCameraTurnLeft = true;
+    public bool CanCameraTurnRight= true;
     float currentSeconds;
 
     [Header("Timeline Playing")]
@@ -115,9 +118,14 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Game Stages")]
     public int Stage = 0; // 0-Tutorial 1-Stage01 2-Stage-02
 
+    [Header("Room group")]
+    public GameObject TutorialLevel;
+    public GameObject MainLevelGroup;
+
     void Awake()
     {
         SetupScene();
+        SetupStage(Stage);
         eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
@@ -132,7 +140,7 @@ public class GameManager : SingletonBase<GameManager>
             RoomSwitch("A7 Server Room", 0);
         else
             RoomSwitch("Main Hall", 0);
-        SetupCameraButton(Stage);
+        SetupCameraButton();
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -163,7 +171,7 @@ public class GameManager : SingletonBase<GameManager>
         SetupOption();
     }
 
-    void SetupCameraButton(int stageNum)
+    void SetupCameraButton()
     {
         for (int i = 0; i < CameraButtonListPanel.childCount; i++)
         {
@@ -304,11 +312,11 @@ public class GameManager : SingletonBase<GameManager>
     void Update()
     {
         #region Input
-        if (Input.GetKey(MoveLeft))
+        if (Input.GetKey(MoveLeft) && CanCameraTurnLeft)
         {
             CurrentRoom.Rotate(-1, CurrentRoom.CurrentCameraIndex);
         }
-        else if (Input.GetKey(MoveRight))
+        else if (Input.GetKey(MoveRight) && CanCameraTurnRight)
         {
             CurrentRoom.Rotate(1, CurrentRoom.CurrentCameraIndex);
         }
@@ -323,20 +331,22 @@ public class GameManager : SingletonBase<GameManager>
 
         if(Input.GetKeyDown(KeyCode.U))
         {
-            EventCenter.GetInstance().EventTriggered("TU_TurnLeftCheck", "TU_TurnLeftCheck");
+            EventCenter.GetInstance().DiaEventTrigger("01_CloseDoor");
+            EventCenter.GetInstance().DiaEventTrigger("TU_TurnLeftCheck");
         }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            EventCenter.GetInstance().EventTriggered("TU_TurnRightCheck", "TU_TurnRightCheck");
+            EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
+            EventCenter.GetInstance().DiaEventTrigger("TU_TurnRightCheck");
         }
         
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            EventCenter.GetInstance().EventTriggered("TU_RightclickOnInfo", "TU_RightclickOnInfo");
+            EventCenter.GetInstance().DiaEventTrigger("TU_RightclickOnInfo");
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             Director.Play(timeline);
         }
@@ -684,6 +694,33 @@ public class GameManager : SingletonBase<GameManager>
             {
                 UnityEngine.Screen.SetResolution(UnityEngine.Screen.height / 9 * 16, UnityEngine.Screen.height, true);
             }
+        }
+    }
+
+    void SetupStage(int stage)
+    {
+        if(stage == 0)
+        {
+            CanCameraTurnLeft = false;
+            CanCameraTurnRight = false;
+            CameraScreen.SetActive(false);
+            NPCListPanel.gameObject.SetActive(false);
+            CameraButtonListPanel.gameObject.SetActive(false);
+            CameraName.gameObject.SetActive(false);
+            TimeText.gameObject.SetActive(false);
+            MainLevelGroup.SetActive(false);
+            TutorialLevel.SetActive(true);
+        }
+        else
+        {
+            CanCameraTurnLeft = true;
+            CanCameraTurnRight = true;
+            NPCListPanel.gameObject.SetActive(true);
+            CameraButtonListPanel.gameObject.SetActive(true);
+            CameraName.gameObject.SetActive(true);
+            TimeText.gameObject.SetActive(true);
+            MainLevelGroup.SetActive(true);
+            TutorialLevel.SetActive(false);
         }
     }
 
