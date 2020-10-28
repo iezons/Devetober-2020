@@ -10,6 +10,8 @@ using GamePlay;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcController : ControllerBased
 {
+    public bool inAnimState = false;
+
     #region Inspector View
     [System.Serializable]
     public class Status
@@ -149,19 +151,20 @@ public class NpcController : ControllerBased
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "GotAttacked", "Rescuing", "Idle", "Fixing" } },
-            { "GotAttacked", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "Rescuing", "Idle", "Fixing" } },
-            { "Rescuing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Idle", "Fixing" } },
-            { "Idle", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Fixing" } },
-            { "Fixing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "GotAttacked", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "Rescuing", "Idle", "Fixing", "Anim" } },
+            { "Rescuing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Idle", "Fixing", "Anim" } },
+            { "Idle", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Fixing", "Anim" } },
+            { "Fixing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Anim" } },
+            { "Anim", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } }
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
@@ -234,6 +237,8 @@ public class NpcController : ControllerBased
             case "Dispatch":
                 CompleteDispatching();
                 break;
+            case "Anim":
+                break;
             case "Event":
                 Event();
                 ReachDestination();
@@ -277,10 +282,6 @@ public class NpcController : ControllerBased
             StartCoroutine(MoveAcrossNavMeshLink());
             MoveAcrossNavMeshesStarted = true;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TriggerEscaping();
-        }
     }
 
     void AddStopMenu()
@@ -307,6 +308,45 @@ public class NpcController : ControllerBased
         }
     }
 
+    public void SwtichAnimState(bool inState, string animName = "")
+    {
+        if (inState)
+        {
+            navAgent.ResetPath();
+            CurrentInteractObject = null;
+            CurrentInteractItem = null;
+            RescuingTarget = null;
+            HealingTarget = null;
+            fixTarget = null;
+            hiddenPos = null;
+            locatorList = null;
+            RemoveAllMenu();
+            m_fsm.ChangeState("Anim");
+            animator.Play(animName, 0);
+        }
+        else
+        {
+            AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+    | 1 << LayerMask.NameToLayer("RestingPos")
+    | 1 << LayerMask.NameToLayer("TerminalPos")
+    | 1 << LayerMask.NameToLayer("SwitchPos")
+    | 1 << LayerMask.NameToLayer("Item")
+    | 1 << LayerMask.NameToLayer("CBord")
+    | 1 << LayerMask.NameToLayer("StoragePos"));
+            switch (status.CarryItem)
+            {
+                case Item_SO.ItemType.None:
+                    break;
+                case Item_SO.ItemType.MedicalKit:
+                    InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                    break;
+                default:
+                    break;
+            }
+            BackToPatrol();
+        }
+    }
+
     void Stop(object obj)
     {
         if (navAgent.enabled)
@@ -316,6 +356,17 @@ public class NpcController : ControllerBased
             HealingTarget = null;
             CurrentInteractItem = null;
             fixTarget = null;
+            hiddenPos = null;
+            locatorList = null;
+            switch (status.CarryItem)
+            {
+                case Item_SO.ItemType.None:
+                    break;
+                case Item_SO.ItemType.MedicalKit:
+                    break;
+                default:
+                    break;
+            }
             RemoveMenu("Stop");
             BackToPatrol();
         }
