@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DiaGraph;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class ServerInteract : Interact_SO
     public bool Online = false;
     public bool Flashing = false;
     public float FlashingSpeed = 2f;
+    public DialogueGraph graph;
+    public GameObject CameraListPanel;
 
     bool IsIncreaseing = false;
 
@@ -49,7 +52,8 @@ public class ServerInteract : Interact_SO
 
     void SendToNextLevel(object obj)
     {
-
+        CameraListPanel.SetActive(true);
+        GameManager.GetInstance().CurrentRoom.PlayingDialogue(graph);
     }
 
     public void SetInteract(bool Set)

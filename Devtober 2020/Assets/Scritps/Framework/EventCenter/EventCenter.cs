@@ -159,6 +159,16 @@ public class EventCenter : SingletonBase<EventCenter>
         }
     }
 
+    public void DiaEventTrigger(string name)
+    {
+        //检测是否已经有对应事件的监听
+        if (EventDic.ContainsKey(name))//如果有：
+        {
+            if ((EventDic[name] as EventInfo<string>).actions != null)
+                (EventDic[name] as EventInfo<string>).actions.Invoke(name);
+        }
+    }
+
     public Coroutine AddTimeListener(float seconds, UnityAction callback)
     {
         return StartCoroutine(WaitingTimes(seconds, callback));

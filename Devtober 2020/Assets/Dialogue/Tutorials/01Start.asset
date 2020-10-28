@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Vortigernus Balbus: You look good,\u2026"
+  m_Name: "Vortigernus Balbus: You looks good\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1784, y: -248}
@@ -45,7 +45,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Vortigernus Balbus
   Dialogue:
-  - You look good, <w>servant of god.
+  - You looks good, <w>servant of god.
   curIndex: 0
   IsMax: 1
 --- !u!114 &-8929493247666979551
@@ -93,11 +93,11 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - ' <sp=60>-----------------------</sp><w=1>
+  - ' <sp=60>-----------------------<w=1>
 
-    [Self checking process start]<sp=3>......</sp>
+    [Self checking process start]</sp><sp=3>......</sp>
 
-    [Check
+    <sp=60>[Check
     camera mobility to left]<w>'
   - '[<e=TU_UnlockCameraToLeft>Hold A to check]'
   curIndex: 0
@@ -311,7 +311,8 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - <mark=#00CED180>[Unreconized Data]</mark><e=TU_ShowCamera>
+  - <mark=#00CED180>[Unreconized Data]</mark>
+  - '[Connecting to Camera]<w> <e=TU_ShowCamera>'
   curIndex: 0
   IsMax: 1
 --- !u!114 &-5879757338768306823
@@ -361,8 +362,8 @@ MonoBehaviour:
   Dialogue:
   - 'I will guide you toward to <mark=#00CED180>Serena''s core. </mark>
 
-    <sp=100><mark=#00CED180>[Directed
-    to A9-1 Cruiser]</mark></sp>'
+    <sp=100><mark=#00CED180>[>>A9-1
+    Cruiser]</mark></sp>'
   curIndex: 0
   IsMax: 1
 --- !u!114 &-4543516648084809628
@@ -410,7 +411,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - <mark=#00CED180>[Directed to "Human"]</mark><w=1>
+  - <mark=#00CED180>[>>"Human"]</mark><w=1>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-2479930490814056800
@@ -457,7 +458,7 @@ MonoBehaviour:
   m_Name: ": <mark=#00CED18\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -840, y: 696}
+  position: {x: -840, y: 760}
   ports:
     keys:
     - Input
@@ -489,7 +490,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - <mark=#00CED180>[Directed to "Self checking process"]</mark>
+  - <mark=#00CED180>[>>"Self checking process"]</mark>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-861164383322610034
@@ -537,8 +538,8 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - "[\u221ATurn Right check]\n<w>[Loading information]<sp=3>......</sp><e=TU_NPCList_Show>"
-  - '[Right click on information]'
+  - "[\u221ATurn Right check]\n<w>[Loading information]<sp=3>......</sp><sp=60><e=TU_NPCList_Show>"
+  - '[Right click on information to check]'
   curIndex: 0
   IsMax: 1
 --- !u!114 &11400000
@@ -551,7 +552,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8d7148b818b2e4c80b2d734163ad9a, type: 3}
-  m_Name: 01
+  m_Name: 01Start
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -2479930490814056800}
@@ -578,7 +579,7 @@ MonoBehaviour:
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -2479930490814056800}
+  current: {fileID: 1769059583887799055}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
 --- !u!114 &798332061208842029
@@ -876,11 +877,11 @@ MonoBehaviour:
   TalkingPerson: 
   Dialogue:
   - '[<sp=60>Auto debugging]'
-  - '[Days since last start:<w> 39,426d 14h 26m 17s]'
-  - '[Current ship:<w> A9-1 Cruiser]'
-  - '[Flight control module:<w> offline]'
-  - '[Number of online decks:<w> 0]'
-  - '[State of War:<w> Unknown]</sp>'
+  - '[Days since last start>><w> 39,426d 14h 26m 17s]'
+  - '[Current ship>><w> A9-1 Cruiser]'
+  - '[Flight control module>><w> offline]'
+  - '[Number of online decks>><w> 0]'
+  - '[State of War>><w> Unknown]</sp>'
   curIndex: 0
   IsMax: 1
 --- !u!114 &8251310112438953101
@@ -896,7 +897,7 @@ MonoBehaviour:
   m_Name: "Unidentity: Answer our cal\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1272, y: 376}
+  position: {x: -1288, y: 488}
   ports:
     keys:
     - Input
@@ -941,7 +942,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Unidentity: Start process<\u2026"
+  m_Name: 'Unidentity: Good'
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -840, y: 408}
@@ -976,6 +977,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Unidentity
   Dialogue:
+  - Good
   - 'Start process<w>: Self checking your body mechanics.'
   curIndex: 0
   IsMax: 1
