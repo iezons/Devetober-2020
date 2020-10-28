@@ -68,8 +68,10 @@ public class Mainmenu : MonoBehaviour
                 //exist the game
                 break;
             case "Help":
-                ///HELP    //Connect Reconnect to main server
-    //Info   Display the information of current system    //Exist Turn off system
+                ///HELP
+    //Connect Reconnect to main server
+    //Info   Display the information of current system
+    //Exist Turn off system
                 break;
         }
     }

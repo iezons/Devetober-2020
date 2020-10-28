@@ -247,13 +247,13 @@ public class GameManager : SingletonBase<GameManager>
         TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
     }
 
-    void InstanceNPCListBtn(string npcName)
+    void InstanceNPCListBtn(string npcName, NpcController npc)
     {
         GameObject obj = Instantiate(NPCListBtn);
         NPCListButtons.Add(obj);
         obj.transform.SetParent(NPCListPanel, false);
         obj.name = npcName;
-        obj.GetComponentInChildren<Text>().text = npcName;
+        obj.GetComponent<NPCListCTRL>().npc = npc;
     }
 
     void UpdateNPCList()
@@ -276,7 +276,7 @@ public class GameManager : SingletonBase<GameManager>
             }
             if(!IsContains)
             {
-                InstanceNPCListBtn(NPCName);
+                InstanceNPCListBtn(NPCName, temp.GetComponent<NpcController>());
             }
         }
 
@@ -350,6 +350,40 @@ public class GameManager : SingletonBase<GameManager>
         {
             Director.Play(timeline);
         }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Resolution[] res = UnityEngine.Screen.resolutions;
+            if (res.Length > 0)
+            {
+                if (res[0].width >= res[1].height)
+                {
+                    UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, false);
+                    Debug.Log(res[0].width.ToString() + "x" + (res[0].width / 16 * 9).ToString());
+                }
+                else
+                {
+                    UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
+                    Debug.Log((res[0].height / 9 * 16).ToString() + "x" + res[0].height.ToString());
+                }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Resolution[] res = UnityEngine.Screen.resolutions;
+            if (res.Length > 0)
+            {
+                if (res[0].width >= res[1].height)
+                {
+                    UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, true);
+                }
+                else
+                {
+                    UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, true);
+                }
+            }
+        }
         #endregion
 
         #region NavMeshBuilding
@@ -373,8 +407,7 @@ public class GameManager : SingletonBase<GameManager>
         StartCoroutine(UpdateText());
         #endregion
 
-        #region UpdateNPCList()
-        //----------------------
+        #region UpdateNPCList
         if (CurrentRoom != null)
         {
             UpdateNPCList();
@@ -684,15 +717,16 @@ public class GameManager : SingletonBase<GameManager>
 
     void SetupScene()
     {
-        if (UnityEngine.Screen.width / UnityEngine.Screen.height != 16 / 9)
+        Resolution[] res = UnityEngine.Screen.resolutions;
+        if(res.Length > 0)
         {
-            if (UnityEngine.Screen.width >= UnityEngine.Screen.height)
+            if (res[0].width >= res[1].height)
             {
-                UnityEngine.Screen.SetResolution(UnityEngine.Screen.width, UnityEngine.Screen.width / 16 * 9, true);
+                UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, false);
             }
             else
             {
-                UnityEngine.Screen.SetResolution(UnityEngine.Screen.height / 9 * 16, UnityEngine.Screen.height, true);
+                UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
             }
         }
     }
@@ -707,7 +741,6 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(false);
             CameraButtonListPanel.gameObject.SetActive(false);
             CameraName.gameObject.SetActive(false);
-            TimeText.gameObject.SetActive(false);
             MainLevelGroup.SetActive(false);
             TutorialLevel.SetActive(true);
         }
@@ -718,7 +751,6 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(true);
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
-            TimeText.gameObject.SetActive(true);
             MainLevelGroup.SetActive(true);
             TutorialLevel.SetActive(false);
         }
