@@ -76,12 +76,15 @@ namespace GamePlay
 
         public bool isScanOn;
         public int roomCapacity;
+
+        [Header("Room Object")]
+        public List<GameObject> RoomObject;
         #endregion
 
 
         #region Value
         bool tempCheck;
-        List<Collider> hitInformation = new List<Collider>();
+        public List<Collider> hitInformation = new List<Collider>();
         List<RoomTracker> roomScripts = new List<RoomTracker>();
         [HideInInspector]
         public List<GameObject> NPCs = new List<GameObject>();
