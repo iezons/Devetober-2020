@@ -192,14 +192,11 @@ public class NpcController : ControllerBased
             | 1 << LayerMask.NameToLayer("StoragePos"));
         #endregion
 
-        if (!inAnimState)
+        m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+
+        if (inAnimState)
         {
-            m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
-        }
-        else
-        {
-            animator.Play(AnimStateName);
-            m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Anim");
+            SwitchAnimState(true, AnimStateName);
         }
     }
 
@@ -399,7 +396,8 @@ public class NpcController : ControllerBased
     {
         if (inState)
         {
-            navAgent.ResetPath();
+            if(navAgent.isOnNavMesh)
+                navAgent.ResetPath();
             CurrentInteractObject = null;
             CurrentInteractItem = null;
             RescuingTarget = null;
@@ -1360,7 +1358,7 @@ public class NpcController : ControllerBased
 
                 if (Damping)
                 {
-                    Debug.Log("Damping");
+                    //Debug.Log("Damping");
                 }
                 else if (!HasInteract)
                 {

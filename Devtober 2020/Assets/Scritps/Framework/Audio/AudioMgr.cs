@@ -12,6 +12,16 @@ public class AudioMgr : SingletonBase<AudioMgr>
 
     public GameObject SoundObj = null;
     private List<AudioSource> SoundList = new List<AudioSource>();
+    public List<AudioClip> audios = new List<AudioClip>();
+
+    private void Awake()
+    {
+        Object[] sounds = Resources.LoadAll("Audio", typeof(AudioClip));
+        foreach (AudioClip audio in sounds)
+        {
+            audios.Add(audio);
+        }
+    }
 
     void Update()
     {
@@ -153,7 +163,6 @@ public class AudioMgr : SingletonBase<AudioMgr>
             SoundList.Add(source);
             callback?.Invoke(source);
         });
-
     }
 
     public void PlayAudio(AudioClip Clip, float v, bool IsLoop, UnityAction<AudioSource> callback = null)
@@ -188,6 +197,38 @@ public class AudioMgr : SingletonBase<AudioMgr>
         if (callback != null)
         {
             callback.Invoke(audioSource);
+        }
+    }
+
+    public void PlayAudio(AudioSource source, string name, float v, bool IsLoop, UnityAction<AudioSource> callback)
+    {
+        AudioClip Clip = null;
+        foreach (var item in audios)
+        {
+            if(item.name == name)
+            {
+                Clip = item;
+                break;
+            }
+        }
+        //异步加载音效并播放
+        if(Clip != null)
+        {
+            if(IsLoop)
+            {
+                source.clip = Clip;
+                source.volume = v;
+                BGMusic.loop = IsLoop;
+                source.Play();
+                SoundList.Add(source);
+                callback?.Invoke(source);
+            }
+            else
+            {
+                source.PlayOneShot(Clip, v);
+                callback?.Invoke(source);
+            }
+            
         }
     }
 

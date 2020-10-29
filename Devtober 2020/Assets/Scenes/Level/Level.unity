@@ -6138,7 +6138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 43cee74e288f5fa4a9fe9819285c15c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6345,6 +6345,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &323711745
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323711740}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a08d4a662220514e956a981be3495c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &325507480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -7029,7 +7048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 21dff055cb4e9c945a594db332b09783, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 21dff055cb4e9c945a594db332b09783, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7134,43 +7153,43 @@ MonoBehaviour:
   OutlineWidth: 3
   outline: {fileID: 0}
   AlwaysOutline: 0
-  IsInteracting: 1
+  IsInteracting: 0
   rightClickMenus: []
-  inAnimState: 1
+  inAnimState: 0
   AnimStateName: Idle
   status:
-    npcName: Melpomene Barbatus
+    npcName: Xanthe Eburnus
     description: 
     maxHealth: 100
-    currentHealth: 40
+    currentHealth: 100
     getUpHealth: 50
     maxStamina: 100
     minStamina: 1
-    currentStamina: 20
+    currentStamina: 100
     maxCredit: 100
-    currentCredit: 0
-    fixRate: 0
+    currentCredit: 100
+    fixRate: 10
     toDoList: []
     CarryItem: 0
     code: 
     healAmount: 0
     isStruggling: 0
-  boostSpeed: 0
-  limpingLimit: 0
+  boostSpeed: 2
+  limpingLimit: 5
   restDistance: 0.2
   detectRay: 10
   alertRadius: 10
-  bannedRadius: 10
+  bannedRadius: 2
   needDodged:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   canBlocked:
     serializedVersion: 2
-    m_Bits: 0
-  dodgeAngle: 0
-  discoverAngle: 0
-  restTime: 0
-  recoverTime: 0
+    m_Bits: 31232
+  dodgeAngle: 220
+  discoverAngle: 5
+  restTime: 10
+  recoverTime: 5
   animator: {fileID: 0}
   currentTerminalPos: {x: 0, y: 0, z: 0}
   fixTargetTransform: {fileID: 0}
@@ -7240,6 +7259,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &359558552
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359558547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a08d4a662220514e956a981be3495c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &371854238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10245,6 +10283,144 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f6d94de48668fe4d90ca6431ae9a645, type: 3}
+--- !u!1001 &489950165
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1400664317}
+    m_Modifications:
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: AnimStateName
+      value: Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.npcName
+      value: Xanthe Eburnus
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.maxStamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.currentStamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.maxCredit
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.currentCredit
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: status.fixRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: boostSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: limpingLimit
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: detectRay
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: alertRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: bannedRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: canBlocked.m_Bits
+      value: 31232
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: dodgeAngle
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: discoverAngle
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: restTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: recoverTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -164.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6440125
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -221.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3214488164344453202, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_Name
+      value: Hector Cethegus
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+--- !u!4 &489950166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+  m_PrefabInstance: {fileID: 489950165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &499403796
 GameObject:
   m_ObjectHideFlags: 0
@@ -10327,7 +10503,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.0017655384
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11276,6 +11452,17 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &526809293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+  m_PrefabInstance: {fileID: 489950165}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &529951204
 GameObject:
   m_ObjectHideFlags: 0
@@ -11943,6 +12130,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac2847a0b07dde4e878b8b06655b299, type: 3}
+--- !u!114 &556376058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3423974734650564590, guid: eef00d2d60a5e4a459d9ba08552bf911, type: 3}
+  m_PrefabInstance: {fileID: 1122147453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b933a2a466f264d49a7b16fb8157c916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &556716178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3369866113205846547, guid: 6aa8f44fd6b336c42bde9c7ba35695f3, type: 3}
@@ -25016,10 +25214,7 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 1812912816}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -25038,8 +25233,26 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 271f229c-4a80-4cb4-ad39-6e9872fd5cec
   EventName: 
-  conditionSOs: []
-  CurrentEditingConNum: -1
+  conditionSOs:
+  - ID: 80f70f9a-2aac-40b2-bfa8-e43b16df362f
+    conditionWith: 2
+    nPCConditinoWith: 0
+    NPC: []
+    nPCHPWith: 2
+    HP: 0
+    enemyConditionWith: 0
+    Enemy_Num: 2
+    OverallNumbers: 500000
+    roomConditionWith: 0
+    roomTrackers: []
+    Room_NPC_Num: 2
+    NPC_Number: 0
+    SpecificRoomNPCs: []
+    Room_Enemy_Num: 2
+    Enemy_Number: 0
+    eventTriggers: []
+    customConditions: []
+  CurrentEditingConNum: 0
   eventSO:
   - ID: 9dba6a94-d798-404f-8902-4968331acc5d
     TODOList: []
@@ -30088,7 +30301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5933305997245715024, guid: 642cfce9e5f948a4586c0bbcb5395f50, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5933305997245715024, guid: 642cfce9e5f948a4586c0bbcb5395f50, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -31187,6 +31400,194 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8731893981165276966, guid: ffbee3632b97e1e4d93953d23f135400, type: 3}
   m_PrefabInstance: {fileID: 1028885735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1031784012
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1400664317}
+    m_Modifications:
+    - target: {fileID: 1703502970543507054, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_Name
+      value: Gregorius Balbus
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -67.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -208.64081
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+--- !u!1 &1031784013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1703502970543507054, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+  m_PrefabInstance: {fileID: 1031784012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1031784014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031784013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4df2522dacb4146bd5563c64e6f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineWidth: 3
+  outline: {fileID: 0}
+  AlwaysOutline: 0
+  IsInteracting: 0
+  rightClickMenus: []
+  inAnimState: 0
+  AnimStateName: Idle
+  status:
+    npcName: Gregorius Balbus
+    description: 
+    maxHealth: 100
+    currentHealth: 100
+    getUpHealth: 100
+    maxStamina: 100
+    minStamina: 1
+    currentStamina: 100
+    maxCredit: 100
+    currentCredit: 100
+    fixRate: 10
+    toDoList: []
+    CarryItem: 0
+    code: 
+    healAmount: 0
+    isStruggling: 0
+  boostSpeed: 2
+  limpingLimit: 5
+  restDistance: 0.2
+  detectRay: 10
+  alertRadius: 10
+  bannedRadius: 2
+  needDodged:
+    serializedVersion: 2
+    m_Bits: 1024
+  canBlocked:
+    serializedVersion: 2
+    m_Bits: 31232
+  dodgeAngle: 220
+  discoverAngle: 5
+  restTime: 15
+  recoverTime: 3
+  animator: {fileID: 0}
+  currentTerminalPos: {x: 0, y: 0, z: 0}
+  fixTargetTransform: {fileID: 0}
+  isSafe: 0
+  isRoomCalled: 0
+  fixTarget: {fileID: 0}
+  DampPosSpeed: 0.2
+  DampRotSpeed: 0.2
+  locatorList:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
+  locators:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
+  CurrentInteractItem: {fileID: 0}
+  HasInteract: 0
+--- !u!114 &1031784015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031784013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!65 &1031784016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031784013}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.380722, y: 6.258513, z: 1.491765}
+  m_Center: {x: 0.047283173, y: 3.082782, z: 0.113483906}
+--- !u!195 &1031784017
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031784013}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!4 &1031784018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+  m_PrefabInstance: {fileID: 1031784012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1032190758
 PrefabInstance:
@@ -33157,11 +33558,12 @@ MonoBehaviour:
   CanCameraTurnLeft: 1
   CanCameraTurnRight: 1
   Directors: []
-  Stage: 0
+  Stage: 1
   TutorialLevel: {fileID: 1493272244}
   MainLevelGroup: {fileID: 11652931}
   ZombieObject: {fileID: 0}
   testnpc: {fileID: 1853342349}
+  Audio2D: {fileID: 1255214747}
 --- !u!4 &1166111226
 Transform:
   m_ObjectHideFlags: 0
@@ -36657,7 +37059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8348394243642836691, guid: 92ca14ee091843b4f93a3554c2606bf1, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8348394243642836691, guid: 92ca14ee091843b4f93a3554c2606bf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -36814,43 +37216,43 @@ MonoBehaviour:
   OutlineWidth: 3
   outline: {fileID: 0}
   AlwaysOutline: 0
-  IsInteracting: 1
+  IsInteracting: 0
   rightClickMenus: []
-  inAnimState: 1
+  inAnimState: 0
   AnimStateName: Idle
   status:
-    npcName: Proteus Cicero
+    npcName: Xanthe Eburnus
     description: 
     maxHealth: 100
-    currentHealth: 40
+    currentHealth: 100
     getUpHealth: 50
     maxStamina: 100
     minStamina: 1
-    currentStamina: 20
+    currentStamina: 100
     maxCredit: 100
-    currentCredit: 0
-    fixRate: 0
+    currentCredit: 100
+    fixRate: 10
     toDoList: []
     CarryItem: 0
     code: 
     healAmount: 0
     isStruggling: 0
-  boostSpeed: 0
-  limpingLimit: 0
+  boostSpeed: 2
+  limpingLimit: 5
   restDistance: 0.2
   detectRay: 10
   alertRadius: 10
-  bannedRadius: 10
+  bannedRadius: 2
   needDodged:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   canBlocked:
     serializedVersion: 2
-    m_Bits: 0
-  dodgeAngle: 0
-  discoverAngle: 0
-  restTime: 0
-  recoverTime: 0
+    m_Bits: 31232
+  dodgeAngle: 220
+  discoverAngle: 5
+  restTime: 10
+  recoverTime: 5
   animator: {fileID: 0}
   currentTerminalPos: {x: 0, y: 0, z: 0}
   fixTargetTransform: {fileID: 0}
@@ -38995,7 +39397,9 @@ Transform:
   - {fileID: 323711739}
   - {fileID: 1333547494}
   - {fileID: 359558546}
+  - {fileID: 489950166}
   - {fileID: 1003496728}
+  - {fileID: 1031784018}
   m_Father: {fileID: 11652932}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46103,6 +46507,10 @@ PrefabInstance:
       propertyPath: swtich
       value: 
       objectReference: {fileID: 414562426}
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: code
+      value: HighPriests_Room
+      objectReference: {fileID: 0}
     - target: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.446522
@@ -48794,7 +49202,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
-  position: {x: -552, y: -248}
+  position: {x: 440, y: -376}
   ports:
     keys:
     - Output
@@ -48805,7 +49213,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 781134309}
+        node: {fileID: 1895363156}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -50839,6 +51247,133 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+--- !u!1 &1867116469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1867116470}
+  - component: {fileID: 1867116471}
+  m_Layer: 14
+  m_Name: AudioSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1867116470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867116469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1300834245}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1867116471
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867116469}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1867365304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51921,7 +52456,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 1906155080}
+        node: {fileID: 1812912816}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -52007,7 +52542,28 @@ MonoBehaviour:
     doingWithRoom: 0
     CustomCode: []
     timelines: []
-  CurrentEditingSONum: 2
+  - ID: 2534a339-3dd0-4290-8484-373269548e8e
+    TODOList: []
+    doingWith: 0
+    doingWithNPC: 3
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 526809293}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 556376058}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 3
   Comment: 
 --- !u!1001 &1896001809
 PrefabInstance:
@@ -52240,10 +52796,7 @@ MonoBehaviour:
       _node: {fileID: 1906155080}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1895363156}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -58085,6 +58638,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &2135260452
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135260447}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a08d4a662220514e956a981be3495c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2139245294
 PrefabInstance:
   m_ObjectHideFlags: 0

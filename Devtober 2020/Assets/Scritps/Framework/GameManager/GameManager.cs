@@ -135,8 +135,13 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject ZombieObject;
     public NpcController testnpc;
 
+    [Header("Audio")]
+    public AudioSource Audio2D;
+    bool AllowAudio = false;
+
     void Awake()
     {
+        AudioMgr.GetInstance();
         SetupScene();
         eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
@@ -152,9 +157,10 @@ public class GameManager : SingletonBase<GameManager>
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
         else if (Stage > 0)
-            RoomSwitch("BedRoom_A", 0);
+            RoomSwitch("BedRoom_B", 0);
         else
             RoomSwitch("TestRoom", 0);
+        AllowAudio = true;
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -168,6 +174,11 @@ public class GameManager : SingletonBase<GameManager>
             
             if (Rooms[i].gameObject.name == RoomName)
             {
+                foreach (var item in NPCListButtons)
+                {
+                    Destroy(item);
+                }
+                NPCListButtons.Clear();
                 Rooms[i].cameraLists[CameraIndex].roomCamera.gameObject.SetActive(true);
                 if(Rooms[i].cameraLists.Count > 1)
                 {
@@ -177,6 +188,8 @@ public class GameManager : SingletonBase<GameManager>
                 {
                     CameraName.text = Rooms[i].RoomName();
                 }
+                if(AllowAudio)
+                    AudioMgr.GetInstance().PlayAudio(Audio2D, "camera_switch", 1, false, null);
                 SetupOption(Rooms[i]);
                 Rooms[i].CurrentCameraIndex = CameraIndex;
                 CurrentRoom = Rooms[i];
@@ -815,7 +828,18 @@ public class GameManager : SingletonBase<GameManager>
         switch (gmState)
         {
             case GameManagerState.OFF:
-                eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() {"StartNode"})[0]);
+                switch (Stage)
+                {
+                    case 0:
+                        eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() { "StartNode" })[0]);
+                        break;
+                    case 1:
+                        //eventGraph.graph.Next([0]);
+                        //eventGraph.graph.SetNode(new List<string>() { "4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237" });
+                        break;
+                    default:
+                        break;
+                }
                 GoToState(GameManagerState.CONDITIONING);
                 break;
             case GameManagerState.CONDITIONING:
