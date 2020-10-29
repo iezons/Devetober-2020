@@ -1965,6 +1965,10 @@ PrefabInstance:
       propertyPath: detectRange.z
       value: 7.7
       objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: cBord
+      value: 
+      objectReference: {fileID: 1111161786}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
       value: Wall_Door (1) 1 (2)
@@ -2429,6 +2433,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 242098887}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: cBord
+      value: 
+      objectReference: {fileID: 254385344}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
 --- !u!1001 &115426615
@@ -3838,11 +3850,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4047953150454302137, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
   m_PrefabInstance: {fileID: 185707639}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &187513531 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 8566364076988552606, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
-  m_PrefabInstance: {fileID: 68352935}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &191249160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4788,6 +4795,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
   m_PrefabInstance: {fileID: 1300834244}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &242098887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+  m_PrefabInstance: {fileID: 1300834244}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242098886}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &242098891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5003,6 +5021,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8731893981165276966, guid: ffbee3632b97e1e4d93953d23f135400, type: 3}
   m_PrefabInstance: {fileID: 252472971}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &254385344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+  m_PrefabInstance: {fileID: 404499061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9422259aea9a60d4b95418da95062844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &264383636
 GameObject:
   m_ObjectHideFlags: 0
@@ -5461,11 +5490,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
---- !u!65 &282998174 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 3423974734650564591, guid: eef00d2d60a5e4a459d9ba08552bf911, type: 3}
-  m_PrefabInstance: {fileID: 248835160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &282998564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3369866113205846547, guid: 6aa8f44fd6b336c42bde9c7ba35695f3, type: 3}
@@ -6678,19 +6702,22 @@ MonoBehaviour:
   IsInteracting: 0
   rightClickMenus: []
   inAnimState: 0
-  AnimaStateName: 
+  AnimStateName: 
   status:
     npcName: 
     description: 
     maxHealth: 100
     currentHealth: 100
+    getUpHealth: 50
     maxStamina: 100
+    minStamina: 1
     currentStamina: 50
     maxCredit: 100
     currentCredit: 50
     fixRate: 5
     toDoList: []
     CarryItem: 0
+    code: 
     healAmount: 0
     isStruggling: 0
   boostSpeed: 2
@@ -6711,11 +6738,20 @@ MonoBehaviour:
   recoverTime: 0
   animator: {fileID: 0}
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  fixTargetTransform: {fileID: 0}
   isSafe: 0
+  isRoomCalled: 0
   fixTarget: {fileID: 0}
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
+  locatorList:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
+  locators:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
   CurrentInteractItem: {fileID: 0}
+  HasInteract: 0
 --- !u!114 &391390201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7268,6 +7304,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841981}
     m_Modifications:
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 242098887}
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: swtich
+      value: 
+      objectReference: {fileID: 566894092}
     - target: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.055716
@@ -7520,6 +7564,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410002826}
   m_CullTransparentMesh: 0
+--- !u!114 &414562426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+  m_PrefabInstance: {fileID: 746667748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31431915ada5eb04993c5e8c81ea6d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &420153563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -9465,7 +9520,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.0017657543
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11091,6 +11146,17 @@ Transform:
   m_Father: {fileID: 774841998}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &566894092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+  m_PrefabInstance: {fileID: 108830496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31431915ada5eb04993c5e8c81ea6d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &569358658
 GameObject:
   m_ObjectHideFlags: 0
@@ -19770,6 +19836,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1827802526}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: cBord
+      value: 
+      objectReference: {fileID: 1111161786}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
 --- !u!1001 &747874799
@@ -21325,7 +21395,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1718897970}
     isLocked: 0
@@ -21336,6 +21405,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21355,10 +21425,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21427,7 +21501,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 396670158}
     isLocked: 0
@@ -21438,6 +21511,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21457,10 +21531,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21529,7 +21607,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1372848901}
     isLocked: 0
@@ -21540,6 +21617,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21559,10 +21637,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21631,7 +21713,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 2099802204}
     isLocked: 0
@@ -21642,6 +21723,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21661,10 +21743,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21733,7 +21819,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1890124186}
     isLocked: 0
@@ -21744,6 +21829,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 774842020}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21763,19 +21849,10 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
-  hitInformation:
-  - {fileID: 0}
-  - {fileID: 1353202370}
-  - {fileID: 2130899279}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1921241430}
-  - {fileID: 282998174}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 187513531}
-  - {fileID: 0}
-  - {fileID: 1827802527}
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 1019837571}
@@ -21783,7 +21860,8 @@ MonoBehaviour:
   - {fileID: 2102179546}
   - {fileID: 1979766899}
   - {fileID: 1979766899}
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21852,7 +21930,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1158863348}
     isLocked: 0
@@ -21863,6 +21940,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21882,10 +21960,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21954,7 +22036,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1523175024}
     isLocked: 0
@@ -21965,6 +22046,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -21984,10 +22066,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22056,7 +22142,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 341941279}
     isLocked: 0
@@ -22067,6 +22152,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22092,10 +22178,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22164,7 +22254,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 859458856}
     isLocked: 0
@@ -22175,6 +22264,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22194,10 +22284,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22266,7 +22360,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1845278704}
     isLocked: 0
@@ -22283,6 +22376,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22314,10 +22408,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22386,7 +22484,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1799371017}
     isLocked: 0
@@ -22397,6 +22494,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22416,10 +22514,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22488,7 +22590,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 474482605}
     isLocked: 0
@@ -22499,6 +22600,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22518,10 +22620,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22590,7 +22696,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 728202580}
     isLocked: 0
@@ -22601,6 +22706,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22620,10 +22726,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22692,7 +22802,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1423965722}
     isLocked: 0
@@ -22703,6 +22812,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22722,10 +22832,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22794,7 +22908,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 713730307}
     isLocked: 0
@@ -22805,6 +22918,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22824,10 +22938,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &774842053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22896,7 +23014,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 889919763}
     isLocked: 0
@@ -22907,6 +23024,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -22926,10 +23044,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!65 &774842056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25180,6 +25302,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
+--- !u!114 &852950760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+  m_PrefabInstance: {fileID: 1804077855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9422259aea9a60d4b95418da95062844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &859458853
 GameObject:
   m_ObjectHideFlags: 0
@@ -30447,6 +30580,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+--- !u!114 &1111161786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+  m_PrefabInstance: {fileID: 1693499124}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9422259aea9a60d4b95418da95062844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1122147453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30721,6 +30865,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: cBord
+      value: 
+      objectReference: {fileID: 852950760}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 2100157890}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
 --- !u!1001 &1148674772
@@ -31292,7 +31444,7 @@ MonoBehaviour:
   CanCameraTurnLeft: 1
   CanCameraTurnRight: 1
   Directors: []
-  Stage: 0
+  Stage: 1
   TutorialLevel: {fileID: 1493272244}
   MainLevelGroup: {fileID: 11652931}
   ZombieObject: {fileID: 0}
@@ -33425,6 +33577,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_Name
       value: Bed (3)
@@ -33543,6 +33699,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: cBord
+      value: 
+      objectReference: {fileID: 1111161786}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
       value: Wall_Door (1) 1 (4)
@@ -35038,11 +35198,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4047953150454302137, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
   m_PrefabInstance: {fileID: 1352598922}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1353202370 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 2793493232036606215, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
-  m_PrefabInstance: {fileID: 1488868227}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1354885852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35144,6 +35299,10 @@ PrefabInstance:
       propertyPath: detectRange.z
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: cBord
+      value: 
+      objectReference: {fileID: 852950760}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
       value: Wall_Door (1) 1 (3)
@@ -35779,7 +35938,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.004998
+      value: -4.0049715
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35787,11 +35946,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.8472133
+      value: -4.847221
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -1.3234889e-22
+      value: -1.323489e-22
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalRotation.y
@@ -35799,7 +35958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -8.659562e-17
+      value: -8.6595626e-17
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35807,7 +35966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -38428,7 +38587,6 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
-  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1479857649}
     isLocked: 0
@@ -38439,6 +38597,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -38458,10 +38617,14 @@ MonoBehaviour:
   reportEmergency:
     serializedVersion: 2
     m_Bits: 0
+  isScanOn: 0
+  roomCapacity: 0
+  RoomObject: []
   hitInformation: []
   NPCs: []
   tempWayPoints: []
-  isScanOn: 0
+  npcs: []
+  beds: []
 --- !u!114 &1493272247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39320,7 +39483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -39333,6 +39496,10 @@ PrefabInstance:
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_Name
@@ -43027,6 +43194,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841983}
     m_Modifications:
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 1827802526}
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: swtich
+      value: 
+      objectReference: {fileID: 414562426}
     - target: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.446522
@@ -44963,6 +45138,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841979}
     m_Modifications:
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 2100157890}
     - target: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.565008
@@ -46107,11 +46286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1827802527 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 2424401815801141136, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
-  m_PrefabInstance: {fileID: 81265243}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1827802530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48240,19 +48414,22 @@ MonoBehaviour:
   IsInteracting: 1
   rightClickMenus: []
   inAnimState: 1
-  AnimaStateName: Stand with Terminal_CutScene
+  AnimStateName: 
   status:
     npcName: Clopas Arvina
     description: 
     maxHealth: 100
     currentHealth: 40
+    getUpHealth: 50
     maxStamina: 100
+    minStamina: 1
     currentStamina: 20
     maxCredit: 100
     currentCredit: 0
     fixRate: 0
     toDoList: []
     CarryItem: 0
+    code: 
     healAmount: 0
     isStruggling: 0
   boostSpeed: 0
@@ -48273,11 +48450,20 @@ MonoBehaviour:
   recoverTime: 0
   animator: {fileID: 0}
   currentTerminalPos: {x: 0, y: 0, z: 0}
+  fixTargetTransform: {fileID: 0}
   isSafe: 0
+  isRoomCalled: 0
   fixTarget: {fileID: 0}
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
+  locatorList:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
+  locators:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
   CurrentInteractItem: {fileID: 0}
+  HasInteract: 0
 --- !u!114 &1890045130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49431,11 +49617,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
   m_PrefabInstance: {fileID: 700933384}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1921241430 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 1421713807, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
-  m_PrefabInstance: {fileID: 2003482543}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1921945298 stripped
 Transform:
@@ -51130,7 +51311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -51143,6 +51324,10 @@ PrefabInstance:
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_Name
@@ -53706,6 +53891,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
   m_PrefabInstance: {fileID: 1355150372}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2100157890 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+  m_PrefabInstance: {fileID: 1355150372}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100157889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2100157894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54203,11 +54399,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4047953150454302137, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
   m_PrefabInstance: {fileID: 2119738892}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &2130899279 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 2465590369243957779, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
-  m_PrefabInstance: {fileID: 1693499124}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2133912188
 GameObject:
