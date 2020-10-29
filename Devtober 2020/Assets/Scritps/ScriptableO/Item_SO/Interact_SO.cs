@@ -101,6 +101,8 @@ public class Interact_SO : ControllerBased
             case InteractType.CBoard:
                 IsInteracting = true;
                 break;
+            case InteractType.Storage:
+                break;
             default:
                 break;
         }
