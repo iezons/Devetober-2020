@@ -71,6 +71,7 @@ public class DialoguePlay : MonoBehaviour
             case DiaState.OFF:
                 if(justEnter)
                 {
+                    currentGraph = null;
                     LastTimerValue = 0;
                     MaxVisible = 0;
                     timervalue = 0;

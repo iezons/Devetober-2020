@@ -5,6 +5,7 @@ using UnityEngine;
 using DiaGraph;
 using UnityEngine.Timeline;
 using GamePlay;
+using UnityEngine.Playables;
 
 namespace EvtGraph
 {
@@ -63,7 +64,7 @@ namespace EvtGraph
 
         public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
 
-        public List<TimelineAsset> timelines = new List<TimelineAsset>();
+        public List<PlayableDirector> timelines = new List<PlayableDirector>();
 
         public EventSO()
         {

@@ -112,8 +112,10 @@ public class GameManager : SingletonBase<GameManager>
     float currentSeconds;
 
     [Header("Timeline Playing")]
-    public PlayableDirector Director;
-    public TimelineAsset timeline;
+    public Dictionary<PlayableDirector, bool> Directors = new Dictionary<PlayableDirector, bool>();
+
+    //public PlayableDirector Director;
+    //public TimelineAsset timeline;
 
     [Header("Game Stages")]
     public int Stage = 0; // 0-Tutorial 1-Stage01 2-Stage-02
@@ -348,7 +350,7 @@ public class GameManager : SingletonBase<GameManager>
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Director.Play(timeline);
+            //Director.Play(timeline);
         }
 
         if(Input.GetKeyDown(KeyCode.L))
@@ -454,7 +456,7 @@ public class GameManager : SingletonBase<GameManager>
                     justEnter = false;
                     EventDistribute();
                 }
-                if(TriggerEvent())
+                if(IsEventFinish())
                 {
                     GoToState(GameManagerState.PAUSED);
                 }
@@ -731,7 +733,7 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    void SetupStage(int stage)
+    public void SetupStage(int stage)
     {
         if(stage == 0)
         {
@@ -771,8 +773,6 @@ public class GameManager : SingletonBase<GameManager>
             case GameManagerState.OFF:
                 eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() {"StartNode"})[0]);
                 GoToState(GameManagerState.CONDITIONING);
-                //Conditioning();
-                //TriggerEvent();
                 break;
             case GameManagerState.CONDITIONING:
                 break;
@@ -782,8 +782,6 @@ public class GameManager : SingletonBase<GameManager>
                 eventGraph.graph.Next(TriggeringEventNode);
                 TriggeringEventNode = null;
                 GoToState(GameManagerState.CONDITIONING);
-                //Conditioning();
-                //TriggerEvent();
                 break;
             default:
                 break;
@@ -1077,15 +1075,106 @@ public class GameManager : SingletonBase<GameManager>
     //TODO 事件分发Debug
     //TODO 事件完成检测Debug
     //Custom Condition Add Component功能移除
-
-    bool TriggerEvent()
+    void TimelineStop(PlayableDirector aDir)
     {
+        foreach (var item in Directors)
+        {
+            if(item.Key == aDir)
+            {
+                Directors[item.Key] = true;
+                item.Key.playableAsset = null;
+            }
+        }
+    }
+
+    bool IsEventFinish()
+    {
+        bool HasNotFinish = false;
         EventNode cur = TriggeringEventNode;
         if(cur != null)
         {
-
+            for (int z = 0; z < cur.eventSO.Count; z++)
+            {
+                EventSO evt = cur.eventSO[z];
+                if(evt != null)
+                {
+                    switch (evt.doingWith)
+                    {
+                        case DoingWith.NPC:
+                            switch (evt.doingWithNPC)
+                            {
+                                case DoingWithNPC.Talking:
+                                    for (int i = 0; i < evt.NPCTalking.Count; i++)
+                                    {
+                                        if(evt.NPCTalking[i].room.DiaPlay.currentGraph == evt.NPCTalking[i].Graph || evt.NPCTalking[i].room.WaitingGraph == evt.NPCTalking[i].Graph)
+                                        {
+                                            HasNotFinish = true;
+                                        }
+                                    }
+                                    break;
+                                case DoingWithNPC.MoveTo:
+                                    break;
+                                case DoingWithNPC.Patrol:
+                                    break;
+                                case DoingWithNPC.AnimState:
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case DoingWith.Room:
+                            break;
+                        case DoingWith.Enemy:
+                            break;
+                        case DoingWith.Dialogue:
+                            if(evt.Dialogue_Room.DiaPlay.currentGraph == evt.Dialogue_Graph)
+                            {
+                                HasNotFinish = true;
+                            }
+                            break;
+                        case DoingWith.Timeline:
+                            foreach (var timelines in evt.timelines)
+                            {
+                                foreach (var item in Directors)
+                                {
+                                    if (item.Key == timelines)
+                                    {
+                                        if (!item.Value)
+                                        {
+                                            HasNotFinish = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (HasNotFinish)
+                                    break;
+                            }
+                            break;
+                        case DoingWith.Custom:
+                            for (int i = 0; i < evt.CustomCode.Count; i++)
+                            {
+                                if(!evt.CustomCode[i].IsEventFinish)
+                                {
+                                    HasNotFinish = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if(HasNotFinish)
+                    break;
+            }
         }
-        return false;
+        if (HasNotFinish)
+            return false;
+        else
+        {
+            Debug.Log("Event Move Next");
+            return true;
+        }
     }
 
     
@@ -1167,6 +1256,17 @@ public class GameManager : SingletonBase<GameManager>
                                 evt.CustomCode[a].enabled = true;
                                 evt.CustomCode[a].DoEvent(null);
                             }
+                            break;
+                        case DoingWith.Timeline:
+                            foreach (var item in evt.timelines)
+                            {
+                                Directors.Add(item, false);
+                                item.stopped += TimelineStop;
+                                item.Play();
+                            }
+                            break;
+                        case DoingWith.Dialogue:
+                            evt.Dialogue_Room.PlayingDialogue(evt.Dialogue_Graph);
                             break;
                         default:
                             break;
