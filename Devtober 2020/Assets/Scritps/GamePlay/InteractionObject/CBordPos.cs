@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class CBordPos : Interact_SO
 {
-    [HideInInspector]
+    public bool isPowerOff, isFixing, isLocked;
+
+    public string code;
+
     public DoorController door = null;
-
-    public bool isPowerOff;
-
-    public bool isFixing;
-
+    public SwitchPos swtich = null;
     private void Awake()
     {
         outline = GetComponent<Outline>();
         AddMenu("Operate", "Operate", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        if (code != "")
+        {
+            isLocked = true;
+        }
     }
 
     private void Update()
@@ -42,6 +45,8 @@ public class CBordPos : Interact_SO
         GameObject gameObj = (GameObject)obj;
         NpcController npc = gameObj.GetComponent<NpcController>();
         npc.fixTarget = gameObject;
+        npc.HasInteract = false;
+        npc.fixTargetTransform = Locators[0].Locator;
         npc.Dispatch(Locators[0].Locator.position);
         npc.TriggerFixing();
     }
@@ -50,14 +55,15 @@ public class CBordPos : Interact_SO
     {
         if (isFixing)
         {
-            //currentHealth += npc.status.fixRate * Time.deltaTime;
-            currentHealth += 10 * Time.deltaTime;
             if(currentHealth >= maxHealth)
             {
-                currentHealth = maxHealth;
-                door.currentHealth = door.maxHealth;
-                door.isPowerOff = false;
-                door.isLocked = false;
+                currentHealth = maxHealth;              
+                if (!isLocked)
+                {
+                    door.currentHealth = door.maxHealth;
+                    door.isPowerOff = false;
+                    door.isLocked = false;
+                }             
                 isPowerOff = false;
                 isFixing = false;
             }

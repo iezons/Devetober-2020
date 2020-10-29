@@ -45,8 +45,6 @@ namespace GamePlay
         }
 
         [Header("Camera")]
-        //public Camera RoomCamera;
-
         public List<CameraList> cameraLists = new List<CameraList>();
         public int CurrentCameraIndex = 0;
 
@@ -65,27 +63,30 @@ namespace GamePlay
         [Header("NavMesh")]
         public List<NavMeshSurface> navSurface = new List<NavMeshSurface>();
 
+
+        [Header("Room Setting")]
         [SerializeField]
         List<ScaleAndOffset> scaleAndOffset = new List<ScaleAndOffset>();
 
         [SerializeField]
         LayerMask canDetected = 0;
-
         [SerializeField]
         LayerMask reportEmergency = 0;
 
-        [SerializeField]
-        List<Collider> hitInformation = new List<Collider>();
-
+        public bool isScanOn;
+        public int roomCapacity;
         #endregion
 
 
         #region Value
         bool tempCheck;
+        List<Collider> hitInformation = new List<Collider>();
         List<RoomTracker> roomScripts = new List<RoomTracker>();
+        [HideInInspector]
         public List<GameObject> NPCs = new List<GameObject>();
         public List<Transform> tempWayPoints = new List<Transform>();
-        public bool isScanOn;
+        public List<GameObject> npcs = new List<GameObject>();
+        public List<Interact_SO> beds = new List<Interact_SO>();
         #endregion
 
         public void Awake()
@@ -109,6 +110,19 @@ namespace GamePlay
         {
             EventCenter.GetInstance().EventTriggered("GM.Room.Add", this);
             Invoke("GenerateList", 0.00001f);
+
+            foreach (var item in RestingPos())
+            {
+                Interact_SO interact_SO = item.GetComponent<Interact_SO>();
+                switch (interact_SO.type)
+                {
+                    case Interact_SO.InteractType.Bed:
+                        beds.Add(interact_SO);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         void GenerateList()
@@ -129,6 +143,7 @@ namespace GamePlay
             Detecting();
             DialogueChecking();
             RescuingCode();
+            RoomCapacityCheck();
         }
 
         private void Detecting()
@@ -147,7 +162,7 @@ namespace GamePlay
             {
                 for (int i = 0; i < NPCs.Count; i++)
                 {
-                    NpcController npc = NPCs[i].GetComponent<NpcController>();
+                    NpcController npc = NPCs[i].GetComponent<NpcController>();                   
                     if (npc.status.isStruggling)
                     {
                         foreach (var item in NPCs)
@@ -156,6 +171,8 @@ namespace GamePlay
                             if (npcCtrl.status.isStruggling)
                                 continue;
                             if (npcCtrl.MenuContains("Rescue") >= 0)
+                                continue;
+                            if (item.layer == LayerMask.NameToLayer("Dead"))
                                 continue;
                             npcCtrl.InsertMenu(rightClickMenus.Count, "Rescue", "Rescue", true, npcCtrl.TriggerRescuing, 1 << LayerMask.NameToLayer("NPC"));
                         }
@@ -166,6 +183,36 @@ namespace GamePlay
                         npc.RemoveMenu("Rescue");
                     }
                 }              
+            }
+        }
+
+        void RoomCapacityCheck()
+        {
+            if(NPC().Count > roomCapacity && !isEnemyDetected())
+            {
+                npcs.AddRange(NPC());
+                npcs = NPC().OrderBy(npc => npc.GetComponent<NpcController>().status.currentStamina).ToList();
+
+                for (int i = 0; i < beds.Count; i++)
+                {
+                    NpcController npc = npcs[i].GetComponent<NpcController>();
+                    if (npc.m_fsm.GetCurrentState() == "Patrol" && !npc.isRoomCalled)
+                    {
+                        npcs[i].GetComponent<NpcController>().TriggerBedResting(beds[i].gameObject);
+                    }
+                }
+
+                if (npcs.Count > beds.Count)
+                {
+                    for (int i = 0; i < npcs.Count - beds.Count; i++)
+                    {
+                        NpcController npc = npcs[i].GetComponent<NpcController>();
+                        if (npc.m_fsm.GetCurrentState() == "Patrol" && !npc.isRoomCalled)
+                        {
+                            npcs[i].GetComponent<NpcController>().TriggerRandomResting();
+                        }
+                    }
+                }
             }
         }
 

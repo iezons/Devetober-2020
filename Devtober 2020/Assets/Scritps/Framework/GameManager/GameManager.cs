@@ -138,8 +138,10 @@ public class GameManager : SingletonBase<GameManager>
     {
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
-        else
+        else if(Stage > 0)
             RoomSwitch("Main Hall", 0);
+        else
+            RoomSwitch("TestRoom", 0);
         SetupCameraButton();
     }
 
@@ -711,7 +713,7 @@ public class GameManager : SingletonBase<GameManager>
             MainLevelGroup.SetActive(false);
             TutorialLevel.SetActive(true);
         }
-        else
+        else if (stage > 0)
         {
             CanCameraTurnLeft = true;
             CanCameraTurnRight = true;

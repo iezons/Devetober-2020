@@ -57,13 +57,13 @@ public class DoorController : ControllerBased
 
     #region Value
     NavMeshObstacle navOb;
-    [HideInInspector]
-    public CBordPos cBord = null;
     GameObject door;
     Collider[] detectedObj = null;
     public bool isClosed, isOpened, isPowerOff, isFixing;
-    bool isNPCCalled = false;
+    [HideInInspector]
+    public bool isNPCCalled = false;
     float recordLockTime;
+    public CBordPos cBord = null;
     #endregion
 
     private void Awake()
@@ -76,7 +76,7 @@ public class DoorController : ControllerBased
 
     private void Start()
     {
-        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"), false);
+        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
     }
 
     private void Update()
@@ -85,10 +85,28 @@ public class DoorController : ControllerBased
 
         Detecting();
         Operation();
-        CheckCurrentStatus();
+
+        if (!isPowerOff)
+        {
+            CheckCurrentStatus();
+        }
+
         if (isPowerOff)
         {
             Fixing();
+        }
+
+        if (cBord.isLocked && !isPowerOff)
+        {
+            RemoveAllMenu();
+            isLocked = true;
+            isPowerOff = true;
+        }
+        else if (currentHealth <= 0 && !isPowerOff && !cBord.isLocked)
+        {
+            RemoveAndInsertMenu("SwitchStates", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
+            isLocked = true;
+            isPowerOff = true;
         }
     }
 
@@ -111,18 +129,20 @@ public class DoorController : ControllerBased
 
     public void SwtichStates(object obj)
     {
-        DefaultValueWithGO temp = (DefaultValueWithGO)obj;
-        isNPCCalled = (bool)temp.DefaultValue;
+        isNPCCalled = false;
         if (!isOperating)
         {
-            isLocked = !isLocked;
-            if (isLocked)
+            if (!isLocked && rightClickMenus[0].functionName == "Lock")
             {
+                isLocked = true;
                 rightClickMenus[0].functionName = "Unlock";
                 lockTime = recordLockTime;
             }            
-            else
+            else if(isLocked && rightClickMenus[0].functionName == "Unlock")
+            {
+                isLocked = false;
                 rightClickMenus[0].functionName = "Lock";
+            }
         }
     }
 
@@ -145,48 +165,56 @@ public class DoorController : ControllerBased
     
     void CheckCurrentStatus()
     {
-        if (isLocked && !isPowerOff && !isNPCCalled)
+        if(rightClickMenus.Count !=0)
         {
-            lockTime -= Time.deltaTime;
-            if (lockTime <= 0)
+            if (isLocked && !isPowerOff && !isNPCCalled)
             {
-                isLocked = !isLocked;
-                lockTime = recordLockTime;
+                lockTime -= Time.deltaTime;
+                if (lockTime <= 0)
+                {
+                    isLocked = !isLocked;
+                    isNPCCalled = true;
+                    lockTime = recordLockTime;
+                    rightClickMenus[0].functionName = "Lock";
+                }
             }
-        }
 
-        if (currentHealth <= 0 && !isPowerOff)
-        {
-            RemoveAndInsertMenu("SwitchStates", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
-            isLocked = true;
-            isPowerOff = true;
-        }
+            if (isLocked && rightClickMenus[0].functionName != "Unlock")
+            {
+                rightClickMenus[0].functionName = "Unlock";
+            }
+            else if (!isLocked && rightClickMenus[0].functionName != "Lock")
+            {
+                rightClickMenus[0].functionName = "Lock";
+            }
+        }   
     }
 
     void SendFixingNPC(object obj)
-    {
-        Vector3 Pos = Vector3.zero;
+    {    
+        GameObject gameObj = (GameObject)obj;
+        NpcController npc = gameObj.GetComponent<NpcController>();
+
         float minDistance = Mathf.Infinity;
         for (int i = 0; i < Locators.Count; i++)
         {
-            if (Locators[i].npc != null)
-                continue;
-            float a = Locators[i].Locator.position.x - transform.position.x;
-            float b = Locators[i].Locator.position.z - transform.position.z;
+            float a = Locators[i].Locator.position.x - gameObj.transform.position.x;
+            float b = Locators[i].Locator.position.z - gameObj.transform.position.z;
             float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
             float distance = Mathf.Abs(c);
+            print(distance + Locators[i].Locator.name);
 
             if (distance < minDistance)
             {
                 minDistance = distance;
-                Pos = Locators[i].Locator.position;
+                npc.fixTargetTransform = Locators[i].Locator;
             }
         }
         Debug.Log("Got a Fix Guy");
-        GameObject gameObj = (GameObject)obj;
-        NpcController npc = gameObj.GetComponent<NpcController>();
-        npc.fixTarget = gameObj;
-        npc.Dispatch(Pos);
+        npc.fixTarget = gameObject;
+        npc.HasInteract = false;
+        //print(npc.fixTargetTransform.name);
+        npc.Dispatch(npc.fixTargetTransform.position);
         npc.TriggerFixing();
     }
 
@@ -194,18 +222,15 @@ public class DoorController : ControllerBased
     {
         if(isFixing)
         {
-            //currentHealth += npc.status.fixRate * Time.deltaTime;
-            currentHealth += 10 * Time.deltaTime;
             if (currentHealth >= maxHealth)
             {
                 Debug.Log("Fixed");
                 currentHealth = maxHealth;
-                if (!cBord.GetComponent<CBordPos>().isPowerOff)
+                if (!cBord.isPowerOff)
                 {                    
                     isLocked = false;
                     isPowerOff = false;
                     isFixing = false;
-                    RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
                 }
                 else if(isActivated())
                 {
@@ -228,8 +253,6 @@ public class DoorController : ControllerBased
         Gizmos.DrawWireCube(transform.position, new Vector3(detectRange.x, detectRange.y, detectRange.z));
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(moveEnd+transform.position, 1);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, transform.localScale / 2);
     }
     #endregion
 }
