@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3848,10 +3848,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -58.4
@@ -5381,8 +5377,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 10
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 1109511360}
@@ -5580,6 +5574,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
+--- !u!1 &316938128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316938129}
+  - component: {fileID: 316938130}
+  m_Layer: 10
+  m_Name: BannedZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &316938129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316938128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1534693269}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &316938130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316938128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 4, y: 3, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Area: 3
+  m_AffectedAgents: ffffffff
 --- !u!1 &318246194
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,8 +5692,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 1850115958}
@@ -7378,8 +7417,8 @@ RectTransform:
   m_Father: {fileID: 1627242056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8268,10 +8307,6 @@ PrefabInstance:
     - target: {fileID: 2020409751943757454, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
-      propertyPath: m_RootOrder
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13373,7 +13408,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -321.5
+      value: -284.63
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13381,7 +13416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.3
+      value: -16.98
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -13430,10 +13465,6 @@ PrefabInstance:
     - target: {fileID: 2020409751943757454, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
-      propertyPath: m_RootOrder
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15141,8 +15172,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15247,8 +15276,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15353,8 +15380,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15459,8 +15484,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15565,8 +15588,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 41899235}
@@ -15676,8 +15697,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15782,8 +15801,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15894,8 +15911,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16000,8 +16015,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16124,8 +16137,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16230,8 +16241,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16336,8 +16345,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16442,8 +16449,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16548,8 +16553,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16654,8 +16657,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16760,8 +16761,6 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -23838,7 +23837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.currentHealth
-      value: 40
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: boostSpeed
@@ -27778,7 +27777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749825, y: 0}
+  m_AnchoredPosition: {x: 87.74924, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -31369,8 +31368,6 @@ MonoBehaviour:
     m_Bits: 0
   isScanOn: 0
   roomCapacity: 0
-  RoomObject: []
-  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -32554,10 +32551,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
 --- !u!1 &1526655290 stripped
@@ -32968,6 +32961,122 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
+--- !u!1 &1534693262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2020409751943757454, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+  m_PrefabInstance: {fileID: 524376665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1534693263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534693262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1534693264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534693262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1810526d97c6f574faad83fc3802d69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  hand: {fileID: 0}
+  size: {x: 0, y: 0, z: 0}
+  isHit: 0
+--- !u!195 &1534693265
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534693262}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1534693266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534693262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b8516de841ebb438fb3e1d57456864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineWidth: 0
+  outline: {fileID: 0}
+  AlwaysOutline: 0
+  IsInteracting: 0
+  rightClickMenus: []
+  enemyName: dac0d341-a088-4b02-87e7-89be160be01a
+  patrolRange:
+    maxX: 20
+    maxZ: 20
+  discoverRadius: 15
+  discoverAngle: 180
+  canChased:
+    serializedVersion: 2
+    m_Bits: 256
+  canBlocked:
+    serializedVersion: 2
+    m_Bits: 512
+  chaseSpeed: 0
+  attackRadius: 0
+  attackTime: 0
+  executingRate: 0
+  executeHealth: 0
+  restDistance: 0
+  toDoList: []
+  currentTerminalPos: {x: 0, y: 0, z: 0}
+--- !u!65 &1534693267
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534693262}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6578674, y: 5.5788193, z: 1}
+  m_Center: {x: -0.039474487, y: 2.7893963, z: -0}
+--- !u!4 &1534693269 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+  m_PrefabInstance: {fileID: 524376665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1534816332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37036,7 +37145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!208 &1733769029
 NavMeshObstacle:
   m_ObjectHideFlags: 0
