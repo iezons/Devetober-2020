@@ -31,12 +31,15 @@ public class CBordPos : Interact_SO
 
     void DoorStatus()
     {
-        if (currentHealth <= 0 && !isPowerOff)
+        if(door != null)
         {
-            door.currentHealth = 0;
-            RemoveAndInsertMenu("Operate", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
-            isPowerOff = true;
-        }
+            if (currentHealth <= 0 && !isPowerOff)
+            {
+                door.currentHealth = 0;
+                RemoveAndInsertMenu("Operate", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
+                isPowerOff = true;
+            }
+        }      
     }
 
     void SendFixingNPC(object obj)
@@ -60,9 +63,12 @@ public class CBordPos : Interact_SO
                 currentHealth = maxHealth;              
                 if (!isLocked)
                 {
-                    door.currentHealth = door.maxHealth;
-                    door.isPowerOff = false;
-                    door.isLocked = false;
+                    if(door != null)
+                    {
+                        door.currentHealth = door.maxHealth;
+                        door.isPowerOff = false;
+                        door.isLocked = false;
+                    }                 
                 }             
                 isPowerOff = false;
                 isFixing = false;

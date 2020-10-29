@@ -96,17 +96,20 @@ public class DoorController : ControllerBased
             Fixing();
         }
 
-        if (cBord.isLocked && !isPowerOff)
+        if(cBord != null)
         {
-            RemoveAllMenu();
-            isLocked = true;
-            isPowerOff = true;
-        }
-        else if (currentHealth <= 0 && !isPowerOff && !cBord.isLocked)
-        {
-            RemoveAndInsertMenu("SwitchStates", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
-            isLocked = true;
-            isPowerOff = true;
+            if (cBord.isLocked && !isPowerOff)
+            {
+                RemoveAllMenu();
+                isLocked = true;
+                isPowerOff = true;
+            }
+            else if (currentHealth <= 0 && !isPowerOff && !cBord.isLocked)
+            {
+                RemoveAndInsertMenu("SwitchStates", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
+                isLocked = true;
+                isPowerOff = true;
+            }
         }
     }
 
@@ -226,12 +229,15 @@ public class DoorController : ControllerBased
             {
                 Debug.Log("Fixed");
                 currentHealth = maxHealth;
-                if (!cBord.isPowerOff)
-                {                    
-                    isLocked = false;
-                    isPowerOff = false;
-                    isFixing = false;
-                }
+                if (cBord != null)
+                {
+                    if (!cBord.isPowerOff)
+                    {
+                        isLocked = false;
+                        isPowerOff = false;
+                        isFixing = false;
+                    }
+                }           
                 else if(isActivated())
                 {
                     isLocked = false;

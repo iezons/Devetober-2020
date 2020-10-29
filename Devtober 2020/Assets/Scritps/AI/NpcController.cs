@@ -1095,20 +1095,23 @@ public class NpcController : ControllerBased
                         animator.Play("Squat Terminal", 0);
                         if (door.currentHealth >= door.maxHealth)
                         {
-                            if (door.cBord.GetComponent<CBordPos>().isPowerOff)
+                            if(door.cBord != null)
                             {
-                                Debug.Log("Need Fix CBord ASAP");
-                                fixTarget = door.cBord.gameObject;
-                                fixTargetTransform = door.cBord.Locators[0].Locator;
-                                IsInteracting = false;
-                                foreach (var item in door.Locators)
+                                if (door.cBord.GetComponent<CBordPos>().isPowerOff)
                                 {
-                                    item.npc = null;
+                                    Debug.Log("Need Fix CBord ASAP");
+                                    fixTarget = door.cBord.gameObject;
+                                    fixTargetTransform = door.cBord.Locators[0].Locator;
+                                    IsInteracting = false;
+                                    foreach (var item in door.Locators)
+                                    {
+                                        item.npc = null;
+                                    }
+                                    RemoveMenu("Interact");
+                                    AddStopMenu();
+                                    Dispatch(door.cBord.Locators[0].Locator.position);
                                 }
-                                RemoveMenu("Interact");
-                                AddStopMenu();
-                                Dispatch(door.cBord.Locators[0].Locator.position);
-                            }
+                            }                         
                             else
                             {
                                 Debug.Log("Fixed");
@@ -1139,8 +1142,11 @@ public class NpcController : ControllerBased
                             cBord.RemoveAndInsertMenu("Repair", "Operate", "Operate", true,cBord.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                             if (!cBord.isLocked)
                             {
-                                DoorController door = cBord.door.GetComponent<DoorController>();
-                                door.RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
+                                if(cBord.door != null)
+                                {
+                                    DoorController door = cBord.door.GetComponent<DoorController>();
+                                    door.RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
+                                }                             
                             }
                             cBord.Locators[0].npc = null;                          
                             fixTarget = null;
@@ -1658,14 +1664,20 @@ public class NpcController : ControllerBased
                                     if (status.code == cBord.code)
                                     {
                                         Debug.Log("Right Key");
-                                        DoorController door = cBord.door.GetComponent<DoorController>();
-                                        SwitchPos swtich = cBord.swtich.GetComponent<SwitchPos>();
-                                        cBord.isLocked = false;
-                                        door.currentHealth = door.maxHealth;
-                                        door.isPowerOff = false;
-                                        door.isLocked = false;
-                                        door.AddMenu("SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
-                                        swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                                        if(cBord.door != null)
+                                        {
+                                            DoorController door = cBord.door.GetComponent<DoorController>();
+                                            door.currentHealth = door.maxHealth;
+                                            door.isPowerOff = false;
+                                            door.isLocked = false;
+                                            door.AddMenu("SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
+                                        }    
+                                        if(cBord.swtich != null)
+                                        {
+                                            SwitchPos swtich = cBord.swtich.GetComponent<SwitchPos>();
+                                            swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                                        }                                       
+                                        cBord.isLocked = false;                                                                   
                                     }
                                     else
                                     {
