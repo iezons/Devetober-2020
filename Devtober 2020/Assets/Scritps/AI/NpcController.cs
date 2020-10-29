@@ -198,7 +198,6 @@ public class NpcController : ControllerBased
         }
         else
         {
-            RemoveAllMenu();
             animator.Play(AnimStateName);
             m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Anim");
         }
