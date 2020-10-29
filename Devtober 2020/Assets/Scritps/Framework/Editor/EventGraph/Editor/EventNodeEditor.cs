@@ -278,6 +278,14 @@ namespace EvtGraph
                                 if(eventNode.eventSO[eventNode.CurrentEditingSONum].IsAnimState)
                                     NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("AnimStateName"));
                                 break;
+                            case DoingWithNPC.Interact:
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("NPCInteract"));
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("doingWithNPC_Interact"));
+                                if(eventNode.eventSO[eventNode.CurrentEditingSONum].doingWithNPC_Interact == DoingWithNPC_Interact.InteractObject)
+                                    NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("InteractObject"));
+                                else if (eventNode.eventSO[eventNode.CurrentEditingSONum].doingWithNPC_Interact == DoingWithNPC_Interact.InteractItem)
+                                    NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("Item"));
+                                break;
                             default:
                                 break;
                         }

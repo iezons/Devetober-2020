@@ -1219,7 +1219,6 @@ public class GameManager : SingletonBase<GameManager>
             return true;
         }
     }
-
     
     void EventDistribute()
     {
@@ -1281,6 +1280,19 @@ public class GameManager : SingletonBase<GameManager>
                                     for (int a = 0; a < evt.NPC.Count; a++)
                                     {
                                         NPC[a].SwitchAnimState(true, evt.AnimStateName);
+                                    }
+                                    break;
+                                case DoingWithNPC.Interact:
+                                    switch (evt.doingWithNPC_Interact)
+                                    {
+                                        case DoingWithNPC_Interact.InteractObject:
+                                            evt.NPCInteract.ReceiveInteractCall(evt.InteractObject.gameObject);
+                                            break;
+                                        case DoingWithNPC_Interact.InteractItem:
+                                            evt.NPCInteract.ReceiveInteractCall(evt.Item.gameObject);
+                                            break;
+                                        default:
+                                            break;
                                     }
                                     break;
                                 default:

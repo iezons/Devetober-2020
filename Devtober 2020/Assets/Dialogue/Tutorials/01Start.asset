@@ -414,6 +414,64 @@ MonoBehaviour:
   - <mark=#00CED180>[>>"Human"]</mark><w=1>
   curIndex: 0
   IsMax: 1
+--- !u!114 &-2572640354797146466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
+  m_Name: Waiting for:3s
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1631, y: -133}
+  ports:
+    keys:
+    - Input
+    - WaitingOption
+    - WaitingOption 0
+    values:
+    - _fieldName: Input
+      _node: {fileID: -2572640354797146466}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -2479930490814056800}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: WaitingOption
+      _node: {fileID: -2572640354797146466}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: WaitingOption 0
+      _node: {fileID: -2572640354797146466}
+      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 2188258175194958830}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  WaitingOption:
+  - waitingFor: 0
+    WaitSeconds: 3
+    Event: 
 --- !u!114 &-2479930490814056800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +485,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1528, y: -152}
+  position: {x: -1880, y: -168}
   ports:
     keys:
     - Output
@@ -438,7 +496,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 2188258175194958830}
+        node: {fileID: -2572640354797146466}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -575,11 +633,12 @@ MonoBehaviour:
   - {fileID: 7655482696754675492}
   - {fileID: -7059411884220849437}
   - {fileID: -7588340187148349264}
+  - {fileID: -2572640354797146466}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: 8251310112438953101}
+  current: {fileID: -2479930490814056800}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
 --- !u!114 &798332061208842029
@@ -700,8 +759,8 @@ MonoBehaviour:
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: Output
-        node: {fileID: -2479930490814056800}
+      - fieldName: WaitingOption 0
+        node: {fileID: -2572640354797146466}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
