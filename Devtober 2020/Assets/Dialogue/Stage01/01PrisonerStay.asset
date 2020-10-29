@@ -131,8 +131,8 @@ MonoBehaviour:
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: Output
-        node: {fileID: -2639374616544123151}
+      - fieldName: WaitingOption 0
+        node: {fileID: -5959610340575359105}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -203,6 +203,64 @@ MonoBehaviour:
   - Oh! God servant!<w> Alright. Hold on.
   curIndex: 0
   IsMax: 1
+--- !u!114 &-5959610340575359105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
+  m_Name: Waiting for:2s
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -838, y: -486}
+  ports:
+    keys:
+    - Input
+    - WaitingOption
+    - WaitingOption 0
+    values:
+    - _fieldName: Input
+      _node: {fileID: -5959610340575359105}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -203078775440173002}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: WaitingOption
+      _node: {fileID: -5959610340575359105}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: WaitingOption 0
+      _node: {fileID: -5959610340575359105}
+      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -7710081202709482414}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  WaitingOption:
+  - waitingFor: 0
+    WaitSeconds: 2
+    Event: 
 --- !u!114 &-4722516442049621559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,8 +310,8 @@ MonoBehaviour:
   - I didn't expect<w> to meet the servant of god here<w>, or an AI from the pre-human
     civilization.
   - 'Ehhhhh... Listen, if you want, we can make a deal here. '
-  - 'I can help you with something, somthing that...<w=0.2> those bigots cannot do.
-    All I need is to get away from this madness. '
+  - I can help you with something, somthing that...<w=0.2> those bigots cannot do.
+    All I need is to get away from this madness. <e=01_DiaTwoTrigger>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-3806839906577130529
@@ -314,10 +372,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1ff0e372f025b4a8f1f45c5ac9daf4, type: 3}
-  m_Name: Start
+  m_Name: 'Start: English'
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -728, y: -536}
+  position: {x: -1512, y: -536}
   ports:
     keys:
     - Output
@@ -328,7 +386,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -7710081202709482414}
+        node: {fileID: -203078775440173002}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -446,6 +504,54 @@ MonoBehaviour:
   - The war you just mentioned is must be The Apocalypse in B.U.C 823. <w>
   curIndex: 0
   IsMax: 1
+--- !u!114 &-203078775440173002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: ": [Switch to <co\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1256, y: -497}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -203078775440173002}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -2639374616544123151}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -203078775440173002}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -5959610340575359105}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: 
+  Dialogue:
+  - '[Switch to <color=#00FF00>Deck 02</color>]'
+  curIndex: 0
+  IsMax: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +580,8 @@ MonoBehaviour:
   - {fileID: 4253981510202244446}
   - {fileID: 9016478242836937820}
   - {fileID: 1636224032767671458}
+  - {fileID: -203078775440173002}
+  - {fileID: -5959610340575359105}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}

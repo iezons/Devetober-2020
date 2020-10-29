@@ -7076,7 +7076,7 @@ MonoBehaviour:
     m_Bits: 1024
   canBlocked:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 31232
   dodgeAngle: 220
   discoverAngle: 5
   restTime: 10
@@ -31469,6 +31469,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841979}
     m_Modifications:
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: StorageItem.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: MaxStorage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 26.500011
@@ -33433,6 +33441,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842000}
     m_Modifications:
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: StorageItem.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: MaxStorage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.123
@@ -45923,6 +45939,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841990}
     m_Modifications:
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: StorageItem.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: MaxStorage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.61
@@ -49704,6 +49728,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841998}
     m_Modifications:
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: StorageItem.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: MaxStorage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.9260406
@@ -50788,31 +50820,44 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
   EventName: 
-  conditionSOs:
-  - ID: b35913e6-3208-4d01-b2c2-cd7f49888fad
-    conditionWith: 4
-    nPCConditinoWith: 0
+  conditionSOs: []
+  CurrentEditingConNum: -1
+  eventSO:
+  - ID: c38282a7-913d-4297-bf1d-8fbdb9beee81
+    TODOList: []
+    doingWith: 2
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
     NPC: []
-    nPCHPWith: 2
-    HP: 0
-    enemyConditionWith: 0
-    Enemy_Num: 2
-    OverallNumbers: 0
-    roomConditionWith: 0
-    roomTrackers: []
-    Room_NPC_Num: 2
-    NPC_Number: 0
-    SpecificRoomNPCs: []
-    Room_Enemy_Num: 2
-    Enemy_Number: 0
-    eventTriggers:
-    - IsTriggered: 0
-      EventName: 
-    customConditions:
-    - {fileID: 608871011}
-  CurrentEditingConNum: 0
-  eventSO: []
-  CurrentEditingSONum: -1
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 1
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: f2db4636-b974-47a0-8a58-3bce914641e2
+    TODOList: []
+    doingWith: 3
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 11400000, guid: f1362160e6be5de45ad6e6612bb69a23, type: 2}
+    Dialogue_Room: {fileID: 774842019}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 1
   Comment: 
 --- !u!1001 &1896001809
 PrefabInstance:
@@ -50890,6 +50935,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841983}
     m_Modifications:
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: StorageItem.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: MaxStorage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.4599953
@@ -51440,6 +51493,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: StorageItem.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: MaxStorage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.4000013

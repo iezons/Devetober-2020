@@ -24,7 +24,14 @@ namespace EvtGraph
         Talking,
         MoveTo,
         Patrol,
+        Interact,
         AnimState
+    }
+
+    public enum DoingWithNPC_Interact
+    {
+        InteractObject,
+        InteractItem
     }
 
     public enum DoingWithEnemy
@@ -46,24 +53,37 @@ namespace EvtGraph
 
         public DoingWith doingWith = DoingWith.NPC;
 
+        //NPC
         public DoingWithNPC doingWithNPC = DoingWithNPC.Talking;
+        //--Talking
         public List<TalkingClass> NPCTalking= new List<TalkingClass>();
+        //--WayPoint
         public List<MoveToClass> NPCWayPoint = new List<MoveToClass>();
+        //--Interact
+        public NpcController NPCInteract = null;
+        public DoingWithNPC_Interact doingWithNPC_Interact;
+        public Interact_SO InteractObject = null;
+        public Item_SO Item = null;
+        //--AnimState
         public List<NpcController> NPC = new List<NpcController>();
         public bool IsAnimState = true;
         public string AnimStateName = string.Empty;
 
+        //Enemy
         public DoingWithEnemy doingWithEnemy = DoingWithEnemy.Spawn;
         public List<Transform> SpawnPoint = new List<Transform>();
         public List<MoveToClass> EnemyWayPoint = new List<MoveToClass>();
 
+        //Dialogue
         public DialogueGraph Dialogue_Graph;
         public RoomTracker Dialogue_Room;
 
         public DoingWithRoom doingWithRoom = DoingWithRoom.None;
 
+        //Custom
         public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
-
+        
+        //Timelines
         public List<PlayableDirector> timelines = new List<PlayableDirector>();
 
         public EventSO()

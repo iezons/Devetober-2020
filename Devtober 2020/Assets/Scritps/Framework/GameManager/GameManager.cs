@@ -1219,7 +1219,6 @@ public class GameManager : SingletonBase<GameManager>
             return true;
         }
     }
-
     
     void EventDistribute()
     {
