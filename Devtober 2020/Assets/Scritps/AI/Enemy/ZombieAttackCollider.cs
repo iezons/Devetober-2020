@@ -56,6 +56,9 @@ public class ZombieAttackCollider : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(hand.position, size);
+        if(hand != null)
+        {
+            Gizmos.DrawWireCube(hand.position, size);
+        }
     }
 }

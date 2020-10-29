@@ -238,7 +238,7 @@ public class EnemyController : ControllerBased
         }
         else if (!navAgent.isOnOffMeshLink)
         {
-            animator.Play("Idle", 0);
+            animator.Play("Zombie_Idle", 0);
         }
     }
 
@@ -471,18 +471,21 @@ public class EnemyController : ControllerBased
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(currentTerminalPos, 1);
 
-        if(hitNPCs.Length != 0 && target != null)
+        if(hitNPCs != null)
         {
-            if (isBlocked)
+            if(hitNPCs.Length != 0 && target != null)
             {
-                Gizmos.color = Color.blue;
-            }
-            else
-            {
-                Gizmos.color = inAngle ? Color.red : Color.green;
-            }
+                if (isBlocked)
+                {
+                    Gizmos.color = Color.blue;
+                }
+                else
+                {
+                    Gizmos.color = inAngle ? Color.red : Color.green;
+                }
             
-            Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), target.transform.position + new Vector3(0, 3, 0));
+                Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), target.transform.position + new Vector3(0, 3, 0));
+            }
         }
 
         //float yAngle;
