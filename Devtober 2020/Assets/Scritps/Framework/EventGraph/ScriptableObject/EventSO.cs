@@ -98,7 +98,7 @@ namespace EvtGraph
     [Serializable]
     public class MoveToClass
     {
-        public GameObject NPC; //指的是谁要去移动
+        public GameObject Obj; //指的是谁要去移动
         public Transform MoveTO; //指的是要移动到哪里
     }
 

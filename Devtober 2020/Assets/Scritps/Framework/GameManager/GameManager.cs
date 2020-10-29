@@ -131,6 +131,10 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject TutorialLevel;
     public GameObject MainLevelGroup;
 
+    [Header("Zombie")]
+    public GameObject ZombieObject;
+    public NpcController testnpc;
+
     void Awake()
     {
         SetupScene();
@@ -397,6 +401,11 @@ public class GameManager : SingletonBase<GameManager>
                     UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, true);
                 }
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            testnpc.SwitchAnimState(false);
         }
         #endregion
 
@@ -1231,7 +1240,7 @@ public class GameManager : SingletonBase<GameManager>
                                         {
                                             for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                if(evt.NPCTalking[a].moveToClasses[b].NPC.gameObject == NPC[c].gameObject)
+                                                if(evt.NPCTalking[a].moveToClasses[b].Obj.gameObject == NPC[c].gameObject)
                                                 {
                                                     NPC[c].status.toDoList.Add(evt);
                                                     evt.NPCTalking[a].room.NPCAgentList.Add(NPC[c].status.npcName, false);
@@ -1249,7 +1258,7 @@ public class GameManager : SingletonBase<GameManager>
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if (NPC[b].gameObject == evt.NPCWayPoint[a].NPC)
+                                            if (NPC[b].gameObject == evt.NPCWayPoint[a].Obj)
                                             {
                                                 NPC[b].status.toDoList.Add(evt);
                                             }
@@ -1265,7 +1274,7 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.AnimState:
                                     for (int a = 0; a < evt.NPC.Count; a++)
                                     {
-                                        NPC[a].SwtichAnimState(true, evt.AnimStateName);
+                                        NPC[a].SwitchAnimState(true, evt.AnimStateName);
                                     }
                                     break;
                                 default:
@@ -1276,6 +1285,19 @@ public class GameManager : SingletonBase<GameManager>
                             //Nothing
                             break;
                         case DoingWith.Enemy:
+                            switch (evt.doingWithEnemy)
+                            {
+                                case DoingWithEnemy.Spawn:
+                                    foreach (var item in evt.SpawnPoint)
+                                    {
+                                        GameObject obj = Instantiate(ZombieObject, evt.SpawnPoint[i]);
+                                    }
+                                    break;
+                                case DoingWithEnemy.MoveTo:
+                                    break;
+                                default:
+                                    break;
+                            }
                             //TODO
                             break;
                         case DoingWith.Custom:

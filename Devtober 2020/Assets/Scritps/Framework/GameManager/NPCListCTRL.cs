@@ -10,7 +10,7 @@ public class NPCListCTRL : MonoBehaviour
     [Header("Resource")]
     public List<Sprite> HP5 = new List<Sprite>();//1 2 3 4 5
     public List<Sprite> ItemIcon = new List<Sprite>();//Meditcal Kit    Repair_parts    Keys
-    public List<Sprite> NPCIcon = new List<Sprite>();//Chef Guard1 Guard2 Guard3 Preist Theology Worker1 Worker2 HighPresit
+    public List<Sprite> NPCIcon = new List<Sprite>();//0Chef 1Guard1 2Guard2 3Guard3 4Preist 5Theology 6Worker1 7Worker2 8HighPresit
     [Header("NPCList")]
     public Text BPMPos;//
     public Text NamePos;//
@@ -38,7 +38,21 @@ public class NPCListCTRL : MonoBehaviour
                     break;
                 case "RestInPeaceGuy":
                     NPCIconPos.sprite = NPCIcon[0];
-                    ItemPos.color = Color.white;
+                    break;
+                case "Clopas Arvina":
+                    NPCIconPos.sprite = NPCIcon[5];
+                    break;
+                case "Celer Julus":
+                    NPCIconPos.sprite = NPCIcon[5];
+                    break;
+                case "Lysander Asiaticus":
+                    NPCIconPos.sprite = NPCIcon[1];
+                    break;
+                case "Vortigernus Balbus":
+                    NPCIconPos.sprite = NPCIcon[4];
+                    break;
+                case "Castor Cinna":
+                    NPCIconPos.sprite = NPCIcon[1];
                     break;
                 default:
                     break;

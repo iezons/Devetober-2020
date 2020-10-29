@@ -8,9 +8,11 @@ using UnityEngine.Events;
 using GamePlay;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(BoxCollider))]
 public class NpcController : ControllerBased
 {
     public bool inAnimState = false;
+    public string AnimaStateName = string.Empty;
 
     #region Inspector View
     [System.Serializable]
@@ -167,13 +169,14 @@ public class NpcController : ControllerBased
             { "Anim", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing" } }
         };
 
-        m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        
         #endregion
 
         #region RightClickMenu
         //AddMenu("Move", "Move", false, ReadyForDispatch);
         //AddMenu("HideAll", "Hide All", false, TriggerHiding); //TODO NPC集体躲进去。Call一个方法，这个方法给GM发消息，带上自己在的房间，然后GM就会识别你带的房间，然后给本房间内所有的NPC发消息，让他们躲起来
-        AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+        if(!inAnimState)
+            AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
             | 1 << LayerMask.NameToLayer("RestingPos")
             | 1 << LayerMask.NameToLayer("TerminalPos")
             | 1 << LayerMask.NameToLayer("SwitchPos")
@@ -181,6 +184,16 @@ public class NpcController : ControllerBased
             | 1 << LayerMask.NameToLayer("CBord")
             | 1 << LayerMask.NameToLayer("StoragePos"));
         #endregion
+
+        if(!inAnimState)
+        {
+            m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        }
+        else
+        {
+            m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Anim");
+            RemoveAllMenu();
+        }
     }
 
     private void Start()
@@ -308,11 +321,12 @@ public class NpcController : ControllerBased
         }
     }
 
-    public void SwtichAnimState(bool inState, string animName = "")
+    public void SwitchAnimState(bool inState, string animName = "")
     {
         if (inState)
         {
-            navAgent.ResetPath();
+            if(navAgent.isOnNavMesh)
+                navAgent.ResetPath();
             CurrentInteractObject = null;
             CurrentInteractItem = null;
             RescuingTarget = null;
@@ -326,6 +340,8 @@ public class NpcController : ControllerBased
         }
         else
         {
+            BackToPatrol();
+            DetectRoom();
             AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
     | 1 << LayerMask.NameToLayer("RestingPos")
     | 1 << LayerMask.NameToLayer("TerminalPos")
@@ -343,7 +359,6 @@ public class NpcController : ControllerBased
                 default:
                     break;
             }
-            BackToPatrol();
         }
     }
 
@@ -464,7 +479,7 @@ public class NpcController : ControllerBased
 
     void DetectRoom()
     {
-        Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
+        Physics.Raycast(transform.position + new Vector3(0, 3, 0), -transform.up * detectRay , out hit, 1 << LayerMask.NameToLayer("Room"));
         if(hit.collider.gameObject != null)
         {
             currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
@@ -611,7 +626,7 @@ public class NpcController : ControllerBased
                     {
                         for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                         {
-                            if (evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
+                            if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                             {
                                 Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
                             }
@@ -621,7 +636,7 @@ public class NpcController : ControllerBased
                 case DoingWithNPC.MoveTo:
                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                     {
-                        if (evt.NPCWayPoint[a].NPC == gameObject)
+                        if (evt.NPCWayPoint[a].Obj == gameObject)
                         {
                             Dispatch(evt.NPCWayPoint[a].MoveTO.position);
                         }
@@ -1497,7 +1512,7 @@ public class NpcController : ControllerBased
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, alertRadius);
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, -transform.up * detectRay);
+        Gizmos.DrawRay(transform.position + new Vector3(0, 3, 0), -transform.up * detectRay);
         if (RescuingTarget != null)
         {
             if (isBlocked)
