@@ -151,8 +151,10 @@ public class GameManager : SingletonBase<GameManager>
         SetupStage(Stage);
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
-        else if(Stage > 0)
+        else if (Stage > 0)
             RoomSwitch("BedRoom_A", 0);
+        else
+            RoomSwitch("TestRoom", 0);
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -793,6 +795,10 @@ public class GameManager : SingletonBase<GameManager>
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
             SetupCameraButton();
             //Destroy(TutorialLevel);
+        }
+        else
+        {
+            SetupCameraButton();
         }
     }
 

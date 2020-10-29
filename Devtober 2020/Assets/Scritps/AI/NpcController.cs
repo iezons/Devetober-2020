@@ -7,10 +7,13 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
 
+
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(BoxCollider))]
 public class NpcController : ControllerBased
 {
     public bool inAnimState = false;
+    public string AnimStateName = string.Empty;
 
     #region Inspector View
     [System.Serializable]
@@ -175,8 +178,7 @@ public class NpcController : ControllerBased
             { "Anim", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "OnFloor" } },
             { "OnFloor", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } }
         };
-
-        m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        
         #endregion
 
         #region RightClickMenu
@@ -190,6 +192,16 @@ public class NpcController : ControllerBased
             | 1 << LayerMask.NameToLayer("CBord")
             | 1 << LayerMask.NameToLayer("StoragePos"));
         #endregion
+
+        if (!inAnimState)
+        {
+            m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Patrol");
+        }
+        else
+        {
+            RemoveAllMenu();
+            m_fsm = new StringRestrictedFiniteStateMachine(NPCDictionary, "Anim");
+        }
     }
 
     private void Start()
@@ -384,7 +396,7 @@ public class NpcController : ControllerBased
         }
     }
 
-    public void SwtichAnimState(bool inState, string animName = "")
+    public void SwitchAnimState(bool inState, string animName = "")
     {
         if (inState)
         {
@@ -402,6 +414,8 @@ public class NpcController : ControllerBased
         }
         else
         {
+            DetectRoom();
+            BackToPatrol();
             AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
     | 1 << LayerMask.NameToLayer("RestingPos")
     | 1 << LayerMask.NameToLayer("TerminalPos")
@@ -419,10 +433,8 @@ public class NpcController : ControllerBased
                 default:
                     break;
             }
-            BackToPatrol();
         }
     }
-
 
     #region Move
     public void BackToPatrol(object obj = null)
@@ -530,7 +542,7 @@ public class NpcController : ControllerBased
 
     void DetectRoom()
     {
-        Physics.Raycast(transform.position, -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
+        Physics.Raycast(transform.position + new Vector3 (0, 3, 0), -transform.up * detectRay, out hit, 1 << LayerMask.NameToLayer("Room"));
         if(hit.collider.gameObject != null)
         {
             currentRoomTracker = hit.collider.gameObject.GetComponent<RoomTracker>();
@@ -753,7 +765,7 @@ public class NpcController : ControllerBased
                     {
                         for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                         {
-                            if (evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
+                            if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                             {
                                 Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
                             }
@@ -763,7 +775,7 @@ public class NpcController : ControllerBased
                 case DoingWithNPC.MoveTo:
                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                     {
-                        if (evt.NPCWayPoint[a].NPC == gameObject)
+                        if (evt.NPCWayPoint[a].Obj == gameObject)
                         {
                             Dispatch(evt.NPCWayPoint[a].MoveTO.position);
                         }

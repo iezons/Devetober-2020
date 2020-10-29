@@ -5355,6 +5355,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -5669,6 +5670,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 318246197}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -9452,7 +9454,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -15148,6 +15150,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15251,6 +15254,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15354,6 +15358,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15457,6 +15462,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15560,6 +15566,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 774842020}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15668,6 +15675,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15771,6 +15779,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15874,6 +15883,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -15983,6 +15993,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16092,6 +16103,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16207,6 +16219,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16310,6 +16323,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16413,6 +16427,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16516,6 +16531,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16619,6 +16635,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -16722,6 +16739,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -17011,6 +17029,9 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking: []
     NPCWayPoint: []
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
@@ -22508,6 +22529,7 @@ MonoBehaviour:
   scrollbar: {fileID: 1231120433}
   KeepLowest: 0
   dragging: 0
+  MinValue: 0.07
 --- !u!114 &1023865045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23823,11 +23845,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: discoverAngle
-      value: 100
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: limpingLimit
-      value: 70
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.fixRate
@@ -23864,6 +23886,10 @@ PrefabInstance:
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.getUpHealth
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: canBlocked.m_Bits
+      value: 84480
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_Speed
@@ -24717,9 +24743,9 @@ MonoBehaviour:
   RightClickButton: []
   Canvas: {fileID: 995099843}
   NPCListPanel: {fileID: 732592358}
-  NPCListBtn: {fileID: 7162329537241489045, guid: e05afe1d5d108c249bad4aa5e335f888, type: 3}
+  NPCListBtn: {fileID: 8539767297573282571, guid: e05afe1d5d108c249bad4aa5e335f888, type: 3}
   MainCamera: {fileID: 1561630045}
-  CameraScreen: {fileID: 0}
+  CameraScreen: {fileID: 1754056130}
   VHSTexture: {fileID: 8400000, guid: 3107cae0f91150244913c6580f9ba780, type: 2}
   CameraButtonListPanel: {fileID: 956292794}
   CameraButton: {fileID: 105729866337195066, guid: dcc4d4b448f6c7445a64aa1bc0426fdb, type: 3}
@@ -24728,11 +24754,12 @@ MonoBehaviour:
   StartTime: {x: 22, y: 59, z: 54}
   CanCameraTurnLeft: 1
   CanCameraTurnRight: 1
-  Director: {fileID: 1166111227}
-  timeline: {fileID: 11400000, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+  Directors: []
   Stage: -1
   TutorialLevel: {fileID: 1696871159}
   MainLevelGroup: {fileID: 417906601}
+  ZombieObject: {fileID: 0}
+  testnpc: {fileID: 0}
 --- !u!4 &1166111226
 Transform:
   m_ObjectHideFlags: 0
@@ -26533,15 +26560,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8172748822157242984, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.7
+      value: -7.73
       objectReference: {fileID: 0}
     - target: {fileID: 8172748822157242984, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.19
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8172748822157242984, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.41
+      value: -3.15
       objectReference: {fileID: 0}
     - target: {fileID: 8172748822157242984, guid: 42cd0da54e76c82489d4a6d4b6a6db0c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -27668,6 +27695,9 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking: []
     NPCWayPoint: []
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []
@@ -27747,7 +27777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.749825, y: 0}
+  m_AnchoredPosition: {x: 87.749374, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -31322,6 +31352,7 @@ MonoBehaviour:
   CurrentCameraIndex: 0
   CBoard: {fileID: 0}
   Door: []
+  CanBeDetected: 1
   DiaPlay: {fileID: 0}
   WaitingGraph: {fileID: 0}
   HistoryText: 
@@ -37201,7 +37232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733769028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -237.56, y: 3.8, z: -14.38}
+  m_LocalPosition: {x: -242.22, y: 3.8, z: -12.84}
   m_LocalScale: {x: 19.106, y: 12.699, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -46217,11 +46248,14 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - NPC: {fileID: 0}
+      - Obj: {fileID: 0}
         MoveTO: {fileID: 0}
       room: {fileID: 0}
       Graph: {fileID: 0}
     NPCWayPoint: []
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
     doingWithEnemy: 0
     SpawnPoint: []
     EnemyWayPoint: []

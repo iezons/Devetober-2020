@@ -51,7 +51,8 @@ namespace GamePlay
         [Header("RoomObject")]
         public Interact_SO CBoard;
         public List<DoorController> Door;
-
+        [HideInInspector]
+        public bool CanBeDetected = true;
         [Header("Dialogue")]
         public DialoguePlay DiaPlay;
         public DialogueGraph WaitingGraph;
@@ -410,7 +411,7 @@ namespace GamePlay
             OptionList = opts;
             if(GameManager.GetInstance().CurrentRoom == this)
             {
-                GameManager.GetInstance().SetupOption();
+                GameManager.GetInstance().SetupOption(this);
             }
         }
 

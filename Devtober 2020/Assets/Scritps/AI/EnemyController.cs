@@ -411,7 +411,7 @@ public class EnemyController : ControllerBased
                     {
                         for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                         {
-                            if (evt.NPCTalking[a].moveToClasses[b].NPC == gameObject)
+                            if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                             {
                                 Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
                             }
@@ -421,7 +421,7 @@ public class EnemyController : ControllerBased
                 case DoingWithNPC.MoveTo:
                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                     {
-                        if (evt.NPCWayPoint[a].NPC == gameObject)
+                        if (evt.NPCWayPoint[a].Obj == gameObject)
                         {
                             Dispatch(evt.NPCWayPoint[a].MoveTO.position);
                         }
