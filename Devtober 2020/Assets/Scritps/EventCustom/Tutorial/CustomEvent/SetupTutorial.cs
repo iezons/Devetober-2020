@@ -9,5 +9,7 @@ public class SetupTutorial : EventScriptInterface
     {
         //base.DoEvent(obj);
         //这里Setup场景
+        GameManager.GetInstance().SetupStage(0);
+        FinishEvent();
     }
 }

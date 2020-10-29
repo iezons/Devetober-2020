@@ -5,6 +5,7 @@ using UnityEngine;
 using DiaGraph;
 using UnityEngine.Timeline;
 using GamePlay;
+using UnityEngine.Playables;
 
 namespace EvtGraph
 {
@@ -22,7 +23,8 @@ namespace EvtGraph
     {
         Talking,
         MoveTo,
-        Patrol
+        Patrol,
+        AnimState
     }
 
     public enum DoingWithEnemy
@@ -47,6 +49,9 @@ namespace EvtGraph
         public DoingWithNPC doingWithNPC = DoingWithNPC.Talking;
         public List<TalkingClass> NPCTalking= new List<TalkingClass>();
         public List<MoveToClass> NPCWayPoint = new List<MoveToClass>();
+        public List<NpcController> NPC = new List<NpcController>();
+        public bool IsAnimState = true;
+        public string AnimStateName = string.Empty;
 
         public DoingWithEnemy doingWithEnemy = DoingWithEnemy.Spawn;
         public List<Transform> SpawnPoint = new List<Transform>();
@@ -59,7 +64,7 @@ namespace EvtGraph
 
         public List<EventScriptInterface> CustomCode = new List<EventScriptInterface>();
 
-        public List<TimelineAsset> timelines = new List<TimelineAsset>();
+        public List<PlayableDirector> timelines = new List<PlayableDirector>();
 
         public EventSO()
         {
@@ -93,7 +98,7 @@ namespace EvtGraph
     [Serializable]
     public class MoveToClass
     {
-        public GameObject NPC; //指的是谁要去移动
+        public GameObject Obj; //指的是谁要去移动
         public Transform MoveTO; //指的是要移动到哪里
     }
 

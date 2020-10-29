@@ -270,6 +270,13 @@ namespace EvtGraph
                                 NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("NPCWayPoint"));
                                 break;
                             case DoingWithNPC.Patrol:
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("NPC"));
+                                break;
+                            case DoingWithNPC.AnimState:
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("NPC"));
+                                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("IsAnimState"));
+                                if(eventNode.eventSO[eventNode.CurrentEditingSONum].IsAnimState)
+                                    NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("eventSO").GetArrayElementAtIndex(eventNode.CurrentEditingSONum).FindPropertyRelative("AnimStateName"));
                                 break;
                             default:
                                 break;

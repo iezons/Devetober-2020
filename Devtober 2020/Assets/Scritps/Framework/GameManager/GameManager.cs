@@ -25,6 +25,13 @@ public class WaitingNPCArrive
     public DialogueGraph graph;
 }
 
+[Serializable]
+public class DirectorsClass
+{
+    public PlayableDirector Director;
+    public bool IsPlaying;
+}
+
 public enum GameManagerState
 {
     OFF,
@@ -112,8 +119,10 @@ public class GameManager : SingletonBase<GameManager>
     float currentSeconds;
 
     [Header("Timeline Playing")]
-    public PlayableDirector Director;
-    public TimelineAsset timeline;
+    public List<DirectorsClass> Directors = new List<DirectorsClass>();
+
+    //public PlayableDirector Director;
+    //public TimelineAsset timeline;
 
     [Header("Game Stages")]
     public int Stage = 0; // 0-Tutorial 1-Stage01 2-Stage-02
@@ -122,10 +131,13 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject TutorialLevel;
     public GameObject MainLevelGroup;
 
+    [Header("Zombie")]
+    public GameObject ZombieObject;
+    public NpcController testnpc;
+
     void Awake()
     {
         SetupScene();
-        SetupStage(Stage);
         eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
@@ -136,13 +148,11 @@ public class GameManager : SingletonBase<GameManager>
 
     void Start()
     {
+        SetupStage(Stage);
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
         else if(Stage > 0)
-            RoomSwitch("Main Hall", 0);
-        else
-            RoomSwitch("TestRoom", 0);
-        SetupCameraButton();
+            RoomSwitch("BedRoom_A", 0);
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -165,12 +175,11 @@ public class GameManager : SingletonBase<GameManager>
                 {
                     CameraName.text = Rooms[i].RoomName();
                 }
-                
+                SetupOption(Rooms[i]);
                 Rooms[i].CurrentCameraIndex = CameraIndex;
                 CurrentRoom = Rooms[i];
             }
         }
-        SetupOption();
     }
 
     void SetupCameraButton()
@@ -182,21 +191,24 @@ public class GameManager : SingletonBase<GameManager>
         
         for (int i = 0; i < Rooms.Count; i++)
         {
-            for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
+            if(Rooms[i].CanBeDetected)
             {
-                string RoomName = Rooms[i].RoomName();
-                int index = a;
+                for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
+                {
+                    string RoomName = Rooms[i].RoomName();
+                    int index = a;
 
-                GameObject gameobj = Instantiate(CameraButton);
+                    GameObject gameobj = Instantiate(CameraButton);
 
-                gameobj.transform.SetParent(CameraButtonListPanel, false);
-                if(Rooms[i].cameraLists.Count > 1)
-                    gameobj.GetComponentInChildren<TMP_Text>().text = RoomName + " " + (index + 1).ToString();
-                else
-                    gameobj.GetComponentInChildren<TMP_Text>().text = RoomName;
-                SwitchCameraButton SCB = gameobj.GetComponent<SwitchCameraButton>();
-                SCB.RoomName = RoomName;
-                SCB.CameraIndex = index;
+                    gameobj.transform.SetParent(CameraButtonListPanel, false);
+                    if(Rooms[i].cameraLists.Count > 1)
+                        gameobj.GetComponentInChildren<TMP_Text>().text = RoomName + " " + (index + 1).ToString();
+                    else
+                        gameobj.GetComponentInChildren<TMP_Text>().text = RoomName;
+                    SwitchCameraButton SCB = gameobj.GetComponent<SwitchCameraButton>();
+                    SCB.RoomName = RoomName;
+                    SCB.CameraIndex = index;
+                }
             }
         }
     }
@@ -211,18 +223,18 @@ public class GameManager : SingletonBase<GameManager>
         CurrentRoom.OptionSelect(index);
     }
 
-    public void SetupOption()
+    public void SetupOption(RoomTracker room)
     {
         for (int i = 0; i < Option.Count; i++)
         {
             Destroy(Option[i].gameObject);
         }
         Option.Clear();
-        for (int i = 0; i < CurrentRoom.OptionList.Count; i++)
+        for (int i = 0; i < room.OptionList.Count; i++)
         {
             Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
             Option[i].transform.SetParent(ButtonContent, false);
-            Option[i].transform.GetComponentInChildren<Text>().text = CurrentRoom.OptionList[i].Text;
+            Option[i].transform.GetComponentInChildren<Text>().text = room.OptionList[i].Text;
             Option[i].transform.name = i.ToString();
         }
     }
@@ -249,13 +261,13 @@ public class GameManager : SingletonBase<GameManager>
         TMPText.text = CurrentRoom.HistoryText + CurrentRoom.DiaPlay.WholeText;
     }
 
-    void InstanceNPCListBtn(string npcName)
+    void InstanceNPCListBtn(string npcName, NpcController npc)
     {
         GameObject obj = Instantiate(NPCListBtn);
         NPCListButtons.Add(obj);
         obj.transform.SetParent(NPCListPanel, false);
         obj.name = npcName;
-        obj.GetComponentInChildren<Text>().text = npcName;
+        obj.GetComponent<NPCListCTRL>().npc = npc;
     }
 
     void UpdateNPCList()
@@ -278,7 +290,7 @@ public class GameManager : SingletonBase<GameManager>
             }
             if(!IsContains)
             {
-                InstanceNPCListBtn(NPCName);
+                InstanceNPCListBtn(NPCName, temp.GetComponent<NpcController>());
             }
         }
 
@@ -313,6 +325,10 @@ public class GameManager : SingletonBase<GameManager>
 
     void Update()
     {
+        #region TimeLine
+        TimelineStop();
+        #endregion
+
         #region Input
         if (Input.GetKey(MoveLeft) && CanCameraTurnLeft)
         {
@@ -350,7 +366,46 @@ public class GameManager : SingletonBase<GameManager>
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Director.Play(timeline);
+            //Director.Play(timeline);
+        }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Resolution[] res = UnityEngine.Screen.resolutions;
+            if (res.Length > 0)
+            {
+                if (res[0].width >= res[1].height)
+                {
+                    UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, false);
+                    Debug.Log(res[0].width.ToString() + "x" + (res[0].width / 16 * 9).ToString());
+                }
+                else
+                {
+                    UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
+                    Debug.Log((res[0].height / 9 * 16).ToString() + "x" + res[0].height.ToString());
+                }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Resolution[] res = UnityEngine.Screen.resolutions;
+            if (res.Length > 0)
+            {
+                if (res[0].width >= res[1].height)
+                {
+                    UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, true);
+                }
+                else
+                {
+                    UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, true);
+                }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            testnpc.SwitchAnimState(false);
         }
         #endregion
 
@@ -375,8 +430,7 @@ public class GameManager : SingletonBase<GameManager>
         StartCoroutine(UpdateText());
         #endregion
 
-        #region UpdateNPCList()
-        //----------------------
+        #region UpdateNPCList
         if (CurrentRoom != null)
         {
             UpdateNPCList();
@@ -423,7 +477,7 @@ public class GameManager : SingletonBase<GameManager>
                     justEnter = false;
                     EventDistribute();
                 }
-                if(TriggerEvent())
+                if(IsEventFinish())
                 {
                     GoToState(GameManagerState.PAUSED);
                 }
@@ -686,20 +740,21 @@ public class GameManager : SingletonBase<GameManager>
 
     void SetupScene()
     {
-        if (UnityEngine.Screen.width / UnityEngine.Screen.height != 16 / 9)
+        Resolution[] res = UnityEngine.Screen.resolutions;
+        if(res.Length > 0)
         {
-            if (UnityEngine.Screen.width >= UnityEngine.Screen.height)
+            if (res[0].width >= res[1].height)
             {
-                UnityEngine.Screen.SetResolution(UnityEngine.Screen.width, UnityEngine.Screen.width / 16 * 9, true);
+                UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, false);
             }
             else
             {
-                UnityEngine.Screen.SetResolution(UnityEngine.Screen.height / 9 * 16, UnityEngine.Screen.height, true);
+                UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
             }
         }
     }
 
-    void SetupStage(int stage)
+    public void SetupStage(int stage)
     {
         if(stage == 0)
         {
@@ -709,20 +764,35 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(false);
             CameraButtonListPanel.gameObject.SetActive(false);
             CameraName.gameObject.SetActive(false);
-            TimeText.gameObject.SetActive(false);
             MainLevelGroup.SetActive(false);
             TutorialLevel.SetActive(true);
+            RoomSwitch("A7 Server Room", 0);
+            RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
+            foreach (var item in MainRooms)
+            {
+                item.CanBeDetected = false;
+            }
+            TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = true;
+            SetupCameraButton();
         }
-        else if (stage > 0)
+        else if(stage > 0)
         {
             CanCameraTurnLeft = true;
             CanCameraTurnRight = true;
             NPCListPanel.gameObject.SetActive(true);
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
-            TimeText.gameObject.SetActive(true);
             MainLevelGroup.SetActive(true);
             TutorialLevel.SetActive(false);
+            RoomSwitch("BedRoom_A", 0);
+            RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
+            foreach (var item in MainRooms)
+            {
+                item.CanBeDetected = true;
+            }
+            TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
+            SetupCameraButton();
+            //Destroy(TutorialLevel);
         }
     }
 
@@ -741,8 +811,6 @@ public class GameManager : SingletonBase<GameManager>
             case GameManagerState.OFF:
                 eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() {"StartNode"})[0]);
                 GoToState(GameManagerState.CONDITIONING);
-                //Conditioning();
-                //TriggerEvent();
                 break;
             case GameManagerState.CONDITIONING:
                 break;
@@ -752,8 +820,6 @@ public class GameManager : SingletonBase<GameManager>
                 eventGraph.graph.Next(TriggeringEventNode);
                 TriggeringEventNode = null;
                 GoToState(GameManagerState.CONDITIONING);
-                //Conditioning();
-                //TriggerEvent();
                 break;
             default:
                 break;
@@ -1047,15 +1113,105 @@ public class GameManager : SingletonBase<GameManager>
     //TODO 事件分发Debug
     //TODO 事件完成检测Debug
     //Custom Condition Add Component功能移除
-
-    bool TriggerEvent()
+    void TimelineStop()
     {
+        foreach (var item in Directors)
+        {
+            if (item.Director.time == 0)
+            {
+                item.IsPlaying = true;
+            }
+        }
+    }
+
+    bool IsEventFinish()
+    {
+        bool HasNotFinish = false;
         EventNode cur = TriggeringEventNode;
         if(cur != null)
         {
-
+            for (int z = 0; z < cur.eventSO.Count; z++)
+            {
+                EventSO evt = cur.eventSO[z];
+                if(evt != null)
+                {
+                    switch (evt.doingWith)
+                    {
+                        case DoingWith.NPC:
+                            switch (evt.doingWithNPC)
+                            {
+                                case DoingWithNPC.Talking:
+                                    for (int i = 0; i < evt.NPCTalking.Count; i++)
+                                    {
+                                        if(evt.NPCTalking[i].room.DiaPlay.currentGraph == evt.NPCTalking[i].Graph || evt.NPCTalking[i].room.WaitingGraph == evt.NPCTalking[i].Graph)
+                                        {
+                                            HasNotFinish = true;
+                                        }
+                                    }
+                                    break;
+                                case DoingWithNPC.MoveTo:
+                                    break;
+                                case DoingWithNPC.Patrol:
+                                    break;
+                                case DoingWithNPC.AnimState:
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case DoingWith.Room:
+                            break;
+                        case DoingWith.Enemy:
+                            break;
+                        case DoingWith.Dialogue:
+                            if(evt.Dialogue_Room.DiaPlay.currentGraph == evt.Dialogue_Graph)
+                            {
+                                HasNotFinish = true;
+                            }
+                            break;
+                        case DoingWith.Timeline:
+                            foreach (var timelines in evt.timelines)
+                            {
+                                foreach (var item in Directors)
+                                {
+                                    if (item.Director == timelines)
+                                    {
+                                        if (!item.IsPlaying)
+                                        {
+                                            HasNotFinish = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (HasNotFinish)
+                                    break;
+                            }
+                            break;
+                        case DoingWith.Custom:
+                            for (int i = 0; i < evt.CustomCode.Count; i++)
+                            {
+                                if(!evt.CustomCode[i].IsEventFinish)
+                                {
+                                    HasNotFinish = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if(HasNotFinish)
+                    break;
+            }
         }
-        return false;
+        if (HasNotFinish)
+            return false;
+        else
+        {
+            Debug.Log("Event Move Next");
+            return true;
+        }
     }
 
     
@@ -1075,7 +1231,7 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.NPC:
                             switch (evt.doingWithNPC)
                             {
-                                case DoingWithNPC.Talking:
+                                case DoingWithNPC.Talking://√
                                     for (int a = 0; a < evt.NPCTalking.Count; a++)
                                     {
                                         Debug.Log("Clear NPC Agent List from GM. ", gameObject);
@@ -1084,7 +1240,7 @@ public class GameManager : SingletonBase<GameManager>
                                         {
                                             for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                if(evt.NPCTalking[a].moveToClasses[b].NPC.gameObject == NPC[c].gameObject)
+                                                if(evt.NPCTalking[a].moveToClasses[b].Obj.gameObject == NPC[c].gameObject)
                                                 {
                                                     NPC[c].status.toDoList.Add(evt);
                                                     evt.NPCTalking[a].room.NPCAgentList.Add(NPC[c].status.npcName, false);
@@ -1097,12 +1253,12 @@ public class GameManager : SingletonBase<GameManager>
                                         }
                                     }
                                     break;
-                                case DoingWithNPC.MoveTo:
+                                case DoingWithNPC.MoveTo://√
                                     for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                                     {
                                         for (int b = 0; b < NPC.Count; b++)
                                         {
-                                            if (NPC[b].gameObject == evt.NPCWayPoint[a].NPC)
+                                            if (NPC[b].gameObject == evt.NPCWayPoint[a].Obj)
                                             {
                                                 NPC[b].status.toDoList.Add(evt);
                                             }
@@ -1110,6 +1266,16 @@ public class GameManager : SingletonBase<GameManager>
                                     }
                                     break;
                                 case DoingWithNPC.Patrol:
+                                    for (int a = 0; a < evt.NPC.Count; a++)
+                                    {
+                                        NPC[a].BackToPatrol();
+                                    }
+                                    break;
+                                case DoingWithNPC.AnimState:
+                                    for (int a = 0; a < evt.NPC.Count; a++)
+                                    {
+                                        NPC[a].SwitchAnimState(true, evt.AnimStateName);
+                                    }
                                     break;
                                 default:
                                     break;
@@ -1119,25 +1285,38 @@ public class GameManager : SingletonBase<GameManager>
                             //Nothing
                             break;
                         case DoingWith.Enemy:
+                            switch (evt.doingWithEnemy)
+                            {
+                                case DoingWithEnemy.Spawn:
+                                    foreach (var item in evt.SpawnPoint)
+                                    {
+                                        GameObject obj = Instantiate(ZombieObject, evt.SpawnPoint[i]);
+                                    }
+                                    break;
+                                case DoingWithEnemy.MoveTo:
+                                    break;
+                                default:
+                                    break;
+                            }
                             //TODO
                             break;
                         case DoingWith.Custom:
                             for (int a = 0; a < evt.CustomCode.Count; a++)
                             {
-                                if(evt.CustomCode[a] != null)
-                                {
-                                    if(!evt.CustomCode[a].Instan)
-                                    {
-                                        EventScriptInterface com = gameObject.AddComponent(evt.CustomCode[a].GetType()) as EventScriptInterface;
-                                        EventScripts.Add(com);
-                                        com.DoEvent(null);
-                                    }
-                                    else
-                                    {
-                                        evt.CustomCode[a].DoEvent(null);
-                                    }
-                                }
+                                evt.CustomCode[a].enabled = true;
+                                evt.CustomCode[a].DoEvent(null);
                             }
+                            break;
+                        case DoingWith.Timeline:
+                            foreach (var item in evt.timelines)
+                            {
+                                Directors.Add(new DirectorsClass() {Director = item, IsPlaying = false });
+                                item.Play();
+                                item.time = 0.001f;
+                            }
+                            break;
+                        case DoingWith.Dialogue:
+                            evt.Dialogue_Room.PlayingDialogue(evt.Dialogue_Graph);
                             break;
                         default:
                             break;

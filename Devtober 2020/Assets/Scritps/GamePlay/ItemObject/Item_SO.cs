@@ -8,7 +8,9 @@ public class Item_SO : ControllerBased
     public enum ItemType
     {
         None,
-        MedicalKit
+        MedicalKit,
+        RepairedPart,
+        Key
     }
 
     public ItemType type;

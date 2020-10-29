@@ -18,6 +18,7 @@ public class ScrollBarCTRL : MonoBehaviour
     public Scrollbar scrollbar;
     public bool KeepLowest;
     public bool dragging = false;
+    public float MinValue = 0.07f;
 
     // Start is called before the first frame update
     void Awake()
@@ -28,7 +29,7 @@ public class ScrollBarCTRL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (scrollbar.value <= 0.07f)
+        if (scrollbar.value <= MinValue)
         {
             KeepLowest = true;
         }
@@ -48,6 +49,11 @@ public class ScrollBarCTRL : MonoBehaviour
     public void OnEndDrag()
     {
         dragging = false;
+        KeepLowest = false;
+    }
+
+    public void OnScroll()
+    {
         KeepLowest = false;
     }
 }
