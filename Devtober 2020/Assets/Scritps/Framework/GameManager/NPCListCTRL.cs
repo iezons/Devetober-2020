@@ -54,6 +54,15 @@ public class NPCListCTRL : MonoBehaviour
                 case "Castor Cinna":
                     NPCIconPos.sprite = NPCIcon[1];
                     break;
+                case "Saturnus Mocilla":
+                    NPCIconPos.sprite = NPCIcon[6];
+                    break;
+                case "Xanthe Eburnus":
+                    NPCIconPos.sprite = NPCIcon[7];
+                    break;
+                case "Proteus Cicero":
+                    NPCIconPos.sprite = NPCIcon[4];
+                    break;
                 default:
                     break;
             }
