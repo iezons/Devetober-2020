@@ -238,7 +238,7 @@ public class EnemyController : ControllerBased
         }
         else if (!navAgent.isOnOffMeshLink)
         {
-            animator.Play("Idle", 0);
+            animator.Play("Zombie_Idle", 0);
         }
     }
 
