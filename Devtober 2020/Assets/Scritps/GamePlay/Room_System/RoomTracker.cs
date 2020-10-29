@@ -46,7 +46,7 @@ namespace GamePlay
 
         [Header("Camera")]
         //public Camera RoomCamera;
-
+        public bool CanBeDetected = true;
         public List<CameraList> cameraLists = new List<CameraList>();
         public int CurrentCameraIndex = 0;
 
@@ -363,7 +363,7 @@ namespace GamePlay
             OptionList = opts;
             if(GameManager.GetInstance().CurrentRoom == this)
             {
-                GameManager.GetInstance().SetupOption();
+                GameManager.GetInstance().SetupOption(this);
             }
         }
 

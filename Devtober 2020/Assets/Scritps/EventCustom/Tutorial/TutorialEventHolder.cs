@@ -8,6 +8,7 @@ public class TutorialEventHolder : MonoBehaviour
     public GameObject CameraScreen;
     public GameObject CameraText;
     public GameObject NPCList;
+    public GameObject CameraListPanel;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class TutorialEventHolder : MonoBehaviour
         a("TU_UnlockCameraToRight", () => { GameManager.GetInstance().CanCameraTurnRight = true; }) ;
         a("TU_NPCList_Show", () => { NPCList.SetActive(true); }) ;
         a("TU_NPCList_Show", () => { NPCList.SetActive(true); }) ;
+        a("TU_SwitchToMainLevel", () => { GameManager.GetInstance().Stage = 1; GameManager.GetInstance().SetupStage(1); });
+        a("TU_ShowCameraList", () => { CameraListPanel.SetActive(true); });
     }
 
     void a(string EventName, UnityAction action = null)

@@ -25,6 +25,13 @@ public class WaitingNPCArrive
     public DialogueGraph graph;
 }
 
+[Serializable]
+public class DirectorsClass
+{
+    public PlayableDirector Director;
+    public bool IsPlaying;
+}
+
 public enum GameManagerState
 {
     OFF,
@@ -112,7 +119,7 @@ public class GameManager : SingletonBase<GameManager>
     float currentSeconds;
 
     [Header("Timeline Playing")]
-    public Dictionary<PlayableDirector, bool> Directors = new Dictionary<PlayableDirector, bool>();
+    public List<DirectorsClass> Directors = new List<DirectorsClass>();
 
     //public PlayableDirector Director;
     //public TimelineAsset timeline;
@@ -127,7 +134,6 @@ public class GameManager : SingletonBase<GameManager>
     void Awake()
     {
         SetupScene();
-        SetupStage(Stage);
         eventGraph = GetComponent<EventGraphScene>();
         EventCenter.GetInstance().AddEventListener<NpcController>("GM.NPC.Add", NPCAdd);
         EventCenter.GetInstance().AddEventListener<RoomTracker>("GM.Room.Add", RoomAdd);
@@ -138,11 +144,11 @@ public class GameManager : SingletonBase<GameManager>
 
     void Start()
     {
+        SetupStage(Stage);
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
-        else
-            RoomSwitch("Main Hall", 0);
-        SetupCameraButton();
+        else if(Stage > 0)
+            RoomSwitch("BedRoom_A", 0);
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -165,12 +171,11 @@ public class GameManager : SingletonBase<GameManager>
                 {
                     CameraName.text = Rooms[i].RoomName();
                 }
-                
+                SetupOption(Rooms[i]);
                 Rooms[i].CurrentCameraIndex = CameraIndex;
                 CurrentRoom = Rooms[i];
             }
         }
-        SetupOption();
     }
 
     void SetupCameraButton()
@@ -182,21 +187,24 @@ public class GameManager : SingletonBase<GameManager>
         
         for (int i = 0; i < Rooms.Count; i++)
         {
-            for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
+            if(Rooms[i].CanBeDetected)
             {
-                string RoomName = Rooms[i].RoomName();
-                int index = a;
+                for (int a = 0; a < Rooms[i].cameraLists.Count; a++)
+                {
+                    string RoomName = Rooms[i].RoomName();
+                    int index = a;
 
-                GameObject gameobj = Instantiate(CameraButton);
+                    GameObject gameobj = Instantiate(CameraButton);
 
-                gameobj.transform.SetParent(CameraButtonListPanel, false);
-                if(Rooms[i].cameraLists.Count > 1)
-                    gameobj.GetComponentInChildren<TMP_Text>().text = RoomName + " " + (index + 1).ToString();
-                else
-                    gameobj.GetComponentInChildren<TMP_Text>().text = RoomName;
-                SwitchCameraButton SCB = gameobj.GetComponent<SwitchCameraButton>();
-                SCB.RoomName = RoomName;
-                SCB.CameraIndex = index;
+                    gameobj.transform.SetParent(CameraButtonListPanel, false);
+                    if(Rooms[i].cameraLists.Count > 1)
+                        gameobj.GetComponentInChildren<TMP_Text>().text = RoomName + " " + (index + 1).ToString();
+                    else
+                        gameobj.GetComponentInChildren<TMP_Text>().text = RoomName;
+                    SwitchCameraButton SCB = gameobj.GetComponent<SwitchCameraButton>();
+                    SCB.RoomName = RoomName;
+                    SCB.CameraIndex = index;
+                }
             }
         }
     }
@@ -211,18 +219,18 @@ public class GameManager : SingletonBase<GameManager>
         CurrentRoom.OptionSelect(index);
     }
 
-    public void SetupOption()
+    public void SetupOption(RoomTracker room)
     {
         for (int i = 0; i < Option.Count; i++)
         {
             Destroy(Option[i].gameObject);
         }
         Option.Clear();
-        for (int i = 0; i < CurrentRoom.OptionList.Count; i++)
+        for (int i = 0; i < room.OptionList.Count; i++)
         {
             Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
             Option[i].transform.SetParent(ButtonContent, false);
-            Option[i].transform.GetComponentInChildren<Text>().text = CurrentRoom.OptionList[i].Text;
+            Option[i].transform.GetComponentInChildren<Text>().text = room.OptionList[i].Text;
             Option[i].transform.name = i.ToString();
         }
     }
@@ -313,6 +321,10 @@ public class GameManager : SingletonBase<GameManager>
 
     void Update()
     {
+        #region TimeLine
+        TimelineStop();
+        #endregion
+
         #region Input
         if (Input.GetKey(MoveLeft) && CanCameraTurnLeft)
         {
@@ -745,8 +757,16 @@ public class GameManager : SingletonBase<GameManager>
             CameraName.gameObject.SetActive(false);
             MainLevelGroup.SetActive(false);
             TutorialLevel.SetActive(true);
+            RoomSwitch("A7 Server Room", 0);
+            RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
+            foreach (var item in MainRooms)
+            {
+                item.CanBeDetected = false;
+            }
+            TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = true;
+            SetupCameraButton();
         }
-        else
+        else if(stage > 0)
         {
             CanCameraTurnLeft = true;
             CanCameraTurnRight = true;
@@ -754,7 +774,16 @@ public class GameManager : SingletonBase<GameManager>
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
             MainLevelGroup.SetActive(true);
-            Destroy(TutorialLevel);
+            TutorialLevel.SetActive(false);
+            RoomSwitch("BedRoom_A", 0);
+            RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
+            foreach (var item in MainRooms)
+            {
+                item.CanBeDetected = true;
+            }
+            TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
+            SetupCameraButton();
+            //Destroy(TutorialLevel);
         }
     }
 
@@ -1075,14 +1104,13 @@ public class GameManager : SingletonBase<GameManager>
     //TODO 事件分发Debug
     //TODO 事件完成检测Debug
     //Custom Condition Add Component功能移除
-    void TimelineStop(PlayableDirector aDir)
+    void TimelineStop()
     {
         foreach (var item in Directors)
         {
-            if(item.Key == aDir)
+            if (item.Director.time == 0)
             {
-                Directors[item.Key] = true;
-                item.Key.playableAsset = null;
+                item.IsPlaying = true;
             }
         }
     }
@@ -1137,9 +1165,9 @@ public class GameManager : SingletonBase<GameManager>
                             {
                                 foreach (var item in Directors)
                                 {
-                                    if (item.Key == timelines)
+                                    if (item.Director == timelines)
                                     {
-                                        if (!item.Value)
+                                        if (!item.IsPlaying)
                                         {
                                             HasNotFinish = true;
                                             break;
@@ -1260,9 +1288,9 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.Timeline:
                             foreach (var item in evt.timelines)
                             {
-                                Directors.Add(item, false);
-                                item.stopped += TimelineStop;
+                                Directors.Add(new DirectorsClass() {Director = item, IsPlaying = false });
                                 item.Play();
+                                item.time = 0.001f;
                             }
                             break;
                         case DoingWith.Dialogue:

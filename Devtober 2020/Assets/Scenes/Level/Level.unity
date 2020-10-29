@@ -21139,6 +21139,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1718897970}
     isLocked: 0
@@ -21240,6 +21241,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 396670158}
     isLocked: 0
@@ -21341,6 +21343,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1372848901}
     isLocked: 0
@@ -21442,6 +21445,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 2099802204}
     isLocked: 0
@@ -21543,6 +21547,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1890124186}
     isLocked: 0
@@ -21661,6 +21666,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1158863348}
     isLocked: 0
@@ -21762,6 +21768,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1523175024}
     isLocked: 0
@@ -21863,6 +21870,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 341941279}
     isLocked: 0
@@ -21970,6 +21978,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 859458856}
     isLocked: 0
@@ -22071,6 +22080,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1845278704}
     isLocked: 0
@@ -22190,6 +22200,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1799371017}
     isLocked: 0
@@ -22291,6 +22302,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 474482605}
     isLocked: 0
@@ -22392,6 +22404,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 728202580}
     isLocked: 0
@@ -22493,6 +22506,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1423965722}
     isLocked: 0
@@ -22594,6 +22608,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 713730307}
     isLocked: 0
@@ -22695,6 +22710,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 889919763}
     isLocked: 0
@@ -31039,6 +31055,7 @@ MonoBehaviour:
   StartTime: {x: 22, y: 59, z: 54}
   CanCameraTurnLeft: 1
   CanCameraTurnRight: 1
+  Directors: []
   Stage: 0
   TutorialLevel: {fileID: 1493272244}
   MainLevelGroup: {fileID: 11652931}
@@ -38161,6 +38178,7 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  CanBeDetected: 1
   cameraLists:
   - roomCamera: {fileID: 1479857649}
     isLocked: 0
@@ -38254,6 +38272,7 @@ MonoBehaviour:
   CameraScreen: {fileID: 1394296727}
   CameraText: {fileID: 397626868}
   NPCList: {fileID: 761313413}
+  CameraListPanel: {fileID: 956292793}
 --- !u!114 &1493272250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51045,7 +51064,6 @@ MonoBehaviour:
   Flashing: 0
   FlashingSpeed: 2
   graph: {fileID: 11400000, guid: 1bc53fae369beff48a1a0efb5db97aed, type: 2}
-  CameraListPanel: {fileID: 956292793}
 --- !u!114 &2034197253
 MonoBehaviour:
   m_ObjectHideFlags: 0
