@@ -13,12 +13,15 @@ public class SwitchPos : Interact_SO
     {
         outline = GetComponent<Outline>();
         type = InteractType.Switch;
-        if(door != null && cBord.isLocked)
+        if(cBord != null)
         {
-            if(!door.isLocked)
-                AddMenu("SwtichState", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
-            else
-                AddMenu("SwtichState", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            if (door != null && cBord.isLocked)
+            {
+                if (!door.isLocked)
+                    AddMenu("SwtichState", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                else
+                    AddMenu("SwtichState", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            }
         }
         else if(Light != null)
         {
@@ -37,15 +40,18 @@ public class SwitchPos : Interact_SO
 
     private void Update()
     {
-        if(rightClickMenus.Count != 0)
+        if (door != null)
         {
-            if (!door.isLocked && rightClickMenus[0].functionName != "Lock Door")
+            if (rightClickMenus.Count != 0)
             {
-                rightClickMenus[0].functionName = "Lock Door";
-            }
-            else if (door.isLocked && rightClickMenus[0].functionName != "UnLock Door")
-            {
-                rightClickMenus[0].functionName = "UnLock Door";
+                if (!door.isLocked && rightClickMenus[0].functionName != "Lock Door")
+                {
+                    rightClickMenus[0].functionName = "Lock Door";
+                }
+                else if (door.isLocked && rightClickMenus[0].functionName != "UnLock Door")
+                {
+                    rightClickMenus[0].functionName = "UnLock Door";
+                }
             }
         }      
     }
