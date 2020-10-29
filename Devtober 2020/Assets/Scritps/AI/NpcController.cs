@@ -106,7 +106,6 @@ public class NpcController : ControllerBased
     public Transform fixTargetTransform;
     Vector3 recordColliderSize;
 
-    [HideInInspector]
     public bool isSafe = false;
     public bool isRoomCalled = false;
     float recordRestTimer, recordRecoverTimer, recordSpeed;

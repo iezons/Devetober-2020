@@ -258,12 +258,19 @@ public class EnemyController : ControllerBased
 
         if (hitNPCs.Length != 0 && !hasAttacked)
         {
-            if (m_fsm.GetCurrentState() != "Chase")
+            foreach (var item in hitNPCs)
             {
-                navAgent.speed *= chaseSpeed;
-                m_fsm.ChangeState("Chase");
+                if (!item.GetComponent<NpcController>().isSafe)
+                {
+                    if (m_fsm.GetCurrentState() != "Chase")
+                    {
+                        navAgent.speed *= chaseSpeed;
+                        m_fsm.ChangeState("Chase");
+                    }
+                    break;
+                }
             }
-
+            
             if (target != null)
             {
                 isBlocked = Physics.Linecast(transform.position, target.transform.position, canBlocked);
@@ -301,6 +308,10 @@ public class EnemyController : ControllerBased
         {
             Dispatch(finalPos.position);
         }
+        else
+        {
+            BackToPatrol();
+        }
         Attacking();
     }
 
@@ -318,7 +329,7 @@ public class EnemyController : ControllerBased
     void Attacking()
     {
         attackable = Physics.OverlapSphere(transform.position + new Vector3(0, 3, 0), attackRadius, canChased);
-        if (attackable.Length != 0 && target == attackable[attackable.Length - 1].gameObject)
+        if (attackable.Length != 0 && target == attackable[attackable.Length - 1].gameObject && !target.GetComponent<NpcController>().isSafe)
         {
             hasAttacked = true;
             navAgent.ResetPath();
@@ -471,21 +482,18 @@ public class EnemyController : ControllerBased
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(currentTerminalPos, 1);
 
-        if(hitNPCs != null)
+        if(hitNPCs.Length != 0 && target != null)
         {
-            if(hitNPCs.Length != 0 && target != null)
+            if (isBlocked)
             {
-                if (isBlocked)
-                {
-                    Gizmos.color = Color.blue;
-                }
-                else
-                {
-                    Gizmos.color = inAngle ? Color.red : Color.green;
-                }
-            
-                Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), target.transform.position + new Vector3(0, 3, 0));
+                Gizmos.color = Color.blue;
             }
+            else
+            {
+                Gizmos.color = inAngle ? Color.red : Color.green;
+            }
+            
+            Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), target.transform.position + new Vector3(0, 3, 0));
         }
 
         //float yAngle;

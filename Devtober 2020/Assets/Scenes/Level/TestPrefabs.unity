@@ -3848,6 +3848,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -58.4
@@ -5377,6 +5381,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 10
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 1109511360}
@@ -5692,6 +5698,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 1850115958}
@@ -8308,6 +8316,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -58.4
@@ -9989,6 +10001,10 @@ PrefabInstance:
     - target: {fileID: 2020409751943757454, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13408,7 +13424,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -284.63
+      value: -323.95
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13416,7 +13432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.98
+      value: -14.68
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -13466,11 +13482,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8275171557731087854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -58.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8368073417835112211, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+    - {fileID: 2745771487459154854, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+    - {fileID: 4560542321768586988, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
 --- !u!4 &722837391 stripped
 Transform:
@@ -15172,6 +15195,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15276,6 +15301,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15380,6 +15407,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15484,6 +15513,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15588,6 +15619,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints:
   - {fileID: 41899235}
@@ -15697,6 +15730,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15801,6 +15836,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -15911,6 +15948,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16015,6 +16054,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16137,6 +16178,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16241,6 +16284,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16345,6 +16390,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16449,6 +16496,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16553,6 +16602,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16657,6 +16708,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -16761,6 +16814,8 @@ MonoBehaviour:
     m_Bits: 1024
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -21936,7 +21991,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.16
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -21944,7 +21999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.9
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalRotation.x
@@ -21977,6 +22032,10 @@ PrefabInstance:
     - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2400069189034916009, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_Name
@@ -27777,7 +27836,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74924, y: 0}
+  m_AnchoredPosition: {x: 87.74978, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -31368,6 +31427,8 @@ MonoBehaviour:
     m_Bits: 0
   isScanOn: 0
   roomCapacity: 0
+  RoomObject: []
+  hitInformation: []
   NPCs: []
   tempWayPoints: []
   npcs: []
@@ -32551,6 +32612,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6114103023862259659, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
 --- !u!1 &1526655290 stripped
@@ -33275,7 +33340,7 @@ MonoBehaviour:
     maxX: 20
     maxZ: 20
   discoverRadius: 10
-  discoverAngle: 90
+  discoverAngle: 130
   canChased:
     serializedVersion: 2
     m_Bits: 256
