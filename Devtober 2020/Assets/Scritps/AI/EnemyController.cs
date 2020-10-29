@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using GamePlay;
 using UnityEngine.SceneManagement;
+using EvtGraph;
+using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
 
@@ -18,6 +20,9 @@ public class EnemyController : ControllerBased
         [Range(0f, 50f)]
         public float maxZ = 0;
     }
+
+    public string enemyName = Guid.NewGuid().ToString();
+
     [SerializeField]
     PatrolRange patrolRange = null;
 
@@ -49,6 +54,9 @@ public class EnemyController : ControllerBased
     [SerializeField]
     float executeHealth = 0;
 
+    public float restDistance = 0.2f;
+
+    public List<EventSO> toDoList;
 
     #endregion
 
@@ -95,11 +103,12 @@ public class EnemyController : ControllerBased
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> EnemyDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Chase", "Rest", "Dispatch", "Executing" } },
-            { "Chase", new List<string> { "Patrol", "Rest", "Dispatch", "Executing" } },
-            { "Rest", new List<string> { "Patrol", "Chase", "Dispatch", "Executing" } },
-            { "Dispatch", new List<string> { "Patrol", "Chase", "Rest", "Executing" } },
-            { "Executing", new List<string> { "Patrol", "Chase", "Rest", "Dispatch" } }
+            { "Patrol", new List<string> { "Chase", "Rest", "Dispatch", "Executing", "Event" } },
+            { "Chase", new List<string> { "Patrol", "Rest", "Dispatch", "Executing", "Event" } },
+            { "Rest", new List<string> { "Patrol", "Chase", "Dispatch", "Executing", "Event" } },
+            { "Dispatch", new List<string> { "Patrol", "Chase", "Rest", "Executing", "Event" } },
+            { "Executing", new List<string> { "Patrol", "Chase", "Rest", "Dispatch", "Event" } },
+            { "Event", new List<string> { "Patrol", "Chase", "Rest", "Dispatch", "Executing" } },
         };
 
         m_fsm = new StringRestrictedFiniteStateMachine(EnemyDictionary, "Patrol");
@@ -143,14 +152,22 @@ public class EnemyController : ControllerBased
                 Resting();
                 break;
             case "Dispatch":
+                CompleteDispatching();
                 break;
             case "Executing":
                 IsExecuting();
+                break;
+            case "Event":
+                Event();
+                ReachDestination();
                 break;
             default:
                 break;
         }
         #endregion
+
+        //CheckEvent();
+
         if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
         {
             StartCoroutine(MoveAcrossNavMeshLink());
@@ -161,8 +178,8 @@ public class EnemyController : ControllerBased
     #region Move
     public Vector3 NewDestination()
     {
-        float x = Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
-        float z = Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
+        float x = UnityEngine.Random.Range(transform.position.x - patrolRange.maxX / 2, transform.position.x + patrolRange.maxX / 2);
+        float z = UnityEngine.Random.Range(transform.position.z - patrolRange.maxZ / 2, transform.position.z + patrolRange.maxZ / 2);
 
         Vector3 tempPos = new Vector3(x, transform.position.y, z);
         return tempPos;
@@ -358,10 +375,86 @@ public class EnemyController : ControllerBased
     #endregion
 
     #region Dispatch
-    public void readyForDispatch()
+    public void ReadyForDispatch(object newPos)
+    {
+        Debug.Log("Ready for Dispatch");
+        navAgent.SetDestination((Vector3)newPos);
+        m_fsm.ChangeState("Dispatch");
+    }
+
+    public void CompleteDispatching()
+    {
+        if (Distance() < restDistance)
+        {
+            navAgent.ResetPath();
+            BackToPatrol();
+        }
+    }
+    #endregion
+
+    #region Event
+    public void TriggerEvent()
     {
         navAgent.ResetPath();
-        m_fsm.ChangeState("Dispatch");
+        m_fsm.ChangeState("Event");
+    }
+
+    private void Event()
+    {
+        for (int i = 0; i < toDoList.Count; i++)
+        {
+            EventSO evt = toDoList[0];
+            switch (evt.doingWithNPC)
+            {
+                case DoingWithNPC.Talking:
+                    for (int a = 0; a < evt.NPCTalking.Count; a++)
+                    {
+                        for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
+                        {
+                            if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
+                            {
+                                Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                            }
+                        }
+                    }
+                    break;
+                case DoingWithNPC.MoveTo:
+                    for (int a = 0; a < evt.NPCWayPoint.Count; a++)
+                    {
+                        if (evt.NPCWayPoint[a].Obj == gameObject)
+                        {
+                            Dispatch(evt.NPCWayPoint[a].MoveTO.position);
+                        }
+                    }
+                    break;
+                case DoingWithNPC.Patrol:
+                    break;
+                default:
+                    break;
+            }
+            toDoList.Remove(evt);
+        }
+    }
+
+    public void CheckEvent()
+    {
+        if (toDoList != null)
+        {
+            if (toDoList.Count != 0)
+            {
+                m_fsm.ChangeState("Event");
+            }
+        }
+    }
+
+    public void ReachDestination()
+    {
+        if (Distance() <= restDistance)
+        {
+            EventCenter.GetInstance().EventTriggered("GM.EnemyArrive", enemyName);
+            //TODO 修改NPC Arrive call的方法
+            navAgent.ResetPath();
+        }
     }
     #endregion
 

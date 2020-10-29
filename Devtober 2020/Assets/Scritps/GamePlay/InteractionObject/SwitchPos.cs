@@ -5,6 +5,7 @@ using GamePlay;
 
 public class SwitchPos : Interact_SO
 {
+    public CBordPos cBord;
     public DoorController door;
     public GameObject Light;
 
@@ -12,9 +13,12 @@ public class SwitchPos : Interact_SO
     {
         outline = GetComponent<Outline>();
         type = InteractType.Switch;
-        if(door != null)
+        if(door != null && cBord.isLocked)
         {
-            AddMenu("UnLock Door", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            if(!door.isLocked)
+                AddMenu("SwtichState", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            else
+                AddMenu("SwtichState", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
         }
         else if(Light != null)
         {
@@ -31,20 +35,42 @@ public class SwitchPos : Interact_SO
         }
     }
 
+    private void Update()
+    {
+        if(rightClickMenus.Count != 0)
+        {
+            if (!door.isLocked && rightClickMenus[0].functionName != "Lock Door")
+            {
+                rightClickMenus[0].functionName = "Lock Door";
+            }
+            else if (door.isLocked && rightClickMenus[0].functionName != "UnLock Door")
+            {
+                rightClickMenus[0].functionName = "UnLock Door";
+            }
+        }      
+    }
+
+
     public override void NPCInteract(int InteractWay = 0)
     {
         Debug.Log("Switch Interacted");
         if(door != null)
         {
-            door.SwtichStates(new DefaultValueWithGO { DefaultValue = true, GO = null });
-            if (MenuContains("UnLock Door") >= 0)
+            if (!door.isPowerOff)
             {
-                RemoveAndInsertMenu("UnLock Door", "Lock Door", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
-            }
-            else
-            {
-                RemoveAndInsertMenu("Lock Door", "UnLock Door", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
-            }
+                if (rightClickMenus[0].functionName == "UnLock Door")
+                {
+                    door.isNPCCalled = true;
+                    door.isLocked = false;
+                    rightClickMenus[0].functionName = "Lock Door";
+                }
+                else if (rightClickMenus[0].functionName == "Lock Door")
+                {
+                    door.isNPCCalled = true;
+                    door.isLocked = true;
+                    rightClickMenus[0].functionName = "UnLock Door";
+                }
+            }         
         }
         else if(Light != null)
         {

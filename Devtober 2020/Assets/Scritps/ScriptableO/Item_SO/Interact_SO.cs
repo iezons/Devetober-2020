@@ -67,14 +67,6 @@ public class Interact_SO : ControllerBased
         Anim.Play(AnimName, Layer);
     }
 
-    //public virtual void CallNPC(object obj)
-    //{
-    //    Debug.Log("Call NPC");
-    //    GameObject gameObj = (GameObject)obj;
-    //    NpcController npc = gameObj.GetComponent<NpcController>();
-    //    npc.ReceiveItemCall(gameObj);
-    //}
-
     public void CallNPC(object obj)
     {
         GameObject gameObj = (GameObject)obj;
@@ -101,8 +93,13 @@ public class Interact_SO : ControllerBased
                 RemoveAndInsertMenu("RestIn", "Leave", "Leave", false, NPCInteractFinish);
                 break;
             case InteractType.Terminal:
+                IsInteracting = true;
                 break;
             case InteractType.Switch:
+                IsInteracting = true;
+                break;
+            case InteractType.CBoard:
+                IsInteracting = true;
                 break;
             default:
                 break;
