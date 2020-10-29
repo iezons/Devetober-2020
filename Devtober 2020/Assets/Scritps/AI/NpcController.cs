@@ -12,7 +12,7 @@ using GamePlay;
 public class NpcController : ControllerBased
 {
     public bool inAnimState = false;
-    public string AnimaStateName = string.Empty;
+    public string AnimStateName = string.Empty;
 
     #region Inspector View
     [System.Serializable]
