@@ -12,6 +12,7 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using System;
 using UnityEngine.AI;
+using GraphBase;
 
 public class DefaultValueWithGO
 {
@@ -144,6 +145,12 @@ public class GameManager : SingletonBase<GameManager>
     public AudioSource Audio2D;
     bool AllowAudio = false;
 
+    public void SetCurEventNode(string name, EventSO so)
+    {
+        EventNode evt = eventGraph.graph.currentList[0] as EventNode;
+        evt.eventSO[0] = so;
+    }
+
     void Awake()
     {
         AudioMgr.GetInstance();
@@ -246,13 +253,13 @@ public class GameManager : SingletonBase<GameManager>
 
     public void SetupOption(RoomTracker room)
     {
-        if(room.DiaPlay.n_state == NodeState.Option)
+        for (int i = 0; i < Option.Count; i++)
         {
-            for (int i = 0; i < Option.Count; i++)
-            {
-                Destroy(Option[i].gameObject);
-            }
-            Option.Clear();
+            Destroy(Option[i].gameObject);
+        }
+        Option.Clear();
+        if (room.DiaPlay.n_state == NodeState.Option)
+        {
             for (int i = 0; i < room.OptionList.Count; i++)
             {
                 Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());

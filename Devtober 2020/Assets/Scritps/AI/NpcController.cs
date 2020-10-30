@@ -888,6 +888,7 @@ public class NpcController : ControllerBased
                         {
                             if(evt.NPCTalking[a].room.DiaPlay.currentGraph != evt.NPCTalking[a].Graph && evt.NPCTalking[a].room.WaitingGraph != evt.NPCTalking[a].Graph)
                             {
+                                IsInteracting = false;
                                 status.toDoList.Remove(evt);
                             }
                         }

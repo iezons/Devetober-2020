@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: EnterCafe'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: 2022, y: -222.5}
@@ -1404,7 +1404,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: a8748d77-5832-4f1a-8e8d-42ccbe075172
-  EventName: 
+  EventName: EnterCafe
   conditionSOs:
   - ID: 2a79febe-b71a-4a38-92c9-ea67369afebf
     conditionWith: 3
@@ -1424,11 +1424,41 @@ MonoBehaviour:
     Enemy_Number: 0
     eventTriggers:
     - IsTriggered: 0
-      EventName: IsPrisonerHeal
+      EventName: 01_IsEnterCafe
     customConditions: []
   CurrentEditingConNum: 0
-  eventSO: []
-  CurrentEditingSONum: -1
+  eventSO:
+  - ID: 5ca6985a-5909-4be5-93bf-6c13e080e158
+    TODOList: []
+    doingWith: 5
+    doingWithNPC: 0
+    NPCTalking:
+    - moveToClasses:
+      - Obj: {fileID: 0}
+        MoveTO: {fileID: 0}
+      - Obj: {fileID: 0}
+        MoveTO: {fileID: 0}
+      - Obj: {fileID: 0}
+        MoveTO: {fileID: 0}
+      room: {fileID: 0}
+      Graph: {fileID: 0}
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
+    Dialogue_Room: {fileID: 774842031}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 0
   Comment: 
 --- !u!1001 &47970755
 PrefabInstance:
@@ -10737,7 +10767,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.0017657543
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -32814,6 +32844,96 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3369866113205846547, guid: 6aa8f44fd6b336c42bde9c7ba35695f3, type: 3}
   m_PrefabInstance: {fileID: 1013339513}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1067104262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1067104263}
+  - component: {fileID: 1067104264}
+  - component: {fileID: 1067104265}
+  m_Layer: 0
+  m_Name: EnterCafeTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1067104263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067104262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.1, y: -1.91, z: -11.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 774841989}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1067104264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067104262}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20.104279, y: 5.486803, z: 3.0836134}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1067104265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067104262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d737f8f2b279a5644a3634024b2371be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Guard: {fileID: 0}
+  Waypoints: []
+  evt:
+    ID: 6c76edb8-4b13-4abc-bf32-dba2fe850288
+    TODOList: []
+    doingWith: 0
+    doingWithNPC: 0
+    NPCTalking:
+    - moveToClasses:
+      - Obj: {fileID: 0}
+        MoveTO: {fileID: 0}
+      room: {fileID: 774842031}
+      Graph: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  room: {fileID: 0}
+  graph_Xan: {fileID: 0}
+  graph_Sat: {fileID: 0}
+  graph_Mel: {fileID: 0}
 --- !u!1001 &1070930689
 PrefabInstance:
   m_ObjectHideFlags: 0
