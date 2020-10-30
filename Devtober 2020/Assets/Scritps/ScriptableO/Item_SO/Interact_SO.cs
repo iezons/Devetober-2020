@@ -115,7 +115,7 @@ public class Interact_SO : ControllerBased
         {
             if(Locators[i].npc != null)
             {
-                if (!Locators[i].npc.GetComponent<NpcController>().isEnemyChasing)
+                if (Locators[i].npc.GetComponent<NpcController>().m_fsm.GetCurrentState() != "GotAttacked")
                 {
                     Locators[i].npc.PlayGetOutAnim(gameObject);
                 }
