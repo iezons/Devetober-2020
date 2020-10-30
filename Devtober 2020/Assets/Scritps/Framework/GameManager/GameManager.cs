@@ -1182,10 +1182,8 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.MoveTo:
                                     break;
                                 case DoingWithNPC.Patrol:
-
                                     break;
                                 case DoingWithNPC.AnimState:
-
                                     break;
                                 default:
                                     break;
@@ -1194,6 +1192,15 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.Room:
                             break;
                         case DoingWith.Enemy:
+                            switch (evt.doingWithEnemy)
+                            {
+                                case DoingWithEnemy.Spawn:
+                                    break;
+                                case DoingWithEnemy.MoveTo:
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case DoingWith.Dialogue:
                             if(evt.Dialogue_Room.DiaPlay.currentGraph == evt.Dialogue_Graph)
@@ -1338,6 +1345,11 @@ public class GameManager : SingletonBase<GameManager>
                                     }
                                     break;
                                 case DoingWithEnemy.MoveTo:
+                                    for (int a = 0; a < evt.EnemyWayPoint.Count; a++)
+                                    {
+                                        evt.EnemyWayPoint[a].Obj.GetComponent<EnemyController>().toDoList.Add(evt);
+                                        evt.EnemyWayPoint[a].Obj.GetComponent<EnemyController>().TriggerEvent();
+                                    }
                                     break;
                                 default:
                                     break;
