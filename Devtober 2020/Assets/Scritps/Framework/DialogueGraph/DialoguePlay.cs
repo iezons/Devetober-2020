@@ -248,7 +248,6 @@ public class DialoguePlay : MonoBehaviour
 
     void EventListTrigger(string str)
     {
-        Debug.Log(str);
         switch (str)
         {
             case "w":

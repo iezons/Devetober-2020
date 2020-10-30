@@ -105,7 +105,7 @@ MonoBehaviour:
   Option:
   - Text: Identify yourself
   - Text: I want to know what happened
-  - Text: What year is it? Is the war end?
+  - Text: What year is it? Did the war end?
   - Text: End communication process
 --- !u!114 &-7710081202709482414
 MonoBehaviour:
@@ -117,10 +117,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus Lentinus: WHAT!<w> What \u2026"
+  m_Name: "Stephanus Lentinus: In the name of\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -472, y: -536}
+  position: {x: -456, y: -664}
   ports:
     keys:
     - Input
@@ -152,7 +152,8 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus Lentinus
   Dialogue:
-  - WHAT!<w> What is that. whoosh... whoosh... <w>[panting]<e_01_PrisonerCanInteract>
+  - 'In the name of god, what is that thing? '
+  - How can this thing even possible to walk! <e=01_PrisonerCanInteract></sp>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-7256149319814646530
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus Lentinus: Oh! God servan\u2026"
+  m_Name: "Stephanus Lentinus: Ship ser..<w> \u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -24, y: -216}
@@ -200,7 +201,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus Lentinus
   Dialogue:
-  - Oh! God servant!<w> Alright. Hold on.
+  - Ship ser..<w> Alright...</sp>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-5959610340575359105
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: Waiting for:2s
+  m_Name: Waiting for:0s
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -838, y: -486}
@@ -259,7 +260,7 @@ MonoBehaviour:
       _dynamic: 1
   WaitingOption:
   - waitingFor: 0
-    WaitSeconds: 2
+    WaitSeconds: 0
     Event: 
 --- !u!114 &-4722516442049621559
 MonoBehaviour:
@@ -271,7 +272,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus: Looks like its\u2026"
+  m_Name: "Stephanus: L<e=01_Prisone\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 680, y: -328}
@@ -306,12 +307,13 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus
   Dialogue:
-  - 'Looks like its gone. '
+  - 'L<e=01_PrisonerStartTalking>ooks like its gone. '
   - I didn't expect<w> to meet the servant of god here<w>, or an AI from the pre-human
     civilization.
-  - 'Ehhhhh... Listen, if you want, we can make a deal here. '
-  - I can help you with something, somthing that...<w=0.2> those bigots cannot do.
-    All I need is to get away from this madness. <e=01_DiaTwoTrigger>
+  - 'Ehhhhh... Listen, if you want, we can make a deal. '
+  - "I can help you with something, somthing that...<w=0.2> those bigots cannot do.
+    All I need is to get away from this madness.\n<w=1>[Camera loading Retrying]<w=1>
+    \n[Camera loading finish]<e=01_DiaTwoTrigger>"
   curIndex: 0
   IsMax: 1
 --- !u!114 &-3806839906577130529
@@ -324,7 +326,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus Lentinus: Oh! God servan\u2026"
+  m_Name: "Stephanus Lentinus: Ship ser..<w> \u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -24, y: -520}
@@ -359,7 +361,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus Lentinus
   Dialogue:
-  - 'Oh! God servant!<w> Thank you! '
+  - Ship ser..<w> Alright...</sp>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-2639374616544123151
@@ -501,7 +503,7 @@ MonoBehaviour:
   Dialogue:
   - 'Look like they have not fully rewrite your system. '
   - 'You still have some pre-war memory file in your database. '
-  - The war you just mentioned is must be The Apocalypse in B.U.C 823. <w>
+  - The war you just mentioned must be The Apocalypse in B.U.C 823. <w>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-203078775440173002
@@ -514,7 +516,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [Switch to <co\u2026"
+  m_Name: ": [<sp=60>Switch\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -1256, y: -497}
@@ -549,7 +551,11 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - '[Switch to <color=#00FF00>Deck 02</color>]'
+  - '[<sp=60>Switch to <color=#00FF00>Deck 02</color>]
+
+    [Camera loading error]
+
+    [Retrying...]'
   curIndex: 0
   IsMax: 1
 --- !u!114 &11400000
@@ -570,7 +576,6 @@ MonoBehaviour:
   - {fileID: -3806839906577130529}
   - {fileID: 5263775130096979506}
   - {fileID: -7256149319814646530}
-  - {fileID: 1481964068278582999}
   - {fileID: -8023828016175184551}
   - {fileID: -4722516442049621559}
   - {fileID: -1527136331401519846}
@@ -639,51 +644,6 @@ MonoBehaviour:
   - Then these strange monsters broke in.
   curIndex: 0
   IsMax: 1
---- !u!114 &1481964068278582999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus Lentinus: NO<w><sp=30> N\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -24, y: 72}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: 1481964068278582999}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: WaitingOption 2
-        node: {fileID: 5263775130096979506}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: 1481964068278582999}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Stephanus Lentinus
-  Dialogue:
-  - NO<w><sp=30> NO<sp=60>NO <sp=120>NO NO NO
-  curIndex: 0
-  IsMax: 1
 --- !u!114 &1636224032767671458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,7 +690,7 @@ MonoBehaviour:
   TalkingPerson: Stephanus
   Dialogue:
   - Now is A.U.C 0079
-  - 'You are on the U.P.N reclaim ship called Serana. '
+  - "You are on the U.P.N reclaim ship called <mark=#00FF0080>Serena. \n[>>A9-1 Cruiser]</mark>"
   - 'You are one of the AI backups. '
   curIndex: 0
   IsMax: 1
@@ -792,14 +752,13 @@ MonoBehaviour:
   m_Name: "Waiting for:01\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -472, y: -248}
+  position: {x: -456, y: -264}
   ports:
     keys:
     - Input
     - WaitingOption
     - WaitingOption 0
     - WaitingOption 1
-    - WaitingOption 2
     values:
     - _fieldName: Input
       _node: {fileID: 5263775130096979506}
@@ -847,18 +806,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: WaitingOption 2
-      _node: {fileID: 5263775130096979506}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1481964068278582999}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
   WaitingOption:
   - waitingFor: 1
     WaitSeconds: 0
@@ -866,9 +813,6 @@ MonoBehaviour:
   - waitingFor: 1
     WaitSeconds: 0
     Event: 01_HideIn
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: 01_Dead
 --- !u!114 &5885089305799114306
 MonoBehaviour:
   m_ObjectHideFlags: 0

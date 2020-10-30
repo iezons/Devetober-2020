@@ -49,9 +49,8 @@ namespace GamePlay
         public int CurrentCameraIndex = 0;
 
         [Header("RoomObject")]
-        public Interact_SO CBoard;
+        public CBordPos CBoard;
         public List<DoorController> Door;
-        [HideInInspector]
         public bool CanBeDetected = true;
         [Header("Dialogue")]
         public DialoguePlay DiaPlay;
@@ -95,6 +94,10 @@ namespace GamePlay
 
         public void Awake()
         {
+            EventCenter.GetInstance().AddEventListener<string>("GM.NPCArrive", NPCArrive);
+            CBordPos[] boards = GetComponentsInChildren<CBordPos>();
+            if (boards.Length > 0)
+                CBoard = boards[0];
             outline = GetComponent<Outline>();
             Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
@@ -365,6 +368,14 @@ namespace GamePlay
                 if (tempBool)
                 {
                     PlayingDialogue(WaitingGraph);
+                    List<GameObject> npcc = NPC();
+                    for (int i = 0; i < npcc.Count; i++)
+                    {
+                        if(NPCAgentList.ContainsKey(npcc[i].GetComponent<NpcController>().status.npcName))
+                        {
+                            npcc[i].GetComponent<NpcController>().RandomTalk();
+                        }
+                    }
                     WaitingGraph = null;
                     NPCAgentList.Clear();
                 }

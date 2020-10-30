@@ -6,14 +6,25 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using GamePlay;
-
+using DiaGraph;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BoxCollider))]
 public class NpcController : ControllerBased
 {
+    [Header("Dialogue")]
+    public DialogueGraph NoThingTalk;
+    public DialogueGraph MedicalKit;
+    public DialogueGraph JoinIn;
+    public int Stage = 0;
+    bool isEnemyEnter = false;
+
     public bool inAnimState = false;
+    public bool IsPrisoner = false;
+    public bool NeedRemoveMenu = true;
+    
     public string AnimStateName = string.Empty;
+    public bool SendEventWhenGetOutLocker = false;
 
     #region Inspector View
     [System.Serializable]
@@ -85,6 +96,9 @@ public class NpcController : ControllerBased
     float restTime = 0;
     [SerializeField]
     float recoverTime = 0;
+
+    bool IsRandomTalking = false;
+    Vector3 TalkingPos = Vector3.zero;
     #endregion
 
 
@@ -209,7 +223,7 @@ public class NpcController : ControllerBased
     public void Start()
     {
         DetectRoom();
-        navAgent.speed *= status.currentStamina / 100;
+        navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f);
         currentTerminalPos = NewDestination();
         EventCenter.GetInstance().EventTriggered("GM.NPC.Add", this);
         Invoke("GenerateList", 0.00001f);
@@ -225,6 +239,21 @@ public class NpcController : ControllerBased
 
     public void Update()
     {
+        #region GameplayEvent
+        if(IsPrisoner)
+        {
+            DetectRoom();
+            if (currentRoomTracker.isEnemyDetected())
+            {
+                isEnemyEnter = true;
+            }
+            if (!currentRoomTracker.isEnemyDetected() && isEnemyEnter)
+            {
+                EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
+            }
+        }
+        #endregion
+
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
@@ -242,7 +271,8 @@ public class NpcController : ControllerBased
                 }
                 else
                 {
-                    navAgent.ResetPath();
+                    if (navAgent.enabled)
+                        navAgent.ResetPath();
                     recoverTime = recordRecoverTimer;
                     m_fsm.ChangeState("Idle");
                 }
@@ -280,6 +310,7 @@ public class NpcController : ControllerBased
             case "Event":
                 Event();
                 ReachDestination();
+                FacingEachOther();
                 break;
             case "Dodging":
                 Dodging();
@@ -300,7 +331,8 @@ public class NpcController : ControllerBased
                 }
                 break;
             case "GotAttacked":
-                navAgent.ResetPath();
+                if (navAgent.enabled)
+                    navAgent.ResetPath();
                 break;
             case "Rescuing":
                 LimpingChange("Run");
@@ -312,7 +344,7 @@ public class NpcController : ControllerBased
             case "OnFloor":
                 if (Distance() < restDistance && !isSitting)
                 {
-                    animator.Play("Sitting On Floor");
+                    animator.Play("Sitting On Floor", 0);
                     if (MenuContains("Interact") >= 0)
                     {
                         RemoveAndInsertMenu("Interact", "Leave", "Leave", false, LeaveFloor);
@@ -341,6 +373,17 @@ public class NpcController : ControllerBased
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Death();
+        }
+    }
+
+    public void CheckEvent()
+    {
+        if (status.toDoList != null)
+        {
+            if (status.toDoList.Count != 0)
+            {
+                m_fsm.ChangeState("Event");
+            }
         }
     }
 
@@ -419,7 +462,8 @@ public class NpcController : ControllerBased
             fixTarget = null;
             fixTargetTransform = null;
             locatorList = null;
-            RemoveAllMenu();
+            if(NeedRemoveMenu)
+                RemoveAllMenu();
             m_fsm.ChangeState("Anim");
             animator.Play(animName, 0);
         }
@@ -427,6 +471,7 @@ public class NpcController : ControllerBased
         {
             DetectRoom();
             BackToPatrol();
+            RemoveAllMenu();
             AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
     | 1 << LayerMask.NameToLayer("RestingPos")
     | 1 << LayerMask.NameToLayer("TerminalPos")
@@ -453,13 +498,15 @@ public class NpcController : ControllerBased
         restTime = recordRestTimer;
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
-        navAgent.speed *= status.currentStamina / 100;
+        navAgent.speed *= (status.currentStamina / 100) * 0.4f + 0.6f;
         m_fsm.ChangeState("Patrol");
+        IsRandomTalking = false;
         if (MenuContains("Interact") >= 0)
             return;
         else
         {
-            AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+            if(!IsPrisoner)
+                AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
             | 1 << LayerMask.NameToLayer("RestingPos")
             | 1 << LayerMask.NameToLayer("TerminalPos")
             | 1 << LayerMask.NameToLayer("SwitchPos")
@@ -564,7 +611,7 @@ public class NpcController : ControllerBased
 
         if (m_fsm.GetCurrentState() != "InteractWithItem")
         {
-            if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
+            if (navAgent.velocity.magnitude >= 0.1f || navAgent.isOnOffMeshLink)
             {
                 if (m_fsm.GetCurrentState() == "Patrol")
                 {
@@ -593,7 +640,8 @@ public class NpcController : ControllerBased
     {
         if (Distance() < restDistance)
         {
-            navAgent.ResetPath();
+            if(navAgent.enabled)
+                navAgent.ResetPath();
             BackToPatrol();
         }
     }
@@ -664,7 +712,7 @@ public class NpcController : ControllerBased
         restTime = recordRestTimer;
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
-        navAgent.speed *= status.currentStamina / 100;
+        navAgent.speed *= (status.currentStamina / 100) * 0.4f + 0.6f;
         if (MenuContains("Interact") < 0)
         {
             AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
@@ -679,6 +727,7 @@ public class NpcController : ControllerBased
         {
             RemoveMenu("Leave");
         }
+        IsRandomTalking = false;
         m_fsm.ChangeState("Patrol");
     }
     #endregion
@@ -688,8 +737,9 @@ public class NpcController : ControllerBased
     {
         if(navAgent.enabled != false)
         {
-            navAgent.ResetPath();
-            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            if (navAgent.enabled)
+                navAgent.ResetPath();
+            navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             m_fsm.ChangeState("Hiding");
         }
     }
@@ -739,13 +789,43 @@ public class NpcController : ControllerBased
     #region Event
     public void TriggerEvent()
     {
-        navAgent.ResetPath();
+        if (navAgent.enabled)
+            navAgent.ResetPath();
         m_fsm.ChangeState("Event");
         justEnterEvent = true;
     }
 
     public void RandomTalk()
     {
+        if (status.toDoList.Count > 0)
+        {
+            EventSO evt = status.toDoList[0];
+            for (int i = 0; i < evt.NPCTalking.Count; i++)
+            {
+                for (int a = 0; a < evt.NPCTalking[i].moveToClasses.Count; a++)
+                {
+                    if (evt.NPCTalking[i].moveToClasses[a].Obj == gameObject)
+                    {
+                        int index = 0;
+                        int b = 0;
+                        do
+                        {
+                            index++;
+                            b = Random.Range(0, evt.NPCTalking[i].moveToClasses.Count);
+                        } while (b == a && index < 50);
+                        if (index > 50)
+                        {
+                            TalkingPos = currentRoomTracker.cameraLists[currentRoomTracker.CurrentCameraIndex].roomCamera.gameObject.transform.position;
+                        }
+                        else
+                        {
+                            TalkingPos = evt.NPCTalking[i].moveToClasses[b].Obj.transform.position;
+                        }
+                    }
+                }
+            }
+        }
+        IsRandomTalking = true;
         switch (Random.Range(0, 3))
         {
             case (0):
@@ -780,6 +860,7 @@ public class NpcController : ControllerBased
                                 if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                                 {
                                     Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                                    IsInteracting = true;
                                 }
                             }
                         }
@@ -790,6 +871,7 @@ public class NpcController : ControllerBased
                             if (evt.NPCWayPoint[a].Obj == gameObject)
                             {
                                 Dispatch(evt.NPCWayPoint[a].MoveTO.position);
+                                IsInteracting = true;
                             }
                         }
                         break;
@@ -807,6 +889,13 @@ public class NpcController : ControllerBased
                 switch (evt.doingWithNPC)
                 {
                     case DoingWithNPC.Talking:
+                        for (int a = 0; a < evt.NPCTalking.Count; a++)
+                        {
+                            if(evt.NPCTalking[a].room.DiaPlay.currentGraph != evt.NPCTalking[a].Graph && evt.NPCTalking[a].room.WaitingGraph != evt.NPCTalking[a].Graph)
+                            {
+                                status.toDoList.Remove(evt);
+                            }
+                        }
                         break;
                     case DoingWithNPC.MoveTo:
                         break;
@@ -821,18 +910,22 @@ public class NpcController : ControllerBased
                 }
             }
         }
-    }
-
-    public void CheckEvent()
-    {
-        if (status.toDoList != null)
+        if (status.toDoList.Count <= 0)
         {
-            if (status.toDoList.Count != 0)
-            {
-                m_fsm.ChangeState("Event");
-            }
+            BackToPatrol();
         }
     }
+
+    //public void CheckEvent()
+    //{
+    //    if (status.toDoList != null)
+    //    {
+    //        if (status.toDoList.Count != 0)
+    //        {
+    //            m_fsm.ChangeState("Event");
+    //        }
+    //    }
+    //}
 
     public void ReachDestination()
     {
@@ -840,7 +933,8 @@ public class NpcController : ControllerBased
         {
             EventCenter.GetInstance().EventTriggered("GM.NPCArrive", status.npcName);
             //TODO 修改NPC Arrive call的方法
-            navAgent.ResetPath();
+            if (navAgent.enabled)
+                navAgent.ResetPath();
         }
     }
     #endregion
@@ -851,7 +945,7 @@ public class NpcController : ControllerBased
         hitObjects = Physics.OverlapSphere(transform.position, alertRadius, needDodged);
         if (hitObjects.Length != 0)
         {
-            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             m_fsm.ChangeState("Dodging");
         }
     }
@@ -888,8 +982,9 @@ public class NpcController : ControllerBased
     {
         if (navAgent.enabled != false)
         {
-            navAgent.ResetPath();
-            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            if (navAgent.enabled)
+                navAgent.ResetPath();
+            navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             m_fsm.ChangeState("Escaping");
         }
     }
@@ -924,7 +1019,8 @@ public class NpcController : ControllerBased
     {
         if (Distance() < restDistance)
         {
-            navAgent.ResetPath();
+            if (navAgent.enabled)
+                navAgent.ResetPath();
             BackToPatrol();
         }
     }
@@ -933,7 +1029,8 @@ public class NpcController : ControllerBased
     #region Healing
     public void Heal(object obj)
     {
-        navAgent.ResetPath();
+        if (navAgent.enabled)
+            navAgent.ResetPath();
         GameObject gameObj = (GameObject)obj;
         NpcController NPC = gameObj.GetComponent<NpcController>();
         m_fsm.ChangeState("Healing");
@@ -941,7 +1038,7 @@ public class NpcController : ControllerBased
         {
             //Heal Other
             HealingTarget = gameObj;
-            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             Dispatch(gameObj.transform.position);
 
         }
@@ -986,7 +1083,8 @@ public class NpcController : ControllerBased
             }
             else
             {
-                HealingTarget.GetComponent<NpcController>().navAgent.ResetPath();
+                if (HealingTarget.GetComponent<NpcController>().navAgent.enabled)
+                    HealingTarget.GetComponent<NpcController>().navAgent.ResetPath();
                 animator.Play("Stand Heal Other", 0);
             }
         }
@@ -1011,7 +1109,8 @@ public class NpcController : ControllerBased
     void Death()
     {
         animator.Play("Death", 0);
-        navAgent.ResetPath();   
+        if(navAgent.enabled)
+            navAgent.ResetPath();   
         status.isStruggling = false;
         gameObject.layer = LayerMask.NameToLayer("Dead");
         m_fsm.ChangeState("Death");
@@ -1058,7 +1157,7 @@ public class NpcController : ControllerBased
                 navAgent.enabled = true;
             Debug.Log("I am coming!");
             Dispatch(RescuingTarget.transform.position);
-            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             m_fsm.ChangeState("Rescuing");
         }
     }
@@ -1103,6 +1202,7 @@ public class NpcController : ControllerBased
         restTime = recordRestTimer;
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
+        IsRandomTalking = false;
         m_fsm.ChangeState("Patrol");
     }
     #endregion
@@ -1111,7 +1211,7 @@ public class NpcController : ControllerBased
     public void TriggerFixing()
     {
         HasInteract = false;
-        navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+        navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
         m_fsm.ChangeState("Fixing");
     }
 
@@ -1279,6 +1379,11 @@ public class NpcController : ControllerBased
     #region Receive Call
     public void ReceiveInteractCall(object obj)
     {
+        if (IsPrisoner)
+        {
+            EventCenter.GetInstance().DiaEventTrigger("01_HideIn");
+
+        }
         if (navAgent.enabled)
         {
             GameObject gameObj = (GameObject)obj;
@@ -1324,7 +1429,7 @@ public class NpcController : ControllerBased
                     CurrentInteractObject = item;
                     HasInteract = false;
                     Dispatch(Pos);
-                    navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+                    navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
                     RemoveMenu("Interact");
                     m_fsm.ChangeState("InteractWithItem");
                 }
@@ -1348,7 +1453,7 @@ public class NpcController : ControllerBased
             CurrentInteractItem = item;
             HasInteract = false;
             Dispatch(gameObj.transform.position);
-            navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+            navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             m_fsm.ChangeState("InteractWithItem");
         }
         else
@@ -1407,7 +1512,7 @@ public class NpcController : ControllerBased
         }
         HasInteract = false;
         Dispatch(Pos);
-        navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
+        navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
         m_fsm.ChangeState("InteractWithItem");
     }
     #endregion
@@ -1427,7 +1532,7 @@ public class NpcController : ControllerBased
                 Vector3 TraPos = new Vector3(transform.position.x, 0, transform.position.z);
                 Vector3 IntPos = new Vector3(locatorList.Locator.position.x, 0, locatorList.Locator.position.z);
 
-                if ((TraPos - IntPos).sqrMagnitude >= 0.001)
+                if ((TraPos - IntPos).sqrMagnitude >= 0.01f)
                 {
                     transform.position = new Vector3(Mathf.SmoothDamp(transform.position.x, locatorList.Locator.position.x, ref VelocityPosX, DampPosSpeed)
                     , transform.position.y
@@ -1435,7 +1540,7 @@ public class NpcController : ControllerBased
                     Damping = true;
                 }
 
-                if (Quaternion.Angle(transform.rotation, locatorList.Locator.rotation) >= 0.2)
+                if (Quaternion.Angle(transform.rotation, locatorList.Locator.rotation) >= 0.2f)
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation, locatorList.Locator.rotation, DampRotSpeed);
                     Damping = true;
@@ -1741,6 +1846,7 @@ public class NpcController : ControllerBased
         switch (CurrentInteractObject.type)
         {
             case Interact_SO.InteractType.Locker:
+                boxCollider.size = new Vector3(0.001f, 0.001f, 0.001f);
                 isSafe = true;
                 break;
             case Interact_SO.InteractType.Box:
@@ -1751,7 +1857,7 @@ public class NpcController : ControllerBased
             case Interact_SO.InteractType.Chair:
                 CurrentInteractObject.GetComponent<BoxCollider>().size = CurrentInteractObject.newColliderSize;
                 CurrentInteractObject.GetComponent<BoxCollider>().center = CurrentInteractObject.newColliderCenter;
-                boxCollider.size = new Vector3(1 , 1, 1);
+                boxCollider.size = new Vector3(0.001f, 0.001f, 0.001f);
                 break;
             case Interact_SO.InteractType.Terminal:
                 break;
@@ -1779,7 +1885,13 @@ public class NpcController : ControllerBased
             switch (CurrentInteractObject.type)
             {
                 case Interact_SO.InteractType.Locker:
+                    if(SendEventWhenGetOutLocker)
+                    {
+                        SendEventWhenGetOutLocker = false;
+                        EventCenter.GetInstance().EventTriggered("01_03DiaPlay");
+                    }
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    boxCollider.size = recordColliderSize;
                     isSafe = false;
                     break;
                 case Interact_SO.InteractType.Box:
@@ -1941,6 +2053,35 @@ public class NpcController : ControllerBased
         }
         BackToPatrol();
     }
+
+    public void FacingEachOther(bool IsFacingCamera = false)
+    {
+        Vector3 dir = Vector3.zero;
+        if (!IsFacingCamera)
+        {
+            dir = (TalkingPos - transform.position).normalized;
+        }
+        else
+        {
+            dir = (currentRoomTracker.cameraLists[currentRoomTracker.CurrentCameraIndex].roomCamera.gameObject.transform.position - transform.position).normalized;
+        }
+        bool Damping = false;
+        
+        
+        dir.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(dir);
+
+        if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
+            Damping = true;
+        }
+
+        if (Damping)
+        {
+            Debug.Log("Damping");
+        }
+    }
     #endregion
 
     #region Status Change
@@ -2004,7 +2145,7 @@ public class NpcController : ControllerBased
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, alertRadius);
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, -transform.up * detectRay);
+        Gizmos.DrawRay(transform.position + new Vector3(0, 3, 0), -transform.up * detectRay);
         if (RescuingTarget != null)
         {
             if (isBlocked)
@@ -2016,6 +2157,26 @@ public class NpcController : ControllerBased
                 Gizmos.color = inAngle ? Color.red : Color.green;
             }
             Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), RescuingTarget.transform.position + new Vector3(0, 3, 0));
+        }
+    }
+    #endregion
+
+    #region SpecialTalking
+    public void SpecialTalking(object obj)
+    {
+        switch (Stage)
+        {
+            case 0:
+                GameManager.GetInstance().CurrentRoom.PlayingDialogue(NoThingTalk);
+                break;
+            case 1:
+                GameManager.GetInstance().CurrentRoom.PlayingDialogue(MedicalKit);
+                break;
+            case 2:
+                GameManager.GetInstance().CurrentRoom.PlayingDialogue(JoinIn);
+                break;
+            default:
+                break;
         }
     }
     #endregion

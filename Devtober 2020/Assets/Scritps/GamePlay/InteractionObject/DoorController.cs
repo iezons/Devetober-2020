@@ -53,6 +53,8 @@ public class DoorController : ControllerBased
 
     public bool isLocked;
     public bool isOperating;
+
+    public NavMeshLink Link;
     #endregion
 
     #region Value

@@ -11,6 +11,7 @@ using System.Linq;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using System;
+using UnityEngine.AI;
 
 public class DefaultValueWithGO
 {
@@ -42,6 +43,10 @@ public enum GameManagerState
 
 public class GameManager : SingletonBase<GameManager>
 {
+    [Header("navMesh")]
+    public NavMeshSurface surface;
+    public LocalNavMeshBuilder builder;
+
     [Header("Input")]
     public string MoveLeft;
     public string MoveRight;
@@ -53,11 +58,11 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("EventTriggerCache")]
     List<EventScriptInterface> EventScripts = new List<EventScriptInterface>();
-    EventNode TriggeringEventNode = null;
+    public EventNode TriggeringEventNode = null;
     bool justEnterEventTrigger = true;
 
     [Header("EventConditionalCache")]
-    Dictionary<string, List<EvtGraph.EventTrigger>> WaitingEvent = new Dictionary<string, List<EvtGraph.EventTrigger>>();
+    public List<EvtGraph.EventTrigger> WaitingEvent = new List<EvtGraph.EventTrigger>();
     Dictionary<string, List<CustomCondition>> customConditions = new Dictionary<string, List<CustomCondition>>();
     List<EventNode> ConditionalWaitingNode = new List<EventNode>();
     bool justEnterCondition = true;
@@ -157,10 +162,11 @@ public class GameManager : SingletonBase<GameManager>
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
         else if (Stage > 0)
-            RoomSwitch("BedRoom_B", 0);
+            RoomSwitch("BedRoom_A", 0);
         else
             RoomSwitch("TestRoom", 0);
         AllowAudio = true;
+        StartCoroutine(BuildMesh());
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -240,18 +246,22 @@ public class GameManager : SingletonBase<GameManager>
 
     public void SetupOption(RoomTracker room)
     {
-        for (int i = 0; i < Option.Count; i++)
+        if(room.DiaPlay.n_state == NodeState.Option)
         {
-            Destroy(Option[i].gameObject);
+            for (int i = 0; i < Option.Count; i++)
+            {
+                Destroy(Option[i].gameObject);
+            }
+            Option.Clear();
+            for (int i = 0; i < room.OptionList.Count; i++)
+            {
+                Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
+                Option[i].transform.SetParent(ButtonContent, false);
+                Option[i].transform.GetComponentInChildren<Text>().text = room.OptionList[i].Text;
+                Option[i].transform.name = i.ToString();
+            }
         }
-        Option.Clear();
-        for (int i = 0; i < room.OptionList.Count; i++)
-        {
-            Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
-            Option[i].transform.SetParent(ButtonContent, false);
-            Option[i].transform.GetComponentInChildren<Text>().text = room.OptionList[i].Text;
-            Option[i].transform.name = i.ToString();
-        }
+        
     }
 
     void NPCAdd(NpcController NPC_obj)
@@ -343,6 +353,21 @@ public class GameManager : SingletonBase<GameManager>
         GoToState(GameManagerState.PAUSED);
     }
 
+    IEnumerator BuildMesh()
+    {
+        //while(true)
+        //{
+        //    for (int i = 0; i < Rooms.Count; i++)
+        //    {
+        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+        //        {
+        //            break;
+        //        }
+        //    }
+            yield return new WaitForSeconds(0.5f);
+        //}
+    }
+
     void Update()
     {
         #region TimeLine
@@ -377,16 +402,6 @@ public class GameManager : SingletonBase<GameManager>
         {
             EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
             EventCenter.GetInstance().DiaEventTrigger("TU_TurnRightCheck");
-        }
-        
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            EventCenter.GetInstance().DiaEventTrigger("TU_RightclickOnInfo");
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            //Director.Play(timeline);
         }
 
         if(Input.GetKeyDown(KeyCode.L))
@@ -431,16 +446,27 @@ public class GameManager : SingletonBase<GameManager>
 
         #region NavMeshBuilding
         //NavMesh Building
+        //if (Time.frameCount % 10 == 0)
+        //{
+        //    for (int i = 0; i < Rooms.Count; i++)
+        //    {
+        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+        //        {
+        //            for (int a = 0; a < Rooms[i].navSurface.Count; a++)
+        //            {
+        //                Rooms[i].navSurface[a].BuildNavMesh();
+        //            }
+        //        }
+        //    }
+        //}
         if (Time.frameCount % 10 == 0)
         {
             for (int i = 0; i < Rooms.Count; i++)
             {
                 if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
                 {
-                    for (int a = 0; a < Rooms[i].navSurface.Count; a++)
-                    {
-                        Rooms[i].navSurface[a].BuildNavMesh();
-                    }
+                    surface.BuildNavMesh();
+                    break;
                 }
             }
         }
@@ -470,7 +496,6 @@ public class GameManager : SingletonBase<GameManager>
             case GameManagerState.CONDITIONING:
                 if (justEnter)
                 {
-                    justEnter = false;
                     for (int i = 0; i < eventGraph.graph.currentList.Count; i++)
                     {
                         EventNode evt = eventGraph.graph.currentList[i] as EventNode;
@@ -479,7 +504,9 @@ public class GameManager : SingletonBase<GameManager>
                             ConditionalWaitingNode.Add(evt);
                         }
                     }
+                    justEnter = false;
                 }
+
                 for (int i = 0; i < ConditionalWaitingNode.Count; i++)
                 {
                     if(Conditioning(ConditionalWaitingNode[i]))
@@ -517,7 +544,8 @@ public class GameManager : SingletonBase<GameManager>
         #region Mouse Clicking
         //Mouse Position Correction
         //Vector3 MousePos = new Vector3(Input.mousePosition.x * (VHSTexture.width / 1920f), Input.mousePosition.y * (VHSTexture.height / 1080f), Input.mousePosition.z);
-        Vector3 MousePos = Input.mousePosition;
+        Vector3 MousePos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+        
         Ray ray_MainCamera = MainCamera.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray_MainCamera, out RaycastHit hit_MainCamera))
         {
@@ -536,66 +564,103 @@ public class GameManager : SingletonBase<GameManager>
 
         bool IsSetCursor = false;
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
+            {
+                Debug.Log("899999999");
+                //ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
+                //if (cbase != null)
+                //{
+                //    if (cbase.rightClickMenus.Count > 0)
+                //    {
+                //        if (cbase.IsInteracting)
+                //        {
+                //            SetupRightClickMenu(cbase.rightClickMenus);
+                //        }
+                //    }
+                }
+            }
+
         //Right Click Menu
         if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
             ClearRightClickButton();
-            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
+            //UI
+            if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
             {
-                Debug.DrawLine(ray.origin, hitInfo.point);
-                GameObject gameObj = hitInfo.collider.gameObject;
-                gameObj.TryGetComponent(out ControllerBased based);
-                if(based != null)
+                ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
+                if(cbase != null)
                 {
-                    if (based.rightClickMenus != null)
+                    if(cbase.rightClickMenus.Count > 0)
                     {
-                        if(based.rightClickMenus.Count >= 0)
+                        if(cbase.IsInteracting)
                         {
-                            if(!based.IsInteracting)
-                            {
-                                SetupRightClickMenu(based.rightClickMenus);
-                            }
+                            SetupRightClickMenu(cbase.rightClickMenus);
                         }
                     }
                 }
-                else
+            }
+            //Raycast
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
+            {
+                if(CurrentRoom.hitInformation.Contains(hitInfo.collider))
                 {
-                    ControllerBased[] baseds = gameObj.GetComponentsInParent<ControllerBased>();
-                    if(baseds != null)
+                    Debug.DrawLine(ray.origin, hitInfo.point);
+                    GameObject gameObj = hitInfo.collider.gameObject;
+                    gameObj.TryGetComponent(out ControllerBased based);
+                    if (based != null)
                     {
-                        if(baseds.Count() >= 1)
+                        if (based.rightClickMenus != null)
                         {
-                            if (baseds[0].rightClickMenus != null)
+                            if (based.rightClickMenus.Count > 0)
                             {
-                                if (baseds[0].rightClickMenus.Count >= 0)
+                                if (!based.IsInteracting)
                                 {
-                                    if (!based.IsInteracting)
+                                    SetupRightClickMenu(based.rightClickMenus);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ControllerBased[] baseds = gameObj.GetComponentsInParent<ControllerBased>();
+                        if (baseds != null)
+                        {
+                            if (baseds.Count() >= 1)
+                            {
+                                if (baseds[0].rightClickMenus != null)
+                                {
+                                    if (baseds[0].rightClickMenus.Count >= 0)
                                     {
-                                        SetupRightClickMenu(baseds[0].rightClickMenus);
+                                        if (!based.IsInteracting)
+                                        {
+                                            SetupRightClickMenu(baseds[0].rightClickMenus);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+                float RCx = mousepos.x - Canvas.rect.width / 2;
+                float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
+                if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
+                {
+                    RCx -= RightClickMenuPanel.rect.width;
+                }
+                else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
+                {
+                    RCy += RightClickMenuPanel.rect.height;
+                }
+                RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
             }
             else
             {
                 RightClickMenuPanel.gameObject.SetActive(false);
             }
-            //UI Position Fix
-            float RCx = Input.mousePosition.x - Canvas.rect.width / 2;
-            float RCy = Input.mousePosition.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
-            if(RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
-            {
-                RCx -= RightClickMenuPanel.rect.width;
-            }
-            else if(RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
-            {
-                RCy += RightClickMenuPanel.rect.height;
-            }
-            RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -623,34 +688,37 @@ public class GameManager : SingletonBase<GameManager>
         Ray ray_outline = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
         if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
         {
-            Debug.DrawLine(ray_outline.origin, hitInfomation.point);
-            IsSetCursor = true;
-            ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
-            if (LastCB != null && curCB != null)
+            if(CurrentRoom.hitInformation.Contains(hitInfomation.collider))
             {
-                if (curCB != LastCB)
+                Debug.DrawLine(ray_outline.origin, hitInfomation.point);
+                IsSetCursor = true;
+                ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
+                if (LastCB != null && curCB != null)
                 {
-                    LastCB.SetOutline(false);
-                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                    if (curCB != LastCB)
                     {
-                        Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
-                        IsSetCursor = true;
-                        curCB.SetOutline(true);
+                        LastCB.SetOutline(false);
+                        if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                        {
+                            Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
+                            IsSetCursor = true;
+                            curCB.SetOutline(true);
+                        }
+                        LastCB = curCB;
                     }
-                    LastCB = curCB;
                 }
-            }
-            else
-            {
-                if(curCB != null)
+                else
                 {
-                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                    if (curCB != null)
                     {
-                        Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
-                        IsSetCursor = true;
-                        curCB.SetOutline(true);
-                    }  
-                    LastCB = curCB;
+                        if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                        {
+                            Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
+                            IsSetCursor = true;
+                            curCB.SetOutline(true);
+                        }
+                        LastCB = curCB;
+                    }
                 }
             }
         }
@@ -679,7 +747,7 @@ public class GameManager : SingletonBase<GameManager>
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 
                 //ChangeDefaultCursor
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
                 {
                     if(RightClickMs.DefaultCallValue != null)
                     {
@@ -774,8 +842,9 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    public void SetupStage(int stage)
+    public void SetupStage(int stage = 2)
     {
+        Stage = stage;
         if(stage == 0)
         {
             CanCameraTurnLeft = false;
@@ -784,8 +853,8 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(false);
             CameraButtonListPanel.gameObject.SetActive(false);
             CameraName.gameObject.SetActive(false);
-            //MainLevelGroup.SetActive(false);
-            //TutorialLevel.SetActive(true);
+            MainLevelGroup.SetActive(false);
+            TutorialLevel.SetActive(true);
             RoomSwitch("A7 Server Room", 0);
             RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
             foreach (var item in MainRooms)
@@ -795,24 +864,59 @@ public class GameManager : SingletonBase<GameManager>
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = true;
             SetupCameraButton();
         }
-        else if(stage > 0)
+        else if(stage == 1)
         {
             CanCameraTurnLeft = true;
             CanCameraTurnRight = true;
             NPCListPanel.gameObject.SetActive(true);
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
-            //MainLevelGroup.SetActive(true);
-            //TutorialLevel.SetActive(false);
-            RoomSwitch("BedRoom_A", 0);
-            RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
-            foreach (var item in MainRooms)
+            MainLevelGroup.SetActive(true);
+            TutorialLevel.SetActive(false);
+            for (int i = 0; i < Rooms.Count; i++)
             {
-                item.CanBeDetected = true;
+                if(Rooms[i].RoomName() == "BedRoom_A")
+                {
+                    Rooms[i].CanBeDetected = true;
+                }
+                else
+                {
+                    Rooms[i].CanBeDetected = false;
+                }
             }
+            if(TriggeringEventNode != null)
+            {
+                if(TriggeringEventNode.GUID == "a30bb683-8c34-4721-ad04-06c810241ebc")
+                {
+                    EventForceNext();
+                }
+            }
+            RoomSwitch("BedRoom_A", 0);
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
             SetupCameraButton();
             //Destroy(TutorialLevel);
+        }
+        else if(stage == 2)
+        {
+            for (int i = 0; i < Rooms.Count; i++)
+            {
+                if(Rooms[i].CBoard != null)
+                {
+                    if(!Rooms[i].CBoard.isLocked)
+                    {
+                        Rooms[i].CanBeDetected = true;
+                    }
+                    else
+                    {
+                        Rooms[i].CanBeDetected = false;
+                    }
+                }
+                else if(Rooms[i].RoomName() != "A7 Server Room")
+                {
+                    Rooms[i].CanBeDetected = true;
+                }
+            }
+            SetupCameraButton();
         }
         else
         {
@@ -1051,32 +1155,20 @@ public class GameManager : SingletonBase<GameManager>
                             {
                                 for (int a = 0; a < con.eventTriggers.Count; a++)
                                 {
-                                    if(!WaitingEvent.ContainsKey(cur.GUID))
-                                    {
-                                        WaitingEvent.Add(cur.GUID, new List<EvtGraph.EventTrigger>() { new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName } });
-                                    }
-                                    else
-                                    {
-                                        WaitingEvent[cur.GUID].Add(new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
-                                    }
+                                    EvtGraph.EventTrigger tri = new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[a].EventName };
+                                    WaitingEvent.Add(tri);
+                                    EventCenter.GetInstance().AddEventListener(tri.EventName, () => { 
+                                        tri.IsTriggered = true; 
+                                        EventCenter.GetInstance().RemoveEventListenerKeys(tri.EventName);
+                                    });
                                 }
                             }
-                            foreach (var keys in WaitingEvent.Keys)
+
+                            for (int a = 0; a < WaitingEvent.Count; a++)
                             {
-                                if(keys != cur.GUID)
+                                if (!WaitingEvent[a].IsTriggered)
                                 {
-                                    continue;
-                                }
-                                else
-                                {
-                                    for (int a = 0; a < WaitingEvent[keys].Count; a++)
-                                    {
-                                        if(!WaitingEvent[keys][a].IsTriggered)
-                                        {
-                                            HasNotAchieve = true;
-                                            break;
-                                        }
-                                    }
+                                    HasNotAchieve = true;
                                 }
                             }
                             #endregion
@@ -1176,9 +1268,10 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.Talking:
                                     for (int i = 0; i < evt.NPCTalking.Count; i++)
                                     {
-                                        if(evt.NPCTalking[i].room.DiaPlay.currentGraph == evt.NPCTalking[i].Graph || evt.NPCTalking[i].room.WaitingGraph == evt.NPCTalking[i].Graph)
+                                        if (evt.NPCTalking[i].room.DiaPlay.currentGraph == evt.NPCTalking[i].Graph || evt.NPCTalking[i].room.WaitingGraph == evt.NPCTalking[i].Graph)
                                         {
                                             HasNotFinish = true;
+                                            break;
                                         }
                                     }
                                     break;
@@ -1289,10 +1382,11 @@ public class GameManager : SingletonBase<GameManager>
                                         {
                                             for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                if(evt.NPCTalking[a].moveToClasses[b].Obj.gameObject == NPC[c].gameObject)
+                                                if(evt.NPCTalking[a].moveToClasses[b].Obj == NPC[c].gameObject)
                                                 {
                                                     NPC[c].status.toDoList.Add(evt);
                                                     evt.NPCTalking[a].room.NPCAgentList.Add(NPC[c].status.npcName, false);
+                                                    NPC[c].TriggerEvent();
                                                 }
                                             }
                                         }
@@ -1395,7 +1489,7 @@ public class GameManager : SingletonBase<GameManager>
 
     void ClearConditionCache()
     {
-        WaitingEvent.Clear();
+        //WaitingEvent.Clear();
         ConditionalWaitingNode.Clear();
         justEnterCondition = true;
         foreach (var keys in customConditions.Keys)

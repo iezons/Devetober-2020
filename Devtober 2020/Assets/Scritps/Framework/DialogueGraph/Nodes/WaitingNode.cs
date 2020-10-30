@@ -100,7 +100,6 @@ namespace DiaGraph
             if (diaGraph != null)
             {
                 diaGraph.IsWaiting = false;
-                Debug.Log(index);
                 diaGraph.DiaPlay.Next(index);
             }
         }
