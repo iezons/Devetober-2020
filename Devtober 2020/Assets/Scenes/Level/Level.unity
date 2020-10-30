@@ -10714,7 +10714,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -37565,7 +37565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.8114, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.81122, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -42765,7 +42765,7 @@ MonoBehaviour:
     z: 0
   canDetected:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8448
   reportEmergency:
     serializedVersion: 2
     m_Bits: 1024
@@ -53887,8 +53887,28 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
   EventName: 1
-  conditionSOs: []
-  CurrentEditingConNum: -1
+  conditionSOs:
+  - ID: 6da5092d-1d2d-4861-8e60-fd48ddf3a49a
+    conditionWith: 3
+    nPCConditinoWith: 0
+    NPC: []
+    nPCHPWith: 2
+    HP: 0
+    enemyConditionWith: 0
+    Enemy_Num: 2
+    OverallNumbers: 0
+    roomConditionWith: 0
+    roomTrackers: []
+    Room_NPC_Num: 2
+    NPC_Number: 0
+    SpecificRoomNPCs: []
+    Room_Enemy_Num: 2
+    Enemy_Number: 0
+    eventTriggers:
+    - IsTriggered: 0
+      EventName: TU_SwitchToMainLevel
+    customConditions: []
+  CurrentEditingConNum: 0
   eventSO:
   - ID: c38282a7-913d-4297-bf1d-8fbdb9beee81
     TODOList: []
@@ -56951,8 +56971,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
-  AlwaysOutline: 0
-  IsInteracting: 0
+  AlwaysOutline: 1
+  IsInteracting: 1
   rightClickMenus: []
   type: 8
   Anim: {fileID: 0}
