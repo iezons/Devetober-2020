@@ -1489,6 +1489,7 @@ public class NpcController : ControllerBased
         if (CurrentInteractObject != null)
         {
             CurrentInteractObject.NPCInteract(0);
+            PlayAudio("light_lever");
         }
     }
 
