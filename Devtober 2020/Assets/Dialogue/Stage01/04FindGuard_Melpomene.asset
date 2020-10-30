@@ -49,96 +49,6 @@ MonoBehaviour:
   - 'Can I go with you? I really don''t know where to go? '
   curIndex: 0
   IsMax: 1
---- !u!114 &-7222319013754006598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: "Waiting for:01\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -138, y: -554.5}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    - WaitingOption 1
-    - WaitingOption 2
-    values:
-    - _fieldName: Input
-      _node: {fileID: -7222319013754006598}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 8129470348742693105}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: -7222319013754006598}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: -7222319013754006598}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 4576666591670916909}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: WaitingOption 1
-      _node: {fileID: -7222319013754006598}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -2165630332245096585}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: WaitingOption 2
-      _node: {fileID: -7222319013754006598}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -6341818593101614563}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  WaitingOption:
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: 01_Xanthe
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: 01_Saturnus
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: 01_Melpomene
 --- !u!114 &-7190959603381686305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,8 +122,8 @@ MonoBehaviour:
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: WaitingOption 2
-        node: {fileID: -7222319013754006598}
+      - fieldName: Output
+        node: {fileID: 8129470348742693105}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -306,10 +216,7 @@ MonoBehaviour:
       _node: {fileID: -2165630332245096585}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: WaitingOption 1
-        node: {fileID: -7222319013754006598}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -386,12 +293,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8d7148b818b2e4c80b2d734163ad9a, type: 3}
-  m_Name: 04FindGuard
+  m_Name: 04FindGuard_Melpomene
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 7875053043454571419}
   - {fileID: 8129470348742693105}
-  - {fileID: -7222319013754006598}
   - {fileID: -2165630332245096585}
   - {fileID: 4576666591670916909}
   - {fileID: -6341818593101614563}
@@ -476,10 +382,7 @@ MonoBehaviour:
       _node: {fileID: 4576666591670916909}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: WaitingOption 0
-        node: {fileID: -7222319013754006598}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -619,7 +522,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -7222319013754006598}
+        node: {fileID: -6341818593101614563}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -629,6 +532,6 @@ MonoBehaviour:
   Dialogue:
   - 'Who is there? '
   - 'How did you came here alive from outside?! '
-  - Has the madness ouside ended? <e=01_NPCInCafe>
+  - Has the madness ouside ended?
   curIndex: 0
   IsMax: 1
