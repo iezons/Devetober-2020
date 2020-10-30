@@ -15,7 +15,7 @@ public class SwitchPos : Interact_SO
         type = InteractType.Switch;
         if(cBord != null)
         {
-            if (door != null && cBord.isLocked)
+            if (door != null && !cBord.isLocked)
             {
                 if (!door.isLocked)
                     AddMenu("SwtichState", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
@@ -23,7 +23,15 @@ public class SwitchPos : Interact_SO
                     AddMenu("SwtichState", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
             }
         }
-        else if(Light != null)
+        else
+        {
+            if (!door.isLocked)
+                AddMenu("SwtichState", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+            else
+                AddMenu("SwtichState", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        }
+
+        if(Light != null)
         {
             AddMenu("TurnON Light", "TurnON Light", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
         }

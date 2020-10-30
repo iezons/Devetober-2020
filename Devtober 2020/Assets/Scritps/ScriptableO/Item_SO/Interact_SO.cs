@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [Serializable]
 public class LocatorList
@@ -114,7 +115,10 @@ public class Interact_SO : ControllerBased
         {
             if(Locators[i].npc != null)
             {
-                Locators[i].npc.PlayGetOutAnim(gameObject);
+                if (!Locators[i].npc.GetComponent<NpcController>().isEnemyChasing)
+                {
+                    Locators[i].npc.PlayGetOutAnim(gameObject);
+                }
                 Locators[i].npc = null;
             }
             else

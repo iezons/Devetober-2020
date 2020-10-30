@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TerminalPos : Interact_SO
 {
+
+    public string code;
+
     private void Awake()
     {
         outline = GetComponent<Outline>();
