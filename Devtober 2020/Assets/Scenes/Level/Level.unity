@@ -25145,7 +25145,7 @@ MonoBehaviour:
   - roomCamera: {fileID: 1423965722}
     isLocked: 0
     speed: 50
-    angle: 80
+    angle: 60
     recordedAngle: 0
     plusAngle: 0
   CurrentCameraIndex: 0
@@ -42121,13 +42121,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423965719}
-  m_LocalRotation: {x: 0, y: -0.9236557, z: 0.38322353, w: 0}
-  m_LocalPosition: {x: -2.9134078, y: 5.1329865, z: 5.2903285}
+  m_LocalRotation: {x: 0.0050573633, y: 0.92134464, z: -0.38870806, w: 0.0021336616}
+  m_LocalPosition: {x: -2.9134078, y: 5.1329865, z: 5.17}
   m_LocalScale: {x: 0.19421077, y: 0.7338356, z: 0.33948478}
   m_Children: []
   m_Father: {fileID: 774842002}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45.067, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.749, y: 180, z: 0.629}
 --- !u!81 &1423965721
 AudioListener:
   m_ObjectHideFlags: 0
@@ -42159,7 +42159,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 76.3
   orthographic: 0
