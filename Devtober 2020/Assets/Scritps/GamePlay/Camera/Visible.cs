@@ -4,23 +4,16 @@ using UnityEngine;
 
 public class Visible : MonoBehaviour
 {
-    public bool IsVisible;
+    public Transform RoomCamera;
 
     private void Update()
     {
-        if(IsVisible)
+        if(Time.frameCount % 2 == 0)
         {
-            //Debug.Log("Visible");
+            if (RoomCamera.eulerAngles.y > 105.63f)
+            {
+                EventCenter.GetInstance().DiaEventTrigger("01_LookAtMedicalKit");
+            }
         }
-    }
-
-    private void OnBecameVisible()
-    {
-        IsVisible = true;
-    }
-
-    private void OnBecameInvisible()
-    {
-        IsVisible = false;
     }
 }

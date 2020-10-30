@@ -404,9 +404,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPC_SP: {fileID: 391390200}
   RoomFor03: {fileID: 774842013}
-  HidingLocker: {fileID: 0}
   hide: {fileID: 1476977625}
   Xan: {fileID: 323711741}
+  Prisoner: {fileID: 0}
   graph03: {fileID: 11400000, guid: f15749468fceb4042a2fe6960793f67e, type: 2}
   NPCTalking:
     ID: 797d4848-3e2a-4c73-842a-5a93b9cd271b
@@ -430,8 +430,9 @@ MonoBehaviour:
     doingWithRoom: 0
     CustomCode: []
     timelines: []
-  PC: {fileID: 0}
-  Door: {fileID: 0}
+  PC: {fileID: 1894213102}
+  Door: {fileID: 242098887}
+  HidingLocker: {fileID: 556376058}
 --- !u!4 &15625548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -1236,7 +1237,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -1362,6 +1363,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eef00d2d60a5e4a459d9ba08552bf911, type: 3}
+--- !u!114 &46335514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
+  m_Name: Basic Event Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1157949084}
+  position: {x: 2022, y: -222.5}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 46335514}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 291028970}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 46335514}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GUID: a8748d77-5832-4f1a-8e8d-42ccbe075172
+  EventName: 
+  conditionSOs:
+  - ID: 2a79febe-b71a-4a38-92c9-ea67369afebf
+    conditionWith: 3
+    nPCConditinoWith: 0
+    NPC: []
+    nPCHPWith: 2
+    HP: 0
+    enemyConditionWith: 0
+    Enemy_Num: 2
+    OverallNumbers: 0
+    roomConditionWith: 0
+    roomTrackers: []
+    Room_NPC_Num: 2
+    NPC_Number: 0
+    SpecificRoomNPCs: []
+    Room_Enemy_Num: 2
+    Enemy_Number: 0
+    eventTriggers:
+    - IsTriggered: 0
+      EventName: IsPrisonerHeal
+    customConditions: []
+  CurrentEditingConNum: 0
+  eventSO: []
+  CurrentEditingSONum: -1
+  Comment: 
 --- !u!1001 &47970755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5916,7 +5984,10 @@ MonoBehaviour:
       _node: {fileID: 291028970}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 46335514}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -6469,7 +6540,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -7393,7 +7464,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -7784,7 +7855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -7817,7 +7888,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -10517,6 +10588,10 @@ PrefabInstance:
       propertyPath: recoverTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2871035248169353960, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -164.04
@@ -10654,7 +10729,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.0017657543
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11606,7 +11681,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -19489,7 +19564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ccf5b01023448448bf8788cc1511fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisible: 0
+  RoomCamera: {fileID: 1890124184}
 --- !u!1001 &660156913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22374,7 +22449,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -24165,7 +24240,7 @@ MonoBehaviour:
   - roomCamera: {fileID: 341941279}
     isLocked: 0
     speed: 50
-    angle: 360
+    angle: 80
     recordedAngle: 0
     plusAngle: 0
   CurrentCameraIndex: 0
@@ -26765,7 +26840,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -32398,7 +32473,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -34130,6 +34205,7 @@ MonoBehaviour:
   - {fileID: 1521040059}
   - {fileID: 291028970}
   - {fileID: 1629488622}
+  - {fileID: 46335514}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
   currentList: []
@@ -38192,7 +38268,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -48799,6 +48875,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 2010533952}
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: code
+      value: Stoagr_01
+      objectReference: {fileID: 0}
     - target: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.060003
@@ -49501,7 +49581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779329775}
   m_LocalRotation: {x: 6.123235e-17, y: 3.7493998e-33, z: 6.123235e-17, w: 1.0000001}
-  m_LocalPosition: {x: 6.26, y: 0, z: -0.52}
+  m_LocalPosition: {x: -3.73, y: -0, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 774841981}
@@ -53608,7 +53688,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -53940,6 +54020,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
+--- !u!114 &1894213102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+  m_PrefabInstance: {fileID: 727054268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b915e661bdbca2f4dbb99e32760ea976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1895363156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60314,7 +60405,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2

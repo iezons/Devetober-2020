@@ -745,25 +745,50 @@ public class GameManager : SingletonBase<GameManager>
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point);
-                
+
                 //ChangeDefaultCursor
-                if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
+                hitInfo.collider.TryGetComponent(out NpcController Npcc);
+                if(Npcc != null)
                 {
-                    if(RightClickMs.DefaultCallValue != null)
+                    if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting && !Npcc.IsPrisoner)
                     {
-                        DefaultValueWithGO dwg = new DefaultValueWithGO
+                        if (RightClickMs.DefaultCallValue != null)
                         {
-                            DefaultValue = RightClickMs.DefaultCallValue,
-                            GO = hitInfo.collider.gameObject,
-                        };
-                        RightClickMs.DoFunction(dwg);
+                            DefaultValueWithGO dwg = new DefaultValueWithGO
+                            {
+                                DefaultValue = RightClickMs.DefaultCallValue,
+                                GO = hitInfo.collider.gameObject,
+                            };
+                            RightClickMs.DoFunction(dwg);
+                        }
+                        else
+                        {
+                            RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                        }
+                        IsWaitingForClickObj = false;
                     }
-                    else
-                    {
-                        RightClickMs.DoFunction(hitInfo.collider.gameObject);
-                    }
-                    IsWaitingForClickObj = false;
                 }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
+                    {
+                        if (RightClickMs.DefaultCallValue != null)
+                        {
+                            DefaultValueWithGO dwg = new DefaultValueWithGO
+                            {
+                                DefaultValue = RightClickMs.DefaultCallValue,
+                                GO = hitInfo.collider.gameObject,
+                            };
+                            RightClickMs.DoFunction(dwg);
+                        }
+                        else
+                        {
+                            RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                        }
+                        IsWaitingForClickObj = false;
+                    }
+                }
+                
             }
 
             if(Input.anyKeyDown && !Input.GetKeyDown(MoveLeft) && !Input.GetKeyDown(MoveRight) && !Input.GetMouseButtonDown(0))

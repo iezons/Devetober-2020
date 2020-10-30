@@ -1379,11 +1379,6 @@ public class NpcController : ControllerBased
     #region Receive Call
     public void ReceiveInteractCall(object obj)
     {
-        if (IsPrisoner)
-        {
-            EventCenter.GetInstance().DiaEventTrigger("01_HideIn");
-
-        }
         if (navAgent.enabled)
         {
             GameObject gameObj = (GameObject)obj;
@@ -1555,6 +1550,8 @@ public class NpcController : ControllerBased
                     switch (CurrentInteractObject.type)
                     {
                         case Interact_SO.InteractType.Locker:
+                            if (IsPrisoner)
+                                EventCenter.GetInstance().DiaEventTrigger("01_HideIn");
                             CurrentInteractObject.NPCInteract(0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             animator.Play("Get In Locker", 0);
@@ -1591,6 +1588,8 @@ public class NpcController : ControllerBased
                             HasInteract = true;
                             break;
                         case Interact_SO.InteractType.Switch:
+                            if (IsPrisoner)
+                                EventCenter.GetInstance().DiaEventTrigger("01_CloseDoor");
                             animator.Play("Stand Switch", 0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             HasInteract = true;

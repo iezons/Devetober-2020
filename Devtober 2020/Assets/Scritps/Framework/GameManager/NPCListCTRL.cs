@@ -63,6 +63,9 @@ public class NPCListCTRL : MonoBehaviour
                 case "Proteus Cicero":
                     NPCIconPos.sprite = NPCIcon[4];
                     break;
+                case "Stephanus Lentinus":
+                    NPCIconPos.sprite = NPCIcon[5];
+                    break;
                 default:
                     break;
             }

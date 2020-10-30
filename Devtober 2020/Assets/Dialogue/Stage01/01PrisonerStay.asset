@@ -289,6 +289,9 @@ MonoBehaviour:
       - fieldName: WaitingOption 0
         node: {fileID: -1527136331401519846}
         reroutePoints: []
+      - fieldName: Output
+        node: {fileID: -3806839906577130529}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -353,7 +356,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -1527136331401519846}
+        node: {fileID: -4722516442049621559}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -408,7 +411,7 @@ MonoBehaviour:
   m_Name: "Waiting for:01\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 344, y: -328}
+  position: {x: 360, y: -280}
   ports:
     keys:
     - Input
@@ -420,9 +423,6 @@ MonoBehaviour:
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: Output
-        node: {fileID: -3806839906577130529}
-        reroutePoints: []
       - fieldName: Output
         node: {fileID: -7256149319814646530}
         reroutePoints: []
@@ -591,7 +591,7 @@ MonoBehaviour:
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -2639374616544123151}
+  current: {fileID: 5263775130096979506}
   DiaPlay: {fileID: 0}
   IsWaiting: 1
 --- !u!114 &1083138977115277558

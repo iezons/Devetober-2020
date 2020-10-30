@@ -42,7 +42,9 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - Request confirm
+  - 'Request confirm<w>
+
+    [Premier object>>save all survivor and help them leave]<e=02_PriestHeal>'
   curIndex: 0
   IsMax: 1
 --- !u!114 &-5632102563033394614
@@ -152,7 +154,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1ff0e372f025b4a8f1f45c5ac9daf4, type: 3}
-  m_Name: Start
+  m_Name: 'Start: English'
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -800, y: -137.5}

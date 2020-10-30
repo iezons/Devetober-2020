@@ -10,29 +10,33 @@ public class MainLevelEventHolder : MonoBehaviour
 {
     public NpcController NPC_SP;
     public RoomTracker RoomFor03;
-    public HiddenPos HidingLocker;
+    
 
     [Header("Interact")]
     public HiddenPos hide;
 
     [Header("Stage02")]
     public NpcController Xan;
+    public NpcController Prisoner;
 
     [Header("01_Dia")]
     public DialogueGraph graph03;
     public EventSO NPCTalking;
     public TerminalPos PC;
     public DoorController Door;
+    public HiddenPos HidingLocker;
 
     // Start is called before the first frame update
     void OnEnable()
     {
         a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
-        a("01_ChefOut", () => hide.IsInteracting = false);
+        a("01_ChefOut", () => { hide.IsInteracting = false; Prisoner.Stage = 1; });
         a("01_PriPatrol", () => NPC_SP.SwitchAnimState(false));
         a("01_PrisonerStartTalking", PrisonerStartTalking);
         a("01_XantheTurnToCamera", () => Xan.FacingEachOther(true));
+        a("02_PriestHeal", () => { Prisoner.Stage = 2; });
+        a("01_PriPatrol", () => { Prisoner.IsPrisoner = false; Prisoner.SwitchAnimState(false); });
     }
 
     void a(string name, UnityAction action)
@@ -51,6 +55,8 @@ public class MainLevelEventHolder : MonoBehaviour
         GameManager.GetInstance().SetupStage(2);
         PC.IsInteracting = false;
         Door.IsInteracting = false;
+        HidingLocker.IsInteracting = true;
+        hide.IsInteracting = true;
     }
 
     void PrisonerStartTalking()
