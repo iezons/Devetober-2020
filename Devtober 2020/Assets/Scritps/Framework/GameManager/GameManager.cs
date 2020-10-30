@@ -825,8 +825,8 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(false);
             CameraButtonListPanel.gameObject.SetActive(false);
             CameraName.gameObject.SetActive(false);
-            //MainLevelGroup.SetActive(false);
-            //TutorialLevel.SetActive(true);
+            MainLevelGroup.SetActive(false);
+            TutorialLevel.SetActive(true);
             RoomSwitch("A7 Server Room", 0);
             RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
             foreach (var item in MainRooms)
@@ -843,8 +843,8 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(true);
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
-            //MainLevelGroup.SetActive(true);
-            //TutorialLevel.SetActive(false);
+            MainLevelGroup.SetActive(true);
+            TutorialLevel.SetActive(false);
             for (int i = 0; i < Rooms.Count; i++)
             {
                 if(Rooms[i].RoomName() == "BedRoom_A")
