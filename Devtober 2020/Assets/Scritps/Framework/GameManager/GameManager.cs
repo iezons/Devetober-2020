@@ -53,11 +53,11 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("EventTriggerCache")]
     List<EventScriptInterface> EventScripts = new List<EventScriptInterface>();
-    EventNode TriggeringEventNode = null;
+    public EventNode TriggeringEventNode = null;
     bool justEnterEventTrigger = true;
 
     [Header("EventConditionalCache")]
-    Dictionary<string, List<EvtGraph.EventTrigger>> WaitingEvent = new Dictionary<string, List<EvtGraph.EventTrigger>>();
+    public List<EvtGraph.EventTrigger> WaitingEvent = new List<EvtGraph.EventTrigger>();
     Dictionary<string, List<CustomCondition>> customConditions = new Dictionary<string, List<CustomCondition>>();
     List<EventNode> ConditionalWaitingNode = new List<EventNode>();
     bool justEnterCondition = true;
@@ -470,7 +470,6 @@ public class GameManager : SingletonBase<GameManager>
             case GameManagerState.CONDITIONING:
                 if (justEnter)
                 {
-                    justEnter = false;
                     for (int i = 0; i < eventGraph.graph.currentList.Count; i++)
                     {
                         EventNode evt = eventGraph.graph.currentList[i] as EventNode;
@@ -479,7 +478,9 @@ public class GameManager : SingletonBase<GameManager>
                             ConditionalWaitingNode.Add(evt);
                         }
                     }
+                    justEnter = false;
                 }
+
                 for (int i = 0; i < ConditionalWaitingNode.Count; i++)
                 {
                     if(Conditioning(ConditionalWaitingNode[i]))
@@ -1115,36 +1116,27 @@ public class GameManager : SingletonBase<GameManager>
                             break;
                         case ConditionSO.ConditionWith.Event:
                             #region Event
+                            Debug.Log("Event");
                             if (justEnterCondition)
                             {
                                 for (int a = 0; a < con.eventTriggers.Count; a++)
                                 {
-                                    if(!WaitingEvent.ContainsKey(cur.GUID))
-                                    {
-                                        WaitingEvent.Add(cur.GUID, new List<EvtGraph.EventTrigger>() { new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName } });
-                                    }
-                                    else
-                                    {
-                                        WaitingEvent[cur.GUID].Add(new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[i].EventName });
-                                    }
+                                    EvtGraph.EventTrigger tri = new EvtGraph.EventTrigger { IsTriggered = false, EventName = con.eventTriggers[a].EventName };
+                                    WaitingEvent.Add(tri);
+                                    EventCenter.GetInstance().AddEventListener(tri.EventName, () => { 
+                                        tri.IsTriggered = true; 
+                                        EventCenter.GetInstance().RemoveEventListenerKeys(tri.EventName);
+                                        Debug.Log("01——03");
+                                    });
                                 }
                             }
-                            foreach (var keys in WaitingEvent.Keys)
+
+                            for (int a = 0; a < WaitingEvent.Count; a++)
                             {
-                                if(keys != cur.GUID)
+                                if (!WaitingEvent[a].IsTriggered)
                                 {
-                                    continue;
-                                }
-                                else
-                                {
-                                    for (int a = 0; a < WaitingEvent[keys].Count; a++)
-                                    {
-                                        if(!WaitingEvent[keys][a].IsTriggered)
-                                        {
-                                            HasNotAchieve = true;
-                                            break;
-                                        }
-                                    }
+                                    Debug.Log(WaitingEvent[a].IsTriggered);
+                                    HasNotAchieve = true;
                                 }
                             }
                             #endregion
@@ -1244,9 +1236,10 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.Talking:
                                     for (int i = 0; i < evt.NPCTalking.Count; i++)
                                     {
-                                        if(evt.NPCTalking[i].room.DiaPlay.currentGraph == evt.NPCTalking[i].Graph || evt.NPCTalking[i].room.WaitingGraph == evt.NPCTalking[i].Graph)
+                                        if (evt.NPCTalking[i].room.DiaPlay.currentGraph == evt.NPCTalking[i].Graph || evt.NPCTalking[i].room.WaitingGraph == evt.NPCTalking[i].Graph)
                                         {
                                             HasNotFinish = true;
+                                            break;
                                         }
                                     }
                                     break;
@@ -1357,10 +1350,11 @@ public class GameManager : SingletonBase<GameManager>
                                         {
                                             for (int c = 0; c < NPC.Count; c++)
                                             {
-                                                if(evt.NPCTalking[a].moveToClasses[b].Obj.gameObject == NPC[c].gameObject)
+                                                if(evt.NPCTalking[a].moveToClasses[b].Obj == NPC[c].gameObject)
                                                 {
                                                     NPC[c].status.toDoList.Add(evt);
                                                     evt.NPCTalking[a].room.NPCAgentList.Add(NPC[c].status.npcName, false);
+                                                    NPC[c].TriggerEvent();
                                                 }
                                             }
                                         }
@@ -1463,7 +1457,7 @@ public class GameManager : SingletonBase<GameManager>
 
     void ClearConditionCache()
     {
-        WaitingEvent.Clear();
+        //WaitingEvent.Clear();
         ConditionalWaitingNode.Clear();
         justEnterCondition = true;
         foreach (var keys in customConditions.Keys)

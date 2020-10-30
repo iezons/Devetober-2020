@@ -96,6 +96,9 @@ public class NpcController : ControllerBased
     float restTime = 0;
     [SerializeField]
     float recoverTime = 0;
+
+    bool IsRandomTalking = false;
+    Vector3 TalkingPos = Vector3.zero;
     #endregion
 
 
@@ -307,6 +310,7 @@ public class NpcController : ControllerBased
             case "Event":
                 Event();
                 ReachDestination();
+                FacingEachOther();
                 break;
             case "Dodging":
                 Dodging();
@@ -369,6 +373,17 @@ public class NpcController : ControllerBased
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Death();
+        }
+    }
+
+    public void CheckEvent()
+    {
+        if (status.toDoList != null)
+        {
+            if (status.toDoList.Count != 0)
+            {
+                m_fsm.ChangeState("Event");
+            }
         }
     }
 
@@ -485,6 +500,7 @@ public class NpcController : ControllerBased
         currentTerminalPos = NewDestination();
         navAgent.speed *= (status.currentStamina / 100) * 0.4f + 0.6f;
         m_fsm.ChangeState("Patrol");
+        IsRandomTalking = false;
         if (MenuContains("Interact") >= 0)
             return;
         else
@@ -711,6 +727,7 @@ public class NpcController : ControllerBased
         {
             RemoveMenu("Leave");
         }
+        IsRandomTalking = false;
         m_fsm.ChangeState("Patrol");
     }
     #endregion
@@ -780,6 +797,35 @@ public class NpcController : ControllerBased
 
     public void RandomTalk()
     {
+        if (status.toDoList.Count > 0)
+        {
+            EventSO evt = status.toDoList[0];
+            for (int i = 0; i < evt.NPCTalking.Count; i++)
+            {
+                for (int a = 0; a < evt.NPCTalking[i].moveToClasses.Count; a++)
+                {
+                    if (evt.NPCTalking[i].moveToClasses[a].Obj == gameObject)
+                    {
+                        int index = 0;
+                        int b = 0;
+                        do
+                        {
+                            index++;
+                            b = Random.Range(0, evt.NPCTalking[i].moveToClasses.Count);
+                        } while (b == a && index < 50);
+                        if (index > 50)
+                        {
+                            TalkingPos = currentRoomTracker.cameraLists[currentRoomTracker.CurrentCameraIndex].roomCamera.gameObject.transform.position;
+                        }
+                        else
+                        {
+                            TalkingPos = evt.NPCTalking[i].moveToClasses[b].Obj.transform.position;
+                        }
+                    }
+                }
+            }
+        }
+        IsRandomTalking = true;
         switch (Random.Range(0, 3))
         {
             case (0):
@@ -813,6 +859,7 @@ public class NpcController : ControllerBased
                             {
                                 if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                                 {
+                                    BackToPatrol();
                                     Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
                                 }
                             }
@@ -823,6 +870,7 @@ public class NpcController : ControllerBased
                         {
                             if (evt.NPCWayPoint[a].Obj == gameObject)
                             {
+                                BackToPatrol();
                                 Dispatch(evt.NPCWayPoint[a].MoveTO.position);
                             }
                         }
@@ -841,6 +889,13 @@ public class NpcController : ControllerBased
                 switch (evt.doingWithNPC)
                 {
                     case DoingWithNPC.Talking:
+                        for (int a = 0; a < evt.NPCTalking.Count; a++)
+                        {
+                            if(evt.NPCTalking[a].room.DiaPlay.currentGraph != evt.NPCTalking[a].Graph && evt.NPCTalking[a].room.WaitingGraph != evt.NPCTalking[a].Graph)
+                            {
+                                status.toDoList.Remove(evt);
+                            }
+                        }
                         break;
                     case DoingWithNPC.MoveTo:
                         break;
@@ -855,18 +910,22 @@ public class NpcController : ControllerBased
                 }
             }
         }
-    }
-
-    public void CheckEvent()
-    {
-        if (status.toDoList != null)
+        if (status.toDoList.Count <= 0)
         {
-            if (status.toDoList.Count != 0)
-            {
-                m_fsm.ChangeState("Event");
-            }
+            BackToPatrol();
         }
     }
+
+    //public void CheckEvent()
+    //{
+    //    if (status.toDoList != null)
+    //    {
+    //        if (status.toDoList.Count != 0)
+    //        {
+    //            m_fsm.ChangeState("Event");
+    //        }
+    //    }
+    //}
 
     public void ReachDestination()
     {
@@ -1143,6 +1202,7 @@ public class NpcController : ControllerBased
         restTime = recordRestTimer;
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
+        IsRandomTalking = false;
         m_fsm.ChangeState("Patrol");
     }
     #endregion
@@ -1992,6 +2052,35 @@ public class NpcController : ControllerBased
             CurrentInteractItem = null;
         }
         BackToPatrol();
+    }
+
+    public void FacingEachOther(bool IsFacingCamera = false)
+    {
+        Vector3 dir = Vector3.zero;
+        if (!IsFacingCamera)
+        {
+            dir = (TalkingPos - transform.position).normalized;
+        }
+        else
+        {
+            dir = (currentRoomTracker.cameraLists[currentRoomTracker.CurrentCameraIndex].roomCamera.gameObject.transform.position - transform.position).normalized;
+        }
+        bool Damping = false;
+        
+        
+        dir.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(dir);
+
+        if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
+            Damping = true;
+        }
+
+        if (Damping)
+        {
+            Debug.Log("Damping");
+        }
     }
     #endregion
 
