@@ -64,7 +64,10 @@ public class MainLevelEventHolder : MonoBehaviour
         NPC_SP.inAnimState = true;
         NPC_SP.RemoveAllMenu();
         NPC_SP.AddMenu("Talking", "Talking", false, NPC_SP.SpecialTalking);
-        NPC_SP.CurrentInteractObject.NPCInteractFinish(null);
+        if(NPC_SP.CurrentInteractObject != null)
+        {
+            NPC_SP.CurrentInteractObject.NPCInteractFinish(null);
+        }
     }
 
     // Update is called once per frame
