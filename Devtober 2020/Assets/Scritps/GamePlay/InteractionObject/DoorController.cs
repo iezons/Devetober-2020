@@ -60,7 +60,7 @@ public class DoorController : ControllerBased
     GameObject door;
     Collider[] detectedObj = null;
     public bool isClosed, isOpened, isPowerOff, isFixing;
-    [HideInInspector]
+    //[HideInInspector]
     public bool isNPCCalled = false;
     float recordLockTime;
     public CBordPos cBord = null;
@@ -76,7 +76,14 @@ public class DoorController : ControllerBased
 
     private void Start()
     {
-        AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
+        if(isLocked)
+        {
+            AddMenu("SwitchStates", "Unlock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
+        }
+        else
+        {
+            AddMenu("SwitchStates", "Lock", false, SwtichStates, 1 << LayerMask.GetMask("Door"));
+        }
     }
 
     private void Update()

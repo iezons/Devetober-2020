@@ -121,6 +121,8 @@ public class NpcController : ControllerBased
     RaycastHit hit;
     Collider[] hitObjects = null;
     BoxCollider boxCollider;
+
+    bool justEnterEvent = true;
     #endregion
 
     #region InteractWithItem
@@ -324,7 +326,7 @@ public class NpcController : ControllerBased
                 break;
         }
         #endregion
-        //CheckEvent();
+        CheckEvent();
         AddStopMenu();
         if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
         {
@@ -730,6 +732,7 @@ public class NpcController : ControllerBased
     {
         navAgent.ResetPath();
         m_fsm.ChangeState("Event");
+        justEnterEvent = true;
     }
 
     public void RandomTalk()
@@ -752,38 +755,62 @@ public class NpcController : ControllerBased
 
     private void Event()
     {
-        for (int i = 0; i < status.toDoList.Count; i++)
+        if(status.toDoList.Count > 0)
         {
             EventSO evt = status.toDoList[0];
-            switch (evt.doingWithNPC)
+            if (justEnterEvent)
             {
-                case DoingWithNPC.Talking:
-                    for (int a = 0; a < evt.NPCTalking.Count; a++)
-                    {
-                        for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
+                justEnterEvent = false;
+                switch (evt.doingWithNPC)
+                {
+                    case DoingWithNPC.Talking:
+                        for (int a = 0; a < evt.NPCTalking.Count; a++)
                         {
-                            if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
+                            for (int b = 0; b < evt.NPCTalking[a].moveToClasses.Count; b++)
                             {
-                                Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                                if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
+                                {
+                                    Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                                }
                             }
                         }
-                    }
-                    break;
-                case DoingWithNPC.MoveTo:
-                    for (int a = 0; a < evt.NPCWayPoint.Count; a++)
-                    {
-                        if (evt.NPCWayPoint[a].Obj == gameObject)
+                        break;
+                    case DoingWithNPC.MoveTo:
+                        for (int a = 0; a < evt.NPCWayPoint.Count; a++)
                         {
-                            Dispatch(evt.NPCWayPoint[a].MoveTO.position);
+                            if (evt.NPCWayPoint[a].Obj == gameObject)
+                            {
+                                Dispatch(evt.NPCWayPoint[a].MoveTO.position);
+                            }
                         }
-                    }
-                    break;
-                case DoingWithNPC.Patrol:
-                    break;
-                default:
-                    break;
+                        break;
+                    case DoingWithNPC.Patrol:
+                        break;
+                    case DoingWithNPC.Interact:
+                        break;
+                    case DoingWithNPC.AnimState:
+                    default:
+                        break;
+                }
             }
-            status.toDoList.Remove(evt);
+            else
+            {
+                switch (evt.doingWithNPC)
+                {
+                    case DoingWithNPC.Talking:
+                        break;
+                    case DoingWithNPC.MoveTo:
+                        break;
+                    case DoingWithNPC.Patrol:
+                        break;
+                    case DoingWithNPC.Interact:
+                        break;
+                    case DoingWithNPC.AnimState:
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 
@@ -802,7 +829,7 @@ public class NpcController : ControllerBased
     {
         if (Distance() <= restDistance)
         {
-            EventCenter.GetInstance().EventTriggered("GM.AllNPCArrive", status.npcName);
+            EventCenter.GetInstance().EventTriggered("GM.NPCArrive", status.npcName);
             //TODO 修改NPC Arrive call的方法
             navAgent.ResetPath();
         }

@@ -20,7 +20,7 @@ public class DefaultValueWithGO
 
 public class WaitingNPCArrive
 {
-    public string RoomNum;
+    public RoomTracker RoomNum;
     public List<GameObject> NPC = new List<GameObject>();
     public DialogueGraph graph;
 }
@@ -189,7 +189,7 @@ public class GameManager : SingletonBase<GameManager>
                     CameraName.text = Rooms[i].RoomName();
                 }
                 if(AllowAudio)
-                    AudioMgr.GetInstance().PlayAudio(Audio2D, "camera_switch", 1, false, null);
+                    AudioMgr.GetInstance().PlayAudio(Audio2D, "camera_switch", 0.3f, false, null);
                 SetupOption(Rooms[i]);
                 Rooms[i].CurrentCameraIndex = CameraIndex;
                 CurrentRoom = Rooms[i];
@@ -834,8 +834,8 @@ public class GameManager : SingletonBase<GameManager>
                         eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() { "StartNode" })[0]);
                         break;
                     case 1:
-                        //eventGraph.graph.Next([0]);
                         //eventGraph.graph.SetNode(new List<string>() { "4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237" });
+                        eventGraph.graph.Next(eventGraph.graph.SetNode(new List<string>() { "StartNode" })[0]);
                         break;
                     default:
                         break;

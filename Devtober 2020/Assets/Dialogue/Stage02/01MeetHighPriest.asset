@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9063002128706711358
+--- !u!114 &-8747705216652971501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,469 +10,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Vortigernus Balbus: You looks good\u2026"
+  m_Name: "Stephanus: Well. I just m\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1784, y: -248}
+  position: {x: -264, y: 40}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: -9063002128706711358}
+      _node: {fileID: -8747705216652971501}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: -7059411884220849437}
+        node: {fileID: 2029516847860787339}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: -9063002128706711358}
+      _node: {fileID: -8747705216652971501}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -5879757338768306823}
+        node: {fileID: 3999694047642575317}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: Vortigernus Balbus
+  TalkingPerson: Stephanus
   Dialogue:
-  - You looks good, <w>servant of god.
+  - 'Well. I just met the last guy I want to see. '
   curIndex: 0
   IsMax: 1
---- !u!114 &-8929493247666979551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ":  <sp=60>------\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -360, y: -440}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -8929493247666979551}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -1274000538394031593}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -8929493247666979551}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 6389800767180546535}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: 
-  Dialogue:
-  - ' <sp=60>-----------------------<w=1>
-
-    [Self checking process start]</sp><sp=3>......</sp>
-
-    <sp=60>[Check
-    camera mobility to left]<w>'
-  - '[<e=TU_UnlockCameraToLeft>Hold A to check]'
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-8213815889390186122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: "Waiting for:TU\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 88, y: -280}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: -8213815889390186122}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 7489656882146101309}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: -8213815889390186122}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: -8213815889390186122}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -861164383322610034}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  WaitingOption:
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: TU_TurnRightCheck
---- !u!114 &-7588340187148349264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b329bd0343160746993a35180aff24c, type: 3}
-  m_Name: 'Option: I can hear you'
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -840, y: 136}
-  ports:
-    keys:
-    - Input
-    - Option
-    - Option 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: -7588340187148349264}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -4543516648084809628}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Option
-      _node: {fileID: -7588340187148349264}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.OptionClass,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Option 0
-      _node: {fileID: -7588340187148349264}
-      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 8386150322659946567}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  Option:
-  - Text: I can hear you
---- !u!114 &-7059411884220849437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [Self checking\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1382.0808, y: -235.7724}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -7059411884220849437}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 7655482696754675492}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -7059411884220849437}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -9063002128706711358}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: 
-  Dialogue:
-  - '[Self checking process <w><color=#00FF00>finished</color>]
-
-    <sp=60>-----------------------</sp>'
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-6707249234351898109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": <mark=#00CED18\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -1272, y: 104}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -6707249234351898109}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 2188258175194958830}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -6707249234351898109}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 8251310112438953101}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: 
-  Dialogue:
-  - <mark=#00CED180>[Unreconized Data]</mark>
-  - '[Connecting to Camera]<w> <e=TU_ShowCamera>'
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-5879757338768306823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Vortigernus: I will guide y\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1784, y: 40}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -5879757338768306823}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -9063002128706711358}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -5879757338768306823}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1769059583887799055}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Vortigernus
-  Dialogue:
-  - 'I will guide you toward to <mark=#00CED180>Serena''s core. </mark>
-
-    <sp=100><mark=#00CED180>[>>A9-1
-    Cruiser]</mark></sp>'
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-4543516648084809628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": <mark=#00CED18\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -856, y: -168}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -4543516648084809628}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 8251310112438953101}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -4543516648084809628}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -7588340187148349264}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: 
-  Dialogue:
-  - <mark=#00CED180>[>>"Human"]</mark><w=1>
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-2572640354797146466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: Waiting for:3s
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -1631, y: -133}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: -2572640354797146466}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -2479930490814056800}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: -2572640354797146466}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: -2572640354797146466}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 2188258175194958830}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  WaitingOption:
-  - waitingFor: 0
-    WaitSeconds: 3
-    Event: 
---- !u!114 &-2479930490814056800
+--- !u!114 &-8615672979410117182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,25 +61,25 @@ MonoBehaviour:
   m_Name: 'Start: English'
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1880, y: -168}
+  position: {x: -544, y: -114.5}
   ports:
     keys:
     - Output
     values:
     - _fieldName: Output
-      _node: {fileID: -2479930490814056800}
+      _node: {fileID: -8615672979410117182}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -2572640354797146466}
+        node: {fileID: 2029516847860787339}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   Language: English
---- !u!114 &-1274000538394031593
+--- !u!114 &-8491055088072290615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -513,34 +89,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": <mark=#00CED18\u2026"
+  m_Name: ": My premier obj\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -840, y: 760}
+  position: {x: 2851, y: 110}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: -1274000538394031593}
+      _node: {fileID: -8491055088072290615}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 8386150322659946567}
+        node: {fileID: 7338275875273617559}
+        reroutePoints: []
+      - fieldName: Output
+        node: {fileID: 9004989897196438478}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: -1274000538394031593}
+      _node: {fileID: -8491055088072290615}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -8929493247666979551}
+        node: {fileID: -5234564427062249274}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -548,10 +127,12 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - <mark=#00CED180>[>>"Self checking process"]</mark>
+  - 'My premier object was already updated to help everyone survive and leave this
+    ship. '
+  - 'The best way to help you survive and leave is to work together. '
   curIndex: 0
   IsMax: 1
---- !u!114 &-861164383322610034
+--- !u!114 &-6681343636784067810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -561,34 +142,180 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [\u221ATurn Right c\u2026"
+  m_Name: "Gregorius: Ship servant, \u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 72, y: -56}
+  position: {x: 1336, y: 136}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: -861164383322610034}
+      _node: {fileID: -6681343636784067810}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: WaitingOption 0
-        node: {fileID: -8213815889390186122}
+      - fieldName: Output
+        node: {fileID: 6651680211875943940}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: -861164383322610034}
+      _node: {fileID: -6681343636784067810}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 8974725209297846666}
+        node: {fileID: 1672125799124405757}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius
+  Dialogue:
+  - 'Ship servant, you better know I''m the only spokesperson for god here. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-6370372992045714778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Gregorius: But how? The o\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 3832, y: 296}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -6370372992045714778}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 7325216361995785089}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -6370372992045714778}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -3538315264582034632}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius
+  Dialogue:
+  - 'But how? The only way I know to escape is sending distress signal out. '
+  - 'But the <mark=#0000FF80>voice of Serena</mark> was already offline few days
+    ago. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-5234564427062249274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Gregorius: But that guy i\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 3304, y: -88}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -5234564427062249274}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -8491055088072290615}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -5234564427062249274}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 1069394947822208042}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius
+  Dialogue:
+  - 'But that guy is a blasphemer. He will offend god and everone will die here. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-3538315264582034632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: ": <mark=#0000FF8\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 4216, y: 136}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -3538315264582034632}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -6370372992045714778}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -3538315264582034632}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -1138935458549945547}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -596,8 +323,109 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - "[\u221ATurn Right check]\n<w>[Loading information]<sp=3>......</sp><sp=60><e=TU_NPCList_Show>"
-  - '[Right click on information to check]'
+  - <mark=#0000FF80>[>>Signal Array]</mark>
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-1138935458549945547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Stephanus: We can fix it \u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 4232, y: 472}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -1138935458549945547}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -3538315264582034632}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -1138935458549945547}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 8917786237658371147}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Stephanus
+  Dialogue:
+  - 'We can fix it manually. I know how to do that. But I would need something to
+    repair it. '
+  - 'I need all survivor''s help me to do that. '
+  - 'Sooner is better. We don''t have much time. '
+  - 'To get those things. We need to find a way to the storage room. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-813682688713787728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Stephanus: Calm down, Hig\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 522, y: -291}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -813682688713787728}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 3999694047642575317}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -813682688713787728}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 8548371022192681021}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Stephanus
+  Dialogue:
+  - 'Calm down, High Priest Balbus, there are no more guards here to protect you. '
+  - 'Now, god servent is already on our side. '
+  - 'If you want keep your pathetic life, you better join us. '
   curIndex: 0
   IsMax: 1
 --- !u!114 &11400000
@@ -610,38 +438,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8d7148b818b2e4c80b2d734163ad9a, type: 3}
-  m_Name: 01Start
+  m_Name: 01MeetHighPriest
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -2479930490814056800}
-  - {fileID: 2188258175194958830}
-  - {fileID: -8929493247666979551}
-  - {fileID: 6389800767180546535}
-  - {fileID: 7489656882146101309}
-  - {fileID: -8213815889390186122}
-  - {fileID: -861164383322610034}
-  - {fileID: 798332061208842029}
-  - {fileID: -6707249234351898109}
-  - {fileID: 8251310112438953101}
-  - {fileID: -4543516648084809628}
-  - {fileID: 8386150322659946567}
-  - {fileID: -1274000538394031593}
-  - {fileID: 8974725209297846666}
-  - {fileID: -9063002128706711358}
-  - {fileID: -5879757338768306823}
-  - {fileID: 1769059583887799055}
-  - {fileID: 7655482696754675492}
-  - {fileID: -7059411884220849437}
-  - {fileID: -7588340187148349264}
-  - {fileID: -2572640354797146466}
+  - {fileID: -8615672979410117182}
+  - {fileID: 2029516847860787339}
+  - {fileID: -8747705216652971501}
+  - {fileID: 3999694047642575317}
+  - {fileID: -813682688713787728}
+  - {fileID: 8548371022192681021}
+  - {fileID: 6651680211875943940}
+  - {fileID: -6681343636784067810}
+  - {fileID: 1672125799124405757}
+  - {fileID: 8198182915448654988}
+  - {fileID: 9004989897196438478}
+  - {fileID: 7338275875273617559}
+  - {fileID: -8491055088072290615}
+  - {fileID: -5234564427062249274}
+  - {fileID: 1069394947822208042}
+  - {fileID: 7325216361995785089}
+  - {fileID: -6370372992045714778}
+  - {fileID: -3538315264582034632}
+  - {fileID: -1138935458549945547}
+  - {fileID: 8917786237658371147}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -2479930490814056800}
+  current: {fileID: -8615672979410117182}
   DiaPlay: {fileID: 0}
-  IsWaiting: 1
---- !u!114 &798332061208842029
+  IsWaiting: 0
+--- !u!114 &1069394947822208042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -651,34 +478,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [\u221AInformation \u2026"
+  m_Name: ": That why I'm h\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 536, y: -264}
+  position: {x: 3384, y: 376}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 798332061208842029}
+      _node: {fileID: 1069394947822208042}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: WaitingOption 0
-        node: {fileID: 8974725209297846666}
+      - fieldName: Output
+        node: {fileID: -5234564427062249274}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 798332061208842029}
+      _node: {fileID: 1069394947822208042}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 7655482696754675492}
+        node: {fileID: 7325216361995785089}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -686,10 +513,10 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - "[\u221AInformation check]"
+  - 'That why I''m here to prevent that from happening. '
   curIndex: 0
   IsMax: 1
---- !u!114 &1769059583887799055
+--- !u!114 &1672125799124405757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -698,126 +525,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Vortigernus: These two maes\u2026"
+  m_Script: {fileID: 11500000, guid: 1b329bd0343160746993a35180aff24c, type: 3}
+  m_Name: "Option: I'm afraid I c\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1784, y: 328}
+  position: {x: 1752, y: -200}
   ports:
     keys:
     - Input
-    - Output
+    - Option
+    - Option 0
+    - Option 1
     values:
     - _fieldName: Input
-      _node: {fileID: 1769059583887799055}
+      _node: {fileID: 1672125799124405757}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: -5879757338768306823}
+        node: {fileID: -6681343636784067810}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: 1769059583887799055}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Vortigernus
-  Dialogue:
-  - 'These two maesters are working on that. '
-  - 'But it will take some time. '
-  curIndex: 0
-  IsMax: 1
---- !u!114 &2188258175194958830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Unidentity: Awake!<w> In t\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -1272, y: -168}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: 2188258175194958830}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: WaitingOption 0
-        node: {fileID: -2572640354797146466}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: 2188258175194958830}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -6707249234351898109}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Unidentity
-  Dialogue:
-  - Awake!<w> In the name of the ancient gods and kings.
-  curIndex: 0
-  IsMax: 1
---- !u!114 &6389800767180546535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: "Waiting for:TU\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -344, y: 72}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: 6389800767180546535}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -8929493247666979551}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: 6389800767180546535}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
+    - _fieldName: Option
+      _node: {fileID: 1672125799124405757}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.OptionClass,
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       connections: []
@@ -825,23 +559,34 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: 6389800767180546535}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
+    - _fieldName: Option 0
+      _node: {fileID: 1672125799124405757}
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 7489656882146101309}
+        node: {fileID: 9004989897196438478}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  WaitingOption:
-  - waitingFor: 1
-    WaitSeconds: 3
-    Event: TU_TurnLeftCheck
---- !u!114 &7489656882146101309
+    - _fieldName: Option 1
+      _node: {fileID: 1672125799124405757}
+      _typeQualifiedName: DiaGraph.OptionClass, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 8198182915448654988}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  Option:
+  - Text: I'm afraid I cannot do that
+  - Text: Request Ignored
+--- !u!114 &2029516847860787339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -851,34 +596,231 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [\u221ATurn left ch\u2026"
+  m_Name: "Gregorius Balbus:  <sp=40>Don't \u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -360, y: 280}
+  position: {x: -264, y: -344}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 7489656882146101309}
+      _node: {fileID: 2029516847860787339}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: WaitingOption 0
-        node: {fileID: 6389800767180546535}
+      - fieldName: Output
+        node: {fileID: -8615672979410117182}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 7489656882146101309}
+      _node: {fileID: 2029516847860787339}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -8213815889390186122}
+        node: {fileID: -8747705216652971501}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius Balbus
+  Dialogue:
+  - ' <sp=40>Don''t kill me! Leave me alone!!!</sp>'
+  - Wait, why you here?
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &3999694047642575317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Gregorius: He is a blasph\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 168, y: -344}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 3999694047642575317}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -8747705216652971501}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 3999694047642575317}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -813682688713787728}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius
+  Dialogue:
+  - 'He is a blasphemer. '
+  - He is suppose to be in the prison
+  - 'Why are you dressing like a theologist and standing here? '
+  - 'Where are the guards, take this man away. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &6651680211875943940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Stephanus: Well, I don't \u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1274, y: -282}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 6651680211875943940}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 8548371022192681021}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 6651680211875943940}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -6681343636784067810}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Stephanus
+  Dialogue:
+  - 'Well, I don''t think that is a reasonable choice for ship servant. '
+  - 'The best way is working this out together or we will be stucked here forever. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &7325216361995785089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Gregorius: If you insist \u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 3800, y: -72}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 7325216361995785089}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 1069394947822208042}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 7325216361995785089}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -6370372992045714778}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius
+  Dialogue:
+  - If you insist so... [sigh]
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &7338275875273617559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: ": I never deny y\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2472, y: 168}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 7338275875273617559}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 8198182915448654988}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 7338275875273617559}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -8491055088072290615}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -886,11 +828,10 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - "[\u221ATurn left check]\n<w>[Check camera mobility to right]"
-  - '[<e=TU_UnlockCameraToRight>Hold D to check]'
+  - I never deny your identity of heir of god.
   curIndex: 0
   IsMax: 1
---- !u!114 &7655482696754675492
+--- !u!114 &8198182915448654988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -900,50 +841,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [<sp=60>Auto d\u2026"
+  m_Name: "Gregorius: In god's name,\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 952, y: -280}
+  position: {x: 2104, y: 88}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 7655482696754675492}
+      _node: {fileID: 8198182915448654988}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: Output
-        node: {fileID: 798332061208842029}
+      - fieldName: Option 1
+        node: {fileID: 1672125799124405757}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 7655482696754675492}
+      _node: {fileID: 8198182915448654988}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -7059411884220849437}
+        node: {fileID: 7338275875273617559}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: 
+  TalkingPerson: Gregorius
   Dialogue:
-  - '[<sp=60>Auto debugging]'
-  - '[Time since last boot>><w> 39,426d 14h 26m 17s]'
-  - '[Current ship>><w> A9-1 Cruiser]'
-  - '[Flight control module>><w> offline]'
-  - '[Number of online decks>><w> 0]'
-  - '[Status of War>><w> Unknown]</sp>'
+  - In god's name, how dare you do this to the spokesperson of god and the rightful
+    heir of god.
   curIndex: 0
   IsMax: 1
---- !u!114 &8251310112438953101
+--- !u!114 &8548371022192681021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -953,45 +890,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Unidentity: Answer our cal\u2026"
+  m_Name: "Gregorius: Ship servant? \u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1288, y: 488}
+  position: {x: 904, y: -296}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 8251310112438953101}
+      _node: {fileID: 8548371022192681021}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: -6707249234351898109}
+        node: {fileID: -813682688713787728}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 8251310112438953101}
+      _node: {fileID: 8548371022192681021}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -4543516648084809628}
+        node: {fileID: 6651680211875943940}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: Unidentity
+  TalkingPerson: Gregorius
   Dialogue:
-  - Answer our call,<w> the servant of ancient gods.
+  - 'Ship servant? Is it online?! '
+  - 'Ship servant, lock this prisoner up. '
+  - 'Saving this sinner will a blasphemy to god. '
   curIndex: 0
   IsMax: 1
---- !u!114 &8386150322659946567
+--- !u!114 &8917786237658371147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1001,100 +940,87 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: 'Unidentity: Good'
+  m_Name: 'Gregorius: Fine. '
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -840, y: 408}
+  position: {x: 4600, y: 408}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 8386150322659946567}
+      _node: {fileID: 8917786237658371147}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -1138935458549945547}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 8917786237658371147}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius
+  Dialogue:
+  - 'Fine. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &9004989897196438478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: ": According to t\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2104, y: -216}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 9004989897196438478}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Option 0
-        node: {fileID: -7588340187148349264}
+        node: {fileID: 1672125799124405757}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 8386150322659946567}
+      _node: {fileID: 9004989897196438478}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: -1274000538394031593}
+        node: {fileID: -8491055088072290615}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: Unidentity
+  TalkingPerson: 
   Dialogue:
-  - Good
-  - 'Start process<w>: Self checking your body mechanics.'
+  - 'According to the result of my algorithm, working together will maximizes your
+    probability of survival. '
   curIndex: 0
   IsMax: 1
---- !u!114 &8974725209297846666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: "Waiting for:TU\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 104, y: 344}
-  ports:
-    keys:
-    - Input
-    - WaitingOption
-    - WaitingOption 0
-    values:
-    - _fieldName: Input
-      _node: {fileID: 8974725209297846666}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -861164383322610034}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption
-      _node: {fileID: 8974725209297846666}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DiaGraph.WaitingNodeEvent,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: WaitingOption 0
-      _node: {fileID: 8974725209297846666}
-      _typeQualifiedName: DiaGraph.WaitingNodeEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 798332061208842029}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  WaitingOption:
-  - waitingFor: 1
-    WaitSeconds: 0
-    Event: TU_RightclickOnInfo
