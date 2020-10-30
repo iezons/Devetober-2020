@@ -402,6 +402,23 @@ public class EnemyController : ControllerBased
                             target.transform.eulerAngles += new Vector3(0, 180, 0);
                             break;
                         case Interact_SO.InteractType.Bed:
+                            float minDistance = Mathf.Infinity;
+                            Vector3 teleportPos = Vector3.zero;
+                            for (int i = 0; i < npc.CurrentInteractObject.Locators.Count; i++)
+                            {
+                                Transform tempTrans = npc.CurrentInteractObject.Locators[i].Locator;
+                                float a = tempTrans.position.x - transform.position.x;
+                                float b = tempTrans.position.z - transform.position.z;
+                                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+                                float distance = Mathf.Abs(c);
+
+                                if (distance < minDistance)
+                                {
+                                    minDistance = distance;
+                                    teleportPos = tempTrans.position;
+                                }
+                            }
+                            npc.transform.position = teleportPos;
                             break;
                         case Interact_SO.InteractType.Chair:
                             break;
