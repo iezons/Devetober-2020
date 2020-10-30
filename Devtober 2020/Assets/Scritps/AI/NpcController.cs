@@ -140,6 +140,8 @@ public class NpcController : ControllerBased
     BoxCollider boxCollider;
 
     bool justEnterEvent = true;
+    public AudioSource source;
+    public float audioTimer = 0.5f;
     #endregion
 
     #region InteractWithItem
@@ -166,6 +168,9 @@ public class NpcController : ControllerBased
 
     public void Awake()
     {
+        AudioSource[] sources = GetComponentsInChildren<AudioSource>();
+        if (sources.Length > 0)
+            source = sources[0];
         outline = GetComponent<Outline>();
         boxCollider = GetComponent<BoxCollider>();
         recordColliderSize = boxCollider.size;
@@ -229,6 +234,11 @@ public class NpcController : ControllerBased
         Invoke("GenerateList", 0.00001f);
     }
 
+    public void PlayAudio(string str)
+    {
+        AudioMgr.GetInstance().PlayAudio(source, str, 1f, false, null);
+    }
+
     void GenerateList()
     {
         foreach (RoomTracker temp in GameManager.GetInstance().Rooms)
@@ -253,7 +263,7 @@ public class NpcController : ControllerBased
             }
         }
         #endregion
-
+        audioTimer -= Time.deltaTime;
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
@@ -552,10 +562,20 @@ public class NpcController : ControllerBased
             if (status.currentHealth <= limpingLimit)
             {
                 animator.Play("Limping Walk", 0);
+                if (audioTimer <= 0)
+                {
+                    PlayAudio("Walk Hard " + Random.Range(1, 7).ToString());
+                    audioTimer = 1.2f;
+                }
             }
             else
             {
                 animator.Play("Walk", 0);
+                if (audioTimer <= 0)
+                {
+                    PlayAudio("Walk Hard " + Random.Range(1, 7).ToString());
+                    audioTimer = 0.8f;
+                }
             }
         }
         else if (type == "Run")
@@ -563,10 +583,20 @@ public class NpcController : ControllerBased
             if (status.currentHealth <= limpingLimit)
             {
                 animator.Play("Limping Run", 0);
+                if (audioTimer <= 0)
+                {
+                    PlayAudio("Run Hard " + Random.Range(1, 7).ToString());
+                    audioTimer = 1f;
+                }
             }
             else
             {
                 animator.Play("Run", 0);
+                if (audioTimer <= 0)
+                {
+                    PlayAudio("Run Hard " + Random.Range(1, 7).ToString());
+                    audioTimer = 0.6f;
+                }
             }
         }
     }
@@ -1097,9 +1127,10 @@ public class NpcController : ControllerBased
     #endregion
 
     #region Got Attacked
-    public void GotBitted()
+    public void GotHurt()
     {
         animator.Play("Got Hurt", 0);
+        PlayAudio("Hurt Sound " + Random.Range(1, 7).ToString());
     }
 
     void Death()
@@ -2046,7 +2077,8 @@ public class NpcController : ControllerBased
         {
             CurrentInteractItem = null;
         }
-        BackToPatrol();
+        if(m_fsm.GetCurrentState() != "GotAttacked")
+            BackToPatrol();
     }
 
     public void FacingEachOther(bool IsFacingCamera = false)
@@ -2114,6 +2146,7 @@ public class NpcController : ControllerBased
         status.currentHealth -= rate * Time.deltaTime;
         if (status.currentHealth <= 0)
         {
+            PlayAudio("Dead_Simple " + Random.Range(1, 5).ToString());
             Death();
         }
     }
