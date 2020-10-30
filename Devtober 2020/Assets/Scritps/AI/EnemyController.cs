@@ -71,7 +71,7 @@ public class EnemyController : ControllerBased
 
     #region Value
     Collider[] hitNPCs;
-    Collider[] attackable;
+    public Collider[] attackable;
 
     [HideInInspector]
     public Vector3 currentTerminalPos;
@@ -86,7 +86,8 @@ public class EnemyController : ControllerBased
 
     Transform finalPos;
 
-    GameObject target;
+    public GameObject target;
+    float timer = 4;
     #endregion
 
 
@@ -141,12 +142,20 @@ public class EnemyController : ControllerBased
             case "Patrol":
                 Dispatch(currentTerminalPos);
                 GenerateNewDestination();
+                VisionCone();
                 Discover();
+                if(navAgent.velocity.magnitude <= 0.1)
+                {
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        currentTerminalPos = NewDestination();
+                    }
+                }
                 break;
             case "Chase":
+                VisionCone();
                 Chasing();
-                Discover();
-                lossTarget();
                 break;
             case "Rest":
                 Resting();
@@ -256,39 +265,10 @@ public class EnemyController : ControllerBased
     {
         hitNPCs = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
 
-        if (hitNPCs.Length != 0 && !hasAttacked)
-        {
-            foreach (var item in hitNPCs)
-            {
-                if (!item.GetComponent<NpcController>().isSafe)
-                {
-                    if (m_fsm.GetCurrentState() != "Chase")
-                    {
-                        navAgent.speed *= chaseSpeed;
-                        m_fsm.ChangeState("Chase");
-                    }
-                    break;
-                }
-            }
-            
-            if (target != null)
-            {
-                isBlocked = Physics.Linecast(transform.position, target.transform.position, canBlocked);
-                Vector3 direction = (target.transform.position - transform.position).normalized;
-                float targetAngle = Vector3.Angle(transform.forward, direction);
-                inAngle = targetAngle <= discoverAngle / 2 ? true : false;
-            }
-        }
-    }
-
-    public void Chasing()
-    {
         float minDistance = Mathf.Infinity;
 
-        for(int i = 0; i<hitNPCs.Length; i++)
+        for (int i = 0; i < hitNPCs.Length; i++)
         {
-            if (hitNPCs[i].GetComponent<NpcController>().isSafe)
-                continue;
             Transform tempTrans = hitNPCs[i].transform;
             float a = tempTrans.position.x - transform.position.x;
             float b = tempTrans.position.z - transform.position.z;
@@ -304,36 +284,117 @@ public class EnemyController : ControllerBased
             }
         }
 
-        if (target != null && finalPos != null && !npc.isSafe && inAngle && !isBlocked)
+        if (hitNPCs.Length != 0 && !hasAttacked && target != null && finalPos != null && inAngle && !isBlocked && !npc.isSafe)
         {
+            navAgent.speed *= chaseSpeed;
+            m_fsm.ChangeState("Chase");
+        }
+    }
+
+    public void Chasing()
+    {
+        hitNPCs = Physics.OverlapSphere(transform.position, discoverRadius, canChased);
+        float minDistance = Mathf.Infinity;
+
+        for (int i = 0; i < hitNPCs.Length; i++)
+        {
+            Transform tempTrans = hitNPCs[i].transform;
+            float a = tempTrans.position.x - transform.position.x;
+            float b = tempTrans.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                target = hitNPCs[i].gameObject;
+                npc = target.GetComponent<NpcController>();
+                finalPos = tempTrans;
+            }
+        }
+
+        if (target != null && finalPos != null && inAngle && !isBlocked)
+        {
+            npc.isEnemyChasing = true;
             Dispatch(finalPos.position);
+            Attacking();
+        }
+        else if (hitNPCs.Length != 0 && !inAngle || isBlocked)
+        {
+            npc.isEnemyChasing = false;
+            Dispatch(currentTerminalPos);
+            GenerateNewDestination();
         }
         else
         {
+            npc.isEnemyChasing = false;
+            target = null;
+            npc = null;
             BackToPatrol();
-        }
-        Attacking();
+        }            
     }
 
-    void lossTarget()
+    void VisionCone()
     {
-        if (hitNPCs.Length == 0)
+        if (target != null)
         {
-            target = null;
-            BackToPatrol();
+            isBlocked = Physics.Linecast(transform.position, target.transform.position, canBlocked);
+            Vector3 direction = (target.transform.position - transform.position).normalized;
+            float targetAngle = Vector3.Angle(transform.forward, direction);
+            inAngle = targetAngle <= discoverAngle / 2 ? true : false;
         }
     }
+
     #endregion
 
     #region Attacking
     void Attacking()
     {
         attackable = Physics.OverlapSphere(transform.position + new Vector3(0, 3, 0), attackRadius, canChased);
-        if (attackable.Length != 0 && target == attackable[attackable.Length - 1].gameObject && !target.GetComponent<NpcController>().isSafe)
+        if (attackable.Length != 0 && target == attackable[attackable.Length - 1].gameObject)
         {
             hasAttacked = true;
             navAgent.ResetPath();
-            if(npc.status.currentHealth <= executeHealth)
+            if (npc.isSafe || npc.m_fsm.GetCurrentState() == "Rest")
+            {
+                npc.m_fsm.ChangeState("GotAttacked");
+                animator.Play("Zombie_Hug", 0);
+                npc.CurrentObjectAnimPlay(target);
+                if(npc.CurrentInteractObject != null)
+                {
+                    switch (npc.CurrentInteractObject.type)
+                    {
+                        case Interact_SO.InteractType.Locker:
+                            target.transform.eulerAngles += new Vector3(0, 180, 0);
+                            break;
+                        case Interact_SO.InteractType.Box:
+                            target.transform.eulerAngles += new Vector3(0, 180, 0);
+                            break;
+                        case Interact_SO.InteractType.Bed:
+                            break;
+                        case Interact_SO.InteractType.Chair:
+                            break;
+                        case Interact_SO.InteractType.Terminal:
+                            break;
+                        case Interact_SO.InteractType.Switch:
+                            break;
+                        case Interact_SO.InteractType.Storage:
+                            break;
+                        case Interact_SO.InteractType.CBoard:
+                            break;
+                        case Interact_SO.InteractType.TU_Server:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                npc.CompleteGetOutItemAction();
+                npc.animator.Play("Got Bite", 0);
+                npc.status.isStruggling = true;
+                npc.HasInteract = false;
+                m_fsm.ChangeState("Executing");
+            }
+            else if (npc.status.currentHealth <= executeHealth)
             {
                 npc.m_fsm.ChangeState("GotAttacked");
                 animator.Play("Zombie_Hug", 0);
@@ -344,8 +405,10 @@ public class EnemyController : ControllerBased
             else
             {
                 animator.Play("Zombie_Attack", 0);
+                npc.navAgent.enabled = true;
+                npc.Stop(null);
                 TriggerResting();
-            } 
+            }       
         }
     }
 
@@ -362,6 +425,20 @@ public class EnemyController : ControllerBased
             npc.animator.Play("Escape", 0);
             animator.Play("FailExecuting", 0);
             TriggerResting();
+            if (npc.MenuContains("Interact") >= 0)
+            {
+                return;
+            }
+            else
+            {
+                npc.AddMenu("Interact", "Interact", true, npc.ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+            | 1 << LayerMask.NameToLayer("RestingPos")
+            | 1 << LayerMask.NameToLayer("TerminalPos")
+            | 1 << LayerMask.NameToLayer("SwitchPos")
+            | 1 << LayerMask.NameToLayer("Item")
+            | 1 << LayerMask.NameToLayer("CBord")
+            | 1 << LayerMask.NameToLayer("StoragePos"));
+            }
         }
     }
     #endregion
@@ -380,7 +457,7 @@ public class EnemyController : ControllerBased
             attackTime = recordAttackTime;
             hasAttacked = false;
             resetAttack.isHit = false;
-            BackToPatrol();
+            m_fsm.ChangeState("Chase");
         }
     }
     #endregion

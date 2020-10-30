@@ -33,7 +33,7 @@ public class StoragePos : Interact_SO
         UpdateMenu();
     }
 
-    void UpdateMenu()
+    public void UpdateMenu()
     {
         RemoveAllMenu();
         if(StorageItem.Count < MaxStorage)

@@ -39,9 +39,9 @@ public class NpcController : ControllerBased
 
         public Item_SO.ItemType CarryItem = Item_SO.ItemType.None;
         public string code;
-        [HideInInspector]
+
         public float healAmount = 0;
-        [HideInInspector]
+
         public bool isStruggling = false;
     }
 
@@ -93,7 +93,8 @@ public class NpcController : ControllerBased
     public StringRestrictedFiniteStateMachine m_fsm;
     [HideInInspector]
     public Animator animator;
-    NavMeshAgent navAgent;
+    [HideInInspector]
+    public NavMeshAgent navAgent;
     RoomTracker currentRoomTracker;
     NavMeshPath path;
     #endregion
@@ -107,6 +108,8 @@ public class NpcController : ControllerBased
     Vector3 recordColliderSize;
 
     public bool isSafe = false;
+
+    public bool isEnemyChasing = false;
     public bool isRoomCalled = false;
     float recordRestTimer, recordRecoverTimer, recordSpeed;
     bool MoveAcrossNavMeshesStarted;
@@ -127,8 +130,8 @@ public class NpcController : ControllerBased
     [Header("Interact Item")]
     public float DampPosSpeed = 0.2f;
     public float DampRotSpeed = 0.2f;
-
-    Interact_SO CurrentInteractObject;
+    [HideInInspector]
+    public Interact_SO CurrentInteractObject;
     [HideInInspector]
     public LocatorList locatorList = null;
     [HideInInspector]
@@ -262,7 +265,7 @@ public class NpcController : ControllerBased
                             if(status.currentHealth >= status.getUpHealth && status.currentStamina == status.maxStamina)
                             {
                                 CurrentInteractObject.NPCInteractFinish(CurrentInteractObject);
-                            }
+                            }                          
                             break;
                         default:
                             break;
@@ -360,10 +363,11 @@ public class NpcController : ControllerBased
         }
     }
 
-    void Stop(object obj)
+    public void Stop(object obj)
     {
         if (navAgent.enabled)
         {
+            locatorList.npc = null;
             CurrentInteractObject = null;
             RescuingTarget = null;
             HealingTarget = null;
@@ -371,6 +375,8 @@ public class NpcController : ControllerBased
             fixTarget = null;
             fixTargetTransform = null;
             locatorList = null;
+            boxCollider.isTrigger = false;
+            IsInteracting = false;
             switch (status.CarryItem)
             {
                 case Item_SO.ItemType.None:
@@ -442,7 +448,10 @@ public class NpcController : ControllerBased
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
         navAgent.speed *= status.currentStamina / 100;
-        if (MenuContains("Interact") < 0)
+        m_fsm.ChangeState("Patrol");
+        if (MenuContains("Interact") >= 0)
+            return;
+        else
         {
             AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
             | 1 << LayerMask.NameToLayer("RestingPos")
@@ -451,12 +460,7 @@ public class NpcController : ControllerBased
             | 1 << LayerMask.NameToLayer("Item")
             | 1 << LayerMask.NameToLayer("CBord")
             | 1 << LayerMask.NameToLayer("StoragePos"));
-        }  
-        if(MenuContains("Leave") >= 0)
-        {
-            RemoveMenu("Leave");
         }
-        m_fsm.ChangeState("Patrol");
     }
 
     public float Distance()
@@ -687,11 +691,10 @@ public class NpcController : ControllerBased
     void Hiding()
     {       
         bool isEmpty = false;
+        float minDistance = Mathf.Infinity;
         foreach (GameObject temp in currentRoomTracker.HiddenPos())
         {
             Interact_SO hpos = temp.GetComponent<Interact_SO>();
-            float minDistance = Mathf.Infinity;
-
             for (int i = 0; i < hpos.Locators.Count; i++)
             {
                 if (hpos.Locators[i].npc != null)
@@ -979,6 +982,17 @@ public class NpcController : ControllerBased
         animator.Play("Death", 0);
         status.isStruggling = false;
         gameObject.layer = LayerMask.NameToLayer("Dead");
+        ResMgr.GetInstance().LoadAsync<GameObject>("DeadBox", (x) => {
+            GameObject deadBox = Instantiate(x, transform.position, Quaternion.identity);
+             });
+    }
+
+    public void CurrentObjectAnimPlay(object obj)
+    {
+        if(CurrentInteractObject != null)
+        {
+            CurrentInteractObject.NPCInteractFinish(obj);
+        }
     }
     #endregion
 
@@ -988,6 +1002,8 @@ public class NpcController : ControllerBased
         RescuingTarget = (GameObject)obj;
         if (RescuingTarget != null)
         {
+            if (!navAgent.enabled)
+                navAgent.enabled = true;
             Debug.Log("I am coming!");
             Dispatch(RescuingTarget.transform.position);
             navAgent.speed *= (boostSpeed * status.currentStamina) / 100;
@@ -1092,9 +1108,10 @@ public class NpcController : ControllerBased
                             item.npc = this;
                         }
                         animator.Play("Squat Terminal", 0);
+
                         if (door.currentHealth >= door.maxHealth)
                         {
-                            if(door.cBord != null)
+                            if (door.cBord != null)
                             {
                                 if (door.cBord.GetComponent<CBordPos>().isPowerOff)
                                 {
@@ -1110,19 +1127,33 @@ public class NpcController : ControllerBased
                                     AddStopMenu();
                                     Dispatch(door.cBord.Locators[0].Locator.position);
                                 }
+                                else
+                                {
+                                    Debug.Log("Fixed Door");
+                                    foreach (var item in door.Locators)
+                                    {
+                                        item.npc = null;
+                                    }
+                                    door.RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
+                                    IsInteracting = false;
+                                    fixTarget = null;
+                                    fixTargetTransform = null;
+                                    HasInteract = true;
+                                    BackToPatrol();
+                                }
                             }                         
                             else
                             {
-                                Debug.Log("Fixed");
-                                door.RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
+                                Debug.Log("Fixed Door");
                                 foreach (var item in door.Locators)
                                 {
                                     item.npc = null;
                                 }
+                                door.RemoveAndInsertMenu("Repair", "SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
+                                IsInteracting = false;
                                 fixTarget = null;
                                 fixTargetTransform = null;
                                 HasInteract = true;
-                                IsInteracting = false;
                                 BackToPatrol();
                             }
                         }
@@ -1137,7 +1168,7 @@ public class NpcController : ControllerBased
                         animator.Play("Squat Terminal", 0);
                         if (!cBord.isPowerOff)
                         {
-                            Debug.Log("Fixed");
+                            Debug.Log("Fixed CBord");
                             cBord.RemoveAndInsertMenu("Repair", "Operate", "Operate", true,cBord.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                             if (!cBord.isLocked)
                             {
@@ -1411,38 +1442,93 @@ public class NpcController : ControllerBased
                             break;
                         case Interact_SO.InteractType.Storage:
                             HasInteract = true;
-                            StoragePos sto = CurrentInteractObject.GetComponent<StoragePos>();
-                            //取东西
+                            StoragePos sto = CurrentInteractObject.GetComponent<StoragePos>();                           
                             if (IsGrabbing)
                             {
                                 animator.Play("Grab Item");
-                                if (status.CarryItem != Item_SO.ItemType.None)//如果NPC身上带着东西
+                                if (status.CarryItem != Item_SO.ItemType.None)
                                 {
-                                    //Debug.Log(status.npcName + ": I cannot grab this item out because I have no place to put the item that I already carried on. ");
                                     Item_SO.ItemType GrabOutItem = sto.StorageItem[GrabOutIndex];
-                                    Item_SO.ItemType PutInItem = status.CarryItem;
-
-                                    CurrentInteractObject.NPCInteract(GrabOutIndex); // 删掉箱子内的物品
-                                    sto.Store(PutInItem);// 放入NPC身上的物品
-                                    status.CarryItem = GrabOutItem;//NPC 身上的东西等于要取出的东西
+                                    Item_SO.ItemType PutInItem = status.CarryItem;                                   
+                                    RemoveAllMenu();
+                                    AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+                                                                                                    | 1 << LayerMask.NameToLayer("RestingPos")
+                                                                                                    | 1 << LayerMask.NameToLayer("TerminalPos")
+                                                                                                    | 1 << LayerMask.NameToLayer("SwitchPos")
+                                                                                                    | 1 << LayerMask.NameToLayer("Item")
+                                                                                                    | 1 << LayerMask.NameToLayer("CBord")
+                                                                                                    | 1 << LayerMask.NameToLayer("StoragePos"));
+                                    status.CarryItem = GrabOutItem;
+                                    switch (GrabOutItem)
+                                    {
+                                        case Item_SO.ItemType.None:
+                                            break;
+                                        case Item_SO.ItemType.MedicalKit:
+                                            InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                                            status.healAmount = 70;
+                                            Debug.Log("Got MedicalKit");
+                                            break;
+                                        case Item_SO.ItemType.RepairedPart:
+                                            break;
+                                        case Item_SO.ItemType.Key:
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    sto.Store(PutInItem);
+                                    sto.UpdateMenu();
                                 }
-                                else//如果NPC身上没带东西
+                                else
                                 {
-                                    status.CarryItem = sto.StorageItem[GrabOutIndex];
-                                    CurrentInteractObject.NPCInteract(GrabOutIndex);
+                                    status.CarryItem = sto.StorageItem[GrabOutIndex];                                   
+                                    switch (sto.StorageItem[GrabOutIndex])
+                                    {
+                                        case Item_SO.ItemType.None:
+                                            break;
+                                        case Item_SO.ItemType.MedicalKit:
+                                            InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                                            status.healAmount = 70;
+                                            Debug.Log("Got MedicalKit");
+                                            break;
+                                        case Item_SO.ItemType.RepairedPart:
+                                            break;
+                                        case Item_SO.ItemType.Key:
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    sto.StorageItem.Remove(sto.StorageItem[GrabOutIndex]);
+                                    sto.UpdateMenu();
                                 }
                             }
-                            else //存东西
+                            else
                             {
-                                animator.Play("Grab Item");
-                                if (sto.StorageItem.Count + 1 <= sto.MaxStorage)
+                                if(sto.StorageItem.Count + 1 <= sto.MaxStorage)
                                 {
+                                    animator.Play("Grab Item");
                                     sto.StorageItem.Add(status.CarryItem);
+                                    sto.UpdateMenu();
+                                    switch (status.CarryItem)
+                                    {
+                                        case Item_SO.ItemType.MedicalKit:
+                                            if (MenuContains("Heal") >= 0)
+                                            {
+                                                RemoveMenu("Heal");
+                                            }
+                                            status.healAmount = 0;
+                                            break;
+                                        case Item_SO.ItemType.RepairedPart:
+                                            break;
+                                        case Item_SO.ItemType.Key:
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                     status.CarryItem = Item_SO.ItemType.None;
                                 }
                                 else
                                 {
-                                    Debug.Log(status.npcName + ": It doesn't have place to store.");
+                                    Debug.Log("It is full");
                                 }
                             }
                             break;
@@ -1465,14 +1551,14 @@ public class NpcController : ControllerBased
                                 {
                                     if (cBord.isLocked)
                                     {
-                                        animator.Play("Stand Terminal", 0);
+                                        animator.Play("UnlockTerminal", 0);
                                         CurrentInteractObject.NPCInteract(0);
                                         HasInteract = true;
                                     }
                                     else
                                     {
-                                        animator.Play("Stand Terminal", 0);
-                                        break;
+                                        animator.Play("UnlockTerminal", 0);
+                                        HasInteract = true;
                                     }
                                 }
                             }
@@ -1542,7 +1628,6 @@ public class NpcController : ControllerBased
                 animator.Play("Idle", 0);
             }
         }
-
     }
 
     public void PlayGetOutAnim(object obj)
@@ -1553,13 +1638,11 @@ public class NpcController : ControllerBased
         {
             case Interact_SO.InteractType.Locker:
                 animator.Play("Get Out Locker", 0);
-                transform.eulerAngles += new Vector3(0, 180, 0);
-                isSafe = false;
+                transform.eulerAngles += new Vector3(0, 180, 0);              
                 break;
             case Interact_SO.InteractType.Box:
                 animator.Play("Get Out Box", 0);
                 transform.eulerAngles += new Vector3(0, 180, 0);
-                isSafe = false;
                 break;
             case Interact_SO.InteractType.Bed:
                 if (locatorList.Locator.name == "locatorL")
@@ -1588,15 +1671,17 @@ public class NpcController : ControllerBased
         switch (CurrentInteractObject.type)
         {
             case Interact_SO.InteractType.Locker:
+                isSafe = true;
                 break;
             case Interact_SO.InteractType.Box:
+                isSafe = true;
                 break;
             case Interact_SO.InteractType.Bed:
                 break;
             case Interact_SO.InteractType.Chair:
                 CurrentInteractObject.GetComponent<BoxCollider>().size = CurrentInteractObject.newColliderSize;
                 CurrentInteractObject.GetComponent<BoxCollider>().center = CurrentInteractObject.newColliderCenter;
-                boxCollider.size = Vector3.zero;
+                boxCollider.size = new Vector3(1 , 1, 1);
                 break;
             case Interact_SO.InteractType.Terminal:
                 break;
@@ -1625,9 +1710,11 @@ public class NpcController : ControllerBased
             {
                 case Interact_SO.InteractType.Locker:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    isSafe = false;
                     break;
                 case Interact_SO.InteractType.Box:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    isSafe = false;
                     break;
                 case Interact_SO.InteractType.Bed:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
@@ -1640,7 +1727,26 @@ public class NpcController : ControllerBased
                     break;
                 case Interact_SO.InteractType.Terminal:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
-                    CurrentInteractObject.IsInteracting = false;
+                    if (status.CarryItem != Item_SO.ItemType.None)
+                    {
+                        Debug.Log("I dont have place to get this");
+                        CurrentInteractObject.IsInteracting = false;
+                        break;
+                    }
+                    else
+                    {
+                        TerminalPos terminal = CurrentInteractObject as TerminalPos;
+                        if(terminal.code == "")
+                        {
+                            Debug.Log("There is no Key");
+                        }
+                        else
+                        {
+                            status.CarryItem = Item_SO.ItemType.Key;
+                            status.code = terminal.code;
+                            CurrentInteractObject.IsInteracting = false;
+                        }
+                    }
                     break;
                 case Interact_SO.InteractType.Switch:
                     CurrentInteractObject.IsInteracting = false;
@@ -1745,14 +1851,13 @@ public class NpcController : ControllerBased
                 default:
                     break;
             }
-
         }
         else if (CurrentInteractItem != null && status.CarryItem != Item_SO.ItemType.None)
         {
             CurrentInteractItem = null;
         }
-
-        BackToPatrol();
+        if(!isEnemyChasing)
+            BackToPatrol();
     }
     #endregion
 
