@@ -1426,14 +1426,12 @@ public class NpcController : ControllerBased
                             CurrentInteractObject.NPCInteract(0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             animator.Play("Get In Locker", 0);
-                            isSafe = true;
                             HasInteract = true;
                             break;
                         case Interact_SO.InteractType.Box:
                             CurrentInteractObject.NPCInteract(0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             animator.Play("Get In Box", 0);
-                            isSafe = true;
                             HasInteract = true;
                             break;
                         case Interact_SO.InteractType.Bed:
@@ -1500,7 +1498,7 @@ public class NpcController : ControllerBased
                                         default:
                                             break;
                                     }
-                                    sto.Store(PutInItem);
+                                    sto.StorageItem.Add(PutInItem);
                                     sto.UpdateMenu();
                                 }
                                 else

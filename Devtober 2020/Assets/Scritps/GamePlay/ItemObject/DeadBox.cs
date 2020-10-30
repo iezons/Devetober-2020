@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class DeadBox : Item_SO
 {
-    // Start is called before the first frame update
-    void Start()
+    public float HPRecovery = 50f;
+    public override void NPCInteract(int InteractWay = 0)
     {
-        
+        Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        Init();
+    }
+
+    private void OnDestroy()
+    {
+        RemoveMenu("Grab");
+    }
+
+    void Init()
+    {
+        outline = GetComponent<Outline>();
+        type = ItemType.MedicalKit;
+        AddMenu("Grab", "Grab", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
     }
 }

@@ -322,10 +322,11 @@ public class EnemyController : ControllerBased
         else if (hitNPCs.Length != 0 && !inAngle || isBlocked)
         {
             npc.isEnemyChasing = false;
-            Dispatch(currentTerminalPos);
-            GenerateNewDestination();
+            //Dispatch(currentTerminalPos);
+            //GenerateNewDestination();
         }
-        else
+        
+        if(hitNPCs.Length == 0)
         {
             npc.isEnemyChasing = false;
             target = null;
@@ -446,6 +447,7 @@ public class EnemyController : ControllerBased
     #region Resting
     public void TriggerResting()
     {
+        npc.isEnemyChasing = false;
         m_fsm.ChangeState("Rest");
     }
 
@@ -457,7 +459,7 @@ public class EnemyController : ControllerBased
             attackTime = recordAttackTime;
             hasAttacked = false;
             resetAttack.isHit = false;
-            m_fsm.ChangeState("Chase");
+            m_fsm.ChangeState("Patrol");
         }
     }
     #endregion
