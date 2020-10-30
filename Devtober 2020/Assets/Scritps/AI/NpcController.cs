@@ -2076,7 +2076,8 @@ public class NpcController : ControllerBased
         {
             CurrentInteractItem = null;
         }
-        BackToPatrol();
+        if(m_fsm.GetCurrentState() != "GotAttacked")
+            BackToPatrol();
     }
 
     public void FacingEachOther(bool IsFacingCamera = false)
