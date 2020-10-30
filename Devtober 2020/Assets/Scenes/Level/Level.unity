@@ -401,7 +401,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503593e1dfa8d6c4fafd18362f400777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC_SP: {fileID: 0}
+  NPC_SP: {fileID: 391390200}
+  RoomFor03: {fileID: 774842013}
+  HidingLocker: {fileID: 0}
+  hide: {fileID: 1476977625}
+  graph03: {fileID: 11400000, guid: f15749468fceb4042a2fe6960793f67e, type: 2}
 --- !u!4 &15625548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -1099,8 +1103,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 1
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 1
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Vortigernus Balbus
     description: 
@@ -2651,6 +2662,14 @@ PrefabInstance:
       propertyPath: cBord
       value: 
       objectReference: {fileID: 254385344}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
 --- !u!1001 &115426615
@@ -5094,40 +5113,17 @@ Transform:
   m_Father: {fileID: 774841989}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &242098886 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
-  m_PrefabInstance: {fileID: 1300834244}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &242098887 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
   m_PrefabInstance: {fileID: 1300834244}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242098886}
-  m_Enabled: 0
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &242098891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242098886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &245245145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5839,7 +5835,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: 2'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: 1624, y: -232}
@@ -5870,7 +5866,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: a739b245-f5c5-49d3-b6ec-b462840788e7
-  EventName: 
+  EventName: 2
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO: []
@@ -6260,8 +6256,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 0
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Xanthe Eburnus
     description: 
@@ -7177,10 +7180,17 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 0
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 1
   status:
-    npcName: Xanthe Eburnus
+    npcName: Melpomene Barbatus
     description: 
     maxHealth: 100
     currentHealth: 100
@@ -7592,19 +7602,26 @@ MonoBehaviour:
   OutlineWidth: 3
   outline: {fileID: 0}
   AlwaysOutline: 0
-  IsInteracting: 0
+  IsInteracting: 1
   rightClickMenus: []
+  NoThingTalk: {fileID: 11400000, guid: 932a11bc5515156448d581e2629efd55, type: 2}
+  MedicalKit: {fileID: 11400000, guid: 5513f3502b42b1f4ca90f8bf4c7aa2c6, type: 2}
+  JoinIn: {fileID: 11400000, guid: 0ada0b38c18dd0b4899422c0f19f5126, type: 2}
+  Stage: 0
   inAnimState: 1
+  IsPrisoner: 1
+  NeedRemoveMenu: 0
   AnimStateName: NervousSittingOnFloor
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Stephanus Lentinus
     description: 
     maxHealth: 100
-    currentHealth: 100
+    currentHealth: 20
     getUpHealth: 50
     maxStamina: 100
     minStamina: 1
-    currentStamina: 100
+    currentStamina: 20
     maxCredit: 100
     currentCredit: 100
     fixRate: 10
@@ -7637,8 +7654,8 @@ MonoBehaviour:
   isEnemyChasing: 0
   isRoomCalled: 0
   fixTarget: {fileID: 0}
-  DampPosSpeed: 0.2
-  DampRotSpeed: 0.2
+  DampPosSpeed: 0.1
+  DampRotSpeed: 0.1
   CurrentInteractObject: {fileID: 0}
   locatorList:
     npc: {fileID: 0}
@@ -7689,7 +7706,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -10324,7 +10341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.npcName
-      value: Xanthe Eburnus
+      value: Hector Cethegus
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.maxHealth
@@ -10531,7 +10548,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.0017657543
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11376,8 +11393,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 1
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 1
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Lysander Asiaticus
     description: 
@@ -12177,6 +12201,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3369866113205846547, guid: 6aa8f44fd6b336c42bde9c7ba35695f3, type: 3}
   m_PrefabInstance: {fileID: 334864643}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &557721030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 557721031}
+  m_Layer: 0
+  m_Name: Waypoints (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &557721031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557721030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 38.4, y: 1.13, z: -31.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1219624827}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &560785848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20855,6 +20909,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841981}
     m_Modifications:
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: IsInteracting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.83
@@ -21943,8 +22001,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 1
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 1
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Castor Cinna
     description: 
@@ -23401,7 +23466,7 @@ MonoBehaviour:
     recordedAngle: 0
     plusAngle: 0
   CurrentCameraIndex: 0
-  CBoard: {fileID: 0}
+  CBoard: {fileID: 254385344}
   Door: []
   CanBeDetected: 1
   DiaPlay: {fileID: 0}
@@ -25588,7 +25653,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: 0'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: -392, y: -248}
@@ -25601,10 +25666,7 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 1812912816}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -25622,7 +25684,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: 271f229c-4a80-4cb4-ad39-6e9872fd5cec
-  EventName: 
+  EventName: 0
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -26336,8 +26398,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 1
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 1
-  AnimStateName: Squat Terminal_CutScene
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
+  AnimStateName: 
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Celer Julus
     description: 
@@ -27909,6 +27978,10 @@ PrefabInstance:
     - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_Name
       value: Bed (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
@@ -30550,6 +30623,10 @@ PrefabInstance:
       propertyPath: isNPCCalled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: OutlineWidth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
       value: Wall_Door (1) 1 (1)
@@ -31924,8 +32001,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 0
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Gregorius Balbus
     description: 
@@ -32738,6 +32822,10 @@ PrefabInstance:
     - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: MaxStorage
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388738905593119186, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
+      propertyPath: IsInteracting
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7074773954923812982, guid: c3d40bba91df0784ab90afd5de9816a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34810,6 +34898,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1979387152}
+  - {fileID: 557721031}
   m_Father: {fileID: 11652932}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -35589,13 +35678,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 25320797}
     m_Modifications:
+    - target: {fileID: 1537890875, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: executingRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537890875, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: PriDead
+      value: 
+      objectReference: {fileID: 11400000, guid: 49255989aa29f6e449fb50eb9a3852c0, type: 2}
+    - target: {fileID: 1537890875, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: discoverAngle
+      value: 130
+      objectReference: {fileID: 0}
     - target: {fileID: 1537890876, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -446.82043
+      value: -445.48
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35603,7 +35704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -554.84344
+      value: -557.78
       objectReference: {fileID: 0}
     - target: {fileID: 1675971668858102836, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -35640,6 +35741,10 @@ PrefabInstance:
     - target: {fileID: 2020409751943757454, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_Name
       value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020409751943757454, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
@@ -36523,7 +36628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3444255706944482619, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.649
+      value: 0.636
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: moveEnd.y
@@ -36531,28 +36636,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: detectRange.x
-      value: 9
+      value: 8.9
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: detectRange.y
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
-      propertyPath: detectRange.z
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: detectRange.z
+      value: 7.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: cBord
       value: 
-      objectReference: {fileID: 1111161786}
+      objectReference: {fileID: 254385344}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: preFixedHealth
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: isNPCCalled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: lockTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: IsInteracting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: OutlineWidth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
       value: Wall_Door (1) 1 (4)
@@ -37116,7 +37253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.81125, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.81128, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -37798,17 +37935,24 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 0
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
-    npcName: Xanthe Eburnus
+    npcName: Proteus Cicero
     description: 
     maxHealth: 100
     currentHealth: 20
     getUpHealth: 50
     maxStamina: 10
     minStamina: 1
-    currentStamina: 100
+    currentStamina: 99
     maxCredit: 100
     currentCredit: 100
     fixRate: 10
@@ -38120,7 +38264,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 18f6b9d9f11535a439d201b4ab7c7926, type: 2}
     - target: {fileID: 5933305997245715024, guid: 642cfce9e5f948a4586c0bbcb5395f50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.12
+      value: -41.49
       objectReference: {fileID: 0}
     - target: {fileID: 5933305997245715024, guid: 642cfce9e5f948a4586c0bbcb5395f50, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38128,7 +38272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5933305997245715024, guid: 642cfce9e5f948a4586c0bbcb5395f50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -266.62378
+      value: -266.27
       objectReference: {fileID: 0}
     - target: {fileID: 5933305997245715024, guid: 642cfce9e5f948a4586c0bbcb5395f50, type: 3}
       propertyPath: m_LocalRotation.x
@@ -41802,6 +41946,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3423974734650564590, guid: eef00d2d60a5e4a459d9ba08552bf911, type: 3}
+      propertyPath: IsInteracting
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eef00d2d60a5e4a459d9ba08552bf911, type: 3}
 --- !u!114 &1476977625 stripped
@@ -42142,6 +42290,7 @@ GameObject:
   - component: {fileID: 1493272246}
   - component: {fileID: 1493272249}
   - component: {fileID: 1493272250}
+  - component: {fileID: 1493272251}
   m_Layer: 9
   m_Name: A7 Server Room
   m_TagString: Untagged
@@ -42223,9 +42372,9 @@ MonoBehaviour:
     m_Bits: 256
   reportEmergency:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   isScanOn: 0
-  roomCapacity: 0
+  roomCapacity: 1000
   RoomObject: []
   hitInformation: []
   NPCs: []
@@ -42434,6 +42583,19 @@ MonoBehaviour:
             m_StringArgument: TU_DialogueNext8
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!65 &1493272251
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493272244}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 39.746338, y: 0.44029522, z: 38.72249}
+  m_Center: {x: 2.8077192, y: -0.2798524, z: -0.5493393}
 --- !u!1 &1495070189
 GameObject:
   m_ObjectHideFlags: 0
@@ -43405,7 +43567,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: 2'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: 1214, y: -231}
@@ -43439,7 +43601,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: d3c0b7c7-1fa4-48f7-8dfc-7d1a9434fa26
-  EventName: 
+  EventName: 2
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -49907,7 +50069,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 781134309}
+        node: {fileID: 1895363156}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -52713,8 +52875,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 1
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 1
-  AnimStateName: Stand with Terminal_CutScene
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
+  AnimStateName: 
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Clopas Arvina
     description: 
@@ -53142,7 +53311,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: 1'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: 792, y: -232}
@@ -53158,6 +53327,9 @@ MonoBehaviour:
       connections:
       - fieldName: Output
         node: {fileID: 1906155080}
+        reroutePoints: []
+      - fieldName: Output
+        node: {fileID: 1812912816}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -53176,7 +53348,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
-  EventName: 
+  EventName: 1
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -53198,6 +53370,29 @@ MonoBehaviour:
     EnemyWayPoint:
     - Obj: {fileID: 1173456416}
       MoveTO: {fileID: 1979387152}
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: 6f9b4fd6-8659-40a9-bf30-0fbc867f9ea5
+    TODOList: []
+    doingWith: 2
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 1
+    SpawnPoint: []
+    EnemyWayPoint:
+    - Obj: {fileID: 1173456416}
+      MoveTO: {fileID: 557721031}
     Dialogue_Graph: {fileID: 0}
     Dialogue_Room: {fileID: 0}
     doingWithRoom: 0
@@ -53266,7 +53461,7 @@ MonoBehaviour:
     doingWithRoom: 0
     CustomCode: []
     timelines: []
-  CurrentEditingSONum: 0
+  CurrentEditingSONum: 1
   Comment: 
 --- !u!1001 &1896001809
 PrefabInstance:
@@ -53474,7 +53669,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: 0'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: 376, y: -232}
@@ -53508,7 +53703,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: a30bb683-8c34-4721-ad04-06c810241ebc
-  EventName: 
+  EventName: 0
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -55428,7 +55623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979387151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 52.7}
+  m_LocalPosition: {x: -4, y: 1.13, z: 55.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1219624827}
@@ -58264,7 +58459,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: Basic Event Node
+  m_Name: 'Event: 0'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: -24, y: -232}
@@ -58298,7 +58493,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: 2d6c28ec-9c59-47d0-883c-6b94b26631f3
-  EventName: 
+  EventName: 0
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -59288,8 +59483,15 @@ MonoBehaviour:
   AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
   inAnimState: 0
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
   AnimStateName: Idle
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Saturnus Mocilla
     description: 

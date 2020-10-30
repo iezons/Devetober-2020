@@ -6,6 +6,7 @@ using GamePlay;
 using UnityEngine.SceneManagement;
 using EvtGraph;
 using System;
+using DiaGraph;
 
 [RequireComponent(typeof(NavMeshAgent))]
 
@@ -20,6 +21,8 @@ public class EnemyController : ControllerBased
         [Range(0f, 50f)]
         public float maxZ = 0;
     }
+
+    public DialogueGraph PriDead;
 
     public string enemyName = Guid.NewGuid().ToString();
 
@@ -290,6 +293,7 @@ public class EnemyController : ControllerBased
         if (hitNPCs.Length != 0 && !hasAttacked && target != null && finalPos != null && inAngle && !isBlocked && !npc.isSafe)
         {
             navAgent.speed *= chaseSpeed;
+            toDoList.Clear();
             m_fsm.ChangeState("Chase");
         }
     }
@@ -394,6 +398,13 @@ public class EnemyController : ControllerBased
                 }
                 npc.CompleteGetOutItemAction();
                 npc.animator.Play("Got Bite", 0);
+                if (npc.IsPrisoner)
+                {
+                    EventCenter.GetInstance().DiaEventTrigger("01_Dead");
+                    GameManager.GetInstance().CurrentRoom.DiaPlay.d_state = DiaState.OFF;
+                    GameManager.GetInstance().CurrentRoom.DiaPlay.WholeText = "";
+                    GameManager.GetInstance().CurrentRoom.PlayingDialogue(PriDead);
+                }
                 npc.status.isStruggling = true;
                 npc.HasInteract = false;
                 m_fsm.ChangeState("Executing");
@@ -403,6 +414,13 @@ public class EnemyController : ControllerBased
                 npc.m_fsm.ChangeState("GotAttacked");
                 animator.Play("Zombie_Hug", 0);
                 npc.animator.Play("Got Bite", 0);
+                if(npc.IsPrisoner)
+                {
+                    EventCenter.GetInstance().DiaEventTrigger("01_Dead");
+                    GameManager.GetInstance().CurrentRoom.DiaPlay.d_state = DiaState.OFF;
+                    GameManager.GetInstance().CurrentRoom.DiaPlay.WholeText = "";
+                    GameManager.GetInstance().CurrentRoom.PlayingDialogue(PriDead);
+                }
                 npc.status.isStruggling = true;
                 m_fsm.ChangeState("Executing");
             }
@@ -489,6 +507,7 @@ public class EnemyController : ControllerBased
     public void TriggerEvent()
     {
         navAgent.ResetPath();
+        isJustEnterEvent = true;
         m_fsm.ChangeState("Event");
     }
 
@@ -527,6 +546,8 @@ public class EnemyController : ControllerBased
                 switch (evt.doingWithEnemy)
                 {
                     case DoingWithEnemy.MoveTo:
+                        VisionCone();
+                        Discover();
                         if (isReachDestination)
                         {
                             toDoList.Remove(evt);
@@ -562,7 +583,8 @@ public class EnemyController : ControllerBased
         if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.EnemyArrive", enemyName);
-            isReachDestination = true;
+            if(m_fsm.GetCurrentState() == "Event")
+                isReachDestination = true;
             //TODO 修改NPC Arrive call的方法
             navAgent.ResetPath();
         }

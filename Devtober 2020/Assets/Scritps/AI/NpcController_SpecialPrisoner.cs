@@ -16,7 +16,7 @@ public class NpcController_SpecialPrisoner : NpcController
 
     public int Stage = 0;
 
-    void Talking(object obj)
+    void SpecialTalking(object obj)
     {
         if (Stage == 0)
             GameManager.GetInstance().CurrentRoom.PlayingDialogue(NoThingTalk);

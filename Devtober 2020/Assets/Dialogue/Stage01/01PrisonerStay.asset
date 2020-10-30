@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus Lentinus: WHAT!<w> What \u2026"
+  m_Name: "Stephanus Lentinus: W<sp=60>HAT!<w\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -472, y: -536}
@@ -152,7 +152,8 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus Lentinus
   Dialogue:
-  - WHAT!<w> What is that. whoosh... whoosh... <w>[panting]<e_01_PrisonerCanInteract>
+  - W<sp=60>HAT!<w> What is that. whoosh... whoosh... <w=0.1>[panting] <w=0.2>What
+    is that monster<e=01_PrisonerCanInteract>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-7256149319814646530
@@ -200,7 +201,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus Lentinus
   Dialogue:
-  - Oh! God servant!<w> Alright. Hold on.
+  - Oh! God servant!<w> Alright. Hold on.</sp>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-5959610340575359105
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2478cc1580dedf419e3f687ebbb1efb, type: 3}
-  m_Name: Waiting for:2s
+  m_Name: Waiting for:0s
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -838, y: -486}
@@ -259,7 +260,7 @@ MonoBehaviour:
       _dynamic: 1
   WaitingOption:
   - waitingFor: 0
-    WaitSeconds: 2
+    WaitSeconds: 0
     Event: 
 --- !u!114 &-4722516442049621559
 MonoBehaviour:
@@ -271,7 +272,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Stephanus: Looks like its\u2026"
+  m_Name: "Stephanus: L<e=01_Prisone\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 680, y: -328}
@@ -306,12 +307,13 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus
   Dialogue:
-  - 'Looks like its gone. '
+  - 'L<e=01_PrisonerStartTalking>ooks like its gone. '
   - I didn't expect<w> to meet the servant of god here<w>, or an AI from the pre-human
     civilization.
   - 'Ehhhhh... Listen, if you want, we can make a deal here. '
-  - I can help you with something, somthing that...<w=0.2> those bigots cannot do.
-    All I need is to get away from this madness. <e=01_DiaTwoTrigger>
+  - "I can help you with something, somthing that...<w=0.2> those bigots cannot do.
+    All I need is to get away from this madness.\n[Camera loading Retrying]<w=1>
+    \n[Camera loading finish]<e=01_DiaTwoTrigger>"
   curIndex: 0
   IsMax: 1
 --- !u!114 &-3806839906577130529
@@ -359,7 +361,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus Lentinus
   Dialogue:
-  - 'Oh! God servant!<w> Thank you! '
+  - Oh! God servant!<w> Thank you! </sp>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-2639374616544123151
@@ -549,7 +551,11 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - '[Switch to <color=#00FF00>Deck 02</color>]'
+  - '[Switch to <color=#00FF00>Deck 02</color>]
+
+    [Camera loading error]
+
+    [Retrying...]'
   curIndex: 0
   IsMax: 1
 --- !u!114 &11400000
@@ -588,7 +594,7 @@ MonoBehaviour:
   waitingNode: {fileID: 0}
   current: {fileID: -2639374616544123151}
   DiaPlay: {fileID: 0}
-  IsWaiting: 1
+  IsWaiting: 0
 --- !u!114 &1083138977115277558
 MonoBehaviour:
   m_ObjectHideFlags: 0

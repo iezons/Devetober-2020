@@ -18,7 +18,7 @@ public class TutorialEventHolder : MonoBehaviour
         a("TU_UnlockCameraToRight", () => { GameManager.GetInstance().CanCameraTurnRight = true; }) ;
         a("TU_UnlockCameraToRight", () => { GameManager.GetInstance().CanCameraTurnRight = true; }) ;
         a("TU_NPCList_Show", () => { NPCListPanel.SetActive(true); }) ;
-        a("TU_SwitchToMainLevel", () => { GameManager.GetInstance().Stage = 1; GameManager.GetInstance().SetupStage(1); });
+        a("TU_SwitchToMainLevel", () => { GameManager.GetInstance().Stage = 1; GameManager.GetInstance().SetupStage(1); GameManager.GetInstance().EventForceNext(); });
         a("TU_ShowCameraList", () => { CameraListPanel.SetActive(true); });
     }
 

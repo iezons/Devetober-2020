@@ -157,7 +157,7 @@ public class GameManager : SingletonBase<GameManager>
         if (Stage == 0)
             RoomSwitch("A7 Server Room", 0);
         else if (Stage > 0)
-            RoomSwitch("BedRoom_B", 0);
+            RoomSwitch("BedRoom_A", 0);
         else
             RoomSwitch("TestRoom", 0);
         AllowAudio = true;
@@ -536,66 +536,102 @@ public class GameManager : SingletonBase<GameManager>
 
         bool IsSetCursor = false;
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
+            {
+                Debug.Log("899999999");
+                //ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
+                //if (cbase != null)
+                //{
+                //    if (cbase.rightClickMenus.Count > 0)
+                //    {
+                //        if (cbase.IsInteracting)
+                //        {
+                //            SetupRightClickMenu(cbase.rightClickMenus);
+                //        }
+                //    }
+                }
+            }
+
         //Right Click Menu
         if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
         {
             ClearRightClickButton();
-            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
+            //UI
+            if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
             {
-                Debug.DrawLine(ray.origin, hitInfo.point);
-                GameObject gameObj = hitInfo.collider.gameObject;
-                gameObj.TryGetComponent(out ControllerBased based);
-                if(based != null)
+                ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
+                if(cbase != null)
                 {
-                    if (based.rightClickMenus != null)
+                    if(cbase.rightClickMenus.Count > 0)
                     {
-                        if(based.rightClickMenus.Count >= 0)
+                        if(cbase.IsInteracting)
                         {
-                            if(!based.IsInteracting)
-                            {
-                                SetupRightClickMenu(based.rightClickMenus);
-                            }
+                            SetupRightClickMenu(cbase.rightClickMenus);
                         }
                     }
                 }
-                else
+            }
+            //Raycast
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
+            {
+                if(CurrentRoom.hitInformation.Contains(hitInfo.collider))
                 {
-                    ControllerBased[] baseds = gameObj.GetComponentsInParent<ControllerBased>();
-                    if(baseds != null)
+                    Debug.DrawLine(ray.origin, hitInfo.point);
+                    GameObject gameObj = hitInfo.collider.gameObject;
+                    gameObj.TryGetComponent(out ControllerBased based);
+                    if (based != null)
                     {
-                        if(baseds.Count() >= 1)
+                        if (based.rightClickMenus != null)
                         {
-                            if (baseds[0].rightClickMenus != null)
+                            if (based.rightClickMenus.Count > 0)
                             {
-                                if (baseds[0].rightClickMenus.Count >= 0)
+                                if (!based.IsInteracting)
                                 {
-                                    if (!based.IsInteracting)
+                                    SetupRightClickMenu(based.rightClickMenus);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ControllerBased[] baseds = gameObj.GetComponentsInParent<ControllerBased>();
+                        if (baseds != null)
+                        {
+                            if (baseds.Count() >= 1)
+                            {
+                                if (baseds[0].rightClickMenus != null)
+                                {
+                                    if (baseds[0].rightClickMenus.Count >= 0)
                                     {
-                                        SetupRightClickMenu(baseds[0].rightClickMenus);
+                                        if (!based.IsInteracting)
+                                        {
+                                            SetupRightClickMenu(baseds[0].rightClickMenus);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                float RCx = Input.mousePosition.x - Canvas.rect.width / 2;
+                float RCy = Input.mousePosition.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
+                if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
+                {
+                    RCx -= RightClickMenuPanel.rect.width;
+                }
+                else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
+                {
+                    RCy += RightClickMenuPanel.rect.height;
+                }
+                RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
             }
             else
             {
                 RightClickMenuPanel.gameObject.SetActive(false);
             }
-            //UI Position Fix
-            float RCx = Input.mousePosition.x - Canvas.rect.width / 2;
-            float RCy = Input.mousePosition.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
-            if(RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
-            {
-                RCx -= RightClickMenuPanel.rect.width;
-            }
-            else if(RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
-            {
-                RCy += RightClickMenuPanel.rect.height;
-            }
-            RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -623,34 +659,37 @@ public class GameManager : SingletonBase<GameManager>
         Ray ray_outline = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
         if (Physics.Raycast(ray_outline, out RaycastHit hitInfomation, Mathf.Infinity, DoWithLayer))
         {
-            Debug.DrawLine(ray_outline.origin, hitInfomation.point);
-            IsSetCursor = true;
-            ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
-            if (LastCB != null && curCB != null)
+            if(CurrentRoom.hitInformation.Contains(hitInfomation.collider))
             {
-                if (curCB != LastCB)
+                Debug.DrawLine(ray_outline.origin, hitInfomation.point);
+                IsSetCursor = true;
+                ControllerBased curCB = hitInfomation.collider.GetComponent<ControllerBased>();
+                if (LastCB != null && curCB != null)
                 {
-                    LastCB.SetOutline(false);
-                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                    if (curCB != LastCB)
                     {
-                        Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
-                        IsSetCursor = true;
-                        curCB.SetOutline(true);
+                        LastCB.SetOutline(false);
+                        if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                        {
+                            Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
+                            IsSetCursor = true;
+                            curCB.SetOutline(true);
+                        }
+                        LastCB = curCB;
                     }
-                    LastCB = curCB;
                 }
-            }
-            else
-            {
-                if(curCB != null)
+                else
                 {
-                    if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                    if (curCB != null)
                     {
-                        Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
-                        IsSetCursor = true;
-                        curCB.SetOutline(true);
-                    }  
-                    LastCB = curCB;
+                        if (curCB.gameObject.layer != LayerMask.NameToLayer("Room") && !curCB.IsInteracting)
+                        {
+                            Cursor.SetCursor(InteractCursor, new Vector2(0, 0), CursorMode.Auto);
+                            IsSetCursor = true;
+                            curCB.SetOutline(true);
+                        }
+                        LastCB = curCB;
+                    }
                 }
             }
         }
@@ -679,7 +718,7 @@ public class GameManager : SingletonBase<GameManager>
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 
                 //ChangeDefaultCursor
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider))
                 {
                     if(RightClickMs.DefaultCallValue != null)
                     {
@@ -774,8 +813,9 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    public void SetupStage(int stage)
+    public void SetupStage(int stage = 2)
     {
+        Stage = stage;
         if(stage == 0)
         {
             CanCameraTurnLeft = false;
@@ -795,7 +835,7 @@ public class GameManager : SingletonBase<GameManager>
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = true;
             SetupCameraButton();
         }
-        else if(stage > 0)
+        else if(stage == 1)
         {
             CanCameraTurnLeft = true;
             CanCameraTurnRight = true;
@@ -804,15 +844,43 @@ public class GameManager : SingletonBase<GameManager>
             CameraName.gameObject.SetActive(true);
             //MainLevelGroup.SetActive(true);
             //TutorialLevel.SetActive(false);
-            RoomSwitch("BedRoom_A", 0);
-            RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
-            foreach (var item in MainRooms)
+            for (int i = 0; i < Rooms.Count; i++)
             {
-                item.CanBeDetected = true;
+                if(Rooms[i].RoomName() == "BedRoom_A")
+                {
+                    Rooms[i].CanBeDetected = true;
+                }
+                else
+                {
+                    Rooms[i].CanBeDetected = false;
+                }
             }
+            RoomSwitch("BedRoom_A", 0);
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
             SetupCameraButton();
             //Destroy(TutorialLevel);
+        }
+        else if(stage == 2)
+        {
+            for (int i = 0; i < Rooms.Count; i++)
+            {
+                if(Rooms[i].CBoard != null)
+                {
+                    if(!Rooms[i].CBoard.isLocked)
+                    {
+                        Rooms[i].CanBeDetected = true;
+                    }
+                    else
+                    {
+                        Rooms[i].CanBeDetected = false;
+                    }
+                }
+                else if(Rooms[i].RoomName() != "A7 Server Room")
+                {
+                    Rooms[i].CanBeDetected = true;
+                }
+            }
+            SetupCameraButton();
         }
         else
         {

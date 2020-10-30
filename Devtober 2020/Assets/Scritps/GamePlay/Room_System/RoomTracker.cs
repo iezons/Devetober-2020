@@ -49,7 +49,7 @@ namespace GamePlay
         public int CurrentCameraIndex = 0;
 
         [Header("RoomObject")]
-        public Interact_SO CBoard;
+        public CBordPos CBoard;
         public List<DoorController> Door;
         [HideInInspector]
         public bool CanBeDetected = true;
@@ -95,6 +95,9 @@ namespace GamePlay
 
         public void Awake()
         {
+            CBordPos[] boards = GetComponentsInChildren<CBordPos>();
+            if (boards.Length > 0)
+                CBoard = boards[0];
             outline = GetComponent<Outline>();
             Detecting();
             DiaPlay = GetComponent<DialoguePlay>();
