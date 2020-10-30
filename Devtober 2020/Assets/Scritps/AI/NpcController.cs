@@ -938,6 +938,7 @@ public class NpcController : ControllerBased
         }
         if (status.toDoList.Count <= 0)
         {
+            IsInteracting = false;
             BackToPatrol();
         }
     }

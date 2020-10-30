@@ -10,7 +10,7 @@ public class MainLevelEventHolder : MonoBehaviour
 {
     public NpcController NPC_SP;
     public RoomTracker RoomFor03;
-    
+    public NpcController Guard;
 
     [Header("Interact")]
     public HiddenPos hide;
@@ -37,6 +37,8 @@ public class MainLevelEventHolder : MonoBehaviour
         a("01_XantheTurnToCamera", () => Xan.FacingEachOther(true));
         a("02_PriestHeal", () => { Prisoner.Stage = 2; });
         a("01_PriPatrol", () => { Prisoner.IsPrisoner = false; Prisoner.SwitchAnimState(false); });
+        a("01_GuardGetOut", GuardGetOut);
+        a("02_GuardJoin", GuardGoBack);
     }
 
     void a(string name, UnityAction action)
@@ -47,6 +49,27 @@ public class MainLevelEventHolder : MonoBehaviour
     void b(string name)
     {
         EventCenter.GetInstance().DiaEventTrigger(name);
+    }
+
+    void GuardGetOut()
+    {
+        Guard.CurrentInteractObject.NPCInteractFinish(null);
+        StartCoroutine(GetOut());
+    }
+
+    void GuardGoBack()
+    {
+        Guard.SwitchAnimState(false);
+        Guard.BackToPatrol();
+    }
+
+    IEnumerator GetOut()
+    {
+        while (Guard.CurrentInteractObject != null)
+        {
+            yield return null;
+        }
+        Guard.SwitchAnimState(true, "Talking1");
     }
 
     void DiaTwoTrigger()

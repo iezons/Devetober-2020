@@ -15,9 +15,9 @@ public class EnterCafeTrigger : MonoBehaviour
     public DialogueGraph graph_Sat;
     public DialogueGraph graph_Mel;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("NPC") && !room.isEnemyDetected())
         {
             List<GameObject> Xan = room.NPC().FindAll((x) => x.GetComponent<NpcController>().status.npcName == "Xanthe Eburnus");
             List<GameObject> Sat = room.NPC().FindAll((x) => x.GetComponent<NpcController>().status.npcName == "Saturnus Mocilla");

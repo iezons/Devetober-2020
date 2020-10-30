@@ -404,9 +404,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPC_SP: {fileID: 391390200}
   RoomFor03: {fileID: 774842013}
+  Guard: {fileID: 526809293}
   hide: {fileID: 1476977625}
   Xan: {fileID: 323711741}
-  Prisoner: {fileID: 0}
+  Prisoner: {fileID: 391390200}
   graph03: {fileID: 11400000, guid: f15749468fceb4042a2fe6960793f67e, type: 2}
   NPCTalking:
     ID: 797d4848-3e2a-4c73-842a-5a93b9cd271b
@@ -7246,13 +7247,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341941276}
-  m_LocalRotation: {x: 0.19673122, y: 0.6791884, z: -0.17406861, w: 0.6853467}
+  m_LocalRotation: {x: 0.20899193, y: 0.62698364, z: -0.15913954, w: 0.7334088}
   m_LocalPosition: {x: -39.13, y: 5.51, z: -14.899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 774841990}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 30.405, y: 90, z: 1.903}
+  m_LocalEulerAnglesHint: {x: 30.405, y: 81.571, z: 1.903}
 --- !u!81 &341941278
 AudioListener:
   m_ObjectHideFlags: 0
@@ -10902,7 +10903,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.0017657543
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -19612,39 +19613,39 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 774841983}
+    m_TransformParent: {fileID: 774841989}
     m_Modifications:
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 106.73
+      value: -30.41
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8
+      value: -2.67986
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.34
+      value: -26.82
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 4.3216124e-17
+      value: -1.6543612e-24
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.96564347
-      objectReference: {fileID: 0}
-    - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -7.50411e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
-      propertyPath: m_LocalRotation.w
       value: -0.2598706
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.96564347
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -19660,7 +19661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6231160949716067536, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.99661815
+      value: 0.9966182
       objectReference: {fileID: 0}
     - target: {fileID: 6715526142451580522, guid: c4bbfa0fa0c896b4c94d79c2d6278bf5, type: 3}
       propertyPath: m_Name
@@ -19739,7 +19740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ccf5b01023448448bf8788cc1511fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomCamera: {fileID: 1890124184}
+  tracker: {fileID: 774842031}
+  RoomCamera: {fileID: 341941277}
 --- !u!1001 &660156913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23651,7 +23653,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -23759,7 +23761,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -23868,7 +23870,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -23977,7 +23979,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24086,7 +24088,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24197,7 +24199,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24305,7 +24307,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24413,7 +24415,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24528,7 +24530,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24634,7 +24636,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24763,7 +24765,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24872,7 +24874,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -24981,7 +24983,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -25090,7 +25092,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -25200,7 +25202,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -25310,7 +25312,7 @@ MonoBehaviour:
   Language: English
   d_state: 0
   n_state: 2
-  TextSpeed: 18
+  TextSpeed: 5000
   WholeText: 
   MaxVisible: 0
   WordCount: 0
@@ -33052,6 +33054,36 @@ Transform:
   m_Father: {fileID: 774842006}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 92.114, z: 0}
+--- !u!1 &1062804335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1062804336}
+  m_Layer: 0
+  m_Name: Waypoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1062804336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062804335}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.49, y: -4.7, z: -30.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 774841989}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1063260432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33154,11 +33186,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067104262}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.104279, y: 5.486803, z: 3.0836134}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 20.104279, y: 5.486803, z: 22.158401}
+  m_Center: {x: 0, y: 0, z: -9.537397}
 --- !u!114 &1067104265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33171,7 +33203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d737f8f2b279a5644a3634024b2371be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Guard: {fileID: 0}
+  Guard: {fileID: 526809293}
   Waypoints: []
   evt:
     ID: 6c76edb8-4b13-4abc-bf32-dba2fe850288
@@ -33181,7 +33213,7 @@ MonoBehaviour:
     NPCTalking:
     - moveToClasses:
       - Obj: {fileID: 0}
-        MoveTO: {fileID: 0}
+        MoveTO: {fileID: 1062804336}
       room: {fileID: 774842031}
       Graph: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
     NPCWayPoint: []
@@ -33200,10 +33232,10 @@ MonoBehaviour:
     doingWithRoom: 0
     CustomCode: []
     timelines: []
-  room: {fileID: 0}
-  graph_Xan: {fileID: 0}
-  graph_Sat: {fileID: 0}
-  graph_Mel: {fileID: 0}
+  room: {fileID: 774842031}
+  graph_Xan: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
+  graph_Sat: {fileID: 11400000, guid: b74d95a7a909197458df97d7d40c62b5, type: 2}
+  graph_Mel: {fileID: 11400000, guid: a01d50bf8800f424eb4f08e343432d1f, type: 2}
 --- !u!1001 &1070930689
 PrefabInstance:
   m_ObjectHideFlags: 0
