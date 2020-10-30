@@ -139,7 +139,7 @@ public class NpcController : ControllerBased
     [HideInInspector]
     public Locators locators = null;
     int GrabOutIndex;
-    bool IsGrabbing = false, isSitting = false;
+    bool IsGrabbing = true, isSitting = false;
 
     [HideInInspector]
     public Item_SO CurrentInteractItem;
@@ -166,21 +166,22 @@ public class NpcController : ControllerBased
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
-            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "GotAttacked", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Rescuing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Idle", "Fixing", "Anim", "OnFloor" } },
-            { "Idle", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Fixing", "Anim", "OnFloor" } },
-            { "Fixing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Anim", "OnFloor" } },
-            { "Anim", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "OnFloor" } },
-            { "OnFloor", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim" } }
+            { "Patrol", new List<string> { "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Rest", new List<string> { "Patrol", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Event", new List<string> { "Patrol", "Rest", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Dispatch", new List<string> { "Patrol", "Rest", "Event", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Dodging", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Hiding", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Escaping", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "InteractWithItem", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Healing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "GotAttacked", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Rescuing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Idle", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Idle", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Fixing", "Anim", "OnFloor", "Death" } },
+            { "Fixing", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Anim", "OnFloor", "Death" } },
+            { "Anim", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "OnFloor", "Death" } },
+            { "OnFloor", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "Death" } },
+            { "Death", new List<string> { "Patrol", "Rest", "Event", "Dispatch", "Dodging", "Hiding", "Escaping", "InteractWithItem", "Healing", "GotAttacked", "Rescuing", "Idle", "Fixing", "Anim", "OnFloor" } }
         };
         
         #endregion
@@ -335,6 +336,11 @@ public class NpcController : ControllerBased
         {
             StartCoroutine(MoveAcrossNavMeshLink());
             MoveAcrossNavMeshesStarted = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Death();
         }
     }
 
@@ -1005,11 +1011,32 @@ public class NpcController : ControllerBased
     void Death()
     {
         animator.Play("Death", 0);
+        navAgent.ResetPath();   
         status.isStruggling = false;
         gameObject.layer = LayerMask.NameToLayer("Dead");
+        m_fsm.ChangeState("Death");
+
         ResMgr.GetInstance().LoadAsync<GameObject>("DeadBox", (x) => {
-            GameObject deadBox = Instantiate(x, transform.position, Quaternion.identity);
-             });
+            x.transform.position = transform.position;
+            DeadBox deadBox = x.GetComponent<DeadBox>();
+            deadBox.type = status.CarryItem;
+            switch (status.CarryItem)
+            {
+                case Item_SO.ItemType.None:
+                    Destroy(x);
+                    break;
+                case Item_SO.ItemType.MedicalKit:
+                    deadBox.HPRecovery = status.healAmount;
+                    break;
+                case Item_SO.ItemType.RepairedPart:
+                    break;
+                case Item_SO.ItemType.Key:                 
+                    deadBox.code = status.code;
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     public void CurrentObjectAnimPlay(object obj)
@@ -1469,90 +1496,102 @@ public class NpcController : ControllerBased
                             if (IsGrabbing)
                             {
                                 animator.Play("Grab Item");
-                                if (status.CarryItem != Item_SO.ItemType.None)
+                                if (status.CarryItem != Item_SO.ItemType.Key)
                                 {
-                                    Item_SO.ItemType GrabOutItem = sto.StorageItem[GrabOutIndex];
-                                    Item_SO.ItemType PutInItem = status.CarryItem;                                   
-                                    RemoveAllMenu();
-                                    AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
-                                                                                                    | 1 << LayerMask.NameToLayer("RestingPos")
-                                                                                                    | 1 << LayerMask.NameToLayer("TerminalPos")
-                                                                                                    | 1 << LayerMask.NameToLayer("SwitchPos")
-                                                                                                    | 1 << LayerMask.NameToLayer("Item")
-                                                                                                    | 1 << LayerMask.NameToLayer("CBord")
-                                                                                                    | 1 << LayerMask.NameToLayer("StoragePos"));
-                                    status.CarryItem = GrabOutItem;
-                                    switch (GrabOutItem)
+                                    if (status.CarryItem != Item_SO.ItemType.None)
                                     {
-                                        case Item_SO.ItemType.None:
-                                            break;
-                                        case Item_SO.ItemType.MedicalKit:
-                                            InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
-                                            status.healAmount = 70;
-                                            Debug.Log("Got MedicalKit");
-                                            break;
-                                        case Item_SO.ItemType.RepairedPart:
-                                            break;
-                                        case Item_SO.ItemType.Key:
-                                            break;
-                                        default:
-                                            break;
+                                        Item_SO.ItemType GrabOutItem = sto.StorageItem[GrabOutIndex];
+                                        Item_SO.ItemType PutInItem = status.CarryItem;
+                                        RemoveAllMenu();
+                                        AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+                                                                                                        | 1 << LayerMask.NameToLayer("RestingPos")
+                                                                                                        | 1 << LayerMask.NameToLayer("TerminalPos")
+                                                                                                        | 1 << LayerMask.NameToLayer("SwitchPos")
+                                                                                                        | 1 << LayerMask.NameToLayer("Item")
+                                                                                                        | 1 << LayerMask.NameToLayer("CBord")
+                                                                                                        | 1 << LayerMask.NameToLayer("StoragePos"));
+                                        status.CarryItem = GrabOutItem;
+                                        switch (GrabOutItem)
+                                        {
+                                            case Item_SO.ItemType.None:
+                                                break;
+                                            case Item_SO.ItemType.MedicalKit:
+                                                InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                                                status.healAmount = 70;
+                                                Debug.Log("Got MedicalKit");
+                                                break;
+                                            case Item_SO.ItemType.RepairedPart:
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        sto.StorageItem.Add(PutInItem);
+                                        sto.StorageItem.Remove(GrabOutItem);
+                                        sto.UpdateMenu();
                                     }
-                                    sto.StorageItem.Add(PutInItem);
-                                    sto.UpdateMenu();
+                                    else
+                                    {
+                                        status.CarryItem = sto.StorageItem[GrabOutIndex];
+                                        switch (sto.StorageItem[GrabOutIndex])
+                                        {
+                                            case Item_SO.ItemType.None:
+                                                break;
+                                            case Item_SO.ItemType.MedicalKit:
+                                                InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                                                status.healAmount = 70;
+                                                Debug.Log("Got MedicalKit");
+                                                break;
+                                            case Item_SO.ItemType.RepairedPart:
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        sto.StorageItem.Remove(sto.StorageItem[GrabOutIndex]);
+                                        sto.UpdateMenu();
+                                    }
                                 }
                                 else
-                                {
-                                    status.CarryItem = sto.StorageItem[GrabOutIndex];                                   
-                                    switch (sto.StorageItem[GrabOutIndex])
-                                    {
-                                        case Item_SO.ItemType.None:
-                                            break;
-                                        case Item_SO.ItemType.MedicalKit:
-                                            InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
-                                            status.healAmount = 70;
-                                            Debug.Log("Got MedicalKit");
-                                            break;
-                                        case Item_SO.ItemType.RepairedPart:
-                                            break;
-                                        case Item_SO.ItemType.Key:
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    sto.StorageItem.Remove(sto.StorageItem[GrabOutIndex]);
-                                    sto.UpdateMenu();
-                                }
+                                    Debug.Log("I cant give up this key");                               
                             }
                             else
                             {
-                                if(sto.StorageItem.Count + 1 <= sto.MaxStorage)
+                                animator.Play("Grab Item");
+                                if (status.CarryItem != Item_SO.ItemType.None)
                                 {
-                                    animator.Play("Grab Item");
-                                    sto.StorageItem.Add(status.CarryItem);
-                                    sto.UpdateMenu();
-                                    switch (status.CarryItem)
+                                    if (status.CarryItem != Item_SO.ItemType.Key)
                                     {
-                                        case Item_SO.ItemType.MedicalKit:
-                                            if (MenuContains("Heal") >= 0)
+                                        if (sto.StorageItem.Count + 1 <= sto.MaxStorage)
+                                        {                                     
+                                            sto.StorageItem.Add(status.CarryItem);
+                                            sto.UpdateMenu();
+                                            switch (status.CarryItem)
                                             {
-                                                RemoveMenu("Heal");
+                                                case Item_SO.ItemType.MedicalKit:
+                                                    if (MenuContains("Heal") >= 0)
+                                                    {
+                                                        RemoveMenu("Heal");
+                                                    }
+                                                    status.healAmount = 0;
+                                                    break;
+                                                case Item_SO.ItemType.RepairedPart:
+                                                    break;
+                                                case Item_SO.ItemType.Key:
+                                                    break;
+                                                default:
+                                                    break;
                                             }
-                                            status.healAmount = 0;
-                                            break;
-                                        case Item_SO.ItemType.RepairedPart:
-                                            break;
-                                        case Item_SO.ItemType.Key:
-                                            break;
-                                        default:
-                                            break;
+                                            status.CarryItem = Item_SO.ItemType.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.Log("It is full");
+                                        }
                                     }
-                                    status.CarryItem = Item_SO.ItemType.None;
+                                    else
+                                        Debug.Log("Cant store this");
                                 }
                                 else
-                                {
-                                    Debug.Log("It is full");
-                                }
+                                    Debug.Log("I dont have any to store");
                             }
                             break;
                         case Interact_SO.InteractType.CBoard:
@@ -1627,15 +1666,23 @@ public class NpcController : ControllerBased
                 }
                 else if (!HasInteract)
                 {
+                    boxCollider.isTrigger = true;
+                    IsInteracting = true;
+                    navAgent.enabled = false;
+                    HasInteract = true;
                     switch (CurrentInteractItem.type)
                     {
                         case Item_SO.ItemType.MedicalKit:
-                            Debug.Log("23333");
+                            Debug.Log("Got MedicalKit");
                             animator.Play("Grab Item", 0);
-                            boxCollider.isTrigger = true;
-                            IsInteracting = true;
-                            navAgent.enabled = false;
-                            HasInteract = true;
+                            break;
+                        case Item_SO.ItemType.Key:
+                            Debug.Log("Key");
+                            animator.Play("Grab Item", 0);
+                            break;
+                        case Item_SO.ItemType.RepairedPart:
+                            Debug.Log("RepairedPart");
+                            animator.Play("Grab Item", 0);
                             break;
                         default:
                             break;
@@ -1841,10 +1888,23 @@ public class NpcController : ControllerBased
                     break;
                 case Item_SO.ItemType.MedicalKit:
                     status.CarryItem = CurrentInteractItem.type;
-                    status.healAmount = CurrentInteractItem.GetComponent<MedicalKit>().HPRecovery;
+                    if (CurrentInteractItem.GetComponent<MedicalKit>() != null)
+                        status.healAmount = CurrentInteractItem.GetComponent<MedicalKit>().HPRecovery;
+                    else
+                        status.healAmount = CurrentInteractItem.GetComponent<DeadBox>().HPRecovery;
                     CurrentInteractItem.NPCInteract(0);
                     InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
+                    CurrentInteractItem.NPCInteract(0);
                     CurrentInteractItem = null;
+                    break;
+                case Item_SO.ItemType.Key:
+                    status.CarryItem = CurrentInteractItem.type;
+                    status.code = CurrentInteractItem.GetComponent<DeadBox>().code;
+                    CurrentInteractItem.NPCInteract(0);
+                    break;
+                case Item_SO.ItemType.RepairedPart:
+                    status.CarryItem = CurrentInteractItem.type;
+                    CurrentInteractItem.NPCInteract(0);
                     break;
                 default:
                     break;
@@ -1879,8 +1939,7 @@ public class NpcController : ControllerBased
         {
             CurrentInteractItem = null;
         }
-        if(!isEnemyChasing)
-            BackToPatrol();
+        BackToPatrol();
     }
     #endregion
 

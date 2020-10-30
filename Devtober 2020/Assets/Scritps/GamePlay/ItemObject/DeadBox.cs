@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DeadBox : Item_SO
 {
-    public float HPRecovery = 50f;
+    public string code;
+    public float HPRecovery;
     public override void NPCInteract(int InteractWay = 0)
     {
         Destroy(gameObject);
@@ -23,7 +24,6 @@ public class DeadBox : Item_SO
     void Init()
     {
         outline = GetComponent<Outline>();
-        type = ItemType.MedicalKit;
         AddMenu("Grab", "Grab", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
     }
 }
