@@ -263,18 +263,28 @@ public class NpcController : ControllerBased
             }
         }
         #endregion
-        audioTimer -= Time.deltaTime;
+        if(m_fsm.GetCurrentState() != "Anim")
+        {
+            DetectRoom();
+            audioTimer -= Time.deltaTime;
+            CheckEvent();
+            AddStopMenu();
+            if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
+            {
+                StartCoroutine(MoveAcrossNavMeshLink());
+                MoveAcrossNavMeshesStarted = true;
+            }
+        }       
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
-            case "Patrol":
+            case "Patrol":             
                 if (!currentRoomTracker.isEnemyDetected())
                 {
                     restTime -= Time.deltaTime;
                 }
                 if (restTime > 0)
-                {
-                    DetectRoom();
+                {                
                     Dispatch(currentTerminalPos);
                     GenerateNewDestination();
                     TriggerDodging();
@@ -372,13 +382,6 @@ public class NpcController : ControllerBased
                 break;
         }
         #endregion
-        CheckEvent();
-        AddStopMenu();
-        if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
-        {
-            StartCoroutine(MoveAcrossNavMeshLink());
-            MoveAcrossNavMeshesStarted = true;
-        }
     }
 
     public void CheckEvent()
