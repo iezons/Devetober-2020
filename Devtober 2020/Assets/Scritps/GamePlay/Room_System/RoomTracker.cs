@@ -202,13 +202,16 @@ namespace GamePlay
 
                 for (int i = 0; i < beds.Count; i++)
                 {
-                    NpcController npc = npcs[i].GetComponent<NpcController>();
-                    if (npc.status.currentHealth >= npc.status.getUpHealth)
-                        continue;
-                    if (npc.m_fsm.GetCurrentState() == "Patrol" && !npc.isRoomCalled)
+                    if(npcs[i].GetComponent<NpcController>() != null)
                     {
-                        npcs[i].GetComponent<NpcController>().TriggerBedResting(beds[i].gameObject);
-                    }
+                        NpcController npc = npcs[i].GetComponent<NpcController>();
+                        if (npc.status.currentHealth >= npc.status.getUpHealth)
+                            continue;
+                        if (npc.m_fsm.GetCurrentState() == "Patrol" && !npc.isRoomCalled)
+                        {
+                            npcs[i].GetComponent<NpcController>().TriggerBedResting(beds[i].gameObject);
+                        }
+                    }                   
                 }
 
                 for (int i = 0; i < npcs.Count; i++)

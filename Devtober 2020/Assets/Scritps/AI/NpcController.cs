@@ -265,7 +265,6 @@ public class NpcController : ControllerBased
         #endregion
         if(m_fsm.GetCurrentState() != "Anim")
         {
-            DetectRoom();
             audioTimer -= Time.deltaTime;
             CheckEvent();
             AddStopMenu();
@@ -278,10 +277,14 @@ public class NpcController : ControllerBased
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
-            case "Patrol":             
-                if (!currentRoomTracker.isEnemyDetected())
+            case "Patrol":
+                DetectRoom();
+                if (currentRoomTracker != null)
                 {
-                    restTime -= Time.deltaTime;
+                    if (!currentRoomTracker.isEnemyDetected())
+                    {
+                        restTime -= Time.deltaTime;
+                    }
                 }
                 if (restTime > 0)
                 {                
@@ -1581,6 +1584,11 @@ public class NpcController : ControllerBased
                 {
                     switch (CurrentInteractObject.type)
                     {
+                        case Interact_SO.InteractType.ServerPos:
+                            CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
+                            animator.Play("UnlockTerminal", 0);
+                            HasInteract = true;
+                            break;
                         case Interact_SO.InteractType.Locker:
                             if (IsPrisoner)
                                 EventCenter.GetInstance().DiaEventTrigger("01_HideIn");
@@ -1915,6 +1923,19 @@ public class NpcController : ControllerBased
         {
             switch (CurrentInteractObject.type)
             {
+                case Interact_SO.InteractType.ServerPos:
+                    if(status.CarryItem == Item_SO.ItemType.RepairedPart)
+                    {
+                        ServerPos server = CurrentInteractObject as ServerPos;
+                        server.isUnlocked = true;
+                        Debug.Log("Server unlocked");
+                        status.CarryItem = Item_SO.ItemType.None;
+                    }
+                    else
+                    {
+                        Debug.Log("I dont have RepairedPart");
+                    }
+                    break;
                 case Interact_SO.InteractType.Locker:
                     if(SendEventWhenGetOutLocker)
                     {
@@ -1957,6 +1978,7 @@ public class NpcController : ControllerBased
                         {
                             status.CarryItem = Item_SO.ItemType.Key;
                             status.code = terminal.code;
+                            terminal.code = "";
                             CurrentInteractObject.IsInteracting = false;
                         }
                     }
@@ -2035,7 +2057,6 @@ public class NpcController : ControllerBased
                         status.healAmount = CurrentInteractItem.GetComponent<MedicalKit>().HPRecovery;
                     else
                         status.healAmount = CurrentInteractItem.GetComponent<DeadBox>().HPRecovery;
-                    CurrentInteractItem.NPCInteract(0);
                     InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
                     CurrentInteractItem.NPCInteract(0);
                     CurrentInteractItem = null;

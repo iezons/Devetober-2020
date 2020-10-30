@@ -25,6 +25,7 @@ public class Interact_SO : ControllerBased
         Storage,
         CBoard,
         TU_Server,
+        ServerPos,
     }
 
     public InteractType type;
