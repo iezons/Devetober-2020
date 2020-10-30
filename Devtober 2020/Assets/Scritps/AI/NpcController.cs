@@ -611,7 +611,7 @@ public class NpcController : ControllerBased
 
         if (m_fsm.GetCurrentState() != "InteractWithItem")
         {
-            if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
+            if (navAgent.velocity.magnitude >= 0.1f || navAgent.isOnOffMeshLink)
             {
                 if (m_fsm.GetCurrentState() == "Patrol")
                 {
@@ -859,8 +859,8 @@ public class NpcController : ControllerBased
                             {
                                 if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                                 {
-                                    BackToPatrol();
                                     Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                                    IsInteracting = true;
                                 }
                             }
                         }
@@ -870,8 +870,8 @@ public class NpcController : ControllerBased
                         {
                             if (evt.NPCWayPoint[a].Obj == gameObject)
                             {
-                                BackToPatrol();
                                 Dispatch(evt.NPCWayPoint[a].MoveTO.position);
+                                IsInteracting = true;
                             }
                         }
                         break;

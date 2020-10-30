@@ -11,6 +11,7 @@ using System.Linq;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using System;
+using UnityEngine.AI;
 
 public class DefaultValueWithGO
 {
@@ -42,6 +43,10 @@ public enum GameManagerState
 
 public class GameManager : SingletonBase<GameManager>
 {
+    [Header("navMesh")]
+    public NavMeshSurface surface;
+    public LocalNavMeshBuilder builder;
+
     [Header("Input")]
     public string MoveLeft;
     public string MoveRight;
@@ -161,6 +166,7 @@ public class GameManager : SingletonBase<GameManager>
         else
             RoomSwitch("TestRoom", 0);
         AllowAudio = true;
+        StartCoroutine(BuildMesh());
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -240,18 +246,22 @@ public class GameManager : SingletonBase<GameManager>
 
     public void SetupOption(RoomTracker room)
     {
-        for (int i = 0; i < Option.Count; i++)
+        if(room.DiaPlay.n_state == NodeState.Option)
         {
-            Destroy(Option[i].gameObject);
+            for (int i = 0; i < Option.Count; i++)
+            {
+                Destroy(Option[i].gameObject);
+            }
+            Option.Clear();
+            for (int i = 0; i < room.OptionList.Count; i++)
+            {
+                Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
+                Option[i].transform.SetParent(ButtonContent, false);
+                Option[i].transform.GetComponentInChildren<Text>().text = room.OptionList[i].Text;
+                Option[i].transform.name = i.ToString();
+            }
         }
-        Option.Clear();
-        for (int i = 0; i < room.OptionList.Count; i++)
-        {
-            Option.Add(Instantiate(OptionButtonPrefab).GetComponent<Button>());
-            Option[i].transform.SetParent(ButtonContent, false);
-            Option[i].transform.GetComponentInChildren<Text>().text = room.OptionList[i].Text;
-            Option[i].transform.name = i.ToString();
-        }
+        
     }
 
     void NPCAdd(NpcController NPC_obj)
@@ -343,6 +353,21 @@ public class GameManager : SingletonBase<GameManager>
         GoToState(GameManagerState.PAUSED);
     }
 
+    IEnumerator BuildMesh()
+    {
+        //while(true)
+        //{
+        //    for (int i = 0; i < Rooms.Count; i++)
+        //    {
+        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+        //        {
+        //            break;
+        //        }
+        //    }
+            yield return new WaitForSeconds(0.5f);
+        //}
+    }
+
     void Update()
     {
         #region TimeLine
@@ -377,16 +402,6 @@ public class GameManager : SingletonBase<GameManager>
         {
             EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
             EventCenter.GetInstance().DiaEventTrigger("TU_TurnRightCheck");
-        }
-        
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            EventCenter.GetInstance().DiaEventTrigger("TU_RightclickOnInfo");
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            //Director.Play(timeline);
         }
 
         if(Input.GetKeyDown(KeyCode.L))
@@ -431,16 +446,27 @@ public class GameManager : SingletonBase<GameManager>
 
         #region NavMeshBuilding
         //NavMesh Building
+        //if (Time.frameCount % 10 == 0)
+        //{
+        //    for (int i = 0; i < Rooms.Count; i++)
+        //    {
+        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+        //        {
+        //            for (int a = 0; a < Rooms[i].navSurface.Count; a++)
+        //            {
+        //                Rooms[i].navSurface[a].BuildNavMesh();
+        //            }
+        //        }
+        //    }
+        //}
         if (Time.frameCount % 10 == 0)
         {
             for (int i = 0; i < Rooms.Count; i++)
             {
                 if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
                 {
-                    for (int a = 0; a < Rooms[i].navSurface.Count; a++)
-                    {
-                        Rooms[i].navSurface[a].BuildNavMesh();
-                    }
+                    surface.BuildNavMesh();
+                    break;
                 }
             }
         }
@@ -518,7 +544,8 @@ public class GameManager : SingletonBase<GameManager>
         #region Mouse Clicking
         //Mouse Position Correction
         //Vector3 MousePos = new Vector3(Input.mousePosition.x * (VHSTexture.width / 1920f), Input.mousePosition.y * (VHSTexture.height / 1080f), Input.mousePosition.z);
-        Vector3 MousePos = Input.mousePosition;
+        Vector3 MousePos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+        
         Ray ray_MainCamera = MainCamera.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray_MainCamera, out RaycastHit hit_MainCamera))
         {
@@ -617,8 +644,9 @@ public class GameManager : SingletonBase<GameManager>
                         }
                     }
                 }
-                float RCx = Input.mousePosition.x - Canvas.rect.width / 2;
-                float RCy = Input.mousePosition.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
+                Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+                float RCx = mousepos.x - Canvas.rect.width / 2;
+                float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
                 if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
                 {
                     RCx -= RightClickMenuPanel.rect.width;
@@ -719,7 +747,7 @@ public class GameManager : SingletonBase<GameManager>
                 Debug.DrawLine(ray.origin, hitInfo.point);
                 
                 //ChangeDefaultCursor
-                if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider))
+                if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
                 {
                     if(RightClickMs.DefaultCallValue != null)
                     {
@@ -1123,7 +1151,6 @@ public class GameManager : SingletonBase<GameManager>
                             break;
                         case ConditionSO.ConditionWith.Event:
                             #region Event
-                            Debug.Log("Event");
                             if (justEnterCondition)
                             {
                                 for (int a = 0; a < con.eventTriggers.Count; a++)
@@ -1133,7 +1160,6 @@ public class GameManager : SingletonBase<GameManager>
                                     EventCenter.GetInstance().AddEventListener(tri.EventName, () => { 
                                         tri.IsTriggered = true; 
                                         EventCenter.GetInstance().RemoveEventListenerKeys(tri.EventName);
-                                        Debug.Log("01——03");
                                     });
                                 }
                             }
@@ -1142,7 +1168,6 @@ public class GameManager : SingletonBase<GameManager>
                             {
                                 if (!WaitingEvent[a].IsTriggered)
                                 {
-                                    Debug.Log(WaitingEvent[a].IsTriggered);
                                     HasNotAchieve = true;
                                 }
                             }

@@ -153,7 +153,7 @@ MonoBehaviour:
   TalkingPerson: Stephanus Lentinus
   Dialogue:
   - 'In the name of god, what is that thing? '
-  - How can this thing even possible to walk! <e=01_PrisonerCanInteract>
+  - How can this thing even possible to walk! <e=01_PrisonerCanInteract></sp>
   curIndex: 0
   IsMax: 1
 --- !u!114 &-7256149319814646530
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [Switch to <co\u2026"
+  m_Name: ": [<sp=60>Switch\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -1256, y: -497}
@@ -551,7 +551,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - '[Switch to <color=#00FF00>Deck 02</color>]
+  - '[<sp=60>Switch to <color=#00FF00>Deck 02</color>]
 
     [Camera loading error]
 
@@ -591,7 +591,7 @@ MonoBehaviour:
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -1527136331401519846}
+  current: {fileID: -2639374616544123151}
   DiaPlay: {fileID: 0}
   IsWaiting: 1
 --- !u!114 &1083138977115277558

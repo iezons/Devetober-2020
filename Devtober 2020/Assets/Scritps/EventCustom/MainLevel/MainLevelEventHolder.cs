@@ -18,26 +18,17 @@ public class MainLevelEventHolder : MonoBehaviour
     [Header("Stage02")]
     public NpcController Xan;
 
-    [Header("Dia")]
+    [Header("01_Dia")]
     public DialogueGraph graph03;
     public EventSO NPCTalking;
+    public TerminalPos PC;
+    public DoorController Door;
 
     // Start is called before the first frame update
     void OnEnable()
     {
         a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; });
-        a("01_DiaTwoTrigger", () => { hide.IsInteracting = true; GameManager.GetInstance().EventForceNext(); GameManager.GetInstance().SetupStage(2); });//事件机 forcemove
-        //a("01_XantheTurnToCamera", () => {; });
-        //a("01_GuardGetOut", () => {; })
-        //a("01_03DiaPlay", () => {
-        //    for (int i = 0; i < GameManager.GetInstance().WaitingEvent[GameManager.GetInstance().TriggeringEventNode.GUID].Count; i++)
-        //    {
-        //        if(GameManager.GetInstance().WaitingEvent[GameManager.GetInstance().TriggeringEventNode.GUID][i].EventName == "01_03DiaPlay")
-        //        {
-        //            GameManager.GetInstance().WaitingEvent[GameManager.GetInstance().TriggeringEventNode.GUID][i].IsTriggered = true;
-        //        }
-        //    }
-        //});
+        a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
         a("01_ChefOut", () => hide.IsInteracting = false);
         a("01_PriPatrol", () => NPC_SP.SwitchAnimState(false));
         a("01_PrisonerStartTalking", PrisonerStartTalking);
@@ -52,6 +43,14 @@ public class MainLevelEventHolder : MonoBehaviour
     void b(string name)
     {
         EventCenter.GetInstance().DiaEventTrigger(name);
+    }
+
+    void DiaTwoTrigger()
+    {
+        GameManager.GetInstance().EventForceNext();
+        GameManager.GetInstance().SetupStage(2);
+        PC.IsInteracting = false;
+        Door.IsInteracting = false;
     }
 
     void PrisonerStartTalking()
