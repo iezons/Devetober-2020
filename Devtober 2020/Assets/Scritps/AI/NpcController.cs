@@ -369,11 +369,6 @@ public class NpcController : ControllerBased
             StartCoroutine(MoveAcrossNavMeshLink());
             MoveAcrossNavMeshesStarted = true;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Death();
-        }
     }
 
     public void CheckEvent()
