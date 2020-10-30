@@ -314,9 +314,8 @@ MonoBehaviour:
   - I didn't expect<w> to meet the servant of god here<w>, or an AI from the pre-human
     civilization.
   - 'Ehhhhh... Listen, if you want, we can make a deal. '
-  - "I can help you with something, somthing that...<w=0.2> those bigots cannot do.
-    All I need is to get away from this madness.\n<w=1>[Camera loading Retrying]<w=1>
-    \n[Camera loading finish]<e=01_DiaTwoTrigger>"
+  - I can help you with something, somthing that...<w=0.2> those bigots cannot do.
+    All I need is to get away from this madness.
   curIndex: 0
   IsMax: 1
 --- !u!114 &-3806839906577130529
@@ -591,7 +590,7 @@ MonoBehaviour:
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -2639374616544123151}
+  current: {fileID: -3806839906577130529}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
 --- !u!114 &1083138977115277558
@@ -736,7 +735,8 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Stephanus
   Dialogue:
-  - 'OK. Just don''t leave me here alone too long. '
+  - "OK. Just don't leave me here alone too long. <w=1>[Camera loading Retrying]<w=1>
+    \n[Camera loading finish]<e=01_DiaTwoTrigger>"
   curIndex: 0
   IsMax: 1
 --- !u!114 &5263775130096979506

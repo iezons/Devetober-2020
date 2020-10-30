@@ -204,7 +204,7 @@ public class EnemyController : ControllerBased
         }
         #endregion
 
-        //CheckEvent();
+        CheckEvent();
 
         if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
         {
