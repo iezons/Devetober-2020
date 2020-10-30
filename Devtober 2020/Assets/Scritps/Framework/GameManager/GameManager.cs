@@ -78,6 +78,7 @@ public class GameManager : SingletonBase<GameManager>
     List<Button> Option = null;
     [SerializeField]
     Transform ButtonContent = null;
+    public List<ServerPos> ServerPos = new List<ServerPos>();
 
     [Header("Info Pool")]
     public List<RoomTracker> Rooms;
@@ -126,7 +127,7 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Timeline Playing")]
     public List<DirectorsClass> Directors = new List<DirectorsClass>();
-
+    public PlayableDirector FDirector;
     //public PlayableDirector Director;
     //public TimelineAsset timeline;
 
@@ -149,6 +150,23 @@ public class GameManager : SingletonBase<GameManager>
     {
         EventNode evt = eventGraph.graph.currentList[0] as EventNode;
         evt.eventSO[0] = so;
+    }
+
+    void ServerRoomDetect()
+    {
+        bool a = true;
+        foreach (var item in ServerPos)
+        {
+            if(!item.isUnlocked)
+            {
+                a = false;
+                break;
+            }
+        }
+        if(a)
+        {
+            FDirector.Play();
+        }
     }
 
     void Awake()

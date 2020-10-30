@@ -18,7 +18,6 @@ public class MedicalKit : Item_SO
 
     public override void NPCInteract(int InteractWay = 0)
     {
-        Destroy(gameObject);
         if(Trigger)
         {
             List<GameObject> Xan = room.NPC().FindAll((x) => x.GetComponent<NpcController>().status.npcName == "Xanthe Eburnus");
@@ -50,6 +49,7 @@ public class MedicalKit : Item_SO
             }
             resting.IsInteracting = false;
             EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
+            Destroy(gameObject);
         }
     }
 
