@@ -338,6 +338,11 @@ public class GameManager : SingletonBase<GameManager>
         RemoveIndex.Clear();
     }
 
+    public void EventForceNext()
+    {
+        GoToState(GameManagerState.PAUSED);
+    }
+
     void Update()
     {
         #region TimeLine
@@ -779,8 +784,8 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(false);
             CameraButtonListPanel.gameObject.SetActive(false);
             CameraName.gameObject.SetActive(false);
-            MainLevelGroup.SetActive(false);
-            TutorialLevel.SetActive(true);
+            //MainLevelGroup.SetActive(false);
+            //TutorialLevel.SetActive(true);
             RoomSwitch("A7 Server Room", 0);
             RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
             foreach (var item in MainRooms)
@@ -797,8 +802,8 @@ public class GameManager : SingletonBase<GameManager>
             NPCListPanel.gameObject.SetActive(true);
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
-            MainLevelGroup.SetActive(true);
-            TutorialLevel.SetActive(false);
+            //MainLevelGroup.SetActive(true);
+            //TutorialLevel.SetActive(false);
             RoomSwitch("BedRoom_A", 0);
             RoomTracker[] MainRooms = MainLevelGroup.GetComponentsInChildren<RoomTracker>();
             foreach (var item in MainRooms)
@@ -1140,9 +1145,7 @@ public class GameManager : SingletonBase<GameManager>
             return true;
     }
 
-    //TODO 事件分发Debug
     //TODO 事件完成检测Debug
-    //Custom Condition Add Component功能移除
     void TimelineStop()
     {
         foreach (var item in Directors)
@@ -1197,18 +1200,26 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithEnemy.Spawn:
                                     break;
                                 case DoingWithEnemy.MoveTo:
+                                    for (int a = 0; a < evt.EnemyWayPoint.Count; a++)
+                                    {
+                                        if(evt.EnemyWayPoint[a].Obj.GetComponent<EnemyController>().toDoList.Count > 0)
+                                        {
+                                            HasNotFinish = true;
+                                            break;
+                                        }
+                                    }
                                     break;
                                 default:
                                     break;
                             }
                             break;
-                        case DoingWith.Dialogue:
+                        case DoingWith.Dialogue://√
                             if(evt.Dialogue_Room.DiaPlay.currentGraph == evt.Dialogue_Graph)
                             {
                                 HasNotFinish = true;
                             }
                             break;
-                        case DoingWith.Timeline:
+                        case DoingWith.Timeline://√
                             foreach (var timelines in evt.timelines)
                             {
                                 foreach (var item in Directors)
@@ -1226,7 +1237,7 @@ public class GameManager : SingletonBase<GameManager>
                                     break;
                             }
                             break;
-                        case DoingWith.Custom:
+                        case DoingWith.Custom://√
                             for (int i = 0; i < evt.CustomCode.Count; i++)
                             {
                                 if(!evt.CustomCode[i].IsEventFinish)
@@ -1303,19 +1314,19 @@ public class GameManager : SingletonBase<GameManager>
                                         }
                                     }
                                     break;
-                                case DoingWithNPC.Patrol:
+                                case DoingWithNPC.Patrol://√
                                     for (int a = 0; a < evt.NPC.Count; a++)
                                     {
                                         NPC[a].BackToPatrol();
                                     }
                                     break;
-                                case DoingWithNPC.AnimState:
+                                case DoingWithNPC.AnimState://√
                                     for (int a = 0; a < evt.NPC.Count; a++)
                                     {
-                                        NPC[a].SwitchAnimState(true, evt.AnimStateName);
+                                        NPC[a].SwitchAnimState(evt.IsAnimState, evt.AnimStateName);
                                     }
                                     break;
-                                case DoingWithNPC.Interact:
+                                case DoingWithNPC.Interact://√
                                     switch (evt.doingWithNPC_Interact)
                                     {
                                         case DoingWithNPC_Interact.InteractObject:
@@ -1335,7 +1346,7 @@ public class GameManager : SingletonBase<GameManager>
                         case DoingWith.Room:
                             //Nothing
                             break;
-                        case DoingWith.Enemy:
+                        case DoingWith.Enemy://√
                             switch (evt.doingWithEnemy)
                             {
                                 case DoingWithEnemy.Spawn:
@@ -1356,14 +1367,14 @@ public class GameManager : SingletonBase<GameManager>
                             }
                             //TODO
                             break;
-                        case DoingWith.Custom:
+                        case DoingWith.Custom://√
                             for (int a = 0; a < evt.CustomCode.Count; a++)
                             {
                                 evt.CustomCode[a].enabled = true;
                                 evt.CustomCode[a].DoEvent(null);
                             }
                             break;
-                        case DoingWith.Timeline:
+                        case DoingWith.Timeline://√
                             foreach (var item in evt.timelines)
                             {
                                 Directors.Add(new DirectorsClass() {Director = item, IsPlaying = false });
@@ -1371,7 +1382,7 @@ public class GameManager : SingletonBase<GameManager>
                                 item.time = 0.001f;
                             }
                             break;
-                        case DoingWith.Dialogue:
+                        case DoingWith.Dialogue://√
                             evt.Dialogue_Room.PlayingDialogue(evt.Dialogue_Graph);
                             break;
                         default:

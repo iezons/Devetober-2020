@@ -88,6 +88,9 @@ public class EnemyController : ControllerBased
 
     public GameObject target;
     float timer = 4;
+
+    bool isJustEnterEvent = false;
+    bool isReachDestination = false;
     #endregion
 
 
@@ -491,20 +494,55 @@ public class EnemyController : ControllerBased
 
     private void Event()
     {
-        for (int i = 0; i < toDoList.Count; i++)
+        if (isJustEnterEvent)
         {
-            EventSO evt = toDoList[0];
-            switch (evt.doingWithEnemy)
+            Debug.Log("Event");
+            isJustEnterEvent = false;
+            if (toDoList.Count > 0)
             {
-                case DoingWithEnemy.Spawn:
-                    break;
-                case DoingWithEnemy.MoveTo:
-                    
-                    break;
-                default:
-                    break;
+                EventSO evt = toDoList[0];
+                switch (evt.doingWithEnemy)
+                {
+                    case DoingWithEnemy.MoveTo:
+                        for (int i = 0; i < evt.EnemyWayPoint.Count; i++)
+                        {
+                            if (evt.EnemyWayPoint[i].Obj == gameObject)
+                            {
+                                isReachDestination = false;
+                                Dispatch(evt.EnemyWayPoint[i].MoveTO.position);
+                                Debug.Log("Dispatch");
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
-            toDoList.Remove(evt);
+        }
+        else
+        {
+            if (toDoList.Count > 0)
+            {
+                EventSO evt = toDoList[0];
+                switch (evt.doingWithEnemy)
+                {
+                    case DoingWithEnemy.MoveTo:
+                        if (isReachDestination)
+                        {
+                            toDoList.Remove(evt);
+                            isJustEnterEvent = true;
+                            Debug.Log("Reach");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        if (toDoList.Count <= 0)
+        {
+            BackToPatrol();
         }
     }
 
@@ -524,6 +562,7 @@ public class EnemyController : ControllerBased
         if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.EnemyArrive", enemyName);
+            isReachDestination = true;
             //TODO 修改NPC Arrive call的方法
             navAgent.ResetPath();
         }
@@ -543,19 +582,23 @@ public class EnemyController : ControllerBased
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(currentTerminalPos, 1);
 
-        if(hitNPCs.Length != 0 && target != null)
+        if(hitNPCs != null)
         {
-            if (isBlocked)
+            if (hitNPCs.Length != 0 && target != null)
             {
-                Gizmos.color = Color.blue;
+                if (isBlocked)
+                {
+                    Gizmos.color = Color.blue;
+                }
+                else
+                {
+                    Gizmos.color = inAngle ? Color.red : Color.green;
+                }
+
+                Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), target.transform.position + new Vector3(0, 3, 0));
             }
-            else
-            {
-                Gizmos.color = inAngle ? Color.red : Color.green;
-            }
-            
-            Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), target.transform.position + new Vector3(0, 3, 0));
         }
+        
 
         //float yAngle;
         //if (transform.eulerAngles.y > 180)

@@ -25176,26 +25176,6 @@ MonoBehaviour:
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
   m_Area: 0
---- !u!114 &774842077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774841982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_StartPoint: {x: 13.39729, y: -3.8302694e-15, z: -0.08844001}
-  m_EndPoint: {x: 10.578923, y: -4.2188475e-15, z: 0.051040906}
-  m_Width: 0
-  m_CostModifier: -1
-  m_Bidirectional: 1
-  m_AutoUpdatePosition: 0
-  m_Area: 0
 --- !u!65 &774842081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25516,6 +25496,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 12.751354, y: 4.732605, z: 12.751343}
   m_Center: {x: 1.3447943, y: -2.8446226, z: 1.3440216}
+--- !u!114 &774842129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774841982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 13.39729, y: -3.8302694e-15, z: -0.08844001}
+  m_EndPoint: {x: 10.578923, y: -4.2188475e-15, z: 0.051040906}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1001 &779302990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25601,7 +25601,10 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Output
+        node: {fileID: 1812912816}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -25620,26 +25623,8 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 271f229c-4a80-4cb4-ad39-6e9872fd5cec
   EventName: 
-  conditionSOs:
-  - ID: 80f70f9a-2aac-40b2-bfa8-e43b16df362f
-    conditionWith: 2
-    nPCConditinoWith: 0
-    NPC: []
-    nPCHPWith: 2
-    HP: 0
-    enemyConditionWith: 0
-    Enemy_Num: 2
-    OverallNumbers: 500000
-    roomConditionWith: 0
-    roomTrackers: []
-    Room_NPC_Num: 2
-    NPC_Number: 0
-    SpecificRoomNPCs: []
-    Room_Enemy_Num: 2
-    Enemy_Number: 0
-    eventTriggers: []
-    customConditions: []
-  CurrentEditingConNum: 0
+  conditionSOs: []
+  CurrentEditingConNum: -1
   eventSO:
   - ID: 9dba6a94-d798-404f-8902-4968331acc5d
     TODOList: []
@@ -49922,7 +49907,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 1895363156}
+        node: {fileID: 781134309}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -52729,7 +52714,7 @@ MonoBehaviour:
   IsInteracting: 1
   rightClickMenus: []
   inAnimState: 1
-  AnimStateName: 
+  AnimStateName: Stand with Terminal_CutScene
   status:
     npcName: Clopas Arvina
     description: 
@@ -53172,7 +53157,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 1812912816}
+        node: {fileID: 1906155080}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -53514,7 +53499,10 @@ MonoBehaviour:
       _node: {fileID: 1906155080}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 1895363156}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0

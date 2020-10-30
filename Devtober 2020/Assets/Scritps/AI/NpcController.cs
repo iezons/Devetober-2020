@@ -150,7 +150,7 @@ public class NpcController : ControllerBased
     float VelocityPosZ;
     #endregion
 
-    private void Awake()
+    public void Awake()
     {
         outline = GetComponent<Outline>();
         boxCollider = GetComponent<BoxCollider>();
@@ -205,7 +205,7 @@ public class NpcController : ControllerBased
         }
     }
 
-    private void Start()
+    public void Start()
     {
         DetectRoom();
         navAgent.speed *= status.currentStamina / 100;
@@ -222,7 +222,7 @@ public class NpcController : ControllerBased
         }
     }
 
-    private void Update()
+    public void Update()
     {
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
@@ -1936,7 +1936,7 @@ public class NpcController : ControllerBased
 
 
     #region Gizmos
-    private void OnDrawGizmosSelected()
+    public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(currentTerminalPos, 1);

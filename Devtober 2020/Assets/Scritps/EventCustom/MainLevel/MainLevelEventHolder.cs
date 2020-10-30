@@ -11,7 +11,7 @@ public class MainLevelEventHolder : MonoBehaviour
     void OnEnable()
     {
         a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; });
-        a("01_DiaTwoTrigger", () => {; });//事件机 forcemove
+        a("01_DiaTwoTrigger", () => {GameManager.GetInstance().EventForceNext(); });//事件机 forcemove
         //a("01_XantheTurnToCamera", () => {; });
         //a("01_GuardGetOut", () => {; })
     }
