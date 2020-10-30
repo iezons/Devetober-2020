@@ -1182,8 +1182,10 @@ public class GameManager : SingletonBase<GameManager>
                                 case DoingWithNPC.MoveTo:
                                     break;
                                 case DoingWithNPC.Patrol:
+
                                     break;
                                 case DoingWithNPC.AnimState:
+
                                     break;
                                 default:
                                     break;
