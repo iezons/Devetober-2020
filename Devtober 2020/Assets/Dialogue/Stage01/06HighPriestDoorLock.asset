@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6374438313886570925
+--- !u!114 &-6914528888829555395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1ff0e372f025b4a8f1f45c5ac9daf4, type: 3}
-  m_Name: 'Start: English'
+  m_Name: Start
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -459, y: -202.5}
+  position: {x: -499, y: -141.5}
   ports:
     keys:
     - Output
     values:
     - _fieldName: Output
-      _node: {fileID: -6374438313886570925}
+      _node: {fileID: -6914528888829555395}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 8229966538444308086}
+        node: {fileID: 2115875803105822855}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -41,19 +41,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8d7148b818b2e4c80b2d734163ad9a, type: 3}
-  m_Name: 03ServerSend
+  m_Name: 06HighPriestDoorLock
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 8229966538444308086}
-  - {fileID: -6374438313886570925}
+  - {fileID: -6914528888829555395}
+  - {fileID: 2115875803105822855}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
   waitingNode: {fileID: 0}
-  current: {fileID: -6374438313886570925}
+  current: {fileID: -6914528888829555395}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
---- !u!114 &8229966538444308086
+--- !u!114 &2115875803105822855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,29 +63,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": [Connecting to\u2026"
+  m_Name: ': '
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -184, y: -248}
+  position: {x: -218, y: -188.5}
   ports:
     keys:
     - Input
     - Output
     values:
     - _fieldName: Input
-      _node: {fileID: 8229966538444308086}
+      _node: {fileID: 2115875803105822855}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: -6374438313886570925}
+        node: {fileID: -6914528888829555395}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: Output
-      _node: {fileID: 8229966538444308086}
+      _node: {fileID: 2115875803105822855}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections: []
@@ -95,8 +95,6 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: 
   Dialogue:
-  - '[Connecting to <color=#00FF00>Deck02</color><sp=3>......</sp>]'
-  - '[Checking available camera<sp=3>......</sp><color=#00FF00>Deck02</color>>Camera>S90fFs12D.bin]<e=TU_ShowCameraList>'
-  - '[Sending to Deck02<sp=3>......</sp>]<e=TU_SwitchToMainLevel>'
+  - 
   curIndex: 0
   IsMax: 1
