@@ -388,7 +388,7 @@ Transform:
   - {fileID: 1219624827}
   - {fileID: 1859873034}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11652933
 MonoBehaviour:
@@ -434,6 +434,7 @@ MonoBehaviour:
   PC: {fileID: 1894213102}
   Door: {fileID: 242098887}
   HidingLocker: {fileID: 556376058}
+  HolderMKNPC: {fileID: 0}
 --- !u!4 &15625548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -1137,6 +1138,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 1
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -2391,7 +2393,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &89154439
 PrefabInstance:
@@ -6376,6 +6378,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 0
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -7429,6 +7432,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 0
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 1
@@ -7855,6 +7859,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 1
   IsPrisoner: 1
+  isGuard: 0
   NeedRemoveMenu: 0
   AnimStateName: NervousSittingOnFloor
   SendEventWhenGetOutLocker: 0
@@ -10662,6 +10667,10 @@ PrefabInstance:
       propertyPath: recoverTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: isGuard
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
@@ -10803,7 +10812,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.0017657543
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11654,6 +11663,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 1
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -19597,12 +19607,14 @@ MonoBehaviour:
   rightClickMenus: []
   type: 1
   HPRecovery: 50
-  Trigger: 0
-  room: {fileID: 0}
-  Guard: {fileID: 0}
-  graph_Xan: {fileID: 0}
-  graph_Sat: {fileID: 0}
-  graph_Mel: {fileID: 0}
+  Trigger: 1
+  room: {fileID: 774842031}
+  Guard: {fileID: 526809293}
+  holder: {fileID: 11652933}
+  graph_Xan: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
+  graph_Sat: {fileID: 11400000, guid: b74d95a7a909197458df97d7d40c62b5, type: 2}
+  graph_Mel: {fileID: 11400000, guid: a01d50bf8800f424eb4f08e343432d1f, type: 2}
+  resting: {fileID: 704790704}
 --- !u!114 &650833086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19648,51 +19660,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tracker: {fileID: 774842031}
   RoomCamera: {fileID: 341941277}
---- !u!114 &650833092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650833084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d737f8f2b279a5644a3634024b2371be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Guard: {fileID: 526809293}
-  Waypoints: []
-  evt:
-    ID: 6c76edb8-4b13-4abc-bf32-dba2fe850288
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 0
-    NPCTalking:
-    - moveToClasses:
-      - Obj: {fileID: 0}
-        MoveTO: {fileID: 1062804336}
-      room: {fileID: 774842031}
-      Graph: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  room: {fileID: 774842031}
-  graph_Xan: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
-  graph_Sat: {fileID: 11400000, guid: b74d95a7a909197458df97d7d40c62b5, type: 2}
-  graph_Mel: {fileID: 11400000, guid: a01d50bf8800f424eb4f08e343432d1f, type: 2}
 --- !u!1001 &660156913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20346,9 +20313,11 @@ MonoBehaviour:
   Trigger: 0
   room: {fileID: 0}
   Guard: {fileID: 0}
+  holder: {fileID: 0}
   graph_Xan: {fileID: 0}
   graph_Sat: {fileID: 0}
   graph_Mel: {fileID: 0}
+  resting: {fileID: 0}
 --- !u!65 &676408711
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22533,6 +22502,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 1
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -26899,6 +26869,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 1
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: 
   SendEventWhenGetOutLocker: 0
@@ -30038,6 +30009,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4047953150454302137, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
   m_PrefabInstance: {fileID: 850281135}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &941519545
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -97.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 68.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000014901161
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961936632677228374, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770421124368762348, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
+      propertyPath: m_Name
+      value: Desk (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fcc86f92b8fa1254fb91d8e523b43f08, type: 3}
 --- !u!1001 &942968144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31014,7 +31050,7 @@ Transform:
   m_Children:
   - {fileID: 633347899}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &988682380 stripped
 Transform:
@@ -31215,7 +31251,7 @@ RectTransform:
   - {fileID: 1582972964}
   - {fileID: 2992358984525537650}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -32673,6 +32709,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 0
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -35089,7 +35126,7 @@ Transform:
   m_Children:
   - {fileID: 608871010}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1168528724
 PrefabInstance:
@@ -36892,7 +36929,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1255631204
 PrefabInstance:
@@ -39160,6 +39197,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 0
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -43121,7 +43159,7 @@ Transform:
   m_Children:
   - {fileID: 1691211980}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1469597321
 GameObject:
@@ -43757,7 +43795,7 @@ Transform:
   - {fileID: 1434534453}
   - {fileID: 1375135937}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1493272246
 MonoBehaviour:
@@ -44796,6 +44834,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 2072336283}
+    - target: {fileID: 1111161785, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
+      propertyPath: code
+      value: Stoarge_02
+      objectReference: {fileID: 0}
     - target: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.171269
@@ -48709,7 +48751,7 @@ Transform:
   - {fileID: 1847160655}
   - {fileID: 1394296728}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676776610
 GameObject:
@@ -50709,6 +50751,83 @@ Transform:
   m_Father: {fileID: 1493272245}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1792442856
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: code
+      value: Stoarge_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -97.48097
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.253005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 68.569984
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 2.3396167e-24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000014901161
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -2.3396234e-24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2102132094263467128, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Name
+      value: Pc_3.34 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
 --- !u!1 &1793664219
 GameObject:
   m_ObjectHideFlags: 0
@@ -54648,6 +54767,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 1
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: 
   SendEventWhenGetOutLocker: 0
@@ -55552,7 +55672,7 @@ MonoBehaviour:
     CustomCode: []
     timelines: []
   CurrentEditingSONum: 0
-  Comment: "\u654C\u4EBA\u8FDB\u6765\u5C60\u6740"
+  Comment: Enenmy_Come in
 --- !u!4 &1906252597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3369866113205846547, guid: 6aa8f44fd6b336c42bde9c7ba35695f3, type: 3}
@@ -57669,6 +57789,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774841983}
     m_Modifications:
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: code
+      value: Stoagr_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1324844
@@ -60516,7 +60648,7 @@ MonoBehaviour:
     CustomCode: []
     timelines: []
   CurrentEditingSONum: 0
-  Comment: "\u79D1\u5B66\u5BB6\u5F00\u59CB\u5BF9\u8BDD"
+  Comment: Start Talking
 --- !u!1 &2099802201
 GameObject:
   m_ObjectHideFlags: 0
@@ -60543,13 +60675,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099802201}
-  m_LocalRotation: {x: 0.18566963, y: 0.68229526, z: -0.17257297, w: 0.6857249}
-  m_LocalPosition: {x: -10.34, y: 10.25, z: 1.02}
+  m_LocalRotation: {x: 0.1456326, y: 0.6919474, z: -0.13235852, w: 0.69460875}
+  m_LocalPosition: {x: -10.34, y: 7.65, z: 1.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 774841981}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 29.349, y: 90, z: 1.097}
+  m_LocalEulerAnglesHint: {x: 22.674, y: 90, z: 1.097}
 --- !u!81 &2099802203
 AudioListener:
   m_ObjectHideFlags: 0
@@ -61481,6 +61613,7 @@ MonoBehaviour:
   Stage: 0
   inAnimState: 0
   IsPrisoner: 0
+  isGuard: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0

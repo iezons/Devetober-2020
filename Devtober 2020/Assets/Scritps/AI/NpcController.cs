@@ -21,6 +21,7 @@ public class NpcController : ControllerBased
 
     public bool inAnimState = false;
     public bool IsPrisoner = false;
+    public bool isGuard = false;
     public bool NeedRemoveMenu = true;
     
     public string AnimStateName = string.Empty;
@@ -463,6 +464,7 @@ public class NpcController : ControllerBased
         {
             if(navAgent.isOnNavMesh)
                 navAgent.ResetPath();
+            AnimStateName = animName;
             CurrentInteractObject = null;
             CurrentInteractItem = null;
             RescuingTarget = null;
@@ -1995,7 +1997,7 @@ public class NpcController : ControllerBased
                                             SwitchPos swtich = cBord.swtich.GetComponent<SwitchPos>();
                                             swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                                         }                                       
-                                        cBord.isLocked = false;                                                                   
+                                        cBord.isLocked = false;                                                               
                                     }
                                     else
                                     {
@@ -2035,7 +2037,6 @@ public class NpcController : ControllerBased
                         status.healAmount = CurrentInteractItem.GetComponent<MedicalKit>().HPRecovery;
                     else
                         status.healAmount = CurrentInteractItem.GetComponent<DeadBox>().HPRecovery;
-                    CurrentInteractItem.NPCInteract(0);
                     InsertMenu(rightClickMenus.Count, "Heal", "Heal", true, Heal, 1 << LayerMask.NameToLayer("NPC"));
                     CurrentInteractItem.NPCInteract(0);
                     CurrentInteractItem = null;
@@ -2082,8 +2083,13 @@ public class NpcController : ControllerBased
         {
             CurrentInteractItem = null;
         }
-        if(m_fsm.GetCurrentState() != "GotAttacked")
+        if (m_fsm.GetCurrentState() != "GotAttacked" && !isGuard)
             BackToPatrol();
+        else if(!isGuard && inAnimState)
+        {
+            SwitchAnimState(true, AnimStateName);
+            isGuard = false;
+        }
     }
 
     public void FacingEachOther(bool IsFacingCamera = false)

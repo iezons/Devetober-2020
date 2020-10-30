@@ -25,6 +25,7 @@ public class MainLevelEventHolder : MonoBehaviour
     public TerminalPos PC;
     public DoorController Door;
     public HiddenPos HidingLocker;
+    public NpcController HolderMKNPC;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -61,6 +62,9 @@ public class MainLevelEventHolder : MonoBehaviour
     {
         Guard.SwitchAnimState(false);
         Guard.BackToPatrol();
+        Guard.isGuard = false;
+        HolderMKNPC.SwitchAnimState(false);
+        HolderMKNPC.BackToPatrol();
     }
 
     IEnumerator GetOut()
