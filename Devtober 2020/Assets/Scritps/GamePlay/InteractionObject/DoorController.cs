@@ -55,6 +55,8 @@ public class DoorController : ControllerBased
     public bool isOperating;
 
     public NavMeshLink Link;
+
+    public AudioSource source;
     #endregion
 
     #region Value
@@ -68,8 +70,16 @@ public class DoorController : ControllerBased
     public CBordPos cBord = null;
     #endregion
 
+    void PlayAudio( string str)
+    {
+        AudioMgr.GetInstance().PlayAudio(source, str, 1f, false, null);
+    }
+
     private void Awake()
     {
+        AudioSource[] sources = GetComponentsInChildren<AudioSource>();
+        if (sources.Length > 0)
+            source = sources[0];
         outline = GetComponent<Outline>();
         door = transform.GetChild(0).gameObject;
         navOb = door.GetComponent<NavMeshObstacle>();
@@ -91,6 +101,8 @@ public class DoorController : ControllerBased
     private void Update()
     {
         navOb.enabled = isLocked;
+        if(Link != null)
+            Link.enabled = !isLocked;
 
         Detecting();
         Operation();
@@ -162,12 +174,16 @@ public class DoorController : ControllerBased
     {
         if (isActivated() && !isLocked && !isOpened)
         {
+            if(isClosed)
+                PlayAudio("door_open");
             door.transform.position = Vector3.Lerp(door.transform.position, moveEnd + transform.position, lerpTime * Time.deltaTime);
             isOpened = moveEnd.y + transform.position.y - door.transform.position.y < 0.1f ? true : false; ;
             isClosed = false;
         }
         else if (!isActivated() && !isClosed || isLocked)
         {
+            if(isOpened)
+                PlayAudio("door_open");
             door.transform.position = Vector3.Lerp(door.transform.position, transform.position, lerpTime * Time.deltaTime);
             isOperating = door.transform.position.y - transform.position.y > 0.1f ? true : false;
             isClosed = !isOperating;
