@@ -17,6 +17,7 @@ public class EnterCafeTrigger : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+        Debug.Log("Retect");
         if(collision.gameObject.layer == LayerMask.NameToLayer("NPC") && !room.isEnemyDetected())
         {
             List<GameObject> Xan = room.NPC().FindAll((x) => x.GetComponent<NpcController>().status.npcName == "Xanthe Eburnus");
