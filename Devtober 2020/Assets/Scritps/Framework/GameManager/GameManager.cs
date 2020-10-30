@@ -856,6 +856,13 @@ public class GameManager : SingletonBase<GameManager>
                     Rooms[i].CanBeDetected = false;
                 }
             }
+            if(TriggeringEventNode != null)
+            {
+                if(TriggeringEventNode.GUID == "a30bb683-8c34-4721-ad04-06c810241ebc")
+                {
+                    EventForceNext();
+                }
+            }
             RoomSwitch("BedRoom_A", 0);
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
             SetupCameraButton();
