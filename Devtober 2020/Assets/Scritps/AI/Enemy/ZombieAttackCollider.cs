@@ -25,7 +25,7 @@ public class ZombieAttackCollider : MonoBehaviour
                         if(npcController.m_fsm.GetCurrentState() != "InteractWithItem")
                         {
                             npcController.m_fsm.ChangeState("GotAttacked");
-                            npcController.GotBitted();
+                            npcController.GotHurt();
                         }     
                         isHit = !isHit;
                     }  

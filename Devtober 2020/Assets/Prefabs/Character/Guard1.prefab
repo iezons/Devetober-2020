@@ -693,37 +693,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutlineWidth: 3
   outline: {fileID: 0}
+  AlwaysOutline: 0
   IsInteracting: 0
   rightClickMenus: []
+  NoThingTalk: {fileID: 0}
+  MedicalKit: {fileID: 0}
+  JoinIn: {fileID: 0}
+  Stage: 0
+  inAnimState: 0
+  IsPrisoner: 0
+  NeedRemoveMenu: 1
+  AnimStateName: 
+  SendEventWhenGetOutLocker: 0
   status:
     npcName: Guard1
     description: 
     maxHealth: 0
     currentHealth: 0
+    getUpHealth: 50
     maxStamina: 0
+    minStamina: 1
     currentStamina: 0
     maxCredit: 0
     currentCredit: 0
+    fixRate: 5
     toDoList: []
     CarryItem: 0
+    code: 
+    healAmount: 0
+    isStruggling: 0
+  boostSpeed: 0
+  limpingLimit: 0
+  restDistance: 0.2
   detectRay: 5
   alertRadius: 5
   bannedRadius: 5
   needDodged:
     serializedVersion: 2
     m_Bits: 1024
-  hitObjects: []
+  canBlocked:
+    serializedVersion: 2
+    m_Bits: 0
   dodgeAngle: 0
-  dodgeSpeed: 0
+  discoverAngle: 0
   restTime: 0
   recoverTime: 0
-  restDistance: 0.2
+  animator: {fileID: 0}
+  navAgent: {fileID: 0}
   currentTerminalPos: {x: 0, y: 0, z: 0}
-  wayPoints: []
+  fixTargetTransform: {fileID: 0}
   isSafe: 0
+  isEnemyChasing: 0
+  isRoomCalled: 0
+  fixTarget: {fileID: 0}
+  source: {fileID: 0}
+  audioTimer: 8
   DampPosSpeed: 0.2
   DampRotSpeed: 0.2
-  boxCollider: {fileID: 0}
+  CurrentInteractObject: {fileID: 0}
+  locatorList:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
+  locators:
+    npc: {fileID: 0}
+    Locator: {fileID: 0}
+  CurrentInteractItem: {fileID: 0}
+  HasInteract: 0
 --- !u!195 &2332106106933436952
 NavMeshAgent:
   m_ObjectHideFlags: 0

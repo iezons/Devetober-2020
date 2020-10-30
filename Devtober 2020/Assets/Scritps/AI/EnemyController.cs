@@ -94,11 +94,20 @@ public class EnemyController : ControllerBased
 
     bool isJustEnterEvent = false;
     bool isReachDestination = false;
+    public float audioTimer = 8;
+    public AudioSource source;
     #endregion
 
+    void PlayAudio(string str)
+    {
+        AudioMgr.GetInstance().PlayAudio(source, str, 1f, false, null);
+    }
 
     private void Awake()
     {
+        AudioSource[] sources = GetComponentsInChildren<AudioSource>();
+        if (sources.Length > 0)
+            source = sources[0];
         outline = GetComponent<Outline>();
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -156,10 +165,24 @@ public class EnemyController : ControllerBased
                     if (timer <= 0)
                     {
                         currentTerminalPos = NewDestination();
+                        timer = 4;
                     }
                 }
+
+                audioTimer -= Time.deltaTime;
+                if (audioTimer <= 0)
+                {
+                    PlayAudio("Enemy Idel " + UnityEngine.Random.Range(1, 4).ToString());
+                    audioTimer = 8;
+                }              
                 break;
             case "Chase":
+                audioTimer -= Time.deltaTime;
+                if (audioTimer <= 0)
+                {
+                    PlayAudio("Enemy Moans " + UnityEngine.Random.Range(1, 4).ToString());
+                    audioTimer = 6;
+                }
                 VisionCone();
                 Chasing();
                 break;
@@ -407,6 +430,8 @@ public class EnemyController : ControllerBased
                 }
                 npc.status.isStruggling = true;
                 npc.HasInteract = false;
+                PlayAudio("Enemy Moans 4");
+                npc.PlayAudio("Dead_Scream " + UnityEngine.Random.Range(1, 7).ToString());
                 m_fsm.ChangeState("Executing");
             }
             else if (npc.status.currentHealth <= executeHealth)
@@ -422,6 +447,8 @@ public class EnemyController : ControllerBased
                     GameManager.GetInstance().CurrentRoom.PlayingDialogue(PriDead);
                 }
                 npc.status.isStruggling = true;
+                PlayAudio("Enemy Moans 4");
+                npc.PlayAudio("Dead_Scream " + UnityEngine.Random.Range(1, 7).ToString());
                 m_fsm.ChangeState("Executing");
             }
             else
@@ -429,6 +456,7 @@ public class EnemyController : ControllerBased
                 animator.Play("Zombie_Attack", 0);
                 npc.navAgent.enabled = true;
                 npc.Stop(null);
+                PlayAudio("Enemy Moans " + UnityEngine.Random.Range(5, 7).ToString());
                 TriggerResting();
             }       
         }
