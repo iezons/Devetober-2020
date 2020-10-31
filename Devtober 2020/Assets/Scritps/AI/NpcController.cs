@@ -721,11 +721,6 @@ public class NpcController : ControllerBased
                 navAgent.ResetPath();
             BackToPatrol();
         }
-        else if (navAgent.autoRepath)
-        {
-            //TODO: Cant Reach Detination;
-            Debug.Log("I cant got there");
-        }
     }
     #endregion
 
