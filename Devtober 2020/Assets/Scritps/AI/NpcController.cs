@@ -169,8 +169,10 @@ public class NpcController : ControllerBased
     [HideInInspector]
     public bool HasInteract = false;
 
+    public float resetTimer;
     float VelocityPosX;
     float VelocityPosZ;
+    float timer;
     #endregion
 
     public void Awake()
@@ -188,7 +190,7 @@ public class NpcController : ControllerBased
         recordRestTimer = restTime;
         recordRecoverTimer = recoverTime;
         recordSpeed = navAgent.speed;
-
+        timer = resetTimer;
         #region StringRestrictedFiniteStateMachine
         Dictionary<string, List<string>> NPCDictionary = new Dictionary<string, List<string>>()
         {
@@ -390,7 +392,6 @@ public class NpcController : ControllerBased
                     navAgent.ResetPath();
                 break;
             case "Rescuing":
-                LimpingChange("Run");
                 RescuingProcess();
                 break;
             case "Fixing":
@@ -575,7 +576,7 @@ public class NpcController : ControllerBased
         float a = navAgent.destination.x - transform.position.x;
         float b = navAgent.destination.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        return Mathf.Abs(c);
+        return c;
     }
 
     public Vector3 NewDestination()
@@ -598,7 +599,7 @@ public class NpcController : ControllerBased
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
 
-        if (Mathf.Abs(c) < restDistance || !navAgent.CalculatePath(currentTerminalPos, path))
+        if (navAgent.autoRepath && Mathf.Abs(c) < restDistance || !navAgent.CalculatePath(currentTerminalPos, path) || !navAgent.hasPath)
         {
             currentTerminalPos = NewDestination();
         }
@@ -717,6 +718,11 @@ public class NpcController : ControllerBased
             if(navAgent.enabled)
                 navAgent.ResetPath();
             BackToPatrol();
+        }
+        else if (navAgent.autoRepath)
+        {
+            //TODO: Cant Reach Detination;
+            Debug.Log("I cant got there");
         }
     }
     #endregion
@@ -1034,6 +1040,11 @@ public class NpcController : ControllerBased
             if (navAgent.enabled)
                 navAgent.ResetPath();
         }
+        else if (navAgent.autoRepath)
+        {
+            //TODO: Cant Reach
+            Debug.Log("I cant go there");
+        }
     }
     #endregion
 
@@ -1137,7 +1148,7 @@ public class NpcController : ControllerBased
             //Heal Other
             HealingTarget = gameObj;
             navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
-            Dispatch(gameObj.transform.position);
+            Dispatch(HealingTarget.transform.position);
 
         }
         else
@@ -1159,7 +1170,11 @@ public class NpcController : ControllerBased
 
     void HealOther()
     {
-        if (Distance() < restDistance && HealingTarget != null)
+        float a = HealingTarget.transform.position.x - transform.position.x;
+        float b = HealingTarget.transform.position.z - transform.position.z;
+        float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+        Dispatch(HealingTarget.transform.position);
+        if (c < restDistance && HealingTarget != null)
         {
             bool Damping = false;
             Vector3 dir = (HealingTarget.transform.position - transform.position).normalized;
@@ -1208,6 +1223,15 @@ public class NpcController : ControllerBased
         else if (!navAgent.isOnOffMeshLink && !HasInteract)
         {
             animator.Play("Idle", 0);
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                HealingTarget = null;
+                timer = resetTimer;
+                //TODO: Cant Reach Destination
+                Debug.Log("Cant Reach Destination");
+                BackToPatrol();
+            }
         }
     }
 
@@ -1296,7 +1320,7 @@ public class NpcController : ControllerBased
 
                 NpcController target = item.GetComponent<NpcController>();
 
-                if (inAngle && !isBlocked)
+                if (!navAgent.autoRepath && inAngle && !isBlocked)
                 {
                     if (target.status.currentHealth <= 0)
                     {
@@ -1309,6 +1333,23 @@ public class NpcController : ControllerBased
                         Debug.Log("Got U");
                         target.status.isStruggling = false;
                         RescuingTarget = null;
+                        BackToPatrol();
+                    }
+                }
+                else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
+                {
+                    LimpingChange("Run");
+                }
+                else if (!navAgent.isOnOffMeshLink && !HasInteract)
+                {
+                    animator.Play("Idle", 0);
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        RescuingTarget = null;
+                        timer = resetTimer;
+                        //TODO: Cant Reach Destination
+                        Debug.Log("Cant Reach Destination");
                         BackToPatrol();
                     }
                 }
@@ -1338,7 +1379,10 @@ public class NpcController : ControllerBased
     {
         if (fixTarget != null && fixTargetTransform != null)
         {
-            if (Distance() < restDistance + 1 || !navAgent.enabled)
+            float a = fixTargetTransform.position.x - transform.position.x;
+            float b = fixTargetTransform.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            if (c < restDistance + 1 || !navAgent.enabled)
             {
                 IsInteracting = true;
                 bool Damping = false;
@@ -1490,6 +1534,16 @@ public class NpcController : ControllerBased
             else if (!navAgent.isOnOffMeshLink && !HasInteract)
             {
                 animator.Play("Idle", 0);
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    fixTarget = null;
+                    fixTargetTransform = null;
+                    timer = resetTimer;
+                    //TODO: Cant Reach Destination
+                    Debug.Log("Cant Reach Destination");
+                    BackToPatrol();
+                }
             }
         }
     }
@@ -1569,7 +1623,7 @@ public class NpcController : ControllerBased
             CurrentInteractObject = null;
             CurrentInteractItem = item;
             HasInteract = false;
-            Dispatch(gameObj.transform.position);
+            Dispatch(CurrentInteractItem.gameObject.transform.position);
             navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
             m_fsm.ChangeState("InteractWithItem");
         }
@@ -1640,7 +1694,10 @@ public class NpcController : ControllerBased
     {
         if (CurrentInteractObject != null)
         {
-            if (Distance() < restDistance || !navAgent.enabled)
+            float a = locatorList.Locator.position.x - transform.position.x;
+            float b = locatorList.Locator.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            if (c < restDistance || !navAgent.enabled)
             {
                 boxCollider.isTrigger = true;
                 IsInteracting = true;
@@ -1878,11 +1935,24 @@ public class NpcController : ControllerBased
             else if (!navAgent.isOnOffMeshLink)
             {
                 animator.Play("Idle", 0);
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    CurrentInteractObject = null;
+                    locatorList = null;
+                    timer = resetTimer;
+                    //TODO: Cant Reach Destination
+                    Debug.Log("Cant Reach Destination");
+                    BackToPatrol();
+                }
             }
         }
         else if (CurrentInteractItem != null)
         {
-            if (Distance() <= restDistance)
+            float a = CurrentInteractItem.transform.position.x - transform.position.x;
+            float b = CurrentInteractItem.transform.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            if (c <= 1)
             {
                 bool Damping = false;
                 Vector3 dir = (CurrentInteractItem.transform.position - transform.position).normalized;
@@ -1931,6 +2001,16 @@ public class NpcController : ControllerBased
             else if (!navAgent.isOnOffMeshLink && !HasInteract)
             {
                 animator.Play("Idle", 0);
+                timer -= Time.deltaTime;
+                print(timer);
+                if (timer <= 0)
+                {
+                    CurrentInteractItem = null;
+                    timer = resetTimer;
+                    //TODO: Cant Reach Destination
+                    Debug.Log("Cant Reach Destination");
+                    BackToPatrol();
+                }
             }
         }
     }
