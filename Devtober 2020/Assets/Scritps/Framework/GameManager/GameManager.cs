@@ -101,6 +101,8 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     GameObject RCButton = null;
     [SerializeField]
+    GameObject RCGoRoom = null;
+    [SerializeField]
     List<GameObject> RightClickButton = new List<GameObject>();
     [SerializeField]
     RectTransform Canvas = null;
@@ -631,7 +633,16 @@ public class GameManager : SingletonBase<GameManager>
                             {
                                 if (!based.IsInteracting)
                                 {
-                                    SetupRightClickMenu(based.rightClickMenus);
+                                    NpcController NPC = based as NpcController;
+                                    if(NPC == null)
+                                    {
+                                        SetupRightClickMenu(based.rightClickMenus);
+                                    }
+                                    else
+                                    {
+                                        SetupGoToRoom(NPC);
+                                        SetupRightClickMenu(based.rightClickMenus);
+                                    }
                                 }
                             }
                         }
@@ -659,14 +670,20 @@ public class GameManager : SingletonBase<GameManager>
                 }
                 
             }
-            else
+            else if(CurrentRoom.isEnemyDetected())
             {
-                //TODO: Esc Hide
                 RightClickMenus Esc = new RightClickMenus { unchangedName = "All Escape", functionName = "All Escape", NeedTarget = false };
                 Esc.function += RoomEscaping;
                 RightClickMenus Hide = new RightClickMenus { unchangedName = "All Hide", functionName = "All Hide", NeedTarget = false };
                 Hide.function += RoomHideIn;
                 SetupRightClickMenu(new List<RightClickMenus>() { Esc, Hide });
+                //RightClickMenuPanel.gameObject.SetActive(false);
+            }
+            else
+            {
+                RightClickMenus Hide = new RightClickMenus { unchangedName = "All Hide", functionName = "All Hide", NeedTarget = false };
+                Hide.function += RoomHideIn;
+                SetupRightClickMenu(new List<RightClickMenus>() { Hide });
                 //RightClickMenuPanel.gameObject.SetActive(false);
             }
 
@@ -888,6 +905,20 @@ public class GameManager : SingletonBase<GameManager>
         char[] cha = str.ToCharArray();
         Array.Reverse(cha);
         return new string(cha);
+    }
+
+    void SetupGoToRoom(NpcController NPC)
+    {
+        foreach (var item in CurrentRoom.AvailableRoom)
+        {
+            if (item.CanBeDetected)
+            {
+                GameObject obj = Instantiate(RCGoRoom);
+                obj.transform.SetParent(RightClickMenuPanel, false);
+                obj.GetComponent<RoomButton>().tracker = item;
+                obj.GetComponent<RoomButton>().ctrl = NPC;
+            }
+        }
     }
 
     void SetupRightClickMenu(List<RightClickMenus> menus)
