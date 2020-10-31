@@ -633,8 +633,9 @@ public class GameManager : SingletonBase<GameManager>
                                     }
                                     else
                                     {
-                                        SetupGoToRoom(NPC);
+                                        Debug.Log("NPC");
                                         SetupRightClickMenu(based.rightClickMenus);
+                                        SetupGoToRoom(NPC);
                                     }
                                 }
                             }
@@ -651,9 +652,19 @@ public class GameManager : SingletonBase<GameManager>
                                 {
                                     if (baseds[0].rightClickMenus.Count >= 0)
                                     {
-                                        if (!based.IsInteracting)
+                                        if (!baseds[0].IsInteracting)
                                         {
-                                            SetupRightClickMenu(baseds[0].rightClickMenus);
+                                            NpcController NPC = baseds[0] as NpcController;
+                                            if (NPC == null)
+                                            {
+                                                SetupRightClickMenu(based.rightClickMenus);
+                                            }
+                                            else
+                                            {
+                                                Debug.Log("NPC");
+                                                SetupRightClickMenu(based.rightClickMenus);
+                                                SetupGoToRoom(NPC);
+                                            }
                                         }
                                     }
                                 }
@@ -904,12 +915,16 @@ public class GameManager : SingletonBase<GameManager>
     {
         foreach (var item in CurrentRoom.AvailableRoom)
         {
+            Debug.Log("Ava");
             if (item.CanBeDetected)
             {
+                Debug.Log("Insta");
                 GameObject obj = Instantiate(RCGoRoom);
+                RightClickButton.Add(obj);
                 obj.transform.SetParent(RightClickMenuPanel, false);
                 obj.GetComponent<RoomButton>().tracker = item;
                 obj.GetComponent<RoomButton>().ctrl = NPC;
+                obj.GetComponent<RoomButton>().AfterInstantiate();
             }
         }
     }

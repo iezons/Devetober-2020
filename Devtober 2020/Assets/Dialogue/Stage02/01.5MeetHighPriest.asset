@@ -1,0 +1,252 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3947329852265172845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Gregorius Balbus: Don't you guys\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -820.1164, y: 74.012726}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -3947329852265172845}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 2762347623597521950}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -3947329852265172845}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -885040527056823139}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius Balbus
+  Dialogue:
+  - 'Don''t you guys know the Serena''s voice offline few days ago? '
+  - "The only way to leave here is to sending out message through Serena\u2018 voice. "
+  - 'The serena''s voice is been lock in the room behind storage room. We need to
+    find a key and let it online again. '
+  - 'So that we can get some help from other decks or rescue teams. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-2549637674282319276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Gregorius Balbus: Finally, my pr\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -920, y: -360}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -2549637674282319276}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 1434388577367593324}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -2549637674282319276}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 2762347623597521950}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Gregorius Balbus
+  Dialogue:
+  - Finally, my prayers worked.
+  - 'Someone is here. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &-885040527056823139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: '<Common>: Alright. '
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -428.83206, y: 75.52356}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -885040527056823139}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -3947329852265172845}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -885040527056823139}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: <Common>
+  Dialogue:
+  - 'Alright. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8d7148b818b2e4c80b2d734163ad9a, type: 3}
+  m_Name: 01.5MeetHighPriest
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 1434388577367593324}
+  - {fileID: -2549637674282319276}
+  - {fileID: 2762347623597521950}
+  - {fileID: -3947329852265172845}
+  - {fileID: -885040527056823139}
+  dialogueNode: {fileID: 0}
+  optionNode: {fileID: 0}
+  startNode: {fileID: 0}
+  waitingNode: {fileID: 0}
+  current: {fileID: 1434388577367593324}
+  DiaPlay: {fileID: 0}
+  IsWaiting: 0
+--- !u!114 &1434388577367593324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1ff0e372f025b4a8f1f45c5ac9daf4, type: 3}
+  m_Name: 'Start: English'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1176, y: -360}
+  ports:
+    keys:
+    - Output
+    values:
+    - _fieldName: Output
+      _node: {fileID: 1434388577367593324}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -2549637674282319276}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  Language: English
+--- !u!114 &2762347623597521950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "<Common>: Come with me i\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -550.9064, y: -341.67725}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 2762347623597521950}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -2549637674282319276}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 2762347623597521950}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -3947329852265172845}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: <Common>
+  Dialogue:
+  - 'Come with me if you wanna suvive. '
+  curIndex: 0
+  IsMax: 1
