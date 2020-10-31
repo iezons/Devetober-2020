@@ -1944,7 +1944,7 @@ public class NpcController : ControllerBased
             float a = CurrentInteractItem.transform.position.x - transform.position.x;
             float b = CurrentInteractItem.transform.position.z - transform.position.z;
             float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-            if (c <= 1)
+            if (c <= restDistance)
             {
                 bool Damping = false;
                 Vector3 dir = (CurrentInteractItem.transform.position - transform.position).normalized;

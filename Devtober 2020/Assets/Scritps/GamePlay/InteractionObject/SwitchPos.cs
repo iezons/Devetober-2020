@@ -23,7 +23,7 @@ public class SwitchPos : Interact_SO
                     AddMenu("SwtichState", "UnLock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
             }
         }
-        else
+        else if(door != null)
         {
             if (!door.isLocked)
                 AddMenu("SwtichState", "Lock Door", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));

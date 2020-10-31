@@ -5722,7 +5722,7 @@ PrefabInstance:
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: cBord
       value: 
-      objectReference: {fileID: 1810779368}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: maxHealth
       value: 100
@@ -5829,17 +5829,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
---- !u!114 &325404440 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
-  m_PrefabInstance: {fileID: 325404437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &325404444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8664022255555179069, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
@@ -9261,7 +9250,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -24467,7 +24456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8664022255555179069, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24710,6 +24699,7 @@ MonoBehaviour:
   InteractText: {fileID: 1883270240}
   RightClickMenuPanel: {fileID: 1582972964}
   RCButton: {fileID: 3319980946669896904, guid: a013ce12d3c777f40a089d16a745b958, type: 3}
+  RCGoRoom: {fileID: 0}
   RightClickButton: []
   Canvas: {fileID: 995099843}
   NPCListPanel: {fileID: 732592358}
@@ -27791,7 +27781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74975, y: 0}
+  m_AnchoredPosition: {x: 87.74981, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -32141,7 +32131,7 @@ PrefabInstance:
     - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
       propertyPath: door
       value: 
-      objectReference: {fileID: 325404440}
+      objectReference: {fileID: 0}
     - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
       propertyPath: maxHealth
       value: 100
@@ -32153,7 +32143,7 @@ PrefabInstance:
     - target: {fileID: 6847339850785239448, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
       propertyPath: cBord
       value: 
-      objectReference: {fileID: 1810779368}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66604d5f3f4cb3249a833590525f5805, type: 3}
 --- !u!1 &1515761515
@@ -38647,8 +38637,8 @@ MonoBehaviour:
   isFixing: 0
   isLocked: 0
   code: 
-  door: {fileID: 325404440}
-  swtich: {fileID: 1958165744}
+  door: {fileID: 0}
+  swtich: {fileID: 0}
 --- !u!114 &1810779369
 MonoBehaviour:
   m_ObjectHideFlags: 0
