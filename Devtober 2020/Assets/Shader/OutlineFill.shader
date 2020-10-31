@@ -1,12 +1,4 @@
-﻿//
-//  OutlineFill.shader
-//  QuickOutline
-//
-//  Created by Chris Nolet on 2/21/18.
-//  Copyright © 2018 Chris Nolet. All rights reserved.
-//
-
-Shader "Custom/Outline Fill" {
+﻿Shader "Custom/Outline Fill" {
   Properties {
     [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
 
@@ -64,7 +56,8 @@ Shader "Custom/Outline Fill" {
         UNITY_SETUP_INSTANCE_ID(input);
         UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-        float3 normal = any(input.smoothNormal) ? input.smoothNormal : input.normal;
+        //float3 normal = any(input.smoothNormal) ? input.smoothNormal : input.normal;
+        float3 normal = input.normal;
         float3 viewPosition = UnityObjectToViewPos(input.vertex);
         //viewPosition = floor(viewPosition * _GeoRes) / _GeoRes;
         float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, normal));

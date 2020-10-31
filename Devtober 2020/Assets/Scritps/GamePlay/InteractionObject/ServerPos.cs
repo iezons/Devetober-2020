@@ -5,7 +5,8 @@ using UnityEngine;
 public class ServerPos : Interact_SO
 {
     public bool isUnlocked = false;
-    public GameObject light;
+    public List<GameObject> RedLight;
+    public List<GameObject> GreenLight;
     private void Awake()
     {
         outline = GetComponent<Outline>();
@@ -14,15 +15,32 @@ public class ServerPos : Interact_SO
 
     private void Update()
     {
-        if (light != null)
+        if (RedLight != null && GreenLight != null)
         {
             if (isUnlocked)
             {
-                light.SetActive(false);
+                foreach (var item in RedLight)
+                {
+                    item.SetActive(false);
+                }
+                foreach (var item in GreenLight)
+                {
+                    item.SetActive(true);
+                }
                 IsInteracting = true;
             }
             else
-                light.SetActive(true);
+            {
+                foreach (var item in RedLight)
+                {
+                    item.SetActive(true);
+                }
+                foreach (var item in GreenLight)
+                {
+                    item.SetActive(false);
+                }
+
+            }
         }
     }
 }
