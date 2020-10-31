@@ -1943,6 +1943,18 @@ public class NpcController : ControllerBased
                     {
                         ServerPos server = CurrentInteractObject as ServerPos;
                         server.isUnlocked = true;
+                        if (server.RedLight != null && server.GreenLight != null)
+                        {
+                            foreach (var item in server.RedLight)
+                            {
+                                item.SetActive(false);
+                            }
+                            foreach (var item in server.GreenLight)
+                            {
+                                item.SetActive(true);
+                            }
+                        }
+                        server.IsInteracting = true;
                         Debug.Log("Server unlocked");
                         status.CarryItem = Item_SO.ItemType.None;
                     }
@@ -1959,27 +1971,31 @@ public class NpcController : ControllerBased
                     }
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     boxCollider.size = recordColliderSize;
+                    CurrentInteractObject.IsInteracting = false;
                     isSafe = false;
                     break;
                 case Interact_SO.InteractType.Box:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Hide In", "Hide In", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     isSafe = false;
+                    CurrentInteractObject.IsInteracting = false;
                     break;
                 case Interact_SO.InteractType.Bed:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    CurrentInteractObject.IsInteracting = false;
                     break;
                 case Interact_SO.InteractType.Chair:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "RestIn", "RestIn", true, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                     CurrentInteractObject.GetComponent<BoxCollider>().size = CurrentInteractObject.recordColliderSize;
                     CurrentInteractObject.GetComponent<BoxCollider>().center = CurrentInteractObject.recordColliderCenter;
                     boxCollider.size = recordColliderSize;
+                    CurrentInteractObject.IsInteracting = false;
                     break;
                 case Interact_SO.InteractType.Terminal:
                     CurrentInteractObject.RemoveAndInsertMenu("Leave", "Operate", "Operate", false, CurrentInteractObject.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+                    CurrentInteractObject.IsInteracting = false;
                     if (status.CarryItem != Item_SO.ItemType.None)
                     {
-                        Debug.Log("I dont have place to get this");
-                        CurrentInteractObject.IsInteracting = false;
+                        Debug.Log("I dont have place to get this");                      
                         break;
                     }
                     else
@@ -1994,7 +2010,6 @@ public class NpcController : ControllerBased
                             status.CarryItem = Item_SO.ItemType.Key;
                             status.code = terminal.code;
                             terminal.code = "";
-                            CurrentInteractObject.IsInteracting = false;
                         }
                     }
                     break;
