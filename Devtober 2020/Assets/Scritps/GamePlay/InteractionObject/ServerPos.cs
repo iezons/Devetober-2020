@@ -12,5 +12,4 @@ public class ServerPos : Interact_SO
         outline = GetComponent<Outline>();
         AddMenu("Operate", "Operate", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
     }
-
 }
