@@ -25,14 +25,14 @@ public class AudioMgr : SingletonBase<AudioMgr>
 
     void Update()
     {
-        for(int i = SoundList.Count - 1; i >= 0; --i)
-        {
-            if(SoundList[i].isPlaying)
-            {
-                GameObject.Destroy(SoundList[i]);
-                SoundList.RemoveAt(i);
-            }
-        }
+        //for(int i = SoundList.Count - 1; i >= 0; --i)
+        //{
+        //    if(SoundList[i].isPlaying)
+        //    {
+        //        GameObject.Destroy(SoundList[i]);
+        //        SoundList.RemoveAt(i);
+        //    }
+        //}
     }
 
     /// <summary>
@@ -216,12 +216,17 @@ public class AudioMgr : SingletonBase<AudioMgr>
         {
             if(IsLoop)
             {
-                source.clip = Clip;
-                source.volume = v;
-                BGMusic.loop = IsLoop;
-                source.Play();
-                SoundList.Add(source);
-                callback?.Invoke(source);
+                AudioSource s = SoundList.Find((x) => { return x.clip.name == name; });
+                if (s != null)
+                {
+                    Debug.Log("Audio Play");
+                    source.clip = Clip;
+                    source.volume = v;
+                    source.loop = IsLoop;
+                    source.Play();
+                    SoundList.Add(source);
+                    callback?.Invoke(source);
+                }
             }
             else
             {

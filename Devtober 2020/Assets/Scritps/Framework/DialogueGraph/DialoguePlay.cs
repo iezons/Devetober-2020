@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using GamePlay;
 using System.Text.RegularExpressions;
 using System.Linq;
+using TreeEditor;
 
 public enum DiaState
 {
@@ -31,6 +32,7 @@ public class DialoguePlay : MonoBehaviour
     public string Language = "English";
     public DiaState d_state = DiaState.OFF;
     public NodeState n_state = NodeState.Start;
+    public string CurrentTalkingPerson;
     [Header("Settings")]
     public float TextSpeed = 18;
     [Header("Runtime Var")]
@@ -51,8 +53,6 @@ public class DialoguePlay : MonoBehaviour
     float ChangedTypingSpeed = 0f;
     bool IsMuting = false;
     Dictionary<int, List<string>> EventList = new Dictionary<int, List<string>>();
-
-    AudioSource sourceCache;
 
 
     void Awake()
@@ -232,10 +232,7 @@ public class DialoguePlay : MonoBehaviour
                 MaxVisible++;
                 if(!IsMuting)
                 {
-                    if(!AudioMgr.GetInstance().IsAudioPlaying("Talking long", true))
-                    {
-                        AudioMgr.GetInstance().PlayAudio(sourceCache, "Talking long", 0.5f, true, null);
-                    }
+                    
                 }
             }
 

@@ -442,6 +442,9 @@ public class EnemyController : ControllerBased
                     }
                 }
                 npc.CompleteGetOutItemAction();
+                npc.Flashing = false;
+                npc.SetOutline(false);
+                npc.outline.OutlineWidth = 0;
                 npc.animator.Play("Got Bite", 0);
                 if (npc.IsPrisoner)
                 {
@@ -588,7 +591,6 @@ public class EnemyController : ControllerBased
                                 isReachDestination = false;
                                 animator.Play("Zombie_Walk");
                                 Dispatch(evt.EnemyWayPoint[i].MoveTO.position);
-                                //TODO: 走路动画
                                 Debug.Log("Dispatch");
                             }
                         }
