@@ -32,6 +32,8 @@ public class MedicalKit : Item_SO
                 xannpc.AnimStateName = "Talking2";
                 holder.HolderMKNPC = xannpc;
                 room.DiaPlay.PlayDia(graph_Xan);
+                xannpc.FacingEachOtherCoro(Guard.transform);
+                Guard.FacingEachOtherCoro(xannpc.transform);
             }
             else if (Sat.Count > 0)
             {
@@ -43,6 +45,8 @@ public class MedicalKit : Item_SO
                 satnpc.AnimStateName = "Talking2";
                 holder.HolderMKNPC = satnpc;
                 room.DiaPlay.PlayDia(graph_Sat);
+                satnpc.FacingEachOtherCoro(Guard.transform);
+                Guard.FacingEachOtherCoro(satnpc.transform);
             }
             else if (Mel.Count > 0)
             {
@@ -54,6 +58,8 @@ public class MedicalKit : Item_SO
                 melnpc.AnimStateName = "Talking2";
                 holder.HolderMKNPC = melnpc;
                 room.DiaPlay.PlayDia(graph_Mel);
+                melnpc.FacingEachOtherCoro(Guard.transform);
+                Guard.FacingEachOtherCoro(melnpc.transform);
             }
             EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
         }

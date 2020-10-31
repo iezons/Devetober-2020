@@ -464,11 +464,12 @@ public class NpcController : ControllerBased
 
     public void SwitchAnimState(bool inState, string animName = "")
     {
+        inAnimState = inState;
+        AnimStateName = animName;
         if (inState)
         {
             if(navAgent.isOnNavMesh)
                 navAgent.ResetPath();
-            AnimStateName = animName;
             CurrentInteractObject = null;
             CurrentInteractItem = null;
             RescuingTarget = null;
@@ -979,7 +980,6 @@ public class NpcController : ControllerBased
         if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.NPCArrive", status.npcName);
-            //TODO 修改NPC Arrive call的方法
             if (navAgent.enabled)
                 navAgent.ResetPath();
         }
@@ -2191,6 +2191,39 @@ public class NpcController : ControllerBased
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
         }
+    }
+
+    public void FacingEachOtherCoro(Transform tran)
+    {
+        StartCoroutine(FacingEachOtherCoro(tran.position));
+
+    }
+
+    public void FacingEachOtherCoro()
+    {
+        Vector3  dir = (currentRoomTracker.cameraLists[currentRoomTracker.CurrentCameraIndex].roomCamera.gameObject.transform.position - transform.position).normalized;
+        StartCoroutine(FacingEachOtherCoro(dir));
+    }
+
+    IEnumerator FacingEachOtherCoro(Vector3 dir)
+    {
+        bool Damping = true;
+        dir.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(dir);
+        while (Damping)
+        {
+            if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
+                Damping = true;
+            }
+            else
+            {
+                Damping = false;
+            }
+            yield return null;
+        }
+        
     }
     #endregion
 

@@ -46,6 +46,7 @@ public class DialoguePlay : MonoBehaviour
     bool IsWaitingTime = false;
     float AlreadyWaitTime = 0f;
     bool IsTypingSpeed = false;
+    [SerializeField]
     float DefaultTypingSpeed = 0f;
     float ChangedTypingSpeed = 0f;
     bool IsMuting = false;

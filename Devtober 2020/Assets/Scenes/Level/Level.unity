@@ -408,7 +408,7 @@ MonoBehaviour:
   hide: {fileID: 1476977625}
   Xan: {fileID: 323711741}
   Prisoner: {fileID: 391390200}
-  graph03: {fileID: 11400000, guid: f15749468fceb4042a2fe6960793f67e, type: 2}
+  Graph01: {fileID: 0}
   NPCTalking:
     ID: 797d4848-3e2a-4c73-842a-5a93b9cd271b
     TODOList: []
@@ -435,8 +435,10 @@ MonoBehaviour:
   Door: {fileID: 242098887}
   HidingLocker: {fileID: 556376058}
   HolderMKNPC: {fileID: 0}
-  Priest: {fileID: 0}
+  Priest: {fileID: 1333547498}
   resting: {fileID: 704790704}
+  Graph03: {fileID: 11400000, guid: 3b8a5c82ad82aca45aadbf2f52e42889, type: 2}
+  PriestGetOutRoom: {fileID: 774842013}
 --- !u!4 &15625548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -2113,7 +2115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: detectRange.x
@@ -8614,7 +8616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -10926,7 +10928,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.0017657543
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12844,7 +12846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -23561,6 +23563,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23670,6 +23673,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23780,6 +23784,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23890,6 +23895,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24000,6 +24006,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24112,6 +24119,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24221,6 +24229,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24330,6 +24339,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24446,6 +24456,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24553,6 +24564,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24683,6 +24695,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24800,6 +24813,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24910,6 +24924,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25020,6 +25035,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25131,6 +25147,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25242,6 +25259,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &774842054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28930,7 +28948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -30500,7 +30518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -31263,7 +31281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: detectRange.x
@@ -32276,6 +32294,10 @@ PrefabInstance:
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: currentHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: lerpTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
@@ -35676,7 +35698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d8b9fc4ad028f4986c626f3c55c8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 0
+  DebugMode: 1
   surface: {fileID: 1469452025}
   builder: {fileID: 0}
   MoveLeft: a
@@ -38288,7 +38310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -38554,7 +38576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: lerpTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: detectRange.x
@@ -40564,7 +40586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -40856,7 +40878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: detectRange.x
@@ -43559,6 +43581,10 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
+      propertyPath: lerpTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: m_Name
       value: Wall_Door (1) 1
@@ -44770,6 +44796,7 @@ MonoBehaviour:
   MaxVisible: 0
   WordCount: 0
   WaitingTime: 0.5
+  DefaultTypingSpeed: 0
 --- !u!114 &1493272249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51958,7 +51985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -52163,7 +52190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x
@@ -58809,6 +58836,10 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
+      propertyPath: lerpTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6706586657627770405, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: m_Name
       value: DoubleSizeDoor (1)
@@ -59102,7 +59133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: lerpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
       propertyPath: detectRange.x

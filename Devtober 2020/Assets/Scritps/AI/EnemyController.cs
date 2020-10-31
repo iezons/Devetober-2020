@@ -586,6 +586,7 @@ public class EnemyController : ControllerBased
                             if (evt.EnemyWayPoint[i].Obj == gameObject)
                             {
                                 isReachDestination = false;
+                                animator.Play("Zombie_Walk");
                                 Dispatch(evt.EnemyWayPoint[i].MoveTO.position);
                                 //TODO: 走路动画
                                 Debug.Log("Dispatch");
