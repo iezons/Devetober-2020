@@ -52,6 +52,8 @@ public class DialoguePlay : MonoBehaviour
     bool IsMuting = false;
     Dictionary<int, List<string>> EventList = new Dictionary<int, List<string>>();
 
+    AudioSource sourceCache;
+
 
     void Awake()
     {
@@ -230,7 +232,10 @@ public class DialoguePlay : MonoBehaviour
                 MaxVisible++;
                 if(!IsMuting)
                 {
-                    //Play Voice
+                    if(!AudioMgr.GetInstance().IsAudioPlaying("Talking long", true))
+                    {
+                        AudioMgr.GetInstance().PlayAudio(sourceCache, "Talking long", 0.5f, true, null);
+                    }
                 }
             }
 

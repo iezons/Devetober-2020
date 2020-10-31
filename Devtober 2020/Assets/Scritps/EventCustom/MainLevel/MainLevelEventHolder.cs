@@ -36,7 +36,7 @@ public class MainLevelEventHolder : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; });
+        a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; NPC_SP.Flashing = true; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
         a("01_ChefOut", () => { hide.IsInteracting = false; Prisoner.Stage = 1; });
         a("01_PriPatrol", () => {NPC_SP.SwitchAnimState(false); NPC_SP.RemoveMenu("Talking"); NPC_SP.BackToPatrol(); });

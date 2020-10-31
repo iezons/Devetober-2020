@@ -25,7 +25,10 @@ public class NpcController : ControllerBased
     public bool isGrabbingGuardName = false;
     public bool isPrristNeedHeal = false;
     public bool NeedRemoveMenu = true;
-    
+    public bool Flashing;
+    public float FlashingSpeed;
+    bool IsIncreaseing;
+
     public string AnimStateName = string.Empty;
     public bool SendEventWhenGetOutLocker = false;
 
@@ -265,8 +268,27 @@ public class NpcController : ControllerBased
                 EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
             }
         }
+
+        if (Flashing)
+        {
+            AlwaysOutline = true;
+            SetOutline(true);
+            if (outline.OutlineWidth - Time.deltaTime <= 0f)
+                IsIncreaseing = true;
+            else if (outline.OutlineWidth + Time.deltaTime >= OutlineWidth)
+                IsIncreaseing = false;
+
+            if (IsIncreaseing)
+            {
+                outline.OutlineWidth += Time.deltaTime * FlashingSpeed;
+            }
+            else
+            {
+                outline.OutlineWidth -= Time.deltaTime * FlashingSpeed;
+            }
+        }
         #endregion
-        if(m_fsm.GetCurrentState() != "Anim")
+        if (m_fsm.GetCurrentState() != "Anim")
         {
             audioTimer -= Time.deltaTime;
             CheckEvent();
@@ -514,6 +536,7 @@ public class NpcController : ControllerBased
     #region Move
     public void BackToPatrol(object obj = null)
     {
+        TalkingStop();
         restTime = recordRestTimer;
         navAgent.speed = recordSpeed;
         currentTerminalPos = NewDestination();
@@ -878,6 +901,7 @@ public class NpcController : ControllerBased
                 break;
             case (1):
                 animator.Play("Talking2", 0);
+                
                 break;
             case (2):
                 animator.Play("Talking3", 0);
@@ -885,6 +909,26 @@ public class NpcController : ControllerBased
             default:
                 break;
         }
+    }
+
+    public void Talking1()
+    {
+        AudioMgr.GetInstance().PlayAudio(source, "Talking long", 0.5f, true, null);
+    }
+
+    public void Talking2()
+    {
+        AudioMgr.GetInstance().PlayAudio(source, "Talking_long_VG", 0.5f, true, null);
+    }
+
+    public void Talking3()
+    {
+        AudioMgr.GetInstance().PlayAudio(source, "Talking_long_VG", 0.5f, true, null);
+    }
+
+    public void TalkingStop()
+    {
+        source.Stop();
     }
 
     private void Event()
@@ -1128,6 +1172,19 @@ public class NpcController : ControllerBased
             else if (HealingTarget.GetComponent<NpcController>().m_fsm.GetCurrentState() == "Rest")
             {
                 animator.Play("Squat Heal Other", 0);
+                if (isPrristNeedHeal)
+                {
+                    HealingTarget.GetComponent<NpcController>().navAgent.ResetPath();
+                    HealingTarget.GetComponent<NpcController>().AnimStateName = "Talking1";
+                    HealingTarget.GetComponent<NpcController>().inAnimState = true;
+                    HealingTarget.GetComponent<NpcController>().IsInteracting = true;
+                    HealingTarget.GetComponent<NpcController>().FacingEachOtherCoro(transform);
+                    navAgent.ResetPath();
+                    AnimStateName = "Talking2";
+                    inAnimState = true;
+                    IsInteracting = true;
+                    FacingEachOtherCoro(HealingTarget.transform);
+                }
             }
             else
             {
@@ -1429,6 +1486,8 @@ public class NpcController : ControllerBased
     #region Receive Call
     public void ReceiveInteractCall(object obj)
     {
+        Flashing = false;
+        outline.OutlineWidth = 0;
         if (navAgent.enabled)
         {
             GameObject gameObj = (GameObject)obj;

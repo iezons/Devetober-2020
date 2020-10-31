@@ -11,7 +11,7 @@ public class AudioMgr : SingletonBase<AudioMgr>
     private float BGMVolume = 1;
 
     public GameObject SoundObj = null;
-    private List<AudioSource> SoundList = new List<AudioSource>();
+    public List<AudioSource> SoundList = new List<AudioSource>();
     public List<AudioClip> audios = new List<AudioClip>();
 
     private void Awake()
@@ -279,6 +279,19 @@ public class AudioMgr : SingletonBase<AudioMgr>
             SoundList.Remove(source);
             source.Stop();
             GameObject.Destroy(source);
+        }
+    }
+
+    public bool IsAudioPlaying(string name, bool isLoop)
+    {
+        AudioSource s = SoundList.Find((x) => { return (x.isPlaying == true && x.clip.name == name && x.loop == isLoop); });
+        if (s != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
