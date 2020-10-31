@@ -102,8 +102,10 @@ public class DialoguePlay : MonoBehaviour
                     {
                         TextSpeed = DefaultTypingSpeed;
                     }
-                    if(IsWaitingTime && !DebugMode)
+                    if(IsWaitingTime)
                     {
+                        if (DebugMode)
+                            AlreadyWaitTime = WaitingTime;
                         if(AlreadyWaitTime >= WaitingTime)
                         {
                             AlreadyWaitTime = 0f;
