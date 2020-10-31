@@ -14,6 +14,14 @@ public class MedicalKit : Item_SO
     public DialogueGraph graph_Xan;
     public DialogueGraph graph_Sat;
     public DialogueGraph graph_Mel;
+    public MeshRenderer rende;
+    public BoxCollider coll;
+
+    private void Awake()
+    {
+        rende = GetComponent<MeshRenderer>();
+        coll = GetComponent<BoxCollider>();
+    }
 
     public override void NPCInteract(int InteractWay = 0)
     {
@@ -63,7 +71,9 @@ public class MedicalKit : Item_SO
             }
             EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
         }
-        Destroy(gameObject);
+        coll.enabled = false;
+        rende.enabled = false;
+        Destroy(gameObject, 2f);
     }
 
     void OnEnable()
