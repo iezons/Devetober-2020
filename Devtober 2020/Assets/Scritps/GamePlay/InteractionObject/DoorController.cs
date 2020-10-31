@@ -89,7 +89,6 @@ public class DoorController : ControllerBased
         door = transform.GetChild(0).gameObject;
         navOb = door.GetComponent<NavMeshObstacle>();
         recordLockTime = lockTime;
-        isNPCCalled = false;
     }
 
     private void Start()

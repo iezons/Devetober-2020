@@ -368,7 +368,11 @@ public class DialoguePlay : MonoBehaviour
         WaitingNode wat = currentGraph.current as WaitingNode;
         if (dia != null)
         {
-            LoadText(dia.TalkingPerson, dia.Dialogue[dia.curIndex]);
+            if(dia.TalkingPerson != "<Common>")
+            {
+                CurrentTalkingPerson = dia.TalkingPerson;
+            }
+            LoadText(CurrentTalkingPerson, dia.Dialogue[dia.curIndex]);
             n_state = NodeState.Dialogue;
             GoToSTATE(DiaState.TYPING);
         }

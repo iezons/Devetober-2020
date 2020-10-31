@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using DiaGraph;
+using EvtGraph;
+using GamePlay;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ public class CBordPos : Interact_SO
 
     public DoorController door = null;
     public SwitchPos swtich = null;
+    
     private void Awake()
     {
         outline = GetComponent<Outline>();
@@ -39,7 +43,7 @@ public class CBordPos : Interact_SO
                 RemoveAndInsertMenu("Operate", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
                 isPowerOff = true;
             }
-        }      
+        }
     }
 
     void SendFixingNPC(object obj)

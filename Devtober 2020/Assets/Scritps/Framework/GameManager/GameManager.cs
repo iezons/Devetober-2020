@@ -145,6 +145,7 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Audio")]
     public AudioSource Audio2D;
+    public AudioSource Talking2DSource;
     public AudioClip TalkingAudio;
     bool AllowAudio = false;
     [Header("Server")]
@@ -399,19 +400,19 @@ public class GameManager : SingletonBase<GameManager>
         if ((CurrentRoom.DiaPlay.d_state == DiaState.TYPING && CurrentRoom.DiaPlay.CurrentTalkingPerson != "") || IsTalking)
         {
             Debug.Log("Talking1");
-            if(!Audio2D.isPlaying)
+            if(!Talking2DSource.isPlaying)
             {
-                Audio2D.loop = true;
-                Audio2D.volume = 0.5f;
-                Audio2D.Play();
+                Talking2DSource.loop = true;
+                Talking2DSource.volume = 0.2f;
+                Talking2DSource.Play();
             }
         }
-        else if(Audio2D.isPlaying)
+        else if(Talking2DSource.isPlaying)
         {
             Debug.Log("Talking stop");
-            if (Audio2D.isPlaying && Audio2D.clip == TalkingAudio)
+            if (Talking2DSource.isPlaying && Talking2DSource.clip == TalkingAudio)
             {
-                Audio2D.Pause();
+                Talking2DSource.Pause();
             }
         }
         #endregion
