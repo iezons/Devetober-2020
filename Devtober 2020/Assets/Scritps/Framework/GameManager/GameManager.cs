@@ -47,9 +47,6 @@ public class GameManager : SingletonBase<GameManager>
 {
     [Header("Debug Mode")]
     public bool DebugMode = false;
-    [Header("navMesh")]
-    public NavMeshSurface surface;
-    public LocalNavMeshBuilder builder;
 
     [Header("Input")]
     public string MoveLeft;
@@ -182,7 +179,15 @@ public class GameManager : SingletonBase<GameManager>
         else
             RoomSwitch("TestRoom", 0);
         AllowAudio = true;
-        StartCoroutine(BuildMesh());
+
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            foreach (var item in Rooms[i].navSurface)
+            {
+                item.BuildNavMesh();
+            }
+            break;
+        }
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -369,21 +374,6 @@ public class GameManager : SingletonBase<GameManager>
         GoToState(GameManagerState.PAUSED);
     }
 
-    IEnumerator BuildMesh()
-    {
-        //while(true)
-        //{
-        //    for (int i = 0; i < Rooms.Count; i++)
-        //    {
-        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
-        //        {
-        //            break;
-        //        }
-        //    }
-            yield return new WaitForSeconds(0.5f);
-        //}
-    }
-
     //TODO: 事件摄像机
     //TODO: Sign房间
 
@@ -480,7 +470,10 @@ public class GameManager : SingletonBase<GameManager>
             {
                 if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
                 {
-                    surface.BuildNavMesh();
+                    foreach (var item in Rooms[i].navSurface)
+                    {
+                        item.BuildNavMesh();
+                    }
                     break;
                 }
             }
