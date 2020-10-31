@@ -14,6 +14,14 @@ public class MedicalKit : Item_SO
     public DialogueGraph graph_Xan;
     public DialogueGraph graph_Sat;
     public DialogueGraph graph_Mel;
+    public MeshRenderer rende;
+    public BoxCollider coll;
+
+    private void Awake()
+    {
+        rende = GetComponent<MeshRenderer>();
+        coll = GetComponent<BoxCollider>();
+    }
 
     public override void NPCInteract(int InteractWay = 0)
     {
@@ -32,6 +40,8 @@ public class MedicalKit : Item_SO
                 xannpc.AnimStateName = "Talking2";
                 holder.HolderMKNPC = xannpc;
                 room.DiaPlay.PlayDia(graph_Xan);
+                xannpc.FacingEachOtherCoro(Guard.transform);
+                Guard.FacingEachOtherCoro(xannpc.transform);
             }
             else if (Sat.Count > 0)
             {
@@ -43,6 +53,8 @@ public class MedicalKit : Item_SO
                 satnpc.AnimStateName = "Talking2";
                 holder.HolderMKNPC = satnpc;
                 room.DiaPlay.PlayDia(graph_Sat);
+                satnpc.FacingEachOtherCoro(Guard.transform);
+                Guard.FacingEachOtherCoro(satnpc.transform);
             }
             else if (Mel.Count > 0)
             {
@@ -54,10 +66,14 @@ public class MedicalKit : Item_SO
                 melnpc.AnimStateName = "Talking2";
                 holder.HolderMKNPC = melnpc;
                 room.DiaPlay.PlayDia(graph_Mel);
+                melnpc.FacingEachOtherCoro(Guard.transform);
+                Guard.FacingEachOtherCoro(melnpc.transform);
             }
-            EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");           
+            EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
         }
-        Destroy(gameObject);
+        coll.enabled = false;
+        rende.enabled = false;
+        Destroy(gameObject, 2f);
     }
 
     void OnEnable()

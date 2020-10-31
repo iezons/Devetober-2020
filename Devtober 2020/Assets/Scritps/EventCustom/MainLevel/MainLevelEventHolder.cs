@@ -20,7 +20,7 @@ public class MainLevelEventHolder : MonoBehaviour
     public NpcController Prisoner;
 
     [Header("01_Dia")]
-    public DialogueGraph graph03;
+    public DialogueGraph Graph01;
     public EventSO NPCTalking;
     public TerminalPos PC;
     public DoorController Door;
@@ -29,19 +29,23 @@ public class MainLevelEventHolder : MonoBehaviour
     public NpcController Priest;
     public RestingPos resting;
 
+    [Header("03_Dia")]
+    public DialogueGraph Graph03;
+    public RoomTracker PriestGetOutRoom;
+
     // Start is called before the first frame update
     void OnEnable()
     {
-        a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; });
+        a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; NPC_SP.Flashing = true; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
         a("01_ChefOut", () => { hide.IsInteracting = false; Prisoner.Stage = 1; });
-        a("01_PriPatrol", () => NPC_SP.SwitchAnimState(false));
+        a("01_PriPatrol", () => {NPC_SP.SwitchAnimState(false); NPC_SP.RemoveMenu("Talking"); NPC_SP.BackToPatrol(); });
         a("01_PrisonerStartTalking", PrisonerStartTalking);
         a("01_XantheTurnToCamera", () => Xan.FacingEachOther(true));
-        a("02_PriestHeal", () => { Prisoner.Stage = 2; });
         a("01_PriPatrol", () => { Prisoner.IsPrisoner = false; Prisoner.SwitchAnimState(false); });
         a("02_GuardJoin", GuardGoBack);
         a("02_PrisonerMedicalKit", PrisonerMedicalKit);
+        a("02_PriestHeal", PriestHeal);
     }
 
     void a(string name, UnityAction action)
@@ -54,9 +58,18 @@ public class MainLevelEventHolder : MonoBehaviour
         EventCenter.GetInstance().DiaEventTrigger(name);
     }
 
+    void PriestHeal()
+    {
+        Prisoner.Stage = 2;
+        PriestGetOutRoom.PlayingDialogue(Graph03);
+        Priest.navAgent.ResetPath();
+        Priest.SwitchAnimState(true, "Talking3");
+        Priest.FacingEachOther(true);
+    }
+
     void PrisonerMedicalKit()
     {
-
+        //GameManager.GetInstance().
     }
 
     void GuardGoBack()
@@ -71,6 +84,7 @@ public class MainLevelEventHolder : MonoBehaviour
         HolderMKNPC.AnimStateName = "";
         HolderMKNPC.IsInteracting = false;
         HolderMKNPC.SwitchAnimState(false);
+
         Priest.IsInteracting = false;
     }
 
@@ -93,12 +107,12 @@ public class MainLevelEventHolder : MonoBehaviour
 
     void PrisonerStartTalking()
     {
-        NPC_SP.inAnimState = true;
-        NPC_SP.RemoveAllMenu();
         NPC_SP.AddMenu("Talking", "Talking", false, NPC_SP.SpecialTalking);
         if(NPC_SP.CurrentInteractObject != null)
         {
             NPC_SP.CurrentInteractObject.NPCInteractFinish(null);
+            NPC_SP.inAnimState = false;
+            NPC_SP.AnimStateName = "";
         }
     }
 

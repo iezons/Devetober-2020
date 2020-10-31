@@ -45,6 +45,8 @@ public enum GameManagerState
 
 public class GameManager : SingletonBase<GameManager>
 {
+    [Header("Debug Mode")]
+    public bool DebugMode = false;
     [Header("navMesh")]
     public NavMeshSurface surface;
     public LocalNavMeshBuilder builder;
@@ -61,7 +63,6 @@ public class GameManager : SingletonBase<GameManager>
     [Header("EventTriggerCache")]
     List<EventScriptInterface> EventScripts = new List<EventScriptInterface>();
     public EventNode TriggeringEventNode = null;
-    bool justEnterEventTrigger = true;
 
     [Header("EventConditionalCache")]
     public List<EvtGraph.EventTrigger> WaitingEvent = new List<EvtGraph.EventTrigger>();
@@ -396,7 +397,8 @@ public class GameManager : SingletonBase<GameManager>
         }
         #endregion
 
-        if(Input.GetKeyDown(KeyCode.L))
+        #region MaxMinScreen
+        if (Input.GetKeyDown(KeyCode.L))
         {
             Resolution[] res = UnityEngine.Screen.resolutions;
             if (res.Length > 0)
@@ -429,22 +431,9 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
+        #endregion
 
         #region NavMeshBuilding
-        //NavMesh Building
-        //if (Time.frameCount % 10 == 0)
-        //{
-        //    for (int i = 0; i < Rooms.Count; i++)
-        //    {
-        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
-        //        {
-        //            for (int a = 0; a < Rooms[i].navSurface.Count; a++)
-        //            {
-        //                Rooms[i].navSurface[a].BuildNavMesh();
-        //            }
-        //        }
-        //    }
-        //}
         if (Time.frameCount % 10 == 0)
         {
             for (int i = 0; i < Rooms.Count; i++)
@@ -630,23 +619,31 @@ public class GameManager : SingletonBase<GameManager>
                         }
                     }
                 }
-                Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
-                float RCx = mousepos.x - Canvas.rect.width / 2;
-                float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
-                if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
-                {
-                    RCx -= RightClickMenuPanel.rect.width;
-                }
-                else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
-                {
-                    RCy += RightClickMenuPanel.rect.height;
-                }
-                RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
+                
             }
             else
             {
-                RightClickMenuPanel.gameObject.SetActive(false);
+                //TODO: Esc Hide
+                RightClickMenus Esc = new RightClickMenus { unchangedName = "All Escape", functionName = "All Escape", NeedTarget = false };
+                Esc.function += RoomEscaping;
+                RightClickMenus Hide = new RightClickMenus { unchangedName = "All Hide", functionName = "All Hide", NeedTarget = false };
+                Hide.function += RoomHideIn;
+                SetupRightClickMenu(new List<RightClickMenus>() { Esc, Hide });
+                //RightClickMenuPanel.gameObject.SetActive(false);
             }
+
+            Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+            float RCx = mousepos.x - Canvas.rect.width / 2;
+            float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
+            if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
+            {
+                RCx -= RightClickMenuPanel.rect.width;
+            }
+            else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
+            {
+                RCy += RightClickMenuPanel.rect.height;
+            }
+            RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -886,6 +883,32 @@ public class GameManager : SingletonBase<GameManager>
             else
             {
                 UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
+            }
+        }
+    }
+
+    void RoomEscaping(object obj)
+    {
+        List<GameObject> NPCs = CurrentRoom.NPC();
+        foreach (var item in NPCs)
+        {
+            NpcController ctrl = item.GetComponent<NpcController>();
+            if(!ctrl.IsInteracting && !ctrl.inAnimState && !ctrl.status.isStruggling)
+            {
+                ctrl.TriggerEscaping();
+            }
+        }
+    }
+
+    void RoomHideIn(object obj)
+    {
+        List<GameObject> NPCs = CurrentRoom.NPC();
+        foreach (var item in NPCs)
+        {
+            NpcController ctrl = item.GetComponent<NpcController>();
+            if (!ctrl.IsInteracting && !ctrl.inAnimState && !ctrl.status.isStruggling)
+            {
+                ctrl.TriggerHiding();
             }
         }
     }
@@ -1285,7 +1308,6 @@ public class GameManager : SingletonBase<GameManager>
             return true;
     }
 
-    //TODO 事件完成检测Debug
     void TimelineStop()
     {
         foreach (var item in Directors)
@@ -1507,7 +1529,6 @@ public class GameManager : SingletonBase<GameManager>
                                 default:
                                     break;
                             }
-                            //TODO
                             break;
                         case DoingWith.Custom://√
                             for (int a = 0; a < evt.CustomCode.Count; a++)
@@ -1552,7 +1573,6 @@ public class GameManager : SingletonBase<GameManager>
 
     void ClearEventTriggerCache()
     {
-        justEnterEventTrigger = true;
         for (int i = 0; i < EventScripts.Count; i++)
         {
             Destroy(EventScripts[i]);
