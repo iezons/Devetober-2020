@@ -106,6 +106,11 @@ public class NpcController : ControllerBased
 
     bool IsRandomTalking = false;
     Vector3 TalkingPos = Vector3.zero;
+
+    public NpcController HighP;
+    public DialogueGraph Graph1;
+    public DialogueGraph Graph1_5;
+    public EventSO PuEvt;
     #endregion
 
 
@@ -2197,7 +2202,26 @@ public class NpcController : ControllerBased
                                             SwitchPos swtich = cBord.swtich.GetComponent<SwitchPos>();
                                             swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                                         }                                       
-                                        cBord.isLocked = false;                                                               
+                                        cBord.isLocked = false;
+
+                                        if (status.npcName == "Stephanus Lentinus")
+                                        {
+                                            PuEvt.NPCTalking[0].Graph = Graph1;
+                                            PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
+                                            HighP.status.toDoList.Add(PuEvt);
+                                            HighP.TriggerEvent();
+                                            status.toDoList.Add(PuEvt);
+                                            TriggerEvent();
+                                        }
+                                        else
+                                        {
+                                            PuEvt.NPCTalking[0].Graph = Graph1_5;
+                                            PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
+                                            HighP.status.toDoList.Add(PuEvt);
+                                            HighP.TriggerEvent();
+                                            status.toDoList.Add(PuEvt);
+                                            TriggerEvent();
+                                        }
                                     }
                                     else
                                     {
@@ -2456,7 +2480,8 @@ public class NpcController : ControllerBased
         }
 
         Gizmos.color = Color.white;
-        Gizmos.DrawSphere(navAgent.destination, 1);
+        if(navAgent != null)
+            Gizmos.DrawSphere(navAgent.destination, 1);
     }
     #endregion
 
