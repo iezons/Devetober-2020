@@ -148,15 +148,11 @@ public class GameManager : SingletonBase<GameManager>
     public AudioSource Audio2D;
     bool AllowAudio = false;
     bool JuE = true;
+
     public void SetCurEventNode(string name, EventSO so)
     {
         EventNode evt = eventGraph.graph.currentList[0] as EventNode;
         evt.eventSO[0] = so;
-    }
-
-    void ServerRoomDetect()
-    {
-        
     }
 
     void Awake()

@@ -22,6 +22,8 @@ public class EnemyController : ControllerBased
         public float maxZ = 0;
     }
 
+    public bool NoWayPointGen = false;
+
     public DialogueGraph PriDead;
 
     public string enemyName = Guid.NewGuid().ToString();
@@ -134,7 +136,8 @@ public class EnemyController : ControllerBased
     private void Start()
     {
         EventCenter.GetInstance().EventTriggered("GM.Enemy.Add", this);
-        currentTerminalPos = NewDestination();
+        if(!NoWayPointGen)
+            currentTerminalPos = NewDestination();
         recordAttackTime = attackTime;
 
         Invoke("GenerateList", 0.00001f);
@@ -151,12 +154,14 @@ public class EnemyController : ControllerBased
 
     private void Update()
     {
+        CheckEvent();
         #region StringRestrictedFiniteStateMachine Update
         switch (m_fsm.GetCurrentState())
         {
             case "Patrol":
                 Dispatch(currentTerminalPos);
-                GenerateNewDestination();
+                if (!NoWayPointGen)
+                    GenerateNewDestination();
                 VisionCone();
                 Discover();
                 if(navAgent.velocity.magnitude <= 0.1)
@@ -204,7 +209,6 @@ public class EnemyController : ControllerBased
         }
         #endregion
 
-        CheckEvent();
 
         if (navAgent.isOnOffMeshLink && !MoveAcrossNavMeshesStarted)
         {
@@ -560,6 +564,7 @@ public class EnemyController : ControllerBased
     {
         if (isJustEnterEvent)
         {
+            navAgent.ResetPath();
             Debug.Log("Event");
             isJustEnterEvent = false;
             if (toDoList.Count > 0)
@@ -608,6 +613,7 @@ public class EnemyController : ControllerBased
 
         if (toDoList.Count <= 0)
         {
+            NoWayPointGen = false;
             BackToPatrol();
         }
     }
@@ -616,7 +622,7 @@ public class EnemyController : ControllerBased
     {
         if (toDoList != null)
         {
-            if (toDoList.Count != 0)
+            if (toDoList.Count > 0)
             {
                 m_fsm.ChangeState("Event");
             }

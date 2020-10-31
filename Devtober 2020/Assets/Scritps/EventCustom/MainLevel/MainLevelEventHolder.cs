@@ -63,7 +63,12 @@ public class MainLevelEventHolder : MonoBehaviour
     {
         Debug.Log("GoBack");
         Guard.IsInteracting = false;
+        Guard.inAnimState = false;
+        Guard.AnimStateName = "";
         Guard.SwitchAnimState(false);
+
+        HolderMKNPC.inAnimState = false;
+        HolderMKNPC.AnimStateName = "";
         HolderMKNPC.IsInteracting = false;
         HolderMKNPC.SwitchAnimState(false);
         Priest.IsInteracting = false;

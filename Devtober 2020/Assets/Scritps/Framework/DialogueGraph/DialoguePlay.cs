@@ -24,6 +24,7 @@ public enum NodeState
 
 public class DialoguePlay : MonoBehaviour
 {
+    public bool DebugMode = false;
     [Header("Properties")]
     public RoomTracker roomTracker;
     public DialogueGraph currentGraph;
@@ -53,7 +54,10 @@ public class DialoguePlay : MonoBehaviour
 
     void Awake()
     {
-        DefaultTypingSpeed = TextSpeed;
+        if (DebugMode)
+            DefaultTypingSpeed = 5000;
+        else
+            DefaultTypingSpeed = TextSpeed;
         roomTracker = GetComponent<RoomTracker>();
         //EventCenter.GetInstance().AddEventListener("DialoguePlay.Finished", Finished);
     }
@@ -90,7 +94,7 @@ public class DialoguePlay : MonoBehaviour
                 }
                 if(n_state == NodeState.Dialogue)
                 {
-                    if(IsTypingSpeed)
+                    if(IsTypingSpeed && !DebugMode)
                     {
                         TextSpeed = ChangedTypingSpeed;
                     }
@@ -98,7 +102,7 @@ public class DialoguePlay : MonoBehaviour
                     {
                         TextSpeed = DefaultTypingSpeed;
                     }
-                    if(IsWaitingTime)
+                    if(IsWaitingTime && !DebugMode)
                     {
                         if(AlreadyWaitTime >= WaitingTime)
                         {

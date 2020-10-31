@@ -903,6 +903,7 @@ public class NpcController : ControllerBased
                                 if (evt.NPCTalking[a].moveToClasses[b].Obj == gameObject)
                                 {
                                     Dispatch(evt.NPCTalking[a].moveToClasses[b].MoveTO.position);
+                                    LimpingChange("Run");
                                     IsInteracting = true;
                                 }
                             }
@@ -914,6 +915,7 @@ public class NpcController : ControllerBased
                             if (evt.NPCWayPoint[a].Obj == gameObject)
                             {
                                 Dispatch(evt.NPCWayPoint[a].MoveTO.position);
+                                LimpingChange("Run");
                                 IsInteracting = true;
                             }
                         }
@@ -1154,6 +1156,7 @@ public class NpcController : ControllerBased
 
     void Death()
     {
+        boxCollider.enabled = false;
         animator.Play("Death", 0);
         if(navAgent.enabled)
             navAgent.ResetPath();   
@@ -2150,6 +2153,19 @@ public class NpcController : ControllerBased
         if (Damping)
         {
             Debug.Log("Damping");
+        }
+    }
+
+    public void FacingEachOther(Transform tran)
+    {
+        Vector3 dir = tran.position;
+
+        dir.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(dir);
+
+        if (Quaternion.Angle(transform.rotation, rotation) >= 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DampRotSpeed);
         }
     }
     #endregion

@@ -397,7 +397,8 @@ namespace GamePlay
 
         IEnumerator WaitAndPlay()
         {
-            yield return new WaitForSeconds(0.7f);
+            if(!DiaPlay.DebugMode)
+                yield return new WaitForSeconds(0.7f);
             HistoryText += DiaPlay.WholeText + "\n";
             WordCound += DiaPlay.WordCount + 1;
             //EventCenter.GetInstance().EventTriggered("DialoguePlay.Next", 0);
