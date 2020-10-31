@@ -106,11 +106,6 @@ public class NpcController : ControllerBased
 
     bool IsRandomTalking = false;
     Vector3 TalkingPos = Vector3.zero;
-
-    public NpcController HighP;
-    public DialogueGraph Graph1;
-    public DialogueGraph Graph1_5;
-    public EventSO PuEvt;
     #endregion
 
 
@@ -268,6 +263,7 @@ public class NpcController : ControllerBased
         #region GameplayEvent
         if(IsPrisoner)
         {
+            DetectRoom();
             if (currentRoomTracker.isEnemyDetected())
             {
                 isEnemyEnter = true;
@@ -467,7 +463,7 @@ public class NpcController : ControllerBased
     {
         if (navAgent.enabled)
         {
-            if(locatorList !=null)
+            if(locatorList != null)
                 locatorList.npc = null;
             CurrentInteractObject = null;
             RescuingTarget = null;
@@ -1088,6 +1084,7 @@ public class NpcController : ControllerBased
             if (navAgent.enabled)
                 navAgent.ResetPath();
             navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
+            escWayponits.Clear();
             m_fsm.ChangeState("Escaping");
         }
     }
@@ -1123,7 +1120,7 @@ public class NpcController : ControllerBased
 
     public void CompleteEscaping()
     {
-        if (Distance() < 5)
+        if (Distance() < restDistance)
         {
             if (navAgent.enabled)
                 navAgent.ResetPath();
@@ -2200,26 +2197,7 @@ public class NpcController : ControllerBased
                                             SwitchPos swtich = cBord.swtich.GetComponent<SwitchPos>();
                                             swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                                         }                                       
-                                        cBord.isLocked = false;
-
-                                        if (status.npcName == "Stephanus Lentinus")
-                                        {
-                                            PuEvt.NPCTalking[0].Graph = Graph1;
-                                            PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
-                                            HighP.status.toDoList.Add(PuEvt);
-                                            HighP.TriggerEvent();
-                                            status.toDoList.Add(PuEvt);
-                                            TriggerEvent();
-                                        }
-                                        else
-                                        {
-                                            PuEvt.NPCTalking[0].Graph = Graph1_5;
-                                            PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
-                                            HighP.status.toDoList.Add(PuEvt);
-                                            HighP.TriggerEvent();
-                                            status.toDoList.Add(PuEvt);
-                                            TriggerEvent();
-                                        }
+                                        cBord.isLocked = false;                                                               
                                     }
                                     else
                                     {
@@ -2476,6 +2454,9 @@ public class NpcController : ControllerBased
             }
             Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), RescuingTarget.transform.position + new Vector3(0, 3, 0));
         }
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(navAgent.destination, 1);
     }
     #endregion
 
