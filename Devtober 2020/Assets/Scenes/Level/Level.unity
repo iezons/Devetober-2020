@@ -436,7 +436,7 @@ MonoBehaviour:
   HidingLocker: {fileID: 556376058}
   HolderMKNPC: {fileID: 0}
   Priest: {fileID: 0}
-  resting: {fileID: 0}
+  resting: {fileID: 704790704}
 --- !u!4 &15625548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8406254341074473186, guid: 8f3333312dd90c945bc834d77ba1919b, type: 3}
@@ -10571,7 +10571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.currentHealth
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: status.maxStamina
@@ -10641,6 +10641,26 @@ PrefabInstance:
       propertyPath: inAnimState
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: DampPosSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: DampRotSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: NoThingTalk
+      value: 
+      objectReference: {fileID: 11400000, guid: 932a11bc5515156448d581e2629efd55, type: 2}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: MedicalKit
+      value: 
+      objectReference: {fileID: 11400000, guid: 5513f3502b42b1f4ca90f8bf4c7aa2c6, type: 2}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: JoinIn
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ada0b38c18dd0b4899422c0f19f5126, type: 2}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
@@ -10906,7 +10926,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.0017657543
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -35656,6 +35676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d8b9fc4ad028f4986c626f3c55c8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugMode: 0
   surface: {fileID: 1469452025}
   builder: {fileID: 0}
   MoveLeft: a
@@ -37496,6 +37517,10 @@ PrefabInstance:
       propertyPath: NoWayPointGen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1537890875, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
+      propertyPath: PriRoom
+      value: 
+      objectReference: {fileID: 774842019}
     - target: {fileID: 1537890876, guid: 1d535de3d8c626a40ab3233d9108c66d, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0

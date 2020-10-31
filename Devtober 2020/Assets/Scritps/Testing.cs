@@ -21,9 +21,5 @@ public class Testing : MonoBehaviour
         {
             EventCenter.GetInstance().EventTriggered("GM.DialoguePlay.Start", Graph);
         }
-        //TODO
-        //Event SO
-        //Event Graph
-        //GM 空壳
     }
 }

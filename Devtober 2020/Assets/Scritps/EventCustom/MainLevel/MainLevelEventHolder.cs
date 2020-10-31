@@ -35,7 +35,7 @@ public class MainLevelEventHolder : MonoBehaviour
         a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
         a("01_ChefOut", () => { hide.IsInteracting = false; Prisoner.Stage = 1; });
-        a("01_PriPatrol", () => NPC_SP.SwitchAnimState(false));
+        a("01_PriPatrol", () => {NPC_SP.SwitchAnimState(false); NPC_SP.RemoveMenu("Talking"); NPC_SP.BackToPatrol(); });
         a("01_PrisonerStartTalking", PrisonerStartTalking);
         a("01_XantheTurnToCamera", () => Xan.FacingEachOther(true));
         a("02_PriestHeal", () => { Prisoner.Stage = 2; });
@@ -71,7 +71,6 @@ public class MainLevelEventHolder : MonoBehaviour
         HolderMKNPC.AnimStateName = "";
         HolderMKNPC.IsInteracting = false;
         HolderMKNPC.SwitchAnimState(false);
-        Priest.IsInteracting = false;
     }
 
     void DiaTwoTrigger()
@@ -93,8 +92,7 @@ public class MainLevelEventHolder : MonoBehaviour
 
     void PrisonerStartTalking()
     {
-        NPC_SP.inAnimState = true;
-        NPC_SP.RemoveAllMenu();
+        //NPC_SP.SwitchAnimState(false);
         NPC_SP.AddMenu("Talking", "Talking", false, NPC_SP.SpecialTalking);
         if(NPC_SP.CurrentInteractObject != null)
         {

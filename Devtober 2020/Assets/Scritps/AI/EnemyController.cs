@@ -25,6 +25,7 @@ public class EnemyController : ControllerBased
     public bool NoWayPointGen = false;
 
     public DialogueGraph PriDead;
+    public RoomTracker PriRoom;
 
     public string enemyName = Guid.NewGuid().ToString();
 
@@ -444,10 +445,17 @@ public class EnemyController : ControllerBased
                 npc.animator.Play("Got Bite", 0);
                 if (npc.IsPrisoner)
                 {
-                    EventCenter.GetInstance().DiaEventTrigger("01_Dead");
-                    GameManager.GetInstance().CurrentRoom.DiaPlay.d_state = DiaState.OFF;
-                    GameManager.GetInstance().CurrentRoom.DiaPlay.WholeText = "";
-                    GameManager.GetInstance().CurrentRoom.PlayingDialogue(PriDead);
+                    if(GameManager.GetInstance().CurrentRoom == PriRoom)
+                    {
+                        GameManager.GetInstance().CurrentRoom.DiaPlay.d_state = DiaState.OFF;
+                        GameManager.GetInstance().CurrentRoom.DiaPlay.WholeText = "";
+                        GameManager.GetInstance().CurrentRoom.PlayingDialogue(PriDead);
+                    }
+                    else if(GameManager.GetInstance().CurrentRoom != PriRoom && GameManager.GetInstance().Stage < 2)
+                    {
+                        EventCenter.GetInstance().EventTriggered("01_DiaTwoTrigger");
+                    }
+                    
                 }
                 npc.status.isStruggling = true;
                 npc.HasInteract = false;
@@ -579,6 +587,7 @@ public class EnemyController : ControllerBased
                             {
                                 isReachDestination = false;
                                 Dispatch(evt.EnemyWayPoint[i].MoveTO.position);
+                                //TODO: 走路动画
                                 Debug.Log("Dispatch");
                             }
                         }
@@ -636,7 +645,6 @@ public class EnemyController : ControllerBased
             EventCenter.GetInstance().EventTriggered("GM.EnemyArrive", enemyName);
             if(m_fsm.GetCurrentState() == "Event")
                 isReachDestination = true;
-            //TODO 修改NPC Arrive call的方法
             navAgent.ResetPath();
         }
     }

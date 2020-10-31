@@ -56,8 +56,8 @@ public class MedicalKit : Item_SO
                 room.DiaPlay.PlayDia(graph_Mel);
             }
             EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 
     void OnEnable()

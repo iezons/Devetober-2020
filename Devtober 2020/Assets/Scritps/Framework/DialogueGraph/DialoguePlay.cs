@@ -54,6 +54,7 @@ public class DialoguePlay : MonoBehaviour
 
     void Awake()
     {
+        DebugMode = GameManager.GetInstance().DebugMode;
         if (DebugMode)
             DefaultTypingSpeed = 5000;
         else

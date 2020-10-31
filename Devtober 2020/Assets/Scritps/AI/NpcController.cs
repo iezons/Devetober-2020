@@ -528,8 +528,7 @@ public class NpcController : ControllerBased
             return;
         else
         {
-            if(!IsPrisoner)
-                AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+            AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
             | 1 << LayerMask.NameToLayer("RestingPos")
             | 1 << LayerMask.NameToLayer("TerminalPos")
             | 1 << LayerMask.NameToLayer("SwitchPos")
@@ -979,7 +978,6 @@ public class NpcController : ControllerBased
         if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.NPCArrive", status.npcName);
-            //TODO 修改NPC Arrive call的方法
             if (navAgent.enabled)
                 navAgent.ResetPath();
         }
@@ -1883,10 +1881,10 @@ public class NpcController : ControllerBased
                 animator.Play("Sitting Off Chair");
                 break;
             case Interact_SO.InteractType.Terminal:
-                animator.Play("GetOutTerminal", 0);
+                //animator.Play("GetOutTerminal", 0);
                 break;
             case Interact_SO.InteractType.Switch:
-                animator.Play("GetOutSwtich", 0);
+                //animator.Play("Stand Switch", 0);
                 break;
             default:
                 break;

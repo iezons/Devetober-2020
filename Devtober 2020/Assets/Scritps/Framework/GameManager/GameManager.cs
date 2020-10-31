@@ -45,6 +45,8 @@ public enum GameManagerState
 
 public class GameManager : SingletonBase<GameManager>
 {
+    [Header("Debug Mode")]
+    public bool DebugMode = false;
     [Header("navMesh")]
     public NavMeshSurface surface;
     public LocalNavMeshBuilder builder;
@@ -1285,7 +1287,6 @@ public class GameManager : SingletonBase<GameManager>
             return true;
     }
 
-    //TODO 事件完成检测Debug
     void TimelineStop()
     {
         foreach (var item in Directors)
@@ -1507,7 +1508,6 @@ public class GameManager : SingletonBase<GameManager>
                                 default:
                                     break;
                             }
-                            //TODO
                             break;
                         case DoingWith.Custom://√
                             for (int a = 0; a < evt.CustomCode.Count; a++)
