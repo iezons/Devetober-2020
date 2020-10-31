@@ -47,6 +47,9 @@ MonoBehaviour:
   - {fileID: -8567619976344326231}
   - {fileID: 8784000032032467044}
   - {fileID: 6662590142228295373}
+  - {fileID: 1959765821379080647}
+  - {fileID: 6524405696456553595}
+  - {fileID: 7995138813949922191}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
@@ -54,6 +57,104 @@ MonoBehaviour:
   current: {fileID: -8567619976344326231}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
+--- !u!114 &1959765821379080647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Proteus Cicero: The roads to t\u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 391, y: -147.5}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 1959765821379080647}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 6662590142228295373}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 1959765821379080647}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 6524405696456553595}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Proteus Cicero
+  Dialogue:
+  - The roads to the upper and lower floors have been blocked. We have to find other
+    ways to get out of here.
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &6524405696456553595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Proteus Cicero: I know a way, \u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 769, y: -134.5}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 6524405696456553595}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 1959765821379080647}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 6524405696456553595}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 7995138813949922191}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Proteus Cicero
+  Dialogue:
+  - I know a way, we can try to unlock those doors that cannot be opened. Maybe behind
+    one of them is the way to escape.
+  curIndex: 0
+  IsMax: 1
 --- !u!114 &6662590142228295373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +165,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: ": OK. So, now it\u2026"
+  m_Name: "Proteus Cicero: OK. So, now it\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 9, y: -146.5}
@@ -89,14 +190,65 @@ MonoBehaviour:
       _node: {fileID: 6662590142228295373}
       _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 1959765821379080647}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TalkingPerson: Proteus Cicero
+  Dialogue:
+  - 'OK. So, now it is the time to leave this madness place. '
+  curIndex: 0
+  IsMax: 1
+--- !u!114 &7995138813949922191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
+  m_Name: "Proteus Cicero: The key cards \u2026"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -296, y: 183.5}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 7995138813949922191}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: 6524405696456553595}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 7995138813949922191}
+      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       connections: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  TalkingPerson: 
+  TalkingPerson: Proteus Cicero
   Dialogue:
-  - 'OK. So, now it is the time to leave this madness place. '
+  - 'The key cards to open those doors are hidden in various computers. '
+  - 'And we cannot ensure which door it opens by which key card by just looking at
+    the card. '
+  - 'We must figure it out by trying to unlcok each door. '
   curIndex: 0
   IsMax: 1
 --- !u!114 &8784000032032467044

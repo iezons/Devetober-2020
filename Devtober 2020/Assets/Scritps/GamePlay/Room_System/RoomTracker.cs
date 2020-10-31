@@ -68,6 +68,8 @@ namespace GamePlay
         [SerializeField]
         List<ScaleAndOffset> scaleAndOffset = new List<ScaleAndOffset>();
 
+        public List<RoomTracker> AvailableRoom = new List<RoomTracker>();
+
         [SerializeField]
         LayerMask canDetected = 0;
         [SerializeField]

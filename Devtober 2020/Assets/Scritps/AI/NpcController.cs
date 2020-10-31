@@ -16,6 +16,7 @@ public class NpcController : ControllerBased
     public DialogueGraph NoThingTalk;
     public DialogueGraph MedicalKit;
     public DialogueGraph JoinIn;
+    public DialogueGraph HealPriDia;
     public int Stage = 0;
     bool isEnemyEnter = false;
 
@@ -269,7 +270,9 @@ public class NpcController : ControllerBased
             }
             if (!currentRoomTracker.isEnemyDetected() && isEnemyEnter)
             {
+                CurrentInteractObject.IsInteracting = false;
                 EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
+                IsPrisoner = false;
             }
         }
 
@@ -290,6 +293,10 @@ public class NpcController : ControllerBased
             {
                 outline.OutlineWidth -= Time.deltaTime * FlashingSpeed;
             }
+        }
+        else
+        {
+            AlwaysOutline = false;
         }
         #endregion
         if (m_fsm.GetCurrentState() != "Anim")
@@ -556,8 +563,7 @@ public class NpcController : ControllerBased
             return;
         else
         {
-            if(!IsPrisoner)
-                AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
+            AddMenu("Interact", "Interact", true, ReceiveInteractCall, 1 << LayerMask.NameToLayer("HiddenPos")
             | 1 << LayerMask.NameToLayer("RestingPos")
             | 1 << LayerMask.NameToLayer("TerminalPos")
             | 1 << LayerMask.NameToLayer("SwitchPos")
@@ -1193,6 +1199,8 @@ public class NpcController : ControllerBased
                     inAnimState = true;
                     IsInteracting = true;
                     FacingEachOtherCoro(HealingTarget.transform);
+                    isPrristNeedHeal = false;
+                    currentRoomTracker.PlayingDialogue(HealPriDia);
                 }
             }
             else
@@ -1226,12 +1234,16 @@ public class NpcController : ControllerBased
     #region Got Attacked
     public void GotHurt()
     {
+        SetOutline(false);
         animator.Play("Got Hurt", 0);
         PlayAudio("Hurt Sound " + Random.Range(1, 7).ToString());
     }
 
     void Death()
     {
+        Flashing = false;
+        outline.OutlineWidth = 0f;
+        SetOutline(false);
         boxCollider.enabled = false;
         animator.Play("Death", 0);
         if(navAgent.enabled)
@@ -1536,6 +1548,7 @@ public class NpcController : ControllerBased
     {
         Flashing = false;
         outline.OutlineWidth = 0;
+        SetOutline(false);
         if (navAgent.enabled)
         {
             GameObject gameObj = (GameObject)obj;
@@ -1717,7 +1730,10 @@ public class NpcController : ControllerBased
                             break;
                         case Interact_SO.InteractType.Locker:
                             if (IsPrisoner)
+                            {
                                 EventCenter.GetInstance().DiaEventTrigger("01_HideIn");
+                                CurrentInteractObject.IsInteracting = true;
+                            }
                             CurrentInteractObject.NPCInteract(0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             animator.Play("Get In Locker", 0);
@@ -2034,6 +2050,8 @@ public class NpcController : ControllerBased
             case Interact_SO.InteractType.Locker:
                 boxCollider.size = new Vector3(0.001f, 0.001f, 0.001f);
                 isSafe = true;
+                if (IsPrisoner)
+                    CurrentInteractObject.IsInteracting = true;
                 break;
             case Interact_SO.InteractType.Box:
                 isSafe = true;

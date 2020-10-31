@@ -72,7 +72,7 @@ public class DoorController : ControllerBased
 
     void PlayAudio( string str)
     {
-        AudioMgr.GetInstance().PlayAudio(source, str, 1f, false, null);
+        AudioMgr.GetInstance().PlayAudio(source, str, 0.5f, false, null);
     }
 
     public void Zero()

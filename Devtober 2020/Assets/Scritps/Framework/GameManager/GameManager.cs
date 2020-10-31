@@ -80,7 +80,6 @@ public class GameManager : SingletonBase<GameManager>
     List<Button> Option = null;
     [SerializeField]
     Transform ButtonContent = null;
-    public List<ServerPos> ServerPos = new List<ServerPos>();
 
     [Header("Info Pool")]
     public List<RoomTracker> Rooms;
@@ -147,7 +146,10 @@ public class GameManager : SingletonBase<GameManager>
 
     [Header("Audio")]
     public AudioSource Audio2D;
+    public AudioClip TalkingAudio;
     bool AllowAudio = false;
+    [Header("Server")]
+    public List<ServerPos> ServerPoses = new List<ServerPos>();
     bool JuE = true;
 
     public void SetCurEventNode(string name, EventSO so)
@@ -380,10 +382,46 @@ public class GameManager : SingletonBase<GameManager>
         //}
     }
 
+    //TODO: 事件摄像机
+    //TODO: Sign房间
+
     void Update()
     {
         #region TimeLine
         TimelineStop();
+        #endregion
+
+        #region DialogueTalking
+        List<GameObject> Npcs = CurrentRoom.NPC();
+        bool IsTalking = false;
+        foreach (var item in Npcs)
+        {
+            AnimatorStateInfo info = item.GetComponent<NpcController>().animator.GetCurrentAnimatorStateInfo(0);
+            if (info.IsName("Talking1") || info.IsName("Talking2") || info.IsName("Talking3"))
+            {
+                IsTalking = true;
+                break;
+            }
+        }
+
+        if ((CurrentRoom.DiaPlay.d_state == DiaState.TYPING && CurrentRoom.DiaPlay.CurrentTalkingPerson != "") || IsTalking)
+        {
+            Debug.Log("Talking1");
+            if(!Audio2D.isPlaying)
+            {
+                Audio2D.loop = true;
+                Audio2D.volume = 0.5f;
+                Audio2D.Play();
+            }
+        }
+        else if(Audio2D.isPlaying)
+        {
+            Debug.Log("Talking stop");
+            if (Audio2D.isPlaying && Audio2D.clip == TalkingAudio)
+            {
+                Audio2D.Pause();
+            }
+        }
         #endregion
 
         #region Input
@@ -789,7 +827,7 @@ public class GameManager : SingletonBase<GameManager>
 
         #region DisplayTimeText
         bool a = true;
-        foreach (var item in ServerPos)
+        foreach (var item in ServerPoses)
         {
             if (!item.isUnlocked)
             {
@@ -797,15 +835,18 @@ public class GameManager : SingletonBase<GameManager>
                 break;
             }
         }
+
         if (a)
         {
             if(JuE)
             {
-                currentSeconds = 500f;
+                currentSeconds = 300f;
                 JuE = false;
             }
             if (currentSeconds - Time.deltaTime > 0)
             {
+                TimeText.fontSize = 36;
+                TimeText.color = Color.red;
                 currentSeconds -= Time.deltaTime;
                 int SecondTime = (int)Mathf.Floor(currentSeconds);
                 int Hours = (int)Mathf.Floor(SecondTime / 3600);
@@ -820,7 +861,6 @@ public class GameManager : SingletonBase<GameManager>
             {
                 SceneManager.LoadScene("End");
             }
-            
         }
         else
         {
@@ -828,6 +868,8 @@ public class GameManager : SingletonBase<GameManager>
             {
                 currentSeconds -= 86400;
             }
+            TimeText.fontSize = 24;
+            TimeText.color = Color.white;
             currentSeconds += Time.deltaTime;
             int SecondTime = (int)Mathf.Floor(currentSeconds);
             int Hours = (int)Mathf.Floor(SecondTime / 3600);

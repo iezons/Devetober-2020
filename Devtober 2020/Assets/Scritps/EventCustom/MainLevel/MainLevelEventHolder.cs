@@ -9,6 +9,11 @@ using UnityEngine.Events;
 public class MainLevelEventHolder : MonoBehaviour
 {
     public NpcController NPC_SP;
+    public HiddenPos A_Locker1;
+    public HiddenPos A_Locker2;
+    public SwitchPos A_Switch1;
+    public StoragePos A_Store;
+    public TerminalPos A_PC;
     public RoomTracker RoomFor03;
     public NpcController Guard;
 
@@ -36,7 +41,7 @@ public class MainLevelEventHolder : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; NPC_SP.Flashing = true; });
+        a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; NPC_SP.Flashing = true; A_Locker1.IsInteracting = false; A_Locker2.IsInteracting = false; A_Switch1.IsInteracting = false; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
         a("01_ChefOut", () => { hide.IsInteracting = false; Prisoner.Stage = 1; });
         a("01_PriPatrol", () => {NPC_SP.SwitchAnimState(false); NPC_SP.RemoveMenu("Talking"); NPC_SP.BackToPatrol(); });
@@ -100,19 +105,22 @@ public class MainLevelEventHolder : MonoBehaviour
         GameManager.GetInstance().SetupStage(2);
         GameManager.GetInstance().SetupOption(GameManager.GetInstance().CurrentRoom);
         PC.IsInteracting = false;
-        Door.IsInteracting = false;
         HidingLocker.IsInteracting = true;
         hide.IsInteracting = true;
     }
 
     void PrisonerStartTalking()
     {
+        A_Store.IsInteracting = false;
+        A_PC.IsInteracting = false;
+        Door.IsInteracting = false;
+        NPC_SP.IsInteracting = false;
         NPC_SP.AddMenu("Talking", "Talking", false, NPC_SP.SpecialTalking);
         if(NPC_SP.CurrentInteractObject != null)
         {
-            NPC_SP.CurrentInteractObject.NPCInteractFinish(null);
             NPC_SP.inAnimState = false;
             NPC_SP.AnimStateName = "";
+            NPC_SP.CurrentInteractObject.NPCInteractFinish(null);
         }
     }
 
