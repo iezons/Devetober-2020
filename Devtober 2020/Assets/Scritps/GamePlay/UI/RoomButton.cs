@@ -1,18 +1,15 @@
-﻿using System.Collections;
+﻿using GamePlay;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public NpcController ctrl;
+    public RoomTracker tracker;
 
-    // Update is called once per frame
-    void Update()
+    public void Click()
     {
-        
+        ctrl.ReadyForDispatch(tracker.tempWayPoints[0].transform.position);
     }
 }
