@@ -22,6 +22,7 @@ public class NpcController : ControllerBased
     public bool inAnimState = false;
     public bool IsPrisoner = false;
     public bool isGuard = false;
+    public bool isGrabbingGuardName = false;
     public bool NeedRemoveMenu = true;
     
     public string AnimStateName = string.Empty;
@@ -482,6 +483,9 @@ public class NpcController : ControllerBased
         }
         else
         {
+            navAgent.enabled = true;
+            boxCollider.isTrigger = false;
+            HasInteract = false;
             DetectRoom();
             BackToPatrol();
             RemoveAllMenu();
@@ -2105,9 +2109,9 @@ public class NpcController : ControllerBased
         {
             CurrentInteractItem = null;
         }
-        if (m_fsm.GetCurrentState() != "GotAttacked" && !isGuard)
+        if (m_fsm.GetCurrentState() != "GotAttacked" && (!inAnimState || IsPrisoner))
             BackToPatrol();
-        else if(!isGuard && inAnimState)
+        else
         {
             SwitchAnimState(true, AnimStateName);
             isGuard = false;

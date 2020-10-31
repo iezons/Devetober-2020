@@ -26,6 +26,8 @@ public class MainLevelEventHolder : MonoBehaviour
     public DoorController Door;
     public HiddenPos HidingLocker;
     public NpcController HolderMKNPC;
+    public NpcController Priest;
+    public RestingPos resting;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -38,8 +40,8 @@ public class MainLevelEventHolder : MonoBehaviour
         a("01_XantheTurnToCamera", () => Xan.FacingEachOther(true));
         a("02_PriestHeal", () => { Prisoner.Stage = 2; });
         a("01_PriPatrol", () => { Prisoner.IsPrisoner = false; Prisoner.SwitchAnimState(false); });
-        a("01_GuardGetOut", GuardGetOut);
         a("02_GuardJoin", GuardGoBack);
+        a("02_PrisonerMedicalKit", PrisonerMedicalKit);
     }
 
     void a(string name, UnityAction action)
@@ -52,34 +54,32 @@ public class MainLevelEventHolder : MonoBehaviour
         EventCenter.GetInstance().DiaEventTrigger(name);
     }
 
-    void GuardGetOut()
+    void PrisonerMedicalKit()
     {
-        Guard.CurrentInteractObject.NPCInteractFinish(null);
-        StartCoroutine(GetOut());
+
     }
 
     void GuardGoBack()
     {
+        Debug.Log("GoBack");
+        Guard.IsInteracting = false;
         Guard.SwitchAnimState(false);
-        Guard.BackToPatrol();
-        Guard.isGuard = false;
+        HolderMKNPC.IsInteracting = false;
         HolderMKNPC.SwitchAnimState(false);
-        HolderMKNPC.BackToPatrol();
-    }
-
-    IEnumerator GetOut()
-    {
-        while (Guard.CurrentInteractObject != null)
-        {
-            yield return null;
-        }
-        Guard.SwitchAnimState(true, "Talking1");
+        Priest.IsInteracting = false;
     }
 
     void DiaTwoTrigger()
     {
-        GameManager.GetInstance().EventForceNext();
+        if(GameManager.GetInstance().TriggeringEventNode != null)
+        {
+            if(GameManager.GetInstance().TriggeringEventNode.EventName == "1_pristay")
+            {
+                GameManager.GetInstance().EventForceNext();
+            }
+        }
         GameManager.GetInstance().SetupStage(2);
+        GameManager.GetInstance().SetupOption(GameManager.GetInstance().CurrentRoom);
         PC.IsInteracting = false;
         Door.IsInteracting = false;
         HidingLocker.IsInteracting = true;

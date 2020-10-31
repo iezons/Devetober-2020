@@ -14,7 +14,6 @@ public class MedicalKit : Item_SO
     public DialogueGraph graph_Xan;
     public DialogueGraph graph_Sat;
     public DialogueGraph graph_Mel;
-    public RestingPos resting;
 
     public override void NPCInteract(int InteractWay = 0)
     {
@@ -26,28 +25,36 @@ public class MedicalKit : Item_SO
             if (Xan.Count > 0)
             {
                 Guard.CurrentInteractObject.NPCInteractFinish(null);
-                Guard.SwitchAnimState(true, "Talking1");
-                Xan[0].GetComponent<NpcController>().SwitchAnimState(true, "Talking2");
-                holder.HolderMKNPC = Xan[0].GetComponent<NpcController>();
+                Guard.inAnimState = true;
+                Guard.AnimStateName = "Talking1";
+                NpcController xannpc = Xan[0].GetComponent<NpcController>();
+                xannpc.inAnimState = true;
+                xannpc.AnimStateName = "Talking2";
+                holder.HolderMKNPC = xannpc;
                 room.DiaPlay.PlayDia(graph_Xan);
             }
             else if (Sat.Count > 0)
             {
                 Guard.CurrentInteractObject.NPCInteractFinish(null);
-                Guard.SwitchAnimState(true, "Talking1");
-                Sat[0].GetComponent<NpcController>().SwitchAnimState(true, "Talking2");
-                holder.HolderMKNPC = Sat[0].GetComponent<NpcController>();
+                Guard.inAnimState = true;
+                Guard.AnimStateName = "Talking1";
+                NpcController satnpc = Sat[0].GetComponent<NpcController>();
+                satnpc.inAnimState = true;
+                satnpc.AnimStateName = "Talking2";
+                holder.HolderMKNPC = satnpc;
                 room.DiaPlay.PlayDia(graph_Sat);
             }
             else if (Mel.Count > 0)
             {
                 Guard.CurrentInteractObject.NPCInteractFinish(null);
-                Guard.SwitchAnimState(true, "Talking1");
-                Mel[0].GetComponent<NpcController>().SwitchAnimState(true, "Talking2");
-                holder.HolderMKNPC = Mel[0].GetComponent<NpcController>();
+                Guard.inAnimState = true;
+                Guard.AnimStateName = "Talking1";
+                NpcController melnpc = Mel[0].GetComponent<NpcController>();
+                melnpc.inAnimState = true;
+                melnpc.AnimStateName = "Talking2";
+                holder.HolderMKNPC = melnpc;
                 room.DiaPlay.PlayDia(graph_Mel);
             }
-            resting.IsInteracting = false;
             EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
             Destroy(gameObject);
         }

@@ -1,149 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8633025665443194367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Hector:  <e=01_GuardGe\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1576, y: 152}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -8633025665443194367}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -6341818593101614563}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -8633025665443194367}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -3198671159652470}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Hector
-  Dialogue:
-  - ' <e=01_GuardGetOut>What are you doing here? '
-  - 'Can I go with you? I really don''t know where to go? '
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-7190959603381686305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Hector:  <e=01_GuardGe\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1496, y: -264}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -7190959603381686305}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -2165630332245096585}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -7190959603381686305}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1869301180287855837}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Hector
-  Dialogue:
-  - ' <e=01_GuardGetOut>What are you doing here? '
-  - 'Can I go with you? I really don''t know where to go? '
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-6341818593101614563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Melpomene:  <sp=60>Ahhh!<\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 984, y: -24}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -6341818593101614563}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -6341818593101614563}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -8633025665443194367}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Melpomene
-  Dialogue:
-  - ' <sp=60>Ahhh!<w></sp> Who''s there? '
-  - 'You <w=0.2>scared the shit out of me. '
-  curIndex: 0
-  IsMax: 1
 --- !u!114 &-5664090205224807366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,96 +46,6 @@ MonoBehaviour:
   - You can go with us if you wanna help. <e=02_GuardJoin>
   curIndex: 0
   IsMax: 1
---- !u!114 &-2165630332245096585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Saturnus: I don't know w\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 616, y: -296}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -2165630332245096585}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -2165630332245096585}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: -7190959603381686305}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Saturnus
-  Dialogue:
-  - 'I don''t know who is in there. But you better come out. '
-  curIndex: 0
-  IsMax: 1
---- !u!114 &-3198671159652470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Melpomene: I guess... Ehh\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1962.9962, y: 166.13625}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: -3198671159652470}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -8633025665443194367}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: -3198671159652470}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Melpomene
-  Dialogue:
-  - 'I guess... Ehhh...<w> We could always use extra help. '
-  curIndex: 0
-  IsMax: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,15 +61,9 @@ MonoBehaviour:
   nodes:
   - {fileID: 7875053043454571419}
   - {fileID: 8129470348742693105}
-  - {fileID: -2165630332245096585}
   - {fileID: 4576666591670916909}
-  - {fileID: -6341818593101614563}
   - {fileID: 6862940527285219572}
-  - {fileID: -7190959603381686305}
-  - {fileID: -8633025665443194367}
   - {fileID: -5664090205224807366}
-  - {fileID: 1869301180287855837}
-  - {fileID: -3198671159652470}
   dialogueNode: {fileID: 0}
   optionNode: {fileID: 0}
   startNode: {fileID: 0}
@@ -311,51 +71,6 @@ MonoBehaviour:
   current: {fileID: 7875053043454571419}
   DiaPlay: {fileID: 0}
   IsWaiting: 0
---- !u!114 &1869301180287855837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Saturnus: You can come a\u2026"
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1896, y: -232}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: 1869301180287855837}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: -7190959603381686305}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: 1869301180287855837}
-      _typeQualifiedName: DiaGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  TalkingPerson: Saturnus
-  Dialogue:
-  - 'You can come as long as you can help. '
-  curIndex: 0
-  IsMax: 1
 --- !u!114 &4576666591670916909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,7 +130,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39aa15abec8e2bb4785c50c35c04274d, type: 3}
-  m_Name: "Hector:  <e=01_GuardGe\u2026"
+  m_Name: "Hector: What are you d\u2026"
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1368, y: -648}
@@ -450,7 +165,7 @@ MonoBehaviour:
       _dynamic: 0
   TalkingPerson: Hector
   Dialogue:
-  - ' <e=01_GuardGetOut>What are you doing here? '
+  - 'What are you doing here? '
   - 'Can I go with you? I really don''t know where to go? '
   curIndex: 0
   IsMax: 1
