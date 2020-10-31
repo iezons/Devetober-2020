@@ -461,7 +461,8 @@ public class NpcController : ControllerBased
     {
         if (navAgent.enabled)
         {
-            locatorList.npc = null;
+            if(locatorList.npc!=null)
+                locatorList.npc = null;
             CurrentInteractObject = null;
             RescuingTarget = null;
             HealingTarget = null;
@@ -1286,7 +1287,7 @@ public class NpcController : ControllerBased
         if (RescuingTarget != null)
         {
             if (!navAgent.enabled)
-                navAgent.enabled = true;
+                navAgent.enabled = true;            
             Debug.Log("I am coming!");
             Dispatch(RescuingTarget.transform.position);
             navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
