@@ -72,6 +72,7 @@ public class CBordPos : Interact_SO
                 }             
                 isPowerOff = false;
                 isFixing = false;
+                GameManager.GetInstance().SetupStage(2);
             }
         }
     }

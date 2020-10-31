@@ -4363,12 +4363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &248835160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5092,12 +5088,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &307816715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7067,8 +7059,8 @@ RectTransform:
   m_Father: {fileID: 1627242056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 297.44788, y: 0}
   m_SizeDelta: {x: 594.89575, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9163,7 +9155,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9655222
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11178,6 +11170,7 @@ MonoBehaviour:
   Trigger: 0
   room: {fileID: 0}
   Guard: {fileID: 0}
+  holder: {fileID: 0}
   graph_Xan: {fileID: 0}
   graph_Sat: {fileID: 0}
   graph_Mel: {fileID: 0}
@@ -11193,12 +11186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!65 &607886312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12195,12 +12184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &676408709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12223,6 +12208,7 @@ MonoBehaviour:
   Trigger: 0
   room: {fileID: 0}
   Guard: {fileID: 0}
+  holder: {fileID: 0}
   graph_Xan: {fileID: 0}
   graph_Sat: {fileID: 0}
   graph_Mel: {fileID: 0}
@@ -13504,12 +13490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &754391411
 GameObject:
   m_ObjectHideFlags: 0
@@ -17749,12 +17731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &835376289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18477,12 +18455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &865804233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20186,12 +20160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &940938132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4047953150454302137, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
@@ -24107,6 +24077,7 @@ MonoBehaviour:
   OptionButtonPrefab: {fileID: 2992358984187058005, guid: 9d24c7f8acfab5c4e99d6488e1f6d923, type: 3}
   Option: []
   ButtonContent: {fileID: 405815019}
+  ServerPos: []
   Rooms: []
   CurrentRoom: {fileID: 0}
   NPC: []
@@ -24141,9 +24112,11 @@ MonoBehaviour:
   CameraName: {fileID: 1883270240}
   TimeText: {fileID: 1883270240}
   StartTime: {x: 22, y: 59, z: 54}
+  CounDown: {x: 0, y: 0, z: 0}
   CanCameraTurnLeft: 1
   CanCameraTurnRight: 1
   Directors: []
+  FDirector: {fileID: 0}
   Stage: -1
   TutorialLevel: {fileID: 1696871159}
   MainLevelGroup: {fileID: 417906601}
@@ -24676,12 +24649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &1198308266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4047953150454302137, guid: 336f135ddb054e24fa28c8c29b54dbae, type: 3}
@@ -24984,6 +24953,7 @@ MonoBehaviour:
   Trigger: 0
   room: {fileID: 0}
   Guard: {fileID: 0}
+  holder: {fileID: 0}
   graph_Xan: {fileID: 0}
   graph_Sat: {fileID: 0}
   graph_Mel: {fileID: 0}
@@ -24999,12 +24969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!65 &1221611383
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27211,7 +27177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74945, y: 0}
+  m_AnchoredPosition: {x: 77.756485, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -30006,7 +29972,8 @@ MonoBehaviour:
   recordColliderCenter: {x: 0, y: 0, z: 0}
   recordColliderSize: {x: 0, y: 0, z: 0}
   isUnlocked: 0
-  light: {fileID: 232049624}
+  RedLight: []
+  GreenLight: []
 --- !u!114 &1463662110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30019,12 +29986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!65 &1463662111
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31431,12 +31394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &1511546401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34993,12 +34952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &1667126449 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8320148501908531335, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
@@ -35016,12 +34971,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &1678321705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38082,12 +38033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &1812220109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38732,12 +38679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &1830382607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41943,12 +41886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &1978770198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42708,12 +42647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &2011215549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3369866113205846547, guid: 6aa8f44fd6b336c42bde9c7ba35695f3, type: 3}
@@ -43021,12 +42956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &2037930669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44002,12 +43933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &2070728043
 GameObject:
   m_ObjectHideFlags: 0
@@ -44117,12 +44044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &2073171376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2719382653841324946, guid: cff4d211a2beb0449bd847c21a70d803, type: 3}
@@ -44559,12 +44482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &2089091844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44587,6 +44506,7 @@ MonoBehaviour:
   Trigger: 0
   room: {fileID: 0}
   Guard: {fileID: 0}
+  holder: {fileID: 0}
   graph_Xan: {fileID: 0}
   graph_Sat: {fileID: 0}
   graph_Mel: {fileID: 0}
@@ -44855,12 +44775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1f808de69ed9d46976911e43cbdcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &2100673014
 PrefabInstance:
   m_ObjectHideFlags: 0
