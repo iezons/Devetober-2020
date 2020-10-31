@@ -1883,10 +1883,8 @@ public class NpcController : ControllerBased
                 animator.Play("Sitting Off Chair");
                 break;
             case Interact_SO.InteractType.Terminal:
-                animator.Play("GetOutTerminal", 0);
                 break;
             case Interact_SO.InteractType.Switch:
-                animator.Play("GetOutSwtich", 0);
                 break;
             default:
                 break;
@@ -2114,16 +2112,27 @@ public class NpcController : ControllerBased
                     Debug.Log("Healing");
                     if (HealingTarget != null)
                     {
-                        HealingTarget.GetComponent<NpcController>().ApplyHealth(status.healAmount);
-                        HealingTarget = null;
+                        NpcController npc = HealingTarget.GetComponent<NpcController>();
+                        if(npc.status.currentHealth< npc.status.maxHealth)
+                        {
+                            HealingTarget.GetComponent<NpcController>().ApplyHealth(status.healAmount);
+                            HealingTarget = null;
+                            status.CarryItem = Item_SO.ItemType.None;
+                            status.healAmount = 0;
+                            RemoveMenu("Heal");
+                        }
+                        else
+                        {
+                            Debug.Log("No need Heal");
+                            HealingTarget = null;
+                        }
                     }
                     else
                     {
-                        ApplyHealth(status.healAmount);
-                    }
-                    status.CarryItem = Item_SO.ItemType.None;
-                    status.healAmount = 0;
-                    RemoveMenu("Heal");
+                        ApplyHealth(status.healAmount); status.CarryItem = Item_SO.ItemType.None;
+                        status.healAmount = 0;
+                        RemoveMenu("Heal");
+                    }             
                     break;
                 default:
                     break;

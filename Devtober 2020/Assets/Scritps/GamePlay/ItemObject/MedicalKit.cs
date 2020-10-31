@@ -55,9 +55,9 @@ public class MedicalKit : Item_SO
                 holder.HolderMKNPC = melnpc;
                 room.DiaPlay.PlayDia(graph_Mel);
             }
-            EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");
-            Destroy(gameObject);
+            EventCenter.GetInstance().EventTriggered("01_IsEnterCafe");           
         }
+        Destroy(gameObject);
     }
 
     void OnEnable()
