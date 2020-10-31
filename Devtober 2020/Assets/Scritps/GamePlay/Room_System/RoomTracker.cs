@@ -152,7 +152,7 @@ namespace GamePlay
             Detecting();
             DialogueChecking();
             RescuingCode();
-            RoomCapacityCheck();
+            //RoomCapacityCheck();
         }
 
         private void Detecting()

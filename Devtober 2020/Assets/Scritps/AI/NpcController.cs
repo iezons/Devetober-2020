@@ -379,6 +379,7 @@ public class NpcController : ControllerBased
                 break;
             case "Escaping":
                 Escaping();
+                CompleteEscaping();
                 break;
             case "InteractWithItem":
                 PlayGetInAnim();
@@ -461,7 +462,7 @@ public class NpcController : ControllerBased
     {
         if (navAgent.enabled)
         {
-            if(locatorList.npc!=null)
+            if(locatorList != null)
                 locatorList.npc = null;
             CurrentInteractObject = null;
             RescuingTarget = null;
@@ -1081,6 +1082,7 @@ public class NpcController : ControllerBased
             if (navAgent.enabled)
                 navAgent.ResetPath();
             navAgent.speed *= ((status.currentStamina / 100) * 0.4f + 0.6f) * boostSpeed;
+            escWayponits.Clear();
             m_fsm.ChangeState("Escaping");
         }
     }
@@ -1116,7 +1118,7 @@ public class NpcController : ControllerBased
 
     public void CompleteEscaping()
     {
-        if (Distance() < 5)
+        if (Distance() < restDistance)
         {
             if (navAgent.enabled)
                 navAgent.ResetPath();
@@ -2450,6 +2452,9 @@ public class NpcController : ControllerBased
             }
             Gizmos.DrawLine(transform.position + new Vector3(0, 3, 0), RescuingTarget.transform.position + new Vector3(0, 3, 0));
         }
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(navAgent.destination, 1);
     }
     #endregion
 
