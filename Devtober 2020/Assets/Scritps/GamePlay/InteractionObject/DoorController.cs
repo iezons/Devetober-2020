@@ -75,6 +75,11 @@ public class DoorController : ControllerBased
         AudioMgr.GetInstance().PlayAudio(source, str, 1f, false, null);
     }
 
+    public void Zero()
+    {
+        currentHealth = 0;
+    }
+
     private void Awake()
     {
         AudioSource[] sources = GetComponentsInChildren<AudioSource>();

@@ -13,6 +13,7 @@ using UnityEngine.Timeline;
 using System;
 using UnityEngine.AI;
 using GraphBase;
+using UnityEngine.SceneManagement;
 
 public class DefaultValueWithGO
 {
@@ -121,6 +122,7 @@ public class GameManager : SingletonBase<GameManager>
     public TMP_Text TimeText;
     [Tooltip("x: hours  y: minutes z: seconds")]
     public Vector3 StartTime;
+    public Vector3 CounDown;
     public bool CanCameraTurnLeft = true;
     public bool CanCameraTurnRight= true;
     float currentSeconds;
@@ -145,7 +147,7 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Audio")]
     public AudioSource Audio2D;
     bool AllowAudio = false;
-
+    bool JuE = true;
     public void SetCurEventNode(string name, EventSO so)
     {
         EventNode evt = eventGraph.graph.currentList[0] as EventNode;
@@ -154,19 +156,7 @@ public class GameManager : SingletonBase<GameManager>
 
     void ServerRoomDetect()
     {
-        bool a = true;
-        foreach (var item in ServerPos)
-        {
-            if(!item.isUnlocked)
-            {
-                a = false;
-                break;
-            }
-        }
-        if(a)
-        {
-            FDirector.Play();
-        }
+        
     }
 
     void Awake()
@@ -410,25 +400,6 @@ public class GameManager : SingletonBase<GameManager>
         }
         #endregion
 
-        #region Test Code
-        //Test Code
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            CurrentRoom.PlayingDialogue(TestGraph);
-        }
-
-        if(Input.GetKeyDown(KeyCode.U))
-        {
-            EventCenter.GetInstance().DiaEventTrigger("01_CloseDoor");
-            EventCenter.GetInstance().DiaEventTrigger("TU_TurnLeftCheck");
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
-            EventCenter.GetInstance().DiaEventTrigger("TU_TurnRightCheck");
-        }
-
         if(Input.GetKeyDown(KeyCode.L))
         {
             Resolution[] res = UnityEngine.Screen.resolutions;
@@ -462,12 +433,6 @@ public class GameManager : SingletonBase<GameManager>
                 }
             }
         }
-
-        if(Input.GetKeyDown(KeyCode.F1))
-        {
-            testnpc.SwitchAnimState(false);
-        }
-        #endregion
 
         #region NavMeshBuilding
         //NavMesh Building
@@ -830,19 +795,56 @@ public class GameManager : SingletonBase<GameManager>
         #endregion
 
         #region DisplayTimeText
-        if (currentSeconds + Time.deltaTime >= 86400)
+        bool a = true;
+        foreach (var item in ServerPos)
         {
-            currentSeconds -= 86400;
+            if (!item.isUnlocked)
+            {
+                a = false;
+                break;
+            }
         }
-        currentSeconds += Time.deltaTime;
-        int SecondTime = (int)Mathf.Floor(currentSeconds);
-        int Hours = (int)Mathf.Floor(SecondTime / 3600);
-        int Minutes = (int)Mathf.Floor((SecondTime - Hours * 3600) / 60);
-        int Seconds = (int)Mathf.Floor((SecondTime - Hours * 3600 - Minutes * 60));
-        string H = ReverseString((ReverseString(Hours.ToString()) + "00").Substring(0, 2));
-        string M = ReverseString((ReverseString(Minutes.ToString()) + "00").Substring(0, 2));
-        string S = ReverseString((ReverseString(Seconds.ToString()) + "00").Substring(0, 2));
-        TimeText.text = H + ":" + M + ":" + S;
+        if (a)
+        {
+            if(JuE)
+            {
+                currentSeconds = 500f;
+                JuE = false;
+            }
+            if (currentSeconds - Time.deltaTime > 0)
+            {
+                currentSeconds -= Time.deltaTime;
+                int SecondTime = (int)Mathf.Floor(currentSeconds);
+                int Hours = (int)Mathf.Floor(SecondTime / 3600);
+                int Minutes = (int)Mathf.Floor((SecondTime - Hours * 3600) / 60);
+                int Seconds = (int)Mathf.Floor((SecondTime - Hours * 3600 - Minutes * 60));
+                string H = ReverseString((ReverseString(Hours.ToString()) + "00").Substring(0, 2));
+                string M = ReverseString((ReverseString(Minutes.ToString()) + "00").Substring(0, 2));
+                string S = ReverseString((ReverseString(Seconds.ToString()) + "00").Substring(0, 2));
+                TimeText.text = H + ":" + M + ":" + S;
+            }
+            else
+            {
+                SceneManager.LoadScene("End");
+            }
+            
+        }
+        else
+        {
+            if (currentSeconds + Time.deltaTime >= 86400)
+            {
+                currentSeconds -= 86400;
+            }
+            currentSeconds += Time.deltaTime;
+            int SecondTime = (int)Mathf.Floor(currentSeconds);
+            int Hours = (int)Mathf.Floor(SecondTime / 3600);
+            int Minutes = (int)Mathf.Floor((SecondTime - Hours * 3600) / 60);
+            int Seconds = (int)Mathf.Floor((SecondTime - Hours * 3600 - Minutes * 60));
+            string H = ReverseString((ReverseString(Hours.ToString()) + "00").Substring(0, 2));
+            string M = ReverseString((ReverseString(Minutes.ToString()) + "00").Substring(0, 2));
+            string S = ReverseString((ReverseString(Seconds.ToString()) + "00").Substring(0, 2));
+            TimeText.text = H + ":" + M + ":" + S;
+        }
         #endregion
     }
 

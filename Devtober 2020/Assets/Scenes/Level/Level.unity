@@ -11820,6 +11820,8 @@ GameObject:
   m_Component:
   - component: {fileID: 538817926}
   - component: {fileID: 538817927}
+  - component: {fileID: 538817929}
+  - component: {fileID: 538817928}
   m_Layer: 0
   m_Name: FD
   m_TagString: Untagged
@@ -11834,8 +11836,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538817925}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000014305115, y: 0.000011920929, z: -0.000015258789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 984608925}
@@ -11855,9 +11857,60 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: 2668232796058918527, guid: a94f377a0f536504093efeeafa37bf05, type: 2}
+    value: {fileID: 538817929}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &538817928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538817925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 72f11b561b820294c9882000be931363, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 864338960}
+          m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+          m_MethodName: Zero
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &538817929
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538817925}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &539436639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25758,7 +25811,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: 'Event: 0'
+  m_Name: Basic Event Node
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: -392, y: -248}
@@ -25771,7 +25824,10 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Output
+        node: {fileID: 1812912816}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -25789,7 +25845,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: 271f229c-4a80-4cb4-ad39-6e9872fd5cec
-  EventName: 0
+  EventName: 
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -27828,6 +27884,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6706586657627770405, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
   m_PrefabInstance: {fileID: 1802968214}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &864338960 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7306220427215242316, guid: 70a19374561ec504a8a25d823db6e81e, type: 3}
+  m_PrefabInstance: {fileID: 1802968214}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864338959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89843f685ddc19843bb78056e28ebf10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &864338962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34263,7 +34330,6 @@ MonoBehaviour:
   - {fileID: 781134309}
   - {fileID: 2092799393}
   - {fileID: 1906155080}
-  - {fileID: 1895363156}
   - {fileID: 1521040059}
   - {fileID: 291028970}
   - {fileID: 1629488622}
@@ -34662,6 +34728,7 @@ MonoBehaviour:
   CameraName: {fileID: 397626870}
   TimeText: {fileID: 950755336}
   StartTime: {x: 22, y: 59, z: 54}
+  CounDown: {x: 0, y: 0, z: 0}
   CanCameraTurnLeft: 1
   CanCameraTurnRight: 1
   Directors: []
@@ -44705,7 +44772,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 1895363156}
+        node: {fileID: 1629488622}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -47829,7 +47896,10 @@ MonoBehaviour:
       _node: {fileID: 1629488622}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Output
+        node: {fileID: 1906155080}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -47838,7 +47908,10 @@ MonoBehaviour:
       _node: {fileID: 1629488622}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 1521040059}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -51485,7 +51558,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 1895363156}
+        node: {fileID: 781134309}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -54695,189 +54768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b915e661bdbca2f4dbb99e32760ea976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1895363156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: 'Event: 1'
-  m_EditorClassIdentifier: 
-  graph: {fileID: 1157949084}
-  position: {x: 792, y: -232}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: 1895363156}
-      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 1906155080}
-        reroutePoints: []
-      - fieldName: Output
-        node: {fileID: 1812912816}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: 1895363156}
-      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1521040059}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
-  EventName: 1
-  conditionSOs: []
-  CurrentEditingConNum: -1
-  eventSO:
-  - ID: c38282a7-913d-4297-bf1d-8fbdb9beee81
-    TODOList: []
-    doingWith: 2
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 1
-    SpawnPoint: []
-    EnemyWayPoint:
-    - Obj: {fileID: 1173456416}
-      MoveTO: {fileID: 1979387152}
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: 29b42962-ec0e-49d4-8992-5145328c4a10
-    TODOList: []
-    doingWith: 2
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 1
-    SpawnPoint: []
-    EnemyWayPoint:
-    - Obj: {fileID: 1173456416}
-      MoveTO: {fileID: 557721031}
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: f2db4636-b974-47a0-8a58-3bce914641e2
-    TODOList: []
-    doingWith: 3
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 11400000, guid: f1362160e6be5de45ad6e6612bb69a23, type: 2}
-    Dialogue_Room: {fileID: 774842019}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: 8b8a4e2d-5377-454f-8323-97a96f481fb9
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 3
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 359558548}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 1476977625}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: 2534a339-3dd0-4290-8484-373269548e8e
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 3
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 526809293}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 556376058}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: ad1fa3b7-b9d4-43fb-9e2e-2ffe159892a8
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 3
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 1333547498}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 704790704}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  CurrentEditingSONum: 1
-  Comment: 
 --- !u!1001 &1896001809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55111,7 +55001,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 1895363156}
+        node: {fileID: 1629488622}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
