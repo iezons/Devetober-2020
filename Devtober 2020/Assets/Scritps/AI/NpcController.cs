@@ -23,6 +23,7 @@ public class NpcController : ControllerBased
     public bool IsPrisoner = false;
     public bool isGuard = false;
     public bool isGrabbingGuardName = false;
+    public bool isPrristNeedHeal = false;
     public bool NeedRemoveMenu = true;
     
     public string AnimStateName = string.Empty;
@@ -2182,7 +2183,7 @@ public class NpcController : ControllerBased
 
     public void FacingEachOther(Transform tran)
     {
-        Vector3 dir = tran.position;
+        Vector3 dir = (tran.position - transform.position).normalized;
 
         dir.y = 0;
         Quaternion rotation = Quaternion.LookRotation(dir);
@@ -2195,8 +2196,8 @@ public class NpcController : ControllerBased
 
     public void FacingEachOtherCoro(Transform tran)
     {
-        StartCoroutine(FacingEachOtherCoro(tran.position));
-
+        Vector3 dir = (tran.position - transform.position).normalized;
+        StartCoroutine(FacingEachOtherCoro(dir));
     }
 
     public void FacingEachOtherCoro()

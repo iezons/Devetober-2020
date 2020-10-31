@@ -1144,6 +1144,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -6217,6 +6218,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -7199,6 +7201,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 1
@@ -7623,6 +7626,7 @@ MonoBehaviour:
   IsPrisoner: 1
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 0
   AnimStateName: NervousSittingOnFloor
   SendEventWhenGetOutLocker: 0
@@ -10927,8 +10931,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.0017657543
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11712,6 +11716,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -19721,6 +19726,8 @@ MonoBehaviour:
   graph_Xan: {fileID: 11400000, guid: 540f1958c21dd4648b29288fe9d42553, type: 2}
   graph_Sat: {fileID: 11400000, guid: b74d95a7a909197458df97d7d40c62b5, type: 2}
   graph_Mel: {fileID: 11400000, guid: a01d50bf8800f424eb4f08e343432d1f, type: 2}
+  rende: {fileID: 0}
+  coll: {fileID: 0}
 --- !u!114 &650833086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20425,6 +20432,8 @@ MonoBehaviour:
   graph_Xan: {fileID: 0}
   graph_Sat: {fileID: 0}
   graph_Mel: {fileID: 0}
+  rende: {fileID: 0}
+  coll: {fileID: 0}
 --- !u!65 &676408711
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22474,6 +22483,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -26883,6 +26893,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: 
   SendEventWhenGetOutLocker: 0
@@ -31313,7 +31324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: lockTime
@@ -31321,7 +31332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: isNPCCalled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636327666473846946, guid: 3f2364d3d794c5f4eb2a5c4a2c1ad372, type: 3}
       propertyPath: OutlineWidth
@@ -32711,6 +32722,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -39219,7 +39231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.81128, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.8114, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -39905,6 +39917,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
@@ -55570,6 +55583,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: 
   SendEventWhenGetOutLocker: 0
@@ -62085,6 +62099,7 @@ MonoBehaviour:
   IsPrisoner: 0
   isGuard: 0
   isGrabbingGuardName: 0
+  isPrristNeedHeal: 0
   NeedRemoveMenu: 1
   AnimStateName: Idle
   SendEventWhenGetOutLocker: 0
