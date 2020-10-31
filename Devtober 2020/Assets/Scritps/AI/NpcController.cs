@@ -270,7 +270,8 @@ public class NpcController : ControllerBased
             }
             if (!currentRoomTracker.isEnemyDetected() && isEnemyEnter)
             {
-                CurrentInteractObject.IsInteracting = false;
+                if(CurrentInteractObject != null)
+                    CurrentInteractObject.IsInteracting = false;
                 EventCenter.GetInstance().DiaEventTrigger("01_PrisonerSafe");
                 IsPrisoner = false;
             }
@@ -709,6 +710,7 @@ public class NpcController : ControllerBased
 
     public void ReadyForDispatch(object newPos)
     {
+        LimpingChange("Run");
         Debug.Log("Ready for Dispatch");
         navAgent.SetDestination((Vector3)newPos);
         m_fsm.ChangeState("Dispatch");
