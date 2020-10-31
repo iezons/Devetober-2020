@@ -512,6 +512,12 @@ public class NpcController : ControllerBased
         navAgent.speed *= (status.currentStamina / 100) * 0.4f + 0.6f;
         m_fsm.ChangeState("Patrol");
         IsRandomTalking = false;
+
+        if (MenuContains("Leave") >= 0)
+        {
+            RemoveMenu("Leave");
+        }
+
         if (MenuContains("Interact") >= 0)
             return;
         else
@@ -1623,7 +1629,7 @@ public class NpcController : ControllerBased
                             break;
                         case Interact_SO.InteractType.Terminal:
                             CurrentInteractObject.NPCInteract(0);
-                            animator.Play("Stand Terminal", 0);
+                            animator.Play("UnlockTerminal", 0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             HasInteract = true;
                             break;

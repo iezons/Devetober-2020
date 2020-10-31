@@ -25425,6 +25425,10 @@ PrefabInstance:
       propertyPath: Locators.Array.data[1].Locator
       value: 
       objectReference: {fileID: 397589622}
+    - target: {fileID: 2793493232036606216, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
+      propertyPath: IsInteracting
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3027846779299783187, guid: ef03d4f5e039d75458a5eb79331ecb5a, type: 3}
       propertyPath: m_Name
       value: Bed
@@ -27207,7 +27211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.74977, y: 0}
+  m_AnchoredPosition: {x: 87.74945, y: 0}
   m_SizeDelta: {x: 874.50964, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
