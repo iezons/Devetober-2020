@@ -518,6 +518,12 @@ public class NpcController : ControllerBased
         navAgent.speed *= (status.currentStamina / 100) * 0.4f + 0.6f;
         m_fsm.ChangeState("Patrol");
         IsRandomTalking = false;
+
+        if (MenuContains("Leave") >= 0)
+        {
+            RemoveMenu("Leave");
+        }
+
         if (MenuContains("Interact") >= 0)
             return;
         else
