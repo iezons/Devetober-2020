@@ -370,10 +370,6 @@ public class DialoguePlay : MonoBehaviour
         {
             if(dia.TalkingPerson != "<Common>")
             {
-
-            }
-            else
-            {
                 CurrentTalkingPerson = dia.TalkingPerson;
             }
             LoadText(CurrentTalkingPerson, dia.Dialogue[dia.curIndex]);
