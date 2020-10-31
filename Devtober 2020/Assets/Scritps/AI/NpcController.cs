@@ -148,6 +148,7 @@ public class NpcController : ControllerBased
     bool justEnterEvent = true;
     public AudioSource source;
     public float audioTimer = 0.5f;
+    RoomTracker recordRoom;
     #endregion
 
     #region InteractWithItem
@@ -172,6 +173,7 @@ public class NpcController : ControllerBased
     float VelocityPosX;
     float VelocityPosZ;
     float timer;
+    List<Transform> escWayponits = new List<Transform>();
     #endregion
 
     public void Awake()
@@ -1015,17 +1017,6 @@ public class NpcController : ControllerBased
         }
     }
 
-    //public void CheckEvent()
-    //{
-    //    if (status.toDoList != null)
-    //    {
-    //        if (status.toDoList.Count != 0)
-    //        {
-    //            m_fsm.ChangeState("Event");
-    //        }
-    //    }
-    //}
-
     public void ReachDestination()
     {
         if (Distance() <= restDistance)
@@ -1099,20 +1090,23 @@ public class NpcController : ControllerBased
         {
             if (item.isEnemyDetected())
                 continue;
-
-            float minDistance = Mathf.Infinity;
-            foreach (var wayPoint in item.tempWayPoints)
+            foreach (var point in item.tempWayPoints)
             {
-                float a = wayPoint.position.x - transform.position.x;
-                float b = wayPoint.position.z - transform.position.z;
-                float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-                float distance = Mathf.Abs(c);
-
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    pos = wayPoint.position;
-                }
+                if(!escWayponits.Contains(point))
+                    escWayponits.Add(point);
+            }
+        }
+        float minDistance = Mathf.Infinity;
+        foreach (var wayPoint in escWayponits)
+        {
+            float a = wayPoint.position.x - transform.position.x;
+            float b = wayPoint.position.z - transform.position.z;
+            float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
+            float distance = Mathf.Abs(c);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                pos = wayPoint.position;
             }
         }
         Dispatch(pos);
@@ -1120,7 +1114,7 @@ public class NpcController : ControllerBased
 
     public void CompleteEscaping()
     {
-        if (Distance() < restDistance)
+        if (Distance() < 5)
         {
             if (navAgent.enabled)
                 navAgent.ResetPath();
