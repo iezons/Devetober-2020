@@ -1629,7 +1629,7 @@ public class NpcController : ControllerBased
                             break;
                         case Interact_SO.InteractType.Terminal:
                             CurrentInteractObject.NPCInteract(0);
-                            animator.Play("Stand Terminal", 0);
+                            animator.Play("UnlockTerminal", 0);
                             CurrentInteractObject.Locators.Find((x) => (x == locatorList)).npc = this;
                             HasInteract = true;
                             break;
