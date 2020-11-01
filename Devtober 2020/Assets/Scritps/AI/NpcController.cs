@@ -107,6 +107,7 @@ public class NpcController : ControllerBased
     bool IsRandomTalking = false;
     Vector3 TalkingPos = Vector3.zero;
 
+    public bool IsHighP;
     public NpcController HighP;
     public DialogueGraph Graph1;
     public DialogueGraph Graph1_5;
@@ -2206,25 +2207,30 @@ public class NpcController : ControllerBased
                                             swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                                         }                                       
                                         cBord.isLocked = false;
+                                        
+                                        if(IsHighP)
+                                        {
+                                            if (status.npcName == "Stephanus Lentinus")
+                                            {
+                                                PuEvt.NPCTalking[0].Graph = Graph1;
+                                                PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
+                                                HighP.status.toDoList.Add(PuEvt);
+                                                HighP.TriggerEvent();
+                                                status.toDoList.Add(PuEvt);
+                                                TriggerEvent();
+                                            }
+                                            else
+                                            {
+                                                PuEvt.NPCTalking[0].Graph = Graph1_5;
+                                                PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
+                                                HighP.status.toDoList.Add(PuEvt);
+                                                HighP.TriggerEvent();
+                                                status.toDoList.Add(PuEvt);
+                                                TriggerEvent();
+                                            }
+                                            IsHighP = false;
+                                        }
                                         GameManager.GetInstance().SetupStage(2);
-                                        if (status.npcName == "Stephanus Lentinus")
-                                        {
-                                            PuEvt.NPCTalking[0].Graph = Graph1;
-                                            PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
-                                            HighP.status.toDoList.Add(PuEvt);
-                                            HighP.TriggerEvent();
-                                            status.toDoList.Add(PuEvt);
-                                            TriggerEvent();
-                                        }
-                                        else
-                                        {
-                                            PuEvt.NPCTalking[0].Graph = Graph1_5;
-                                            PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
-                                            HighP.status.toDoList.Add(PuEvt);
-                                            HighP.TriggerEvent();
-                                            status.toDoList.Add(PuEvt);
-                                            TriggerEvent();
-                                        }
                                     }
                                     else
                                     {
