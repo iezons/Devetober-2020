@@ -1349,6 +1349,7 @@ MonoBehaviour:
   discoverAngle: 0
   restTime: 0
   recoverTime: 0
+  IsHighP: 0
   HighP: {fileID: 0}
   Graph1: {fileID: 0}
   Graph1_5: {fileID: 0}
@@ -1456,7 +1457,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1eb37a79ab5a18d458663dc637ca8a0f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1501,7 +1502,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6864,6 +6865,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
+  IsHighP: 0
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -7883,6 +7885,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
+  IsHighP: 0
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -8344,6 +8347,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
+  IsHighP: 0
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -11864,8 +11868,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.0017655384
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12689,6 +12693,7 @@ MonoBehaviour:
   discoverAngle: 0
   restTime: 0
   recoverTime: 0
+  IsHighP: 0
   HighP: {fileID: 0}
   Graph1: {fileID: 0}
   Graph1_5: {fileID: 0}
@@ -12796,7 +12801,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e4bb504d5d3169b49a8d9785616f5dde, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -12841,7 +12846,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -13255,7 +13260,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: a94f377a0f536504093efeeafa37bf05, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -15437,8 +15442,6 @@ PlayableDirector:
     value: {fileID: 1360868829}
   - key: {fileID: -6400198420136008507, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
     value: {fileID: 1756340317}
-  - key: {fileID: -2363034375818132441, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
-    value: {fileID: 1255214747}
   - key: {fileID: 5401563878783679627, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
     value: {fileID: 301930772}
   - key: {fileID: -8956620376414148566, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
@@ -15475,6 +15478,16 @@ PlayableDirector:
     value: {fileID: 1816410799}
   - key: {fileID: 6248913866387011722, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
     value: {fileID: 1493272250}
+  - key: {fileID: -1662445566835153450, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+    value: {fileID: 756912593}
+  - key: {fileID: 2028336176011986003, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+    value: {fileID: 1890045133}
+  - key: {fileID: 7957796991772881354, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+    value: {fileID: 808200172}
+  - key: {fileID: 3758696577081315298, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+    value: {fileID: 756912593}
+  - key: {fileID: -2519725615233482205, guid: 477f6b503b1308a40893ae01af25facd, type: 2}
+    value: {fileID: 35700096}
   m_ExposedReferences:
     m_References:
     - eb11f86af7218bc45b19120f3d332abf: {fileID: 1890045127}
@@ -24325,6 +24338,7 @@ MonoBehaviour:
   discoverAngle: 0
   restTime: 0
   recoverTime: 0
+  IsHighP: 0
   HighP: {fileID: 0}
   Graph1: {fileID: 0}
   Graph1_5: {fileID: 0}
@@ -24432,7 +24446,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3e695a58cee4282408fcfa0210df6b6f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -24477,7 +24491,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -29068,6 +29082,7 @@ MonoBehaviour:
   discoverAngle: 0
   restTime: 0
   recoverTime: 0
+  IsHighP: 0
   HighP: {fileID: 0}
   Graph1: {fileID: 0}
   Graph1_5: {fileID: 0}
@@ -29175,7 +29190,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9309520e69c2d364492de64e0b8e31f0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -29220,7 +29235,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -33097,6 +33112,93 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1212739484276237568, guid: 4039d8d79765352499d49a33137d03bc, type: 3}
   m_PrefabInstance: {fileID: 972189789}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &965877301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
+  m_Name: 'Event: 0'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1157949084}
+  position: {x: -72, y: 312}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 965877301}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 965877301}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GUID: a30bb683-8c34-4721-ad04-06c810241ebc
+  EventName: 0
+  conditionSOs: []
+  CurrentEditingConNum: -1
+  eventSO:
+  - ID: dc6faa96-a8ae-4bfb-8c03-645d63ddc228
+    TODOList: []
+    doingWith: 4
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines:
+    - {fileID: 633347898}
+  - ID: 7034516c-01ba-47d1-827a-9243c11459c4
+    TODOList: []
+    doingWith: 3
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 11400000, guid: 9ce59c95bcf371f418a2695f8dd56c34, type: 2}
+    Dialogue_Room: {fileID: 1493272246}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 1
+  Comment: Enenmy_Come in
 --- !u!1001 &972189789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35497,6 +35599,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 15
   recoverTime: 3
+  IsHighP: 0
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -38742,6 +38845,7 @@ MonoBehaviour:
   - {fileID: 291028970}
   - {fileID: 1629488622}
   - {fileID: 848740037}
+  - {fileID: 965877301}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
   currentList: []
@@ -42816,7 +42920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.81125, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.8114, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -43542,6 +43646,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
+  IsHighP: 0
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -59920,6 +60025,7 @@ MonoBehaviour:
   discoverAngle: 0
   restTime: 0
   recoverTime: 0
+  IsHighP: 0
   HighP: {fileID: 0}
   Graph1: {fileID: 0}
   Graph1_5: {fileID: 0}
@@ -60027,7 +60133,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f0991b5558e4e00439d35eb46bd41d9c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -60072,7 +60178,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -60653,7 +60759,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: 'Event: 0'
+  m_Name: 'Event: 0_Tu'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
   position: {x: 376, y: -232}
@@ -60684,7 +60790,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: a30bb683-8c34-4721-ad04-06c810241ebc
-  EventName: 0
+  EventName: 0_Tu
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -60710,27 +60816,6 @@ MonoBehaviour:
     CustomCode: []
     timelines:
     - {fileID: 633347898}
-  - ID: 7034516c-01ba-47d1-827a-9243c11459c4
-    TODOList: []
-    doingWith: 3
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 11400000, guid: 9ce59c95bcf371f418a2695f8dd56c34, type: 2}
-    Dialogue_Room: {fileID: 1493272246}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
   CurrentEditingSONum: 0
   Comment: Enenmy_Come in
 --- !u!4 &1906252597 stripped
@@ -62222,7 +62307,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1fc456a14fb4c794284e762cffdd5c85, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -62267,7 +62352,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -67123,6 +67208,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
+  IsHighP: 0
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}

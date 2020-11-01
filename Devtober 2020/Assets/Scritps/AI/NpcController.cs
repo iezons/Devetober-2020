@@ -269,7 +269,6 @@ public class NpcController : ControllerBased
         #region GameplayEvent
         if(IsPrisoner)
         {
-            DetectRoom();
             if (currentRoomTracker.isEnemyDetected())
             {
                 isEnemyEnter = true;
@@ -693,6 +692,7 @@ public class NpcController : ControllerBased
 
     public void Dispatch(object newPos)
     {
+        navAgent.enabled = true;
         navAgent.SetDestination((Vector3)newPos);
 
         if (m_fsm.GetCurrentState() != "InteractWithItem")
