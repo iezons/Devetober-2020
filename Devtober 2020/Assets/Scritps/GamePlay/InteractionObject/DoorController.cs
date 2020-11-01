@@ -260,31 +260,38 @@ public class DoorController : ControllerBased
 
     void Fixing()
     {
-        if(isFixing)
+        if (isFixing)
         {
-            if (currentHealth >= maxHealth)
+            if (cBord != null)
             {
-                Debug.Log("Fixed");
-                currentHealth = maxHealth;
-                if (cBord != null)
+                if (currentHealth >= maxHealth)
                 {
+                    Debug.Log("Fixed");
+                    currentHealth = maxHealth;
                     if (!cBord.isPowerOff)
                     {
                         isLocked = false;
                         isPowerOff = false;
                         isFixing = false;
                     }
-                }           
-                else if(isActivated())
-                {
-                    isLocked = false;
+                    else if (isActivated())
+                    {
+                        isLocked = false;
+                    }
+                    else
+                    {
+                        currentHealth = preFixedHealth;
+                        isFixing = false;
+                        isLocked = true;
+                    }
                 }
-                else
-                {
-                    currentHealth = preFixedHealth;
-                    isFixing = false;
-                    isLocked = true;
-                }
+            }
+            else if (currentHealth >= maxHealth)
+            {
+                currentHealth = maxHealth;
+                isLocked = false;
+                isPowerOff = false;
+                isFixing = false;
             }
         }
     }

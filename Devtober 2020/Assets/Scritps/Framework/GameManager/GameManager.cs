@@ -863,7 +863,7 @@ public class GameManager : SingletonBase<GameManager>
         {
             if(JuE)
             {
-                currentSeconds = 300f;
+                currentSeconds = 180f;
                 JuE = false;
             }
             if (currentSeconds - Time.deltaTime > 0)
