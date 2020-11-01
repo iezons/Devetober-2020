@@ -1165,7 +1165,7 @@ public class NpcController : ControllerBased
                 default:
                     break;
             }
-        }
+        }       
     }
 
     void HealOther()
