@@ -566,6 +566,7 @@ public class EnemyController : ControllerBased
     #region Event
     public void TriggerEvent()
     {
+        navAgent.enabled = true;
         navAgent.ResetPath();
         isJustEnterEvent = true;
         m_fsm.ChangeState("Event");

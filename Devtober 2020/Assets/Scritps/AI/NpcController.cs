@@ -2229,7 +2229,11 @@ public class NpcController : ControllerBased
                                                 status.toDoList.Add(PuEvt);
                                                 TriggerEvent();
                                             }
-                                            IsHighP = false;
+                                            List<NpcController> nptrrr = GameManager.GetInstance().NPC;
+                                            foreach (var item in nptrrr)
+                                            {
+                                                item.IsHighP = false;
+                                            }
                                         }
                                         GameManager.GetInstance().SetupStage(2);
                                     }
