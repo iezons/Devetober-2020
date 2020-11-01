@@ -28225,7 +28225,10 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Output
+        node: {fileID: 1812912816}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -30041,186 +30044,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4739389071966696711, guid: ac8c312c70da397429200f06c6046986, type: 3}
   m_PrefabInstance: {fileID: 847408023}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &848740037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: 'Event: 1_pristay'
-  m_EditorClassIdentifier: 
-  graph: {fileID: 1157949084}
-  position: {x: 808, y: -232}
-  ports:
-    keys:
-    - Input
-    - Output
-    values:
-    - _fieldName: Input
-      _node: {fileID: 848740037}
-      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 1812912816}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: Output
-      _node: {fileID: 848740037}
-      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1521040059}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
-  EventName: 1_pristay
-  conditionSOs: []
-  CurrentEditingConNum: -1
-  eventSO:
-  - ID: c38282a7-913d-4297-bf1d-8fbdb9beee81
-    TODOList: []
-    doingWith: 2
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 1
-    SpawnPoint: []
-    EnemyWayPoint:
-    - Obj: {fileID: 1173456416}
-      MoveTO: {fileID: 1979387152}
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: 6f9b4fd6-8659-40a9-bf30-0fbc867f9ea5
-    TODOList: []
-    doingWith: 2
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 1
-    SpawnPoint: []
-    EnemyWayPoint:
-    - Obj: {fileID: 1173456416}
-      MoveTO: {fileID: 557721031}
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: f2db4636-b974-47a0-8a58-3bce914641e2
-    TODOList: []
-    doingWith: 3
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 11400000, guid: f1362160e6be5de45ad6e6612bb69a23, type: 2}
-    Dialogue_Room: {fileID: 774842019}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: 8b8a4e2d-5377-454f-8323-97a96f481fb9
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 3
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 359558548}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 1476977625}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: 2534a339-3dd0-4290-8484-373269548e8e
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 3
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 526809293}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 556376058}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  - ID: ad1fa3b7-b9d4-43fb-9e2e-2ffe159892a8
-    TODOList: []
-    doingWith: 0
-    doingWithNPC: 3
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 1333547498}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 704790704}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 0}
-    Dialogue_Room: {fileID: 0}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
-  CurrentEditingSONum: 0
-  Comment: 
 --- !u!1 &850099247
 GameObject:
   m_ObjectHideFlags: 0
@@ -39031,7 +38854,6 @@ MonoBehaviour:
   - {fileID: 1521040059}
   - {fileID: 291028970}
   - {fileID: 1629488622}
-  - {fileID: 848740037}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
   currentList: []
@@ -39433,7 +39255,7 @@ MonoBehaviour:
   Directors: []
   FDirector: {fileID: 538817927}
   FinalWayPoint: {fileID: 1302127574}
-  Stage: 1
+  Stage: 0
   TutorialLevel: {fileID: 1493272244}
   MainLevelGroup: {fileID: 11652931}
   ZombieObject: {fileID: 0}
@@ -50083,7 +49905,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 848740037}
+        node: {fileID: 1629488622}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -53242,7 +53064,7 @@ MonoBehaviour:
   m_Name: 'Event: 1'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
-  position: {x: 424, y: 264}
+  position: {x: 808, y: -216}
   ports:
     keys:
     - Input
@@ -53252,7 +53074,10 @@ MonoBehaviour:
       _node: {fileID: 1629488622}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Output
+        node: {fileID: 1906155080}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -53261,7 +53086,10 @@ MonoBehaviour:
       _node: {fileID: 1629488622}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 1521040059}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -57240,7 +57068,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 848740037}
+        node: {fileID: 781134309}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -61190,7 +61018,10 @@ MonoBehaviour:
       _node: {fileID: 1906155080}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: Input
+        node: {fileID: 1629488622}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
