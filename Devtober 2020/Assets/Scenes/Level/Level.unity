@@ -1460,7 +1460,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1eb37a79ab5a18d458663dc637ca8a0f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -12026,7 +12026,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -12959,7 +12959,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e4bb504d5d3169b49a8d9785616f5dde, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -24651,7 +24651,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3e695a58cee4282408fcfa0210df6b6f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -29260,7 +29260,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9309520e69c2d364492de64e0b8e31f0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -42965,7 +42965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.8114, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.81125, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -53064,7 +53064,7 @@ MonoBehaviour:
   m_Name: 'Event: 1'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
-  position: {x: 808, y: -216}
+  position: {x: 760, y: -280}
   ports:
     keys:
     - Input
@@ -60316,7 +60316,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f0991b5558e4e00439d35eb46bd41d9c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -60993,10 +60993,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
-  m_Name: 'Event: 0'
+  m_Name: 'Event: 0_Tu'
   m_EditorClassIdentifier: 
   graph: {fileID: 1157949084}
-  position: {x: 376, y: -232}
+  position: {x: 328, y: -248}
   ports:
     keys:
     - Input
@@ -61027,7 +61027,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   GUID: a30bb683-8c34-4721-ad04-06c810241ebc
-  EventName: 0
+  EventName: 0_Tu
   conditionSOs: []
   CurrentEditingConNum: -1
   eventSO:
@@ -61053,27 +61053,6 @@ MonoBehaviour:
     CustomCode: []
     timelines:
     - {fileID: 633347898}
-  - ID: 7034516c-01ba-47d1-827a-9243c11459c4
-    TODOList: []
-    doingWith: 3
-    doingWithNPC: 0
-    NPCTalking: []
-    NPCWayPoint: []
-    NPCInteract: {fileID: 0}
-    doingWithNPC_Interact: 0
-    InteractObject: {fileID: 0}
-    Item: {fileID: 0}
-    NPC: []
-    IsAnimState: 1
-    AnimStateName: 
-    doingWithEnemy: 0
-    SpawnPoint: []
-    EnemyWayPoint: []
-    Dialogue_Graph: {fileID: 11400000, guid: 9ce59c95bcf371f418a2695f8dd56c34, type: 2}
-    Dialogue_Room: {fileID: 1493272246}
-    doingWithRoom: 0
-    CustomCode: []
-    timelines: []
   CurrentEditingSONum: 0
   Comment: Enenmy_Come in
 --- !u!4 &1906252597 stripped
@@ -62659,7 +62638,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1fc456a14fb4c794284e762cffdd5c85, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

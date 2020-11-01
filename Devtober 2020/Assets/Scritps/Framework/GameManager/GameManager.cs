@@ -909,6 +909,7 @@ public class GameManager : SingletonBase<GameManager>
 
     IEnumerator BlackWait()
     {
+        currentSeconds = 500f;
         BlackScreen.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         BlackScreen.gameObject.SetActive(false);
