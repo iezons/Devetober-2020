@@ -1173,7 +1173,6 @@ public class NpcController : ControllerBased
         float a = HealingTarget.transform.position.x - transform.position.x;
         float b = HealingTarget.transform.position.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        Dispatch(HealingTarget.transform.position);
         if (c < restDistance && HealingTarget != null)
         {
             bool Damping = false;
@@ -2005,7 +2004,6 @@ public class NpcController : ControllerBased
             {
                 animator.Play("Idle", 0);
                 timer -= Time.deltaTime;
-                print(timer);
                 if (timer <= 0)
                 {
                     CurrentInteractItem = null;
