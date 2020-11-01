@@ -137,6 +137,13 @@ public class DoorController : ControllerBased
                 isPowerOff = true;
             }
         }
+
+        else if (currentHealth <= 0 && !isPowerOff)
+        {
+            RemoveAndInsertMenu("SwitchStates", "Repair", "Repair", true, SendFixingNPC, 1 << LayerMask.NameToLayer("NPC"));
+            isLocked = true;
+            isPowerOff = true;
+        }
     }
 
     private void Detecting()
