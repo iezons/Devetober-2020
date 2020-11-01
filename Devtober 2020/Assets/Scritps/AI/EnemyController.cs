@@ -269,7 +269,8 @@ public class EnemyController : ControllerBased
 
     public void Dispatch(Vector3 newPos)
     {
-        navAgent.SetDestination(newPos);
+        if(navAgent.isOnNavMesh && navAgent.enabled)
+            navAgent.SetDestination(newPos);
 
         if (m_fsm.GetCurrentState() == "Chase")
         {

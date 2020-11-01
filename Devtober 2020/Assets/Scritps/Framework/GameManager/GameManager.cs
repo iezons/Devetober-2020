@@ -467,20 +467,19 @@ public class GameManager : SingletonBase<GameManager>
         #endregion
 
         #region NavMeshBuilding
-        if (Time.frameCount % 10 == 0)
-        {
-            for (int i = 0; i < Rooms.Count; i++)
-            {
-                if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
-                {
-                    foreach (var item in Rooms[i].navSurface)
-                    {
-                        item.BuildNavMesh();
-                    }
-                    break;
-                }
-            }
-        }
+        //if (Time.frameCount % 10 == 0)
+        //{
+        //    for (int i = 0; i < Rooms.Count; i++)
+        //    {
+        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+        //        {
+        //            foreach (var item in Rooms[i].navSurface)
+        //            {
+        //                item.BuildNavMesh();
+        //            }
+        //        }
+        //    }
+        //}
         #endregion
 
         #region UpdateText
@@ -1048,7 +1047,7 @@ public class GameManager : SingletonBase<GameManager>
             CameraButtonListPanel.gameObject.SetActive(true);
             CameraName.gameObject.SetActive(true);
             MainLevelGroup.SetActive(true);
-            TutorialLevel.SetActive(false);
+            //TutorialLevel.SetActive(false);
             for (int i = 0; i < Rooms.Count; i++)
             {
                 if(Rooms[i].RoomName() == "BedRoom_A")
@@ -1071,6 +1070,7 @@ public class GameManager : SingletonBase<GameManager>
             TutorialLevel.GetComponent<RoomTracker>().CanBeDetected = false;
             SetupCameraButton();
             //Destroy(TutorialLevel);
+            EventCenter.GetInstance().EventTriggered("TU_SwitchToMainLevelED");
         }
         else if(stage == 2)
         {
@@ -1089,7 +1089,6 @@ public class GameManager : SingletonBase<GameManager>
                 }
                 else if(Rooms[i].RoomName() != "A7 Server Room")
                 {
-                    Debug.Log("TTTTTTTT");
                     Rooms[i].CanBeDetected = true;
                 }
             }

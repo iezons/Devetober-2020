@@ -1036,11 +1036,11 @@ public class NpcController : ControllerBased
             if (navAgent.enabled)
                 navAgent.ResetPath();
         }
-        else if (navAgent.autoRepath)
-        {
-            //TODO: Cant Reach
-            Debug.Log("I cant go there");
-        }
+        //else if (navAgent.autoRepath)
+        //{
+        //    //TODO: Cant Reach
+        //    Debug.Log("I cant go there");
+        //}
     }
     #endregion
 
@@ -1187,7 +1187,7 @@ public class NpcController : ControllerBased
             }
             if (Damping)
             {
-                Debug.Log("Damping");
+                //Debug.Log("Damping");
             }
             else if (HealingTarget.GetComponent<NpcController>().m_fsm.GetCurrentState() == "Rest")
             {
@@ -1409,7 +1409,7 @@ public class NpcController : ControllerBased
 
                 if (Damping)
                 {
-                    Debug.Log("Damping");
+                    //Debug.Log("Damping");
                 }
                 else if (!HasInteract)
                 {
@@ -1970,7 +1970,7 @@ public class NpcController : ControllerBased
 
                 if (Damping)
                 {
-                    Debug.Log("Damping");
+                    //Debug.Log("Damping");
                 }
                 else if (!HasInteract)
                 {
@@ -2211,8 +2211,10 @@ public class NpcController : ControllerBased
                                         
                                         if(IsHighP)
                                         {
+                                            Debug.Log("IsHighP");
                                             if (status.npcName == "Stephanus Lentinus")
                                             {
+                                                Debug.Log("Ste");
                                                 PuEvt.NPCTalking[0].Graph = Graph1;
                                                 PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
                                                 HighP.status.toDoList.Add(PuEvt);
@@ -2222,6 +2224,7 @@ public class NpcController : ControllerBased
                                             }
                                             else
                                             {
+                                                Debug.Log("Common");
                                                 PuEvt.NPCTalking[0].Graph = Graph1_5;
                                                 PuEvt.NPCTalking[0].moveToClasses[1].Obj = gameObject;
                                                 HighP.status.toDoList.Add(PuEvt);
@@ -2366,7 +2369,7 @@ public class NpcController : ControllerBased
 
         if (Damping)
         {
-            Debug.Log("Damping");
+            //Debug.Log("Damping");
         }
     }
 
