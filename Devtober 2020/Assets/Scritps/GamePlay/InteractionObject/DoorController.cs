@@ -60,7 +60,7 @@ public class DoorController : ControllerBased
     #endregion
 
     #region Value
-    NavMeshObstacle navOb;
+    public NavMeshObstacle navOb;
     GameObject door;
     Collider[] detectedObj = null;
     public bool isClosed, isOpened, isPowerOff, isFixing;

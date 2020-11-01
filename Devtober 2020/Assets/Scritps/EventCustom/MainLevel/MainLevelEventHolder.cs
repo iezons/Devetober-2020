@@ -70,7 +70,7 @@ public class MainLevelEventHolder : MonoBehaviour
         Prisoner.Stage = 2;
         PriestGetOutRoom.PlayingDialogue(Graph03);
         Priest.navAgent.ResetPath();
-        Priest.SwitchAnimState(true, "Talking3");
+        //Priest.SwitchAnimState(true, "Talking3");
         Priest.FacingEachOther(true);
     }
 

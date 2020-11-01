@@ -241,7 +241,7 @@ public class EnemyController : ControllerBased
         float a = currentTerminalPos.x - transform.position.x;
         float b = currentTerminalPos.z - transform.position.z;
         float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
-        if (Mathf.Abs(c) < 1 || !navAgent.CalculatePath(currentTerminalPos, path)
+        if (Mathf.Abs(c) < 3 || !navAgent.CalculatePath(currentTerminalPos, path)
             )
         {
             currentTerminalPos = NewDestination();

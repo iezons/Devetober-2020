@@ -3082,6 +3082,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.992592
@@ -4285,7 +4289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177536218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 54.7, y: 0, z: -12.76}
+  m_LocalPosition: {x: 49.3, y: 0, z: -15.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 774841975}
@@ -6482,7 +6486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289668056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55, y: 0, z: -23.8}
+  m_LocalPosition: {x: 49.2, y: 0, z: -20.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 774841975}
@@ -7023,7 +7027,7 @@ MonoBehaviour:
   restTime: 10
   recoverTime: 5
   IsHighP: 1
-  HighP: {fileID: 1333547498}
+  HighP: {fileID: 1031784014}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
   PuEvt:
@@ -7033,12 +7037,12 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - Obj: {fileID: 1333547495}
+      - Obj: {fileID: 1031784013}
         MoveTO: {fileID: 2102179546}
       - Obj: {fileID: 0}
         MoveTO: {fileID: 1979766899}
       room: {fileID: 774842022}
-      Graph: {fileID: 0}
+      Graph: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     NPCWayPoint: []
     NPCInteract: {fileID: 0}
     doingWithNPC_Interact: 0
@@ -8043,7 +8047,7 @@ MonoBehaviour:
   restTime: 10
   recoverTime: 5
   IsHighP: 1
-  HighP: {fileID: 1333547498}
+  HighP: {fileID: 1031784014}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
   PuEvt:
@@ -8053,12 +8057,12 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - Obj: {fileID: 1333547495}
+      - Obj: {fileID: 1031784013}
         MoveTO: {fileID: 2102179546}
       - Obj: {fileID: 0}
         MoveTO: {fileID: 1979766899}
       room: {fileID: 774842022}
-      Graph: {fileID: 0}
+      Graph: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     NPCWayPoint: []
     NPCInteract: {fileID: 0}
     doingWithNPC_Interact: 0
@@ -8505,7 +8509,7 @@ MonoBehaviour:
   restTime: 10
   recoverTime: 5
   IsHighP: 1
-  HighP: {fileID: 1333547498}
+  HighP: {fileID: 1031784014}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
   PuEvt:
@@ -8515,12 +8519,12 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - Obj: {fileID: 1333547495}
+      - Obj: {fileID: 1031784013}
         MoveTO: {fileID: 2102179546}
       - Obj: {fileID: 0}
         MoveTO: {fileID: 1979766899}
       room: {fileID: 774842022}
-      Graph: {fileID: 0}
+      Graph: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     NPCWayPoint: []
     NPCInteract: {fileID: 0}
     doingWithNPC_Interact: 0
@@ -10069,6 +10073,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.2186723
@@ -10881,6 +10889,10 @@ PrefabInstance:
     - target: {fileID: 4971702377890184605, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
       propertyPath: m_Name
       value: Group6 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971702377890184605, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4971702377890184606, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11716,7 +11728,7 @@ PrefabInstance:
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: HighP
       value: 
-      objectReference: {fileID: 1333547498}
+      objectReference: {fileID: 1031784014}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: Graph1_5
       value: 
@@ -11748,7 +11760,7 @@ PrefabInstance:
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: PuEvt.NPCTalking.Array.data[0].moveToClasses.Array.data[0].Obj
       value: 
-      objectReference: {fileID: 1333547495}
+      objectReference: {fileID: 1031784013}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: PuEvt.NPCTalking.Array.data[0].moveToClasses.Array.data[0].MoveTO
       value: 
@@ -11769,6 +11781,10 @@ PrefabInstance:
       propertyPath: IsHighP
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: PuEvt.NPCTalking.Array.data[0].Graph
+      value: 
+      objectReference: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
@@ -12033,8 +12049,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.0017655384
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13927,6 +13943,10 @@ PrefabInstance:
     - target: {fileID: 4971702377890184605, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
       propertyPath: m_Name
       value: Group6 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971702377890184605, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4971702377890184606, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23690,6 +23710,101 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 459241533650652010, guid: 72ea12ec97f0cf643b399fb0bfbe6a67, type: 3}
   m_PrefabInstance: {fileID: 198421568}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &741568681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 741568685}
+  - component: {fileID: 741568684}
+  - component: {fileID: 741568683}
+  - component: {fileID: 741568682}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &741568682
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741568681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &741568683
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741568681}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &741568684
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741568681}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &741568685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741568681}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -57.86, y: -11.51, z: 80.16}
+  m_LocalScale: {x: 1.5375, y: 1, z: 21.291}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &744728874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25828,6 +25943,7 @@ MonoBehaviour:
   tempWayPoints:
   - {fileID: 177536219}
   - {fileID: 289668057}
+  - {fileID: 2137591576}
   npcs: []
   beds: []
 --- !u!114 &774842011
@@ -27786,7 +27902,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774841997}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
   m_Name: 
@@ -28246,10 +28362,7 @@ MonoBehaviour:
       _node: {fileID: 781134309}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: Output
-        node: {fileID: 1812912816}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -28616,6 +28729,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2036595
@@ -31517,6 +31634,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.2186723
@@ -31795,6 +31916,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: code
+      value: Stoagr_01
+      objectReference: {fileID: 0}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.0876975
@@ -32125,6 +32250,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.992592
@@ -35422,6 +35551,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gregorius Balbus
       objectReference: {fileID: 0}
+    - target: {fileID: 1703502970543507054, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2085129525458492628, guid: 873ba3d024b3a494eafdca3d78dd4454, type: 3}
       propertyPath: m_LocalPosition.x
       value: -67.72
@@ -35539,7 +35672,7 @@ MonoBehaviour:
   restTime: 15
   recoverTime: 3
   IsHighP: 1
-  HighP: {fileID: 1333547498}
+  HighP: {fileID: 1031784014}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
   PuEvt:
@@ -35549,7 +35682,7 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - Obj: {fileID: 1333547495}
+      - Obj: {fileID: 1031784013}
         MoveTO: {fileID: 2102179546}
       - Obj: {fileID: 0}
         MoveTO: {fileID: 1979766899}
@@ -36872,6 +37005,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.2186723
@@ -38891,6 +39028,7 @@ MonoBehaviour:
   - {fileID: 1521040059}
   - {fileID: 291028970}
   - {fileID: 1629488622}
+  - {fileID: 2110887139}
   startNode: {fileID: 0}
   eventNode: {fileID: 0}
   currentList: []
@@ -39292,7 +39430,7 @@ MonoBehaviour:
   Directors: []
   FDirector: {fileID: 538817927}
   FinalWayPoint: {fileID: 1302127574}
-  Stage: 0
+  Stage: 1
   TutorialLevel: {fileID: 1493272244}
   MainLevelGroup: {fileID: 11652931}
   ZombieObject: {fileID: 0}
@@ -42517,6 +42655,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.0876975
@@ -43010,7 +43152,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.81122, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.8114, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -43737,7 +43879,7 @@ MonoBehaviour:
   restTime: 10
   recoverTime: 5
   IsHighP: 1
-  HighP: {fileID: 1333547498}
+  HighP: {fileID: 1031784014}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
   PuEvt:
@@ -43747,12 +43889,12 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - Obj: {fileID: 1333547495}
+      - Obj: {fileID: 1031784013}
         MoveTO: {fileID: 2102179546}
       - Obj: {fileID: 0}
         MoveTO: {fileID: 1979766899}
       room: {fileID: 774842022}
-      Graph: {fileID: 0}
+      Graph: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     NPCWayPoint: []
     NPCInteract: {fileID: 0}
     doingWithNPC_Interact: 0
@@ -45413,6 +45555,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.0876975
@@ -50305,6 +50451,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2036595
@@ -51265,6 +51415,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2036595
@@ -53133,7 +53287,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Output
-        node: {fileID: 1906155080}
+        node: {fileID: 1812912816}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -53153,28 +53307,8 @@ MonoBehaviour:
       _dynamic: 0
   GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
   EventName: 1
-  conditionSOs:
-  - ID: 6da5092d-1d2d-4861-8e60-fd48ddf3a49a
-    conditionWith: 3
-    nPCConditinoWith: 0
-    NPC: []
-    nPCHPWith: 2
-    HP: 0
-    enemyConditionWith: 0
-    Enemy_Num: 2
-    OverallNumbers: 0
-    roomConditionWith: 0
-    roomTrackers: []
-    Room_NPC_Num: 2
-    NPC_Number: 0
-    SpecificRoomNPCs: []
-    Room_Enemy_Num: 2
-    Enemy_Number: 0
-    eventTriggers:
-    - IsTriggered: 0
-      EventName: TU_SwitchToMainLevelED
-    customConditions: []
-  CurrentEditingConNum: 0
+  conditionSOs: []
+  CurrentEditingConNum: -1
   eventSO:
   - ID: c38282a7-913d-4297-bf1d-8fbdb9beee81
     TODOList: []
@@ -54600,7 +54734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718897967}
   m_LocalRotation: {x: 0.23860636, y: 0.6656328, z: -0.23860636, w: 0.6656328}
-  m_LocalPosition: {x: 45.14, y: 9.378925, z: -16.4}
+  m_LocalPosition: {x: 38.59, y: 9.378925, z: -16.14}
   m_LocalScale: {x: 1.5767164, y: 0.5273174, z: 0.21416882}
   m_Children: []
   m_Father: {fileID: 774841975}
@@ -56659,7 +56793,7 @@ PrefabInstance:
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: HighP
       value: 
-      objectReference: {fileID: 1333547498}
+      objectReference: {fileID: 1031784014}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: Graph1_5
       value: 
@@ -56691,7 +56825,7 @@ PrefabInstance:
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: PuEvt.NPCTalking.Array.data[0].moveToClasses.Array.data[0].Obj
       value: 
-      objectReference: {fileID: 1333547495}
+      objectReference: {fileID: 1031784013}
     - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: PuEvt.NPCTalking.Array.data[0].moveToClasses.Array.data[0].MoveTO
       value: 
@@ -56708,6 +56842,10 @@ PrefabInstance:
       propertyPath: IsHighP
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: PuEvt.NPCTalking.Array.data[0].Graph
+      value: 
+      objectReference: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
@@ -57133,7 +57271,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: Input
-        node: {fileID: 781134309}
+        node: {fileID: 1629488622}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -59287,6 +59425,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 774842004}
     m_Modifications:
+    - target: {fileID: 444935456542047661, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7cc3dfd4b9c514f4da8184c6e33e646b, type: 2}
     - target: {fileID: 1614424657303553730, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.992592
@@ -61143,10 +61285,7 @@ MonoBehaviour:
       _node: {fileID: 1906155080}
       _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      connections:
-      - fieldName: Input
-        node: {fileID: 1629488622}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -63435,7 +63574,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: code
-      value: Stoagr_01
+      value: MedRoom
       objectReference: {fileID: 0}
     - target: {fileID: 1421713808, guid: 6759fde985e3b9449a1babd14275259a, type: 3}
       propertyPath: currentHealth
@@ -67036,6 +67175,200 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5022831068013790617, guid: 2483ffcad9ad691449fe0468ce89faae, type: 3}
   m_PrefabInstance: {fileID: 1534816332}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110887139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dde6d08210f86b4aba789890841a87b, type: 3}
+  m_Name: 'Event: 1'
+  m_EditorClassIdentifier: 
+  graph: {fileID: 1157949084}
+  position: {x: 216, y: 280}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 2110887139}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 2110887139}
+      _typeQualifiedName: EvtGraph.Empty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  GUID: 4c2d20a2-a0e5-4d26-ab1d-00ee2f69f237
+  EventName: 1
+  conditionSOs:
+  - ID: 6da5092d-1d2d-4861-8e60-fd48ddf3a49a
+    conditionWith: 3
+    nPCConditinoWith: 0
+    NPC: []
+    nPCHPWith: 2
+    HP: 0
+    enemyConditionWith: 0
+    Enemy_Num: 2
+    OverallNumbers: 0
+    roomConditionWith: 0
+    roomTrackers: []
+    Room_NPC_Num: 2
+    NPC_Number: 0
+    SpecificRoomNPCs: []
+    Room_Enemy_Num: 2
+    Enemy_Number: 0
+    eventTriggers:
+    - IsTriggered: 0
+      EventName: TU_SwitchToMainLevelED
+    customConditions: []
+  CurrentEditingConNum: 0
+  eventSO:
+  - ID: c38282a7-913d-4297-bf1d-8fbdb9beee81
+    TODOList: []
+    doingWith: 2
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 1
+    SpawnPoint: []
+    EnemyWayPoint:
+    - Obj: {fileID: 1173456416}
+      MoveTO: {fileID: 1979387152}
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: 6f9b4fd6-8659-40a9-bf30-0fbc867f9ea5
+    TODOList: []
+    doingWith: 2
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 1
+    SpawnPoint: []
+    EnemyWayPoint:
+    - Obj: {fileID: 1173456416}
+      MoveTO: {fileID: 557721031}
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: f2db4636-b974-47a0-8a58-3bce914641e2
+    TODOList: []
+    doingWith: 3
+    doingWithNPC: 0
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 0}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 0}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 11400000, guid: f1362160e6be5de45ad6e6612bb69a23, type: 2}
+    Dialogue_Room: {fileID: 774842019}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: 8b8a4e2d-5377-454f-8323-97a96f481fb9
+    TODOList: []
+    doingWith: 0
+    doingWithNPC: 3
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 359558548}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 1476977625}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: 2534a339-3dd0-4290-8484-373269548e8e
+    TODOList: []
+    doingWith: 0
+    doingWithNPC: 3
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 526809293}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 556376058}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  - ID: ad1fa3b7-b9d4-43fb-9e2e-2ffe159892a8
+    TODOList: []
+    doingWith: 0
+    doingWithNPC: 3
+    NPCTalking: []
+    NPCWayPoint: []
+    NPCInteract: {fileID: 1333547498}
+    doingWithNPC_Interact: 0
+    InteractObject: {fileID: 704790704}
+    Item: {fileID: 0}
+    NPC: []
+    IsAnimState: 1
+    AnimStateName: 
+    doingWithEnemy: 0
+    SpawnPoint: []
+    EnemyWayPoint: []
+    Dialogue_Graph: {fileID: 0}
+    Dialogue_Room: {fileID: 0}
+    doingWithRoom: 0
+    CustomCode: []
+    timelines: []
+  CurrentEditingSONum: 1
+  Comment: 
 --- !u!1001 &2111468162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67653,7 +67986,7 @@ MonoBehaviour:
   restTime: 10
   recoverTime: 5
   IsHighP: 1
-  HighP: {fileID: 1333547498}
+  HighP: {fileID: 1031784014}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
   PuEvt:
@@ -67663,12 +67996,12 @@ MonoBehaviour:
     doingWithNPC: 0
     NPCTalking:
     - moveToClasses:
-      - Obj: {fileID: 1333547495}
+      - Obj: {fileID: 1031784013}
         MoveTO: {fileID: 2102179546}
       - Obj: {fileID: 0}
         MoveTO: {fileID: 1979766899}
       room: {fileID: 774842022}
-      Graph: {fileID: 0}
+      Graph: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
     NPCWayPoint: []
     NPCInteract: {fileID: 0}
     doingWithNPC_Interact: 0
@@ -67775,6 +68108,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &2137591575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2137591576}
+  m_Layer: 15
+  m_Name: Waypoints (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2137591576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137591575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 41.29, y: 0, z: -22.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 774841975}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2139245294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68172,6 +68535,10 @@ PrefabInstance:
     - target: {fileID: 4971702377890184605, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
       propertyPath: m_Name
       value: Group6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971702377890184605, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4971702377890184606, guid: d132cd105ce71af4698ca5bf252247e6, type: 3}
       propertyPath: m_LocalPosition.x

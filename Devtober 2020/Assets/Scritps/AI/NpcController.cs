@@ -1030,6 +1030,14 @@ public class NpcController : ControllerBased
 
     public void ReachDestination()
     {
+        //Vector3 temp = Vector3.zero;
+        //foreach (var item in status.toDoList)
+        //{
+            
+        //}
+        //float a = locatorList.Locator.position.x - transform.position.x;
+        //float b = locatorList.Locator.position.z - transform.position.z;
+        //float c = Mathf.Sqrt(Mathf.Pow(a, 2) + Mathf.Pow(b, 2));
         if (Distance() <= restDistance)
         {
             EventCenter.GetInstance().EventTriggered("GM.NPCArrive", status.npcName);
@@ -2200,6 +2208,7 @@ public class NpcController : ControllerBased
                                             door.currentHealth = door.maxHealth;
                                             door.isPowerOff = false;
                                             door.isLocked = false;
+                                            door.navOb.enabled = false;
                                             door.AddMenu("SwitchStates", "Lock", false, door.SwtichStates, 1 << LayerMask.GetMask("Door"));
                                         }    
                                         if(cBord.swtich != null)
@@ -2221,6 +2230,8 @@ public class NpcController : ControllerBased
                                                 HighP.TriggerEvent();
                                                 status.toDoList.Add(PuEvt);
                                                 TriggerEvent();
+                                                PuEvt.NPCTalking[0].room.NPCAgentList.Add(status.npcName, false);
+                                                PuEvt.NPCTalking[0].room.NPCAgentList.Add(HighP.status.npcName, false);
                                             }
                                             else
                                             {
@@ -2231,7 +2242,10 @@ public class NpcController : ControllerBased
                                                 HighP.TriggerEvent();
                                                 status.toDoList.Add(PuEvt);
                                                 TriggerEvent();
+                                                PuEvt.NPCTalking[0].room.NPCAgentList.Add(status.npcName, false);
+                                                PuEvt.NPCTalking[0].room.NPCAgentList.Add(HighP.status.npcName, false);
                                             }
+                                            PuEvt.NPCTalking[0].room.WaitingGraph = PuEvt.NPCTalking[0].Graph;
                                             List<NpcController> nptrrr = GameManager.GetInstance().NPC;
                                             foreach (var item in nptrrr)
                                             {
