@@ -1247,8 +1247,11 @@ public class NpcController : ControllerBased
     void Death()
     {
         Flashing = false;
-        outline.OutlineWidth = 0f;
-        SetOutline(false);
+        if(outline != null)
+        {
+            outline.OutlineWidth = 0f;
+            SetOutline(false);
+        }
         boxCollider.enabled = false;
         animator.Play("Death", 0);
         if(navAgent.enabled)
@@ -2203,7 +2206,7 @@ public class NpcController : ControllerBased
                                             swtich.AddMenu("SwtichState", "Lock Door", true, swtich.CallNPC, 1 << LayerMask.NameToLayer("NPC"));
                                         }                                       
                                         cBord.isLocked = false;
-
+                                        GameManager.GetInstance().SetupStage(2);
                                         if (status.npcName == "Stephanus Lentinus")
                                         {
                                             PuEvt.NPCTalking[0].Graph = Graph1;
