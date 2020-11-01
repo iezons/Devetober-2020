@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class MainLevelEventHolder : MonoBehaviour
 {
@@ -44,13 +45,14 @@ public class MainLevelEventHolder : MonoBehaviour
         a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; NPC_SP.Flashing = true; A_Locker1.IsInteracting = false; A_Locker2.IsInteracting = false; A_Switch1.IsInteracting = false; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
         a("01_ChefOut", () => { hide.IsInteracting = false; Prisoner.Stage = 1; });
-        a("01_PriPatrol", () => {NPC_SP.SwitchAnimState(false); NPC_SP.RemoveMenu("Talking"); NPC_SP.BackToPatrol(); });
+        a("01_PriPatrol", () => { NPC_SP.SwitchAnimState(false); NPC_SP.RemoveMenu("Talking"); NPC_SP.BackToPatrol(); });
         a("01_PrisonerStartTalking", PrisonerStartTalking);
         a("01_XantheTurnToCamera", () => Xan.FacingEachOther(true));
         a("01_PriPatrol", () => { Prisoner.IsPrisoner = false; Prisoner.SwitchAnimState(false); });
         a("02_GuardJoin", GuardGoBack);
         a("02_PrisonerMedicalKit", PrisonerMedicalKit);
         a("02_PriestHeal", PriestHeal);
+        a("EndGame", () => { SceneManager.LoadScene("End"); });
     }
 
     void a(string name, UnityAction action)

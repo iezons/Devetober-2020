@@ -130,6 +130,7 @@ public class GameManager : SingletonBase<GameManager>
     [Header("Timeline Playing")]
     public List<DirectorsClass> Directors = new List<DirectorsClass>();
     public PlayableDirector FDirector;
+    public Transform FinalWayPoint;
     //public PlayableDirector Director;
     //public TimelineAsset timeline;
 
@@ -882,7 +883,7 @@ public class GameManager : SingletonBase<GameManager>
             }
             else
             {
-                SceneManager.LoadScene("End");
+                StartCoroutine(BlackWait());
             }
         }
         else
@@ -904,6 +905,26 @@ public class GameManager : SingletonBase<GameManager>
             TimeText.text = H + ":" + M + ":" + S;
         }
         #endregion
+    }
+
+    IEnumerator BlackWait()
+    {
+        BlackScreen.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        BlackScreen.gameObject.SetActive(false);
+        RoomSwitch("Main Hall", 0);
+        CameraButtonListPanel.gameObject.SetActive(false);
+        FDirector.Play();
+        FDirector.stopped += TimelineFinish;
+        foreach (var item in NPC)
+        {
+            item.ReadyForDispatch(FinalWayPoint.position);
+        }
+    }
+
+    void TimelineFinish(PlayableDirector dir)
+    {
+        SceneManager.LoadScene("End");
     }
 
     string ReverseString(string str)
@@ -1067,6 +1088,7 @@ public class GameManager : SingletonBase<GameManager>
                 }
                 else if(Rooms[i].RoomName() != "A7 Server Room")
                 {
+                    Debug.Log("TTTTTTTT");
                     Rooms[i].CanBeDetected = true;
                 }
             }
