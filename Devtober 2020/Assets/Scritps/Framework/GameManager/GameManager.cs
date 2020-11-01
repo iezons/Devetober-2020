@@ -47,6 +47,7 @@ public class GameManager : SingletonBase<GameManager>
 {
     [Header("Debug Mode")]
     public bool DebugMode = false;
+    public RectTransform BlackScreen;
 
     [Header("Input")]
     public string MoveLeft;

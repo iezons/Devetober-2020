@@ -6865,7 +6865,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
-  IsHighP: 0
+  IsHighP: 1
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -7885,7 +7885,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
-  IsHighP: 0
+  IsHighP: 1
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -8347,7 +8347,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
-  IsHighP: 0
+  IsHighP: 1
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -11604,6 +11604,10 @@ PrefabInstance:
       propertyPath: PuEvt.NPCTalking.Array.data[0].moveToClasses.Array.data[1].Obj
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: IsHighP
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
@@ -11868,7 +11872,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439797211}
   m_HandleRect: {fileID: 1439797210}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -33828,6 +33832,7 @@ RectTransform:
   - {fileID: 1356470654}
   - {fileID: 1582972964}
   - {fileID: 2992358984525537650}
+  - {fileID: 1826206039}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35425,7 +35430,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 15
   recoverTime: 3
-  IsHighP: 0
+  IsHighP: 1
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -42800,7 +42805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.81125, y: -0.000030517578}
+  m_AnchoredPosition: {x: 84.8114, y: -0.000030517578}
   m_SizeDelta: {x: 846.4487, y: 0}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!114 &1325287898
@@ -43526,7 +43531,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
-  IsHighP: 0
+  IsHighP: 1
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
@@ -56582,6 +56587,10 @@ PrefabInstance:
       propertyPath: PuEvt.NPCTalking.Array.data[0].room
       value: 
       objectReference: {fileID: 774842022}
+    - target: {fileID: 2332106106933436951, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
+      propertyPath: IsHighP
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2332106106933436952, guid: 0e1f22425d5ab6443abfe06eeba99ff3, type: 3}
       propertyPath: m_AutoTraverseOffMeshLink
       value: 0
@@ -57384,6 +57393,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eef00d2d60a5e4a459d9ba08552bf911, type: 3}
+--- !u!1 &1826206038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826206039}
+  - component: {fileID: 1826206041}
+  - component: {fileID: 1826206040}
+  m_Layer: 5
+  m_Name: BlackScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1826206039
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826206038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 995099843}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.00024414}
+  m_SizeDelta: {x: 1919.9995, y: 1080.0002}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1826206040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826206038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1826206041
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826206038}
+  m_CullTransparentMesh: 0
 --- !u!1 &1826334003
 GameObject:
   m_ObjectHideFlags: 0
@@ -67380,7 +67464,7 @@ MonoBehaviour:
   discoverAngle: 5
   restTime: 10
   recoverTime: 5
-  IsHighP: 0
+  IsHighP: 1
   HighP: {fileID: 1333547498}
   Graph1: {fileID: 11400000, guid: 2ece267e26b9e374aa26c7046365e536, type: 2}
   Graph1_5: {fileID: 11400000, guid: 078de7ef186799e438f3ae82eca35adf, type: 2}
