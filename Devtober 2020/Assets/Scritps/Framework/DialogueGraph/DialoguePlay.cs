@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using DiaGraph;
-using UnityEngine.EventSystems;
 using GamePlay;
 using System.Text.RegularExpressions;
-using System.Linq;
-using TreeEditor;
+//using TreeEditor;
 
 public enum DiaState
 {
