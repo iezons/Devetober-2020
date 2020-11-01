@@ -2191,6 +2191,8 @@ public class NpcController : ControllerBased
                                     if (status.code == cBord.code)
                                     {
                                         Debug.Log("Right Key");
+                                        status.CarryItem = Item_SO.ItemType.None;
+                                        status.code = "";
                                         if(cBord.door != null)
                                         {
                                             DoorController door = cBord.door.GetComponent<DoorController>();
