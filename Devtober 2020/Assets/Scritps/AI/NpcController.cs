@@ -1218,6 +1218,7 @@ public class NpcController : ControllerBased
         else if (navAgent.velocity.magnitude >= 0.1 || navAgent.isOnOffMeshLink)
         {
             LimpingChange("Run");
+            Dispatch(HealingTarget.transform.position);
         }
         else if (!navAgent.isOnOffMeshLink && !HasInteract)
         {
