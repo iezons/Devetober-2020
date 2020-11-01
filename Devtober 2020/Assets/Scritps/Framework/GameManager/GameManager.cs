@@ -1039,7 +1039,7 @@ public class GameManager : SingletonBase<GameManager>
             }
             if(TriggeringEventNode != null)
             {
-                if(TriggeringEventNode.GUID == "a30bb683-8c34-4721-ad04-06c810241ebc")
+                if(TriggeringEventNode.EventName == "0_Tu")
                 {
                     EventForceNext();
                 }
