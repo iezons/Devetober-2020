@@ -40,7 +40,7 @@ public class MainLevelEventHolder : MonoBehaviour
     public RoomTracker PriestGetOutRoom;
 
     // Start is called before the first frame update
-    void OnEnable()
+    void Awake()
     {
         a("01_PrisonerCanInteract", () => { NPC_SP.IsInteracting = false; NPC_SP.Flashing = true; A_Locker1.IsInteracting = false; A_Locker2.IsInteracting = false; A_Switch1.IsInteracting = false; });
         a("01_DiaTwoTrigger", DiaTwoTrigger);//事件机 forcemove
@@ -117,6 +117,7 @@ public class MainLevelEventHolder : MonoBehaviour
         A_PC.IsInteracting = false;
         Door.IsInteracting = false;
         NPC_SP.IsInteracting = false;
+        Debug.Log("Talking Menu");
         NPC_SP.AddMenu("Talking", "Talking", false, NPC_SP.SpecialTalking);
         if(NPC_SP.CurrentInteractObject != null)
         {

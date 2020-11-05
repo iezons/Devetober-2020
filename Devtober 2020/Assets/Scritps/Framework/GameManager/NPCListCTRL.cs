@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class NPCListCTRL : MonoBehaviour
@@ -23,6 +24,14 @@ public class NPCListCTRL : MonoBehaviour
     public void Setup(NpcController NC)
     {
         npc = NC;
+    }
+
+    public void Click(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            GameManager.GetInstance().NPCButtonClick(npc);
+        }
     }
 
     private void Update()

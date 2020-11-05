@@ -182,14 +182,12 @@ public class EventCenter : SingletonBase<EventCenter>
 
     public void AddTimeListener<T>(float seconds, UnityAction<T> callback, T obj)
     {
-        Debug.Log("Start Timer");
         StartCoroutine(WaitingTimes(seconds, callback, obj));
     }
 
     IEnumerator WaitingTimes<T>(float seconds, UnityAction<T> callback, T obj)
     {
         yield return new WaitForSeconds(seconds);
-        Debug.Log("End Timer");
         callback?.Invoke(obj);
     }
 }

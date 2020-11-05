@@ -11,5 +11,9 @@ public class ServerPos : Interact_SO
     {
         outline = GetComponent<Outline>();
         AddMenu("Operate", "Operate", true, CallNPC, 1 << LayerMask.NameToLayer("NPC"));
+        foreach (var item in GreenLight)
+        {
+            item.SetActive(false);
+        }
     }
 }

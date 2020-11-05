@@ -381,6 +381,10 @@ namespace GamePlay
                             npcc[i].GetComponent<NpcController>().RandomTalk();
                         }
                     }
+                    if (GameManager.GetInstance().CurrentRoom != this)
+                    {
+                        EventCenter.GetInstance().EventTriggered(RoomName() + (0).ToString() + "CameraEvent");
+                    }
                     WaitingGraph = null;
                     NPCAgentList.Clear();
                 }

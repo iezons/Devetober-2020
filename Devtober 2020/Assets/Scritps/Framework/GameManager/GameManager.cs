@@ -69,7 +69,7 @@ public class GameManager : SingletonBase<GameManager>
     bool justEnterCondition = true;
 
     [Header("Dialogue")]
-    public DialogueGraph TestGraph;
+    public DialogueGraph FinalGraph;
     [SerializeField]
     TMP_Text TMPText = null;
     [SerializeField]
@@ -182,15 +182,6 @@ public class GameManager : SingletonBase<GameManager>
         else
             RoomSwitch("TestRoom", 0);
         AllowAudio = true;
-
-        for (int i = 0; i < Rooms.Count; i++)
-        {
-            foreach (var item in Rooms[i].navSurface)
-            {
-                item.BuildNavMesh();
-            }
-            break;
-        }
     }
 
     public void RoomSwitch(string RoomName, int CameraIndex)
@@ -253,6 +244,7 @@ public class GameManager : SingletonBase<GameManager>
                     SwitchCameraButton SCB = gameobj.GetComponent<SwitchCameraButton>();
                     SCB.RoomName = RoomName;
                     SCB.CameraIndex = index;
+                    SCB.AfterInstantiate();
                 }
             }
         }
@@ -377,13 +369,59 @@ public class GameManager : SingletonBase<GameManager>
         GoToState(GameManagerState.PAUSED);
     }
 
+    public void NPCButtonClick(NpcController np)
+    {
+        if(!np.IsInteracting)
+        {
+            SetupRightClickMenu(np.rightClickMenus);
+            SetupGoToRoom(np);
+            Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+            float RCx = mousepos.x - Canvas.rect.width / 2;
+            float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
+            if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
+            {
+                RCx -= RightClickMenuPanel.rect.width;
+            }
+            else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
+            {
+                RCy += RightClickMenuPanel.rect.height;
+            }
+            RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
+        }
+    }
+
     //TODO: 事件摄像机
-    //TODO: Sign房间
+    //TODO: 交互优化
 
     void Update()
     {
         #region TimeLine
         TimelineStop();
+        #endregion
+
+        #region NPCDead
+        bool HasNotDead = false;
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            if(Rooms[i].CanBeDetected)
+            {
+                foreach (var item in Rooms[i].NPC())
+                {
+                    if(item.GetComponent<NpcController>().status.currentHealth != 0)
+                    {
+                        HasNotDead = true;
+                        break;
+                    }
+                }
+            }
+            if (HasNotDead)
+                break;
+        }
+        if(!HasNotDead && Stage != 0)
+        {
+            //SceneManager.LoadScene("GameOver");
+            ScenesMgr.GetInstance().LoadSceneAsyn("GameOver", () => Destroy(gameObject), null);
+        }
         #endregion
 
         #region DialogueTalking
@@ -401,7 +439,6 @@ public class GameManager : SingletonBase<GameManager>
 
         if ((CurrentRoom.DiaPlay.d_state == DiaState.TYPING && CurrentRoom.DiaPlay.CurrentTalkingPerson != "") || IsTalking)
         {
-            Debug.Log("Talking1");
             if(!Talking2DSource.isPlaying)
             {
                 Talking2DSource.loop = true;
@@ -411,7 +448,6 @@ public class GameManager : SingletonBase<GameManager>
         }
         else if(Talking2DSource.isPlaying)
         {
-            Debug.Log("Talking stop");
             if (Talking2DSource.isPlaying && Talking2DSource.clip == TalkingAudio)
             {
                 Talking2DSource.Pause();
@@ -431,52 +467,36 @@ public class GameManager : SingletonBase<GameManager>
         #endregion
 
         #region MaxMinScreen
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Resolution[] res = UnityEngine.Screen.resolutions;
-            if (res.Length > 0)
-            {
-                if (res[0].width >= res[1].height)
-                {
-                    UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, false);
-                    Debug.Log(res[0].width.ToString() + "x" + (res[0].width / 16 * 9).ToString());
-                }
-                else
-                {
-                    UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
-                    Debug.Log((res[0].height / 9 * 16).ToString() + "x" + res[0].height.ToString());
-                }
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            Resolution[] res = UnityEngine.Screen.resolutions;
-            if (res.Length > 0)
-            {
-                if (res[0].width >= res[1].height)
-                {
-                    UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, true);
-                }
-                else
-                {
-                    UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, true);
-                }
-            }
-        }
-        #endregion
-
-        #region NavMeshBuilding
-        //if (Time.frameCount % 10 == 0)
+        //if (Input.GetKeyDown(KeyCode.L))
         //{
-        //    for (int i = 0; i < Rooms.Count; i++)
+        //    Resolution[] res = UnityEngine.Screen.resolutions;
+        //    if (res.Length > 0)
         //    {
-        //        if (Rooms[i].isEnemyDetected() && Rooms[i].NPC().Count > 0)
+        //        if (res[0].width >= res[1].height)
         //        {
-        //            foreach (var item in Rooms[i].navSurface)
-        //            {
-        //                item.BuildNavMesh();
-        //            }
+        //            UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, false);
+        //            Debug.Log(res[0].width.ToString() + "x" + (res[0].width / 16 * 9).ToString());
+        //        }
+        //        else
+        //        {
+        //            UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, false);
+        //            Debug.Log((res[0].height / 9 * 16).ToString() + "x" + res[0].height.ToString());
+        //        }
+        //    }
+        //}
+
+        //if(Input.GetKeyDown(KeyCode.K))
+        //{
+        //    Resolution[] res = UnityEngine.Screen.resolutions;
+        //    if (res.Length > 0)
+        //    {
+        //        if (res[0].width >= res[1].height)
+        //        {
+        //            UnityEngine.Screen.SetResolution(res[0].width, res[0].width / 16 * 9, true);
+        //        }
+        //        else
+        //        {
+        //            UnityEngine.Screen.SetResolution(res[0].height / 9 * 16, res[0].height, true);
         //        }
         //    }
         //}
@@ -573,49 +593,141 @@ public class GameManager : SingletonBase<GameManager>
         }
 
         bool IsSetCursor = false;
+        bool AlreadyInteract = false;
 
-        if(Input.GetMouseButtonDown(0))
+        if (IsWaitingForClickObj && !AlreadyInteract)
         {
-            if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
+            InteractText.gameObject.SetActive(true);
+            InteractText.text = "Waiting for: <color=#00FF00>" + RightClickMs.functionName + "</color>";
+            //ChangeWaitingCursor
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
             {
-                Debug.Log("899999999");
-                //ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
-                //if (cbase != null)
-                //{
-                //    if (cbase.rightClickMenus.Count > 0)
-                //    {
-                //        if (cbase.IsInteracting)
-                //        {
-                //            SetupRightClickMenu(cbase.rightClickMenus);
-                //        }
-                //    }
+                Debug.DrawLine(ray.origin, hitInfo.point);
+
+                //ChangeDefaultCursor
+                hitInfo.collider.TryGetComponent(out NpcController Npcc);
+                if (Npcc != null)
+                {
+                    if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
+                    {
+                        AlreadyInteract = true;
+                        if (RightClickMs.DefaultCallValue != null)
+                        {
+                            DefaultValueWithGO dwg = new DefaultValueWithGO
+                            {
+                                DefaultValue = RightClickMs.DefaultCallValue,
+                                GO = hitInfo.collider.gameObject,
+                            };
+                            RightClickMs.DoFunction(dwg);
+                        }
+                        else
+                        {
+                            RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                        }
+                        IsWaitingForClickObj = false;
+                    }
                 }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
+                    {
+                        AlreadyInteract = true;
+                        if (RightClickMs.DefaultCallValue != null)
+                        {
+                            DefaultValueWithGO dwg = new DefaultValueWithGO
+                            {
+                                DefaultValue = RightClickMs.DefaultCallValue,
+                                GO = hitInfo.collider.gameObject,
+                            };
+                            RightClickMs.DoFunction(dwg);
+                        }
+                        else
+                        {
+                            RightClickMs.DoFunction(hitInfo.collider.gameObject);
+                        }
+                        IsWaitingForClickObj = false;
+                    }
+                }
+
             }
 
-        //Right Click Menu
-        if (Input.GetMouseButtonDown(1) && !IsWaitingForClickObj)
-        {
-            ClearRightClickButton();
-            //UI
-            if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
+            if (Input.anyKeyDown && !Input.GetKeyDown(MoveLeft) && !Input.GetKeyDown(MoveRight) && !Input.GetMouseButtonDown(0))
             {
-                ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
-                if(cbase != null)
+                Debug.Log("Waiting disable");
+                //ChangeDefaultCursor
+                IsWaitingForClickObj = false;
+            }
+        }
+        else
+        {
+            InteractText.gameObject.SetActive(false);
+        }
+
+        //Left Click Menu No Waiting
+        if (Input.GetMouseButtonDown(0) && !IsWaitingForClickObj && !AlreadyInteract)
+        {
+            AlreadyInteract = true;
+            //UI
+            //if (NPCListButtons.Contains(EventSystem.current.currentSelectedGameObject))
+            //{
+            //    ControllerBased cbase = EventSystem.current.currentSelectedGameObject.GetComponent<NPCListCTRL>().npc;
+            //    if(cbase != null)
+            //    {
+            //        if(cbase.rightClickMenus.Count > 0)
+            //        {
+            //            if(cbase.IsInteracting)
+            //            {
+            //                SetupRightClickMenu(cbase.rightClickMenus);
+            //            }
+            //            else
+            //            {
+            //                RightClickMenuPanel.gameObject.SetActive(false);
+            //            }
+            //        }
+            //    }
+            //}
+            //Raycast
+            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
+            
+            if (RightClickMenuPanel.gameObject.activeSelf)
+            {
+                bool ClickOnMenu = false;
+                if (RightClickButton != null)
                 {
-                    if(cbase.rightClickMenus.Count > 0)
+                    foreach (var item in RightClickButton)
                     {
-                        if(cbase.IsInteracting)
+                        if (EventSystem.current.currentSelectedGameObject == item)
                         {
-                            SetupRightClickMenu(cbase.rightClickMenus);
+                            ClickOnMenu = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!ClickOnMenu)
+                {
+                    RightClickMenuPanel.gameObject.SetActive(false);
+                }
+                else
+                {
+                    if(EventSystem.current.currentSelectedGameObject != null)
+                    {
+                        if(EventSystem.current.currentSelectedGameObject.TryGetComponent(out RightClickButtonSC RCBSC))
+                        {
+                            RCBSC.DoFunction();
+                        }
+                        else if(EventSystem.current.currentSelectedGameObject.TryGetComponent(out RoomButton RoomBtn))
+                        {
+                            RoomBtn.Click();
                         }
                     }
                 }
             }
-            //Raycast
-            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity,RightClickLayermask))
+            else if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickLayermask))
             {
-                if(CurrentRoom.hitInformation.Contains(hitInfo.collider))
+                ClearRightClickButton();
+                if (CurrentRoom.hitInformation.Contains(hitInfo.collider))
                 {
                     Debug.DrawLine(ray.origin, hitInfo.point);
                     GameObject gameObj = hitInfo.collider.gameObject;
@@ -629,7 +741,7 @@ public class GameManager : SingletonBase<GameManager>
                                 if (!based.IsInteracting)
                                 {
                                     NpcController NPC = based as NpcController;
-                                    if(NPC == null)
+                                    if (NPC == null)
                                     {
                                         SetupRightClickMenu(based.rightClickMenus);
                                     }
@@ -674,59 +786,49 @@ public class GameManager : SingletonBase<GameManager>
                         }
                     }
                 }
-                
             }
-            else if(CurrentRoom.isEnemyDetected())
+            else if(CurrentRoom.isEnemyDetected() && Physics.Raycast(ray_MainCamera, out RaycastHit hit_MainCam) && Stage != 0)
             {
+                ClearRightClickButton();
+                Debug.Log("No Room No Active");
                 RightClickMenus Esc = new RightClickMenus { unchangedName = "All Escape", functionName = "All Escape", NeedTarget = false };
                 Esc.function += RoomEscaping;
                 RightClickMenus Hide = new RightClickMenus { unchangedName = "All Hide", functionName = "All Hide", NeedTarget = false };
                 Hide.function += RoomHideIn;
                 SetupRightClickMenu(new List<RightClickMenus>() { Esc, Hide });
-                //RightClickMenuPanel.gameObject.SetActive(false);
             }
-            else
+            else if(Physics.Raycast(ray_MainCamera, out RaycastHit hit_MainCamEsc) && Stage != 0)
             {
+                ClearRightClickButton();
+                Debug.Log("No Room No Active No Enemy");
                 RightClickMenus Hide = new RightClickMenus { unchangedName = "All Hide", functionName = "All Hide", NeedTarget = false };
                 Hide.function += RoomHideIn;
                 SetupRightClickMenu(new List<RightClickMenus>() { Hide });
-                //RightClickMenuPanel.gameObject.SetActive(false);
             }
-
-            Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
-            float RCx = mousepos.x - Canvas.rect.width / 2;
-            float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
-            if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
+            else
             {
-                RCx -= RightClickMenuPanel.rect.width;
-            }
-            else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
-            {
-                RCy += RightClickMenuPanel.rect.height;
-            }
-            RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            bool ClickOnMenu = false;
-            if (RightClickButton != null)
-            {
-                foreach (var item in RightClickButton)
-                {
-                    if (EventSystem.current.currentSelectedGameObject == item)
-                    {
-                        ClickOnMenu = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!ClickOnMenu)
-            {
+                ClearRightClickButton();
                 RightClickMenuPanel.gameObject.SetActive(false);
             }
+
+            if(RightClickMenuPanel.gameObject.activeSelf)
+            {
+                Vector3 mousepos = Input.mousePosition * (Canvas.rect.width / UnityEngine.Screen.width);
+                float RCx = mousepos.x - Canvas.rect.width / 2;
+                float RCy = mousepos.y - Canvas.rect.height / 2 - RightClickMenuPanel.rect.height;
+                if (RCx + RightClickMenuPanel.rect.width > Canvas.rect.width - Canvas.rect.width / 2)//Out of right bounds
+                {
+                    RCx -= RightClickMenuPanel.rect.width;
+                }
+                else if (RCy - RightClickMenuPanel.rect.height < Canvas.rect.height - Canvas.rect.height / 2)
+                {
+                    RCy += RightClickMenuPanel.rect.height;
+                }
+                RightClickMenuPanel.localPosition = new Vector3(RCx, RCy, 0);
+            }
         }
+
+        
 
         //HighLight
         Ray ray_outline = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
@@ -779,73 +881,6 @@ public class GameManager : SingletonBase<GameManager>
         {
             Cursor.SetCursor(DefaultCursor, new Vector2(0, 0), CursorMode.Auto);
         }
-
-        if(IsWaitingForClickObj)
-        {
-            InteractText.gameObject.SetActive(true);
-            InteractText.text = "Waiting for: <color=#00FF00>" + RightClickMs.functionName + "</color>";
-            //ChangeWaitingCursor
-            Ray ray = CurrentRoom.cameraLists[CurrentRoom.CurrentCameraIndex].roomCamera.ViewportPointToRay(MousePos);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, RightClickMs.InteractLayer))
-            {
-                Debug.DrawLine(ray.origin, hitInfo.point);
-
-                //ChangeDefaultCursor
-                hitInfo.collider.TryGetComponent(out NpcController Npcc);
-                if(Npcc != null)
-                {
-                    if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting && !Npcc.IsPrisoner)
-                    {
-                        if (RightClickMs.DefaultCallValue != null)
-                        {
-                            DefaultValueWithGO dwg = new DefaultValueWithGO
-                            {
-                                DefaultValue = RightClickMs.DefaultCallValue,
-                                GO = hitInfo.collider.gameObject,
-                            };
-                            RightClickMs.DoFunction(dwg);
-                        }
-                        else
-                        {
-                            RightClickMs.DoFunction(hitInfo.collider.gameObject);
-                        }
-                        IsWaitingForClickObj = false;
-                    }
-                }
-                else
-                {
-                    if (Input.GetMouseButtonDown(0) && CurrentRoom.hitInformation.Contains(hitInfo.collider) && !hitInfo.collider.GetComponent<ControllerBased>().IsInteracting)
-                    {
-                        if (RightClickMs.DefaultCallValue != null)
-                        {
-                            DefaultValueWithGO dwg = new DefaultValueWithGO
-                            {
-                                DefaultValue = RightClickMs.DefaultCallValue,
-                                GO = hitInfo.collider.gameObject,
-                            };
-                            RightClickMs.DoFunction(dwg);
-                        }
-                        else
-                        {
-                            RightClickMs.DoFunction(hitInfo.collider.gameObject);
-                        }
-                        IsWaitingForClickObj = false;
-                    }
-                }
-                
-            }
-
-            if(Input.anyKeyDown && !Input.GetKeyDown(MoveLeft) && !Input.GetKeyDown(MoveRight) && !Input.GetMouseButtonDown(0))
-            {
-                Debug.Log("Waiting disable");
-                //ChangeDefaultCursor
-                IsWaitingForClickObj = false;
-            }
-        }
-        else
-        {
-            InteractText.gameObject.SetActive(false);
-        }
         #endregion
 
         #region DisplayTimeText
@@ -863,6 +898,12 @@ public class GameManager : SingletonBase<GameManager>
         {
             if(JuE)
             {
+                foreach (var item in Rooms)
+                {
+                    item.DiaPlay.GoToSTATE(DiaState.OFF);
+                    item.DiaPlay.Finished();
+                    item.PlayingDialogue(FinalGraph);
+                }
                 currentSeconds = 180f;
                 JuE = false;
             }
@@ -918,13 +959,14 @@ public class GameManager : SingletonBase<GameManager>
         FDirector.stopped += TimelineFinish;
         foreach (var item in NPC)
         {
-            item.ReadyForDispatch(FinalWayPoint.position);
+            if(item.status.currentHealth > 0)
+                item.ReadyForDispatch(FinalWayPoint.position);
         }
     }
 
     void TimelineFinish(PlayableDirector dir)
     {
-        SceneManager.LoadScene("End");
+        ScenesMgr.GetInstance().LoadSceneAsyn("End", () => Destroy(gameObject), null);
     }
 
     string ReverseString(string str)
@@ -938,10 +980,8 @@ public class GameManager : SingletonBase<GameManager>
     {
         foreach (var item in CurrentRoom.AvailableRoom)
         {
-            Debug.Log("Ava");
             if (item.CanBeDetected)
             {
-                Debug.Log("Insta");
                 GameObject obj = Instantiate(RCGoRoom);
                 RightClickButton.Add(obj);
                 obj.transform.SetParent(RightClickMenuPanel, false);
@@ -954,7 +994,6 @@ public class GameManager : SingletonBase<GameManager>
 
     void SetupRightClickMenu(List<RightClickMenus> menus)
     {
-        RightClickMenuPanel.gameObject.SetActive(true);
         for (int i = 0; i < menus.Count; i++)
         {
             RightClickButton.Add(Instantiate(RCButton));
@@ -963,6 +1002,10 @@ public class GameManager : SingletonBase<GameManager>
             obj.GetComponent<RightClickButtonSC>().menu = menus[i];
             obj.GetComponent<RightClickButtonSC>().AfterInstantiate();
         }
+        if (RightClickButton.Count > 0)
+            RightClickMenuPanel.gameObject.SetActive(true);
+        else
+            RightClickMenuPanel.gameObject.SetActive(false);
     }
 
     void ClearRightClickButton()
@@ -1527,7 +1570,6 @@ public class GameManager : SingletonBase<GameManager>
             return false;
         else
         {
-            Debug.Log("Event Move Next");
             return true;
         }
     }

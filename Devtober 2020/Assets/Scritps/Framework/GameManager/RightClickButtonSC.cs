@@ -35,6 +35,7 @@ public class RightClickButtonSC : MonoBehaviour
             {
                 menu.DoFunction(obj);
                 transform.parent.gameObject.SetActive(false);
+                Debug.Log("Click Menu Button");
             }
         }
     }

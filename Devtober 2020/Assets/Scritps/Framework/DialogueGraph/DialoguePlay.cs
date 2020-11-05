@@ -227,10 +227,6 @@ public class DialoguePlay : MonoBehaviour
             else
             {
                 MaxVisible++;
-                if(!IsMuting)
-                {
-                    
-                }
             }
 
             if (EventList.ContainsKey(MaxVisible))
@@ -387,7 +383,7 @@ public class DialoguePlay : MonoBehaviour
         }
     }
 
-    void GoToSTATE(DiaState next)
+    public void GoToSTATE(DiaState next)
     {
         justEnter = true;
         d_state = next;

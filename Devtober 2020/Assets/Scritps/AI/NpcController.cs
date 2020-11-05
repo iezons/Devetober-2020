@@ -1261,6 +1261,12 @@ public class NpcController : ControllerBased
             outline.OutlineWidth = 0f;
             SetOutline(false);
         }
+        boxCollider.enabled = false;Flashing = false;
+        if(outline != null)
+        {
+            outline.OutlineWidth = 0f;
+            SetOutline(false);
+        }
         boxCollider.enabled = false;
         animator.Play("Death", 0);
         if(navAgent.enabled)
@@ -2246,6 +2252,10 @@ public class NpcController : ControllerBased
                                                 PuEvt.NPCTalking[0].room.NPCAgentList.Add(HighP.status.npcName, false);
                                             }
                                             PuEvt.NPCTalking[0].room.WaitingGraph = PuEvt.NPCTalking[0].Graph;
+                                            if (GameManager.GetInstance().CurrentRoom != PuEvt.NPCTalking[0].room)
+                                            {
+                                                EventCenter.GetInstance().EventTriggered(PuEvt.NPCTalking[0].room.RoomName() + (0).ToString() + "CameraEvent");
+                                            }
                                             List<NpcController> nptrrr = GameManager.GetInstance().NPC;
                                             foreach (var item in nptrrr)
                                             {
@@ -2385,6 +2395,19 @@ public class NpcController : ControllerBased
         {
             //Debug.Log("Damping");
         }
+    }
+
+    public void DeathCutScene()
+    {
+        Flashing = false;
+        if (outline != null)
+        {
+            outline.OutlineWidth = 0f;
+            SetOutline(false);
+        }
+        boxCollider.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Dead");
+        gameObject.layer = LayerMask.NameToLayer("Dead");
     }
 
     public void FacingEachOther(Transform tran)

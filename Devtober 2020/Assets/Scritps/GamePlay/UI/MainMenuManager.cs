@@ -29,6 +29,8 @@ public class MainMenuManager : MonoBehaviour
         {
             StartCoroutine(UpdateConsole(InputText.text));
         }
+        if(InputText.interactable)
+            EventSystem.current.SetSelectedGameObject(InputText.gameObject);
     }
 
     void UpdateProgress(float progress)
@@ -61,42 +63,80 @@ public class MainMenuManager : MonoBehaviour
             case "info":
                 InputText.interactable = false;
                 ConsoleText.text += "Searching Data......" + "\n";
-                //Searching Data......
-
-                //20%
-
-                //80%
-
-                //100%
-
-                //System info: [Rewritten: Unknown]
-                //Last boot: 2049/10/27 - 20:56:23
-                //It's been ***** days since the last boot
-                //Searching for Credit List......
+                yield return new WaitForSeconds(1f);
+                ConsoleText.text += "Last boot: 2049A.U.C/10/27 - 20:56:23" + "\n";
+                yield return new WaitForSeconds(0.6f);
+                ConsoleText.text += "System info: [Rewritten: Unknown]" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "Searching for Credit List......" + "\n";
+                yield return new WaitForSeconds(1.5f);
+                ConsoleText.text = "List:" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "      Hongming Wang - Project Leader" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Game Designer" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Level Designer" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Programmer" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      3D Artist" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      2D Artist" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Writter" + "\n";
+                yield return new WaitForSeconds(3.5f);
+                ConsoleText.text = "List:" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "      Jeffery Hu - Animator" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                   3D Artist" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                   2D Artist" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                   Writter" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                   QA" + "\n";
+                yield return new WaitForSeconds(3.5f);
+                ConsoleText.text = "List:" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "      Lawrence Peng - Programmer" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Techical Artists" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Game Designer" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Cut Scene" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      Writter" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                      QA" + "\n";
+                yield return new WaitForSeconds(3.5f);
+                ConsoleText.text = "List:" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "      Edward Lu - Programmer" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "                  QA" + "\n";
+                yield return new WaitForSeconds(3.5f);
+                ConsoleText.text = "List:" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "      Carlos - Music" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "               Audio" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "               Sound Collect" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "               3D Artists" + "\n";
+                yield return new WaitForSeconds(3.5f);
+                ConsoleText.text = "List:" + "\n";
+                yield return new WaitForSeconds(0.5f);
+                ConsoleText.text += "      Fernando Leonel Salinas Barrera - Voice Actor" + "\n";
+                yield return new WaitForSeconds(0.5f);
                 //
-                //List:
-                //      Hongming Wang - Project Leader  
-                //                      Game Designer   
-                //                      Level Designer  
-                //                      Programmer      
-                //                      3D artist
-                //                      2D artist
-                //                      Writter
-                //
-                //                                        
-                //      Jeffery Hu    - Animator                                     
-                //                      3D artist
-                //                      2D artist                                     
-                //                      Writter
-                //
-                //
-                //
-                //
-                //
+                //      Edward Lu - Programmer
                 //
                 //
                 InputText.interactable = true;
-                EventSystem.current.SetSelectedGameObject(InputText.gameObject);
                 break;
             case "exit":
                 ConsoleText.text = "Exit";
@@ -104,16 +144,15 @@ public class MainMenuManager : MonoBehaviour
                 Application.Quit();
                 break;
             case "help":
-                ConsoleText.text += "Connect       Connect to main server" + "\n" + "Info          Display the information of current system" + "\n" + "Exit          Turn off system" + "\n";
+                ConsoleText.text = "Type the following command to operate the protocol. " + "\n";
+                ConsoleText.text += "<color=#00FF00>Connect</color>       Connect to main server" + "\n" + "<color=#00FF00>Info</color>          Display the information of current system" + "\n" + "<color=#00FF00>Help</color>          Show all command" + "\n" + "<color=#00FF00>Exit</color>          Turn off system" + "\n";
                 InputText.interactable = true;
-                EventSystem.current.SetSelectedGameObject(InputText.gameObject);
                 break;
             default:
-                ConsoleText.text += input + " is not an internal or external command, nor is it an executable program." +  "\n";
+                ConsoleText.text += "<color=#00FF00>" + input + "</color>" + " is not an internal or external command, nor is it an executable program." +  "\n";
                 yield return new WaitForSeconds(0.4f);
                 ConsoleText.text += "Type <color=#00FF00>Help</color> for helping. " + "\n";
                 InputText.interactable = true;
-                EventSystem.current.SetSelectedGameObject(InputText.gameObject);
                 break;
         }
     }

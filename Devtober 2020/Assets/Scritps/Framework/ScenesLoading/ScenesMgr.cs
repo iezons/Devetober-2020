@@ -28,6 +28,7 @@ public class ScenesMgr : SingletonBase<ScenesMgr>
     /// </summary>
     /// <param name="name">场景名称</param>
     /// <param name="function">切换场景后调用的函数，没有请传null</param>
+    /// /// <param name="ProgressUpdate">切换场景中的加载进度，没有请传null</param>
     public void LoadSceneAsyn(string name, UnityAction function, UnityAction<float> ProgressUpdate)
     {
         StartCoroutine(LoadSceneAsynAction(name, function, ProgressUpdate));

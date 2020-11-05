@@ -147,6 +147,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomName: Main Hall
   CameraIndex: 0
+  NormalColor: {r: 0, g: 0.003921569, b: 0.49411765, a: 1}
+  HighLightColor: {r: 0.08627451, g: 0.8117647, b: 0.2, a: 1}
+  FlashingTime: 2
+  CurrentFlashingTime: 0
+  button: {fileID: 0}
+  HighLight: 0
+  tempca: {r: 1, g: 1, b: 1, a: 1}
+  tempcb: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5670720454210800062
 GameObject:
   m_ObjectHideFlags: 0
